@@ -79,7 +79,16 @@ curl -fsS "http://127.0.0.1:$APP_PORT/api/health" >/dev/null || { echo "app did 
 
 say "DNS"
 PUBLIC_IP=$(curl -fsS --max-time 5 https://api.ipify.org 2>/dev/null || curl -fsS --max-time 5 https://ifconfig.me 2>/dev/null || true)
-resolve() { getent ahostsv4 "$1" 2>/dev/null | awk 'NR==1{print $1}'; }
+# Never fails (set -e): an empty answer means "not found". If the server's own resolver has no answer yet
+# (for example a cached NXDOMAIN from before the record existed), ask a public resolver.
+resolve() {
+  local ip
+  ip=$( { getent ahostsv4 "$1" 2>/dev/null || true; } | awk 'NR==1{print $1}')
+  if [ -z "$ip" ] && command -v dig >/dev/null; then
+    ip=$( { dig +short +time=3 +tries=1 A "$1" @1.1.1.1 2>/dev/null || true; } | grep -E '^[0-9]+(\.[0-9]+){3}$' | tail -n1 || true)
+  fi
+  printf '%s' "$ip"
+}
 APEX_IP=$(resolve "$DOMAIN"); WWW_IP=$(resolve "www.$DOMAIN")
 echo "this server: ${PUBLIC_IP:-unknown} · $DOMAIN → ${APEX_IP:-not found} · www.$DOMAIN → ${WWW_IP:-not found}"
 DOMAINS=(-d "$DOMAIN")
