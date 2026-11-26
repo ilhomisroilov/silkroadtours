@@ -139,5 +139,9 @@ CRON
 
 say "done"
 curl -fsS -o /dev/null -w "local health: %{http_code}\n" "http://127.0.0.1:$APP_PORT/api/health"
+# nginx reloads in the background: give the new workers a moment before the final check.
+for i in 1 2 3 4 5; do
+  curl -fsS -o /dev/null --resolve "$DOMAIN:443:127.0.0.1" "https://$DOMAIN/api/health" 2>/dev/null && break; sleep 2
+done
 curl -fsS -o /dev/null -w "https://$DOMAIN: %{http_code}\n" --resolve "$DOMAIN:443:127.0.0.1" "https://$DOMAIN/api/health" || true
 echo "First admin: see docs/DEPLOYMENT.md §3 (ADMIN_SECRET is in $APP_DIR/.env)."
