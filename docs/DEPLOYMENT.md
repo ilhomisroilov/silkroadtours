@@ -34,14 +34,16 @@ file (`VACUUM INTO`), and WAL mode handles concurrent reads. If traffic ever nee
 ssh ubuntu@SERVER_IP
 sudo apt-get update && sudo apt-get install -y git
 git clone https://github.com/ilhomisroilov/silkroadtours.git && cd silkroadtours
-sudo EMAIL=you@example.com bash deploy/setup-server.sh   # asks for the Gemini key; creates .env with random secrets
+sudo DOMAIN=nationaltours.uz EMAIL=you@example.com bash deploy/setup-server.sh   # asks for the Gemini key; creates .env with random secrets
 
 ```
 `deploy/setup-server.sh` installs Docker, nginx and certbot, opens ports 80/443 in the host firewall (Oracle
 Ubuntu images block them by default), builds and starts the container, waits for `/api/health`, obtains the
 certificate for `silkroadtours.uz` + `www.silkroadtours.uz`, installs `deploy/nginx/silkroadtours.conf`
 (HTTP→HTTPS, www→apex, HSTS, gzip, static caching, `/api/` rate limit) and a daily backup cron job.
-It is safe to run again.
+It is safe to run again. `DOMAIN` sets the site address everywhere (nginx, certificate, canonical links,
+sitemap); www is added to the certificate only when `www.DOMAIN` already points to the server, so re-run
+the script after adding the www record.
 
 **Servers that already host other sites** (for example yoshlikedu.uz and bilimjon.uz): the script never
 edits or removes other nginx sites or the default site, adds only `silkroadtours.conf`, runs `nginx -t`
