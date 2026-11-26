@@ -1,1 +1,205 @@
-{}
+{
+  "crm": {
+    "title": "CRM voronkasi",
+    "summary": "{count} ta lid · ochiq bitimlarda {value}",
+    "viewLabel": "Koʻrinish",
+    "views": {
+      "board": "Doska",
+      "table": "Jadval"
+    },
+    "newLead": "Yangi lid",
+    "stages": {
+      "new": "Yangi lid",
+      "contacted": "Bogʻlanildi",
+      "qualified": "Saralandi",
+      "offer_sent": "Taklif yuborildi",
+      "negotiation": "Muzokara",
+      "confirmed": "Tasdiqlandi",
+      "completed": "Yakunlandi",
+      "lost": "Yoʻqotildi"
+    },
+    "sources": {
+      "booking": "Bron",
+      "request": "Soʻrov",
+      "trip": "Sayohat rejasi",
+      "partner": "Hamkor",
+      "contact": "Aloqa formasi",
+      "admin": "Qoʻlda kiritilgan"
+    },
+    "locales": {
+      "en": "Inglizcha",
+      "uz": "Oʻzbekcha",
+      "ru": "Ruscha"
+    },
+    "filters": {
+      "search": "Qidirish",
+      "searchPlaceholder": "Ism, email, telefon, raqam",
+      "stage": "Bosqich",
+      "source": "Manba",
+      "manager": "Menejer",
+      "destination": "Yoʻnalish",
+      "followUp": "Qayta aloqa",
+      "unassigned": "Biriktirilmagan",
+      "apply": "Qoʻllash",
+      "reset": "Tozalash",
+      "active": "{count} ta filtr faol"
+    },
+    "followUpFilter": {
+      "overdue": "Muddati oʻtgan",
+      "today": "Bugun",
+      "upcoming": "Rejalashtirilgan",
+      "none": "Belgilanmagan"
+    },
+    "board": {
+      "label": "Lidlar voronkasi doskasi",
+      "count": "{count} ta lid",
+      "empty": "Lidni shu yerga tashlang",
+      "lost": "Yoʻqotilgan lidlar",
+      "lostEmpty": "Yoʻqotilgan lidlar yoʻq.",
+      "hint": "Kartani boshqa ustunga sudrab oʻtkazing yoki kartadagi strelkalardan foydalaning.",
+      "moveTo": "{stage} bosqichiga oʻtkazish",
+      "moved": "{name} — {stage}",
+      "moveFailed": "Lidni oʻtkazib boʻlmadi."
+    },
+    "card": {
+      "travellers": "{count} kishi",
+      "budget": "Byudjet {value}",
+      "followUp": "Qayta aloqa: {date}",
+      "overdue": "{date} dan beri kechikmoqda",
+      "dueToday": "Bugun qayta aloqa",
+      "unassigned": "Biriktirilmagan",
+      "assignedTo": "Menejer: {name}"
+    },
+    "table": {
+      "caption": "Lidlar",
+      "lead": "Lid",
+      "customer": "Mijoz",
+      "stage": "Bosqich",
+      "source": "Manba",
+      "manager": "Menejer",
+      "value": "Qiymati",
+      "travel": "Sayohat sanalari",
+      "followUp": "Qayta aloqa",
+      "created": "Yaratilgan",
+      "updated": "Yangilangan",
+      "sortBy": "{column} boʻyicha saralash",
+      "empty": "Bu filtrlarga mos lid topilmadi."
+    },
+    "detail": {
+      "back": "CRM voronkasi",
+      "customer": "Mijoz",
+      "trip": "Sayohat",
+      "deal": "Bitim",
+      "pipeline": "Voronka",
+      "name": "Ism-familiya",
+      "email": "Email",
+      "phone": "Telefon",
+      "locale": "Til",
+      "title": "Lid nomi",
+      "destination": "Yoʻnalish",
+      "interests": "Qiziqishlar va istaklar",
+      "budget": "Byudjet (USD)",
+      "travelFrom": "Sayohat boshlanishi",
+      "travelTo": "Sayohat tugashi",
+      "travelDates": "Sayohat sanalari",
+      "travellers": "Sayohatchilar soni",
+      "value": "Bitim qiymati (USD)",
+      "valueHint": "Kutilayotgan tushum, voronka summalari uchun.",
+      "source": "Manba",
+      "reference": "Raqam",
+      "openSource": "Asl yozuvni ochish: {source}",
+      "openTrip": "Sayohat rejasini ochish",
+      "manualSource": "Menejer tomonidan kiritilgan",
+      "manager": "Masʼul menejer",
+      "ownership": "Menejer va qayta aloqa",
+      "unassigned": "Biriktirilmagan",
+      "followUp": "Qayta aloqa sanasi",
+      "clearFollowUp": "Tozalash",
+      "stage": "Bosqich",
+      "changeStage": "Bosqichni oʻzgartirish",
+      "editDetails": "Maʼlumotlarni tahrirlash",
+      "saveDetails": "Maʼlumotlarni saqlash",
+      "created": "Yaratilgan",
+      "updated": "Oxirgi yangilanish",
+      "notSet": "Koʻrsatilmagan",
+      "otherLeads": "Mijoz profili"
+    },
+    "quick": {
+      "title": "Tezkor amallar",
+      "call": "Qoʻngʻiroq",
+      "email": "Email",
+      "whatsapp": "WhatsApp",
+      "telegram": "Telegram",
+      "log": "Faoliyatni qayd etish",
+      "kind": "Faoliyat turi",
+      "logCall": "Qoʻngʻiroq",
+      "logEmail": "Email",
+      "addNote": "Izoh",
+      "placeholder_note": "Nima kelishildi? Buni faqat xodimlar koʻradi.",
+      "placeholder_call": "Qoʻngʻiroq xulosasi: kim, nima, keyingi qadam",
+      "placeholder_email": "Email xulosasi: mavzu va asosiy fikrlar",
+      "submit": "Tarixga saqlash",
+      "logged": "Lid tarixiga saqlandi"
+    },
+    "activity": {
+      "title": "Faoliyat tarixi",
+      "empty": "Hozircha faoliyat yoʻq.",
+      "kinds": {
+        "created": "Lid yaratildi",
+        "note": "Izoh",
+        "stage": "Bosqich oʻzgardi",
+        "assign": "Menejer",
+        "follow_up": "Qayta aloqa",
+        "call": "Qoʻngʻiroq qayd etildi",
+        "email": "Email qayd etildi"
+      },
+      "createdFrom": "{source} · {ref}",
+      "createdManual": "Menejer tomonidan kiritilgan",
+      "assignedTo": "{name} biriktirildi",
+      "unassigned": "Menejer olib tashlandi",
+      "followUpSet": "Qayta aloqa sanasi: {date}",
+      "followUpCleared": "Qayta aloqa sanasi olib tashlandi",
+      "detailsUpdated": "Maʼlumotlar yangilandi: {fields}",
+      "system": "Sayt"
+    },
+    "create": {
+      "title": "Yangi lid",
+      "intro": "Telefon qoʻngʻiroqlari, ofisga kelganlar, koʻrgazmalar va saytdan tashqari aloqalar uchun.",
+      "note": "Birinchi izoh (ixtiyoriy)",
+      "submit": "Lid yaratish",
+      "created": "Lid yaratildi"
+    },
+    "errors": {
+      "assignee_not_found": "Bu menejer hisobi faol emas.",
+      "dates_out_of_order": "Tugash sanasi boshlanish sanasidan oldin boʻlmasligi kerak.",
+      "empty_update": "Saqlanadigan oʻzgarish yoʻq.",
+      "name_too_short": "Ism-familiyani toʻliq kiriting.",
+      "invalid_email": "Toʻgʻri email manzilini kiriting.",
+      "invalid_phone": "Toʻgʻri telefon raqamini kiriting."
+    },
+    "dashboard": {
+      "title": "CRM voronkasi",
+      "funnel": "Lidlar voronkasi",
+      "funnelHint": "Har bir bosqichdagi lidlar soni",
+      "conversion": "Tasdiqlanishga konversiya",
+      "conversionHint": "{total} ta liddan {won} tasi tasdiqlangan yoki yakunlangan",
+      "pipeline": "Ochiq voronka",
+      "pipelineHint": "Ochiq lidlarning kutilayotgan qiymati",
+      "won": "Tasdiqlangan qiymat",
+      "wonHint": "Tasdiqlangan va yakunlangan lidlar",
+      "newLeads": "Yangi lidlar",
+      "newLeadsHint": "Soʻnggi 7 kun",
+      "followUps": "Qayta aloqalar",
+      "followUpsToday": "Bugun",
+      "followUpsOverdue": "Muddati oʻtgan",
+      "bySource": "Manbalar boʻyicha lidlar",
+      "lost": "Yoʻqotilgan: {count}",
+      "open": "CRM ni ochish",
+      "noLeads": "Hozircha lid yoʻq."
+    },
+    "customer": {
+      "title": "CRM lidlari",
+      "empty": "Bu email boʻyicha hozircha CRM lidi yoʻq."
+    }
+  }
+}

@@ -3,7 +3,7 @@ import { z } from "zod";
 import { getDb, getEnv } from "@/db/client";
 import { aiConversations, aiMessages, savedTripPlans } from "@/db/schema";
 import { detectLanguage, getAiSettings, overRateLimit, runAgent } from "@/lib/ai/agent";
-import { cataloguePlan, parsePlan, verifyPlanTours } from "@/lib/ai/planner";
+import { cataloguePlan, parsePlan, planForDisplay, verifyPlanTours } from "@/lib/ai/planner";
 import { hashIp } from "@/lib/crypto";
 import { clientIp, ok, parseBody, route, tooManyRequests } from "@/lib/http";
 
@@ -55,5 +55,5 @@ export const POST = route(async (req) => {
   }
   const id = rid("p_");
   await db.insert(savedTripPlans).values({ id, conversationId, locale: language, request: input.request, plan });
-  return ok({ id, plan, days, budgetUsd: budgetUsd ?? null, language }, { headers: { "cache-control": "no-store" } });
+  return ok({ id, plan: planForDisplay(plan, language), days, budgetUsd: budgetUsd ?? null, language }, { headers: { "cache-control": "no-store" } });
 });

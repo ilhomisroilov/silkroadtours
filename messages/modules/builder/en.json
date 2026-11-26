@@ -1,1 +1,310 @@
-{}
+{
+  "tripBuilder": {
+    "page": {
+      "eyebrow": "Trip constructor",
+      "title": "Build your trip, day by day",
+      "lead": "Pick destinations and dates, add hotels, food, trains, sights and experiences, arrange them into days and see the estimated budget. Share the plan or send it to a travel manager for a confirmed offer."
+    },
+    "views": "Switch view",
+    "viewCatalogue": "Catalogue",
+    "viewTrip": "My trip",
+    "shared": {
+      "missing": "This trip link has expired or is incorrect. You can start a new plan below.",
+      "loaded": "The shared trip is open. Change anything you like, then save it under a new link.",
+      "pending": "You opened a shared trip, but you already have a trip in progress here.",
+      "open": "Open the shared trip",
+      "keep": "Keep my trip",
+      "dismiss": "Close"
+    },
+    "units": {
+      "durationHM": "{h} h {m} min",
+      "durationH": "{h} h",
+      "durationM": "{m} min",
+      "hours": "{n} h",
+      "days": "{n, plural, one {# day} other {# days}}"
+    },
+    "setup": {
+      "title": "Step 1 · Trip details",
+      "name": "Trip name",
+      "namePlaceholder": "e.g. Silk Road in spring",
+      "destinations": "Destinations",
+      "destinationsPlaceholder": "Choose where you want to go",
+      "destinationsHint": "Choose up to {max} places. The catalogue below shows what is available there.",
+      "group": {
+        "uzbekistan": "Uzbekistan",
+        "abroad": "Abroad"
+      },
+      "chosen": "Chosen destinations",
+      "removeDestination": "Remove {name}",
+      "dates": "Dates",
+      "daysCount": "{count, plural, one {# day} other {# days}}",
+      "start": "From",
+      "end": "To",
+      "travellers": "Travellers",
+      "adults": "Adults",
+      "children": "Children",
+      "decrease": "Fewer: {label}",
+      "increase": "More: {label}"
+    },
+    "price": {
+      "onSite": "Entry paid on site",
+      "night": "from {price} / night",
+      "meal": "from {price} per person",
+      "group": "from {price} per vehicle",
+      "trip": "from {price}",
+      "person": "from {price} per person"
+    },
+    "catalogue": {
+      "eyebrow": "Step 2 · Services",
+      "title": "Add what you want to do",
+      "scope": "Show services",
+      "everywhere": "Everywhere",
+      "mine": "My destinations",
+      "pickHint": "Showing everything we arrange. Choose destinations above to narrow it down.",
+      "search": "Search the catalogue",
+      "searchPlaceholder": "Search hotels, sights, food…",
+      "tabsLabel": "Service categories",
+      "tabs": {
+        "hotels": "Hotels",
+        "restaurants": "Restaurants",
+        "flights": "Flights",
+        "trains": "Trains",
+        "transfers": "Transfers & local transport",
+        "attractions": "Sights",
+        "experiences": "Experiences",
+        "tours": "Tours"
+      },
+      "error": "We could not load the catalogue. Check your connection and try again.",
+      "retry": "Try again",
+      "empty": "Nothing in this category for your destinations yet.",
+      "showEverywhere": "Show all destinations",
+      "kind": {
+        "hotel": "Hotel",
+        "restaurant": "Restaurant",
+        "transport": "Local transport",
+        "flight": "Flight",
+        "train": "Train",
+        "transfer": "Transfer",
+        "attraction": "Sight",
+        "experience": "Experience",
+        "tour": "Tour",
+        "activity": "Activity"
+      }
+    },
+    "itinerary": {
+      "eyebrow": "Step 3 · Itinerary",
+      "title": "Your days",
+      "summary": "{days, plural, one {# day} other {# days}} · {items, plural, one {# item} other {# items}}",
+      "autoArrange": "Auto-arrange",
+      "noDates": "Planning {days} days. Set your dates above to change the number of days.",
+      "unscheduled": "Not scheduled yet ({count})",
+      "unscheduledHint": "Choose a day for each item, or press Auto-arrange.",
+      "freeDay": "Free day. Add something from the catalogue or use Auto-arrange.",
+      "dayN": "Day {day}",
+      "notScheduled": "Not scheduled",
+      "dayFor": "Day for {title}",
+      "moveUp": "Move {title} up",
+      "moveDown": "Move {title} down",
+      "remove": "Remove {title}",
+      "emptyTitle": "Your trip starts here",
+      "emptyText": "Nothing added yet. It takes about three minutes to sketch a full trip.",
+      "emptySteps": {
+        "step1": "Choose destinations, dates and the number of travellers above.",
+        "step2": "Add hotels, restaurants, trains, sights and experiences from the catalogue.",
+        "step3": "Arrange everything into days, or let Auto-arrange and the AI planner do it.",
+        "step4": "Check the budget, share the link and send the trip to a travel manager."
+      },
+      "quickStart": "Or start with a popular route:"
+    },
+    "budget": {
+      "eyebrow": "Step 4 · Budget",
+      "title": "Estimated budget",
+      "estimate": "Estimate",
+      "forGroup": "{travellers, plural, one {# traveller} other {# travellers}} · {days, plural, one {# day} other {# days}}, {nights, plural, one {# night} other {# nights}}",
+      "perPerson": "{price} per person",
+      "meals": "Everyday meals",
+      "mealsHint": "About {price} per person per day for meals you have not planned at a restaurant.",
+      "byCategory": "By category",
+      "cat": {
+        "stay": "Stay",
+        "food": "Food",
+        "transport": "Transport",
+        "sights": "Sights",
+        "experiences": "Experiences",
+        "tours": "Tours"
+      },
+      "nothingYet": "Add hotels, trains or experiences to see the budget.",
+      "byDay": "By day",
+      "dayN": "Day {day}",
+      "unscheduled": "Not scheduled",
+      "lines": "How it is calculated",
+      "unit": {
+        "nightRoom": "{price} × {count, plural, one {# room-night} other {# room-nights}} ({rooms, plural, one {# room} other {# rooms}})",
+        "person": "{price} × {count, plural, one {# person} other {# people}}",
+        "mealPerson": "{price} × {count, plural, one {# guest} other {# guests}}",
+        "dayPerson": "{price} × {days, plural, one {# day} other {# days}} × {count, plural, one {# person} other {# people}}",
+        "group": "{price} per vehicle",
+        "trip": "{price} per trip"
+      },
+      "note": "Indicative prices, assuming {rooms, plural, one {# double room} other {# double rooms}}. Availability and the final price are confirmed by our travel manager.",
+      "unpriced": "{count, plural, one {# item has} other {# items have}} no indicative price yet."
+    },
+    "ai": {
+      "eyebrow": "AI itinerary",
+      "title": "Let the AI planner draft your days",
+      "text": "It reads your destinations, dates, travellers and chosen items, and suggests a day-by-day plan you can add to your trip.",
+      "cta": "Create AI itinerary",
+      "again": "Draft again",
+      "needInput": "Choose at least one destination or add an item first.",
+      "loading": "Drafting your days…",
+      "busy": "The planner is busy right now. Please try again in a minute.",
+      "network": "No connection to the planner. Check your internet and try again.",
+      "error": "The planner could not draft this trip. Please try again.",
+      "retry": "Try again",
+      "addAll": "Add all suggestions ({count})",
+      "dayN": "Day {day}",
+      "exploreDay": "Discover {place}",
+      "suggested": "Suggested for this day",
+      "openPlanner": "Open this plan in the AI planner",
+      "request": {
+        "base": "Plan a {days}-day trip to {places} for {adults, plural, one {# adult} other {# adults}} and {children, plural, =0 {no children} one {# child} other {# children}}.",
+        "anywhere": "Uzbekistan",
+        "dates": "Travel dates: {start} to {end}.",
+        "items": "Already chosen: {items}.",
+        "ask": "Put the days in a sensible order and suggest sights and experiences for each day."
+      },
+      "fromCatalogue": "Drafted from our ready-made routes and your chosen destinations. Add the suggestions you like to your days."
+    },
+    "map": {
+      "eyebrow": "Map",
+      "title": "Your trip on the map",
+      "legend": "Day colours",
+      "empty": "Items you add appear here, coloured by day.",
+      "label": "Map of the trip items",
+      "loading": "Loading the map…",
+      "attribution": "OpenStreetMap contributors",
+      "dayN": "Day {day}",
+      "unscheduled": "not scheduled",
+      "details": "Details"
+    },
+    "share": {
+      "eyebrow": "Save & share",
+      "title": "Get a link to this trip",
+      "text": "Save a copy of the plan and share it with your travel companions. Anyone with the link can open it in their own constructor.",
+      "save": "Save & get link",
+      "saveAgain": "Save changes under a new link",
+      "saved": "Saved",
+      "changed": "You changed the trip after saving. Save again to share the latest version.",
+      "link": "Share link",
+      "copy": "Copy link",
+      "copied": "Copied",
+      "shareNative": "Share",
+      "shareTitle": "My trip plan",
+      "rateLimited": "You have saved many versions in a short time. Please wait a few minutes.",
+      "network": "No connection. Check your internet and try again.",
+      "invalid": "This trip cannot be saved. Remove a few items and try again.",
+      "error": "The trip could not be saved. Please try again."
+    },
+    "inquiry": {
+      "eyebrow": "Step 5 · Booking",
+      "title": "Send this trip to a travel manager",
+      "text": "A travel manager checks availability for every item, confirms the prices and sends you an offer. Nothing is booked or paid until you agree.",
+      "check": {
+        "destinations": "Destinations chosen",
+        "dates": "Travel dates set",
+        "items": "At least one service added"
+      },
+      "done": "done",
+      "todo": "still needed",
+      "cta": "Request this trip",
+      "needMore": "Choose destinations and future travel dates above to send the request.",
+      "contactTitle": "How can we reach you?",
+      "submit": "Send the trip request",
+      "notesDay": "Day {day}",
+      "notesUnscheduled": "Not scheduled",
+      "notesEstimate": "Estimated budget: {total} ({perPerson} per person)",
+      "notesLink": "Trip link"
+    },
+    "teaser": {
+      "eyebrow": "Trip constructor",
+      "title": "Design your own journey in minutes",
+      "text": "Combine hotels, trains, sights, food and experiences into a day-by-day plan with a live budget. When it looks right, a travel manager turns it into a confirmed trip.",
+      "stepLabel": "Step {n}",
+      "step1": {
+        "title": "Where and when",
+        "text": "Pick destinations, dates and who is travelling."
+      },
+      "step2": {
+        "title": "Add services",
+        "text": "Hotels, restaurants, trains, flights, sights and experiences."
+      },
+      "step3": {
+        "title": "Arrange the days",
+        "text": "Put items into days yourself, or let Auto-arrange and AI do it."
+      },
+      "step4": {
+        "title": "Budget and send",
+        "text": "See the estimate, share the link, request a confirmed offer."
+      },
+      "cta": "Build my trip",
+      "mapCta": "Open the travel map",
+      "mockEyebrow": "Sample itinerary",
+      "mockMeta": "{days, plural, one {# day} other {# days}} · {travellers, plural, one {# traveller} other {# travellers}}",
+      "dayN": "Day {day}",
+      "mockTotal": "Estimated budget",
+      "mockPerPerson": "{price} per person"
+    }
+  },
+  "tripButton": {
+    "add": "Add to trip",
+    "added": "In my trip",
+    "addLabel": "Add {title} to my trip",
+    "removeLabel": "Remove {title} from my trip"
+  },
+  "navigator": {
+    "eyebrow": "Travel map",
+    "title": "Navigator",
+    "lead": "Sights, hotels, restaurants and transport on one map. Find what is near you and add it to your trip.",
+    "destination": "Destination",
+    "allDestinations": "All destinations",
+    "nearMe": "Near me",
+    "layers": "Show on the map",
+    "layer": {
+      "attraction": "Sights",
+      "hotel": "Hotels",
+      "restaurant": "Restaurants",
+      "transport": "Transport",
+      "trip": "My trip"
+    },
+    "myTrip": "my trip",
+    "locating": "Finding your location…",
+    "denied": "Location access is turned off for this site, so we cannot see where you are.",
+    "unavailable": "Your location is not available right now.",
+    "pickOnMap": "Set my position on the map",
+    "picking": "Tap the map where you are. Distances will be measured from there.",
+    "far": "You seem to be far from our destinations. Distances are measured from your current location.",
+    "nearbyTitle": "Nearby",
+    "listTitle": "Places on the map",
+    "fromYou": "Sorted by distance from you.",
+    "fromPicked": "Sorted by distance from the point you set.",
+    "fromCentre": "Sorted by distance from the centre of {place}.",
+    "pickDestination": "Choose a destination or use Near me to sort by distance.",
+    "nearbyButton": "Nearby ({count})",
+    "listButton": "List ({count})",
+    "showOnMap": "Show on the map",
+    "away": "{distance} away",
+    "km": "{km} km",
+    "meters": "{m} m",
+    "details": "Details",
+    "empty": "Nothing to show with these filters. Turn on more layers or choose another destination.",
+    "emptyMap": "Turn on a layer to see places",
+    "error": "The map data could not be loaded.",
+    "retry": "Try again",
+    "mapLabel": "Map of sights, hotels, restaurants and transport",
+    "loading": "Loading the map…",
+    "attribution": "OpenStreetMap contributors",
+    "you": "You are here",
+    "pickedPoint": "Your starting point",
+    "close": "Close"
+  }
+}

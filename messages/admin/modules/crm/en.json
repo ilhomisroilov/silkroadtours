@@ -1,1 +1,205 @@
-{}
+{
+  "crm": {
+    "title": "CRM pipeline",
+    "summary": "{count, plural, one {# lead} other {# leads}} · {value} in open deals",
+    "viewLabel": "View",
+    "views": {
+      "board": "Board",
+      "table": "Table"
+    },
+    "newLead": "New lead",
+    "stages": {
+      "new": "New lead",
+      "contacted": "Contacted",
+      "qualified": "Qualified",
+      "offer_sent": "Offer sent",
+      "negotiation": "Negotiation",
+      "confirmed": "Confirmed",
+      "completed": "Completed",
+      "lost": "Lost"
+    },
+    "sources": {
+      "booking": "Booking",
+      "request": "Request",
+      "trip": "Trip plan",
+      "partner": "Partner",
+      "contact": "Contact form",
+      "admin": "Manual"
+    },
+    "locales": {
+      "en": "English",
+      "uz": "Uzbek",
+      "ru": "Russian"
+    },
+    "filters": {
+      "search": "Search",
+      "searchPlaceholder": "Name, email, phone, reference",
+      "stage": "Stage",
+      "source": "Source",
+      "manager": "Manager",
+      "destination": "Destination",
+      "followUp": "Follow-up",
+      "unassigned": "Unassigned",
+      "apply": "Apply",
+      "reset": "Reset",
+      "active": "{count, plural, one {# filter active} other {# filters active}}"
+    },
+    "followUpFilter": {
+      "overdue": "Overdue",
+      "today": "Due today",
+      "upcoming": "Upcoming",
+      "none": "No follow-up set"
+    },
+    "board": {
+      "label": "Lead pipeline board",
+      "count": "{count, plural, one {# lead} other {# leads}}",
+      "empty": "Drop a lead here",
+      "lost": "Lost leads",
+      "lostEmpty": "No lost leads.",
+      "hint": "Drag a card to another column, or use the arrows on the card.",
+      "moveTo": "Move to {stage}",
+      "moved": "{name} moved to {stage}",
+      "moveFailed": "The lead could not be moved."
+    },
+    "card": {
+      "travellers": "{count, plural, one {# traveller} other {# travellers}}",
+      "budget": "Budget {value}",
+      "followUp": "Follow-up {date}",
+      "overdue": "Overdue since {date}",
+      "dueToday": "Follow-up today",
+      "unassigned": "Unassigned",
+      "assignedTo": "Manager: {name}"
+    },
+    "table": {
+      "caption": "Leads",
+      "lead": "Lead",
+      "customer": "Customer",
+      "stage": "Stage",
+      "source": "Source",
+      "manager": "Manager",
+      "value": "Value",
+      "travel": "Travel dates",
+      "followUp": "Follow-up",
+      "created": "Created",
+      "updated": "Updated",
+      "sortBy": "Sort by {column}",
+      "empty": "No leads match these filters."
+    },
+    "detail": {
+      "back": "CRM pipeline",
+      "customer": "Customer",
+      "trip": "Trip",
+      "deal": "Deal",
+      "pipeline": "Pipeline",
+      "name": "Full name",
+      "email": "Email",
+      "phone": "Phone",
+      "locale": "Language",
+      "title": "Lead title",
+      "destination": "Destination",
+      "interests": "Interests and wishes",
+      "budget": "Budget (USD)",
+      "travelFrom": "Travel from",
+      "travelTo": "Travel to",
+      "travelDates": "Travel dates",
+      "travellers": "Travellers",
+      "value": "Deal value (USD)",
+      "valueHint": "Expected revenue, used for the pipeline totals.",
+      "source": "Source",
+      "reference": "Reference",
+      "openSource": "Open the original {source}",
+      "openTrip": "Open the trip plan",
+      "manualSource": "Entered by a manager",
+      "manager": "Assigned manager",
+      "ownership": "Manager and follow-up",
+      "unassigned": "Unassigned",
+      "followUp": "Follow-up date",
+      "clearFollowUp": "Clear",
+      "stage": "Stage",
+      "changeStage": "Change stage",
+      "editDetails": "Edit details",
+      "saveDetails": "Save details",
+      "created": "Created",
+      "updated": "Last update",
+      "notSet": "Not set",
+      "otherLeads": "Customer profile"
+    },
+    "quick": {
+      "title": "Quick actions",
+      "call": "Call",
+      "email": "Email",
+      "whatsapp": "WhatsApp",
+      "telegram": "Telegram",
+      "log": "Log activity",
+      "kind": "Activity type",
+      "logCall": "Call",
+      "logEmail": "Email",
+      "addNote": "Note",
+      "placeholder_note": "What did you agree? Only staff see this.",
+      "placeholder_call": "Call summary: who, what, next step",
+      "placeholder_email": "Email summary: subject and key points",
+      "submit": "Save to history",
+      "logged": "Saved to the lead history"
+    },
+    "activity": {
+      "title": "Activity history",
+      "empty": "No activity yet.",
+      "kinds": {
+        "created": "Lead created",
+        "note": "Note",
+        "stage": "Stage changed",
+        "assign": "Manager",
+        "follow_up": "Follow-up",
+        "call": "Call logged",
+        "email": "Email logged"
+      },
+      "createdFrom": "{source} · {ref}",
+      "createdManual": "Entered by a manager",
+      "assignedTo": "Assigned to {name}",
+      "unassigned": "Manager removed",
+      "followUpSet": "Follow-up set for {date}",
+      "followUpCleared": "Follow-up cleared",
+      "detailsUpdated": "Details updated: {fields}",
+      "system": "Website"
+    },
+    "create": {
+      "title": "New lead",
+      "intro": "For phone calls, walk-ins, fairs and contacts made outside the website.",
+      "note": "First note (optional)",
+      "submit": "Create lead",
+      "created": "Lead created"
+    },
+    "errors": {
+      "assignee_not_found": "This manager account is not active.",
+      "dates_out_of_order": "The end date must be on or after the start date.",
+      "empty_update": "Nothing to save.",
+      "name_too_short": "Enter the full name.",
+      "invalid_email": "Enter a valid email address.",
+      "invalid_phone": "Enter a valid phone number."
+    },
+    "dashboard": {
+      "title": "CRM pipeline",
+      "funnel": "Lead funnel",
+      "funnelHint": "Leads currently in each stage",
+      "conversion": "Conversion to confirmed",
+      "conversionHint": "{won} of {total} leads confirmed or completed",
+      "pipeline": "Open pipeline",
+      "pipelineHint": "Expected value of open leads",
+      "won": "Confirmed value",
+      "wonHint": "Confirmed and completed leads",
+      "newLeads": "New leads",
+      "newLeadsHint": "Last 7 days",
+      "followUps": "Follow-ups",
+      "followUpsToday": "Due today",
+      "followUpsOverdue": "Overdue",
+      "bySource": "Leads by source",
+      "lost": "Lost: {count}",
+      "open": "Open CRM",
+      "noLeads": "No leads yet."
+    },
+    "customer": {
+      "title": "CRM leads",
+      "empty": "No CRM leads for this email yet."
+    }
+  }
+}

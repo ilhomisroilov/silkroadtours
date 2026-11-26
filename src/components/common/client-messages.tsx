@@ -3,7 +3,7 @@ import { getLocale, getMessages } from "next-intl/server";
 import type { ReactNode } from "react";
 
 /** Namespaces every page's client components may use (header switchers, forms, errors). */
-export const BASE_CLIENT_NAMESPACES = ["nav", "audience", "currency", "languages", "common", "errorPage"] as const;
+export const BASE_CLIENT_NAMESPACES = ["nav", "audience", "currency", "languages", "common", "errorPage", "tripButton"] as const;
 
 /**
  * Sends only the message namespaces a page's client components need,

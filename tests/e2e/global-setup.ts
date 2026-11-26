@@ -7,9 +7,9 @@ import { randomBytes } from "node:crypto";
  * .smoke-admin.json (git-ignored), the same file the smoke test uses.
  */
 export default async function globalSetup() {
-  const base = (process.env.E2E_BASE_URL ?? "http://localhost:8787").replace(/\/$/, "");
+  const base = (process.env.E2E_BASE_URL ?? "http://localhost:3000").replace(/\/$/, "");
   const health = await fetch(`${base}/api/health`).catch(() => null);
-  if (!health?.ok) throw new Error(`The app is not running at ${base}. Start it with: npm run preview`);
+  if (!health?.ok) throw new Error(`The app is not running at ${base}. Start it with: npm run build && npm start`);
   if (existsSync(".smoke-admin.json")) return;
   const vars = existsSync(".dev.vars") ? readFileSync(".dev.vars", "utf8") : "";
   const secret = vars.split("\n").find((l) => l.startsWith("ADMIN_SECRET="))?.slice("ADMIN_SECRET=".length).trim();

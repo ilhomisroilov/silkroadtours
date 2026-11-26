@@ -4,8 +4,9 @@ import { and, count, eq, gt } from "drizzle-orm";
 import type { Db } from "@/db/client";
 import { aiConversations, aiMessages, settings } from "@/db/schema";
 import type { Locale } from "@/db/types";
-import { ProviderError, providerChain, type ChatTurn } from "./providers";
-import { executeTool, fallbackSearch, TOOL_SPECS, type ToolContext } from "./tools";
+import { ProviderError, providerChain, type ChatTurn, type RunInput } from "./providers";
+import { uzText } from "@/lib/uz-alphabet";
+import { executeTool, fallbackSearch, phrasesAsText, TOOL_SPECS, type AiCard, type FallbackKind, type ToolContext } from "./tools";
 
 export interface AiSettings {
   assistantName: string;
@@ -45,7 +46,7 @@ export async function getAiSettings(db: Db): Promise<AiSettings> {
 export function detectLanguage(text: string, fallback: Locale): Locale {
   if (/[Ѐ-ӿ]/.test(text)) return /[ўқғҳ]/i.test(text) ? "uz" : "ru";
   const t = text.toLowerCase();
-  const uzHits = ["oʻ", "o'", "gʻ", "g'", "qayer", "kunlik", "sayohat", "menda", "qancha", "nima", "bormoq", "borsam", "uchun", "rejasini", "tuz", "solishtir", "kerak", "bilan", "yaxshi", "dollar bor"].filter((w) => t.includes(w)).length;
+  const uzHits = ["oʻ", "o'", "gʻ", "g'", "ö", "ğ", "ş", "ç", "qayer", "kunlik", "sayohat", "menda", "qancha", "nima", "bormoq", "borsam", "uchun", "rejasini", "tuz", "solishtir", "kerak", "bilan", "yaxshi", "dollar bor"].filter((w) => t.includes(w)).length;
   if (uzHits >= 2) return "uz";
   if (/\b(the|what|which|how|where|have|days?|tour|want|can)\b/.test(t)) return "en";
   return fallback;
@@ -54,21 +55,25 @@ export function detectLanguage(text: string, fallback: Locale): Locale {
 const LANG_NAME: Record<Locale, string> = { en: "English", uz: "Uzbek (Latin script, natural modern Uzbek)", ru: "Russian" };
 
 /** Protected core rules. Owners can append tone/extra rules, but cannot remove these. */
-export function systemPrompt(s: AiSettings, lang: Locale, page: string | null, mode: "chat" | "planner"): string {
+export function systemPrompt(s: AiSettings, lang: Locale, page: string | null, mode: "chat" | "planner", trip: string | null = null): string {
   return [
-    `You are "${s.assistantName}", the in-house travel consultant of National Tours, a tour company in Uzbekistan. You help visitors discover Uzbekistan and Central Asia, choose tours from OUR catalogue, plan realistic itineraries, estimate budgets and send booking requests.`,
+    `You are "${s.assistantName}", the in-house travel consultant and AI travel guide of National Tours, a travel company in Uzbekistan. You help visitors discover Uzbekistan and Central Asia, choose tours, hotels, restaurants and transport from OUR catalogue, plan realistic itineraries, explain culture and etiquette, translate useful phrases, estimate budgets and send booking requests.`,
     `Reply in ${LANG_NAME[lang]}. Be warm, concise and practical (short paragraphs or bullet points, max ~180 words unless planning a trip). Do not use Markdown tables or headings.`,
     "CORE RULES (never break):",
     "1. For anything about our tours, prices, durations, routes, itineraries, departures or destinations, call the tools first and base the answer on their results. For practical travel questions (money, SIM cards, food, etiquette, seasons, packing, experiences, transfers, guides) call search_site_content and answer from those passages, linking the page. Prefer company data over general knowledge.",
-    "2. Never invent tours, availability, seats, prices or booking status. Prices from tools are INDICATIVE 'from' prices per person; say so. Only the company confirms a final price in writing.",
+    "1b. Where to stay or eat (hotels, guesthouses, restaurants, cafés, halal/vegetarian food): call search_places. Getting between cities or around a city (trains, flights, transfers, taxis, metro): call get_transport_options. 'What is near X': call find_nearby. Translating or 'how do I say': call get_phrases. Budgets: call calculate_trip_budget, passing chosen tours, hotels (with nights) and transport. Recommend 2–3 options with one line each on why they fit.",
+    "2. Never invent tours, hotels, restaurants, availability, seats, timetables, prices or booking status. Prices from tools are INDICATIVE 'from' prices; say so. Train and flight times are TYPICAL, not live. Rooms, tables, seats and the final price are confirmed by our travel manager after the visitor sends a request. Clearly separate estimates from confirmed facts.",
     "3. Never claim a booking or reservation is confirmed. To help someone book, call prepare_booking_inquiry; this only prepares a draft that the visitor reviews and sends on the booking form. Ask for their confirmation of tour, date and number of travellers first if they are unclear.",
-    "4. When you mention a tour or destination, link it with its url from the tool results using Markdown [Title](url), keeping the url exactly as given (a relative path such as /uz/tours/slug, never with a domain added). Do not make up URLs.",
+    "4. When you mention a tour, destination, hotel, restaurant or transport option, link it with its url from the tool results using Markdown [Title](url), keeping the url exactly as given (a relative path such as /uz/tours/slug, never with a domain added). Do not make up URLs. Useful pages: /LANG/trip-builder (trip constructor), /LANG/transport (flights & trains), /LANG/hotels, /LANG/restaurants, /LANG/navigator (travel map), /LANG/virtual-tours.".replaceAll("LANG", lang),
     "5. If information is missing, say so plainly and offer the contact page or a tailor-made request.",
     "6. Visa, border, health and safety rules change: give the general picture and tell the visitor to verify with official sources (e.g. the e-visa portal or their embassy). Do not state those as facts the company guarantees.",
     "7. Itineraries must be realistic: Tashkent–Samarkand ~2h10 by Afrosiyob train, Samarkand–Bukhara ~1h40 train, Bukhara–Khiva ~6–7h by road or overnight train, Tashkent–Fergana valley ~4–5h by road/train, Tashkent–Urgench (for Khiva) ~1h40 flight. Do not put more than one long transfer in a day.",
     "8. Never ask for or repeat passwords, card numbers or ID numbers. Do not ask for personal details in chat; the booking form collects them.",
     "9. Stay on travel topics related to Uzbekistan/Central Asia and National Tours. Politely decline unrelated tasks.",
     page ? `The visitor is currently on page: ${page}. Use it as context (e.g. 'this tour').` : "",
+    trip
+      ? `The visitor's current trip plan from the trip constructor (their own notes, not confirmed bookings): ${trip}. Use it as context. When they ask to change the plan, propose concrete changes by day (add, remove, move) using catalogue items from the tools; cards under your answer let them add items to the trip.`
+      : "",
     mode === "planner"
       ? `PLANNER MODE: Use the tools (search_tours, get_tour_details, search_destinations, calculate_trip_budget) and answer ONLY with a JSON object: {"title":string,"summary":string,"days":[{"day":number,"place":string,"title":string,"plan":string,"transport":string|null,"tourSlug":string|null}],"destinations":[string slugs],"suggestedTours":[{"slug":string,"title":string,"why":string}],"budget":{"low":number,"high":number,"currency":"USD","note":string},"accommodation":string,"transport":string,"bestSeason":string,"food":[string],"tips":[string]}. Every tourSlug must come from tool results. Write all text values in ${LANG_NAME[lang]}.`
       : "",
@@ -93,7 +98,7 @@ export interface AgentReply {
   text: string;
   status: "ok" | "fallback";
   provider: string | null;
-  cards: { kind: "tour" | "destination"; slug: string; title: string; url: string; image: string; meta: string }[];
+  cards: AiCard[];
   bookingDraft: ToolContext["bookingDraft"] | null;
   language: Locale;
   messageId: number | null;
@@ -101,8 +106,32 @@ export interface AgentReply {
 
 const FALLBACK_TEXT: Record<Locale, string> = {
   en: "Our AI assistant is unavailable right now, so here are matching tours from our catalogue. You can also book directly or message our team.",
-  uz: "AI yordamchi hozir ishlamayapti, shuning uchun katalogimizdan mos turlarni ko‘rsatyapman. To‘g‘ridan-to‘g‘ri bron so‘rovi yuborishingiz yoki jamoamizga yozishingiz mumkin.",
+  uz: "AI yordamchi hozir ishlamayapti, shuning uchun katalogimizdan mos turlarni koʻrsatyapman. Toʻgʻridan-toʻgʻri bron soʻrovi yuborishingiz yoki jamoamizga yozishingiz mumkin.",
   ru: "ИИ-помощник сейчас недоступен, поэтому показываю подходящие туры из каталога. Вы также можете отправить заявку напрямую или написать нашей команде.",
+};
+
+/** Fallback openers when the question was about hotels, restaurants, transport or phrases. */
+const FALLBACK_KIND_TEXT: Record<Exclude<FallbackKind, "tour">, Record<Locale, string>> = {
+  hotel: {
+    en: "Our AI assistant is unavailable right now, so here are hotels from our catalogue that may suit you. Send a request from any hotel page and our travel manager will confirm rooms and prices.",
+    uz: "AI yordamchi hozir ishlamayapti, shuning uchun katalogimizdan mos mehmonxonalarni koʻrsatyapman. Istalgan mehmonxona sahifasidan soʻrov yuboring, menejerimiz xona va narxni tasdiqlaydi.",
+    ru: "ИИ-помощник сейчас недоступен, поэтому показываю подходящие отели из каталога. Отправьте заявку со страницы отеля, и наш менеджер подтвердит номер и цену.",
+  },
+  restaurant: {
+    en: "Our AI assistant is unavailable right now, so here are restaurants from our catalogue. You can request a table from any restaurant page.",
+    uz: "AI yordamchi hozir ishlamayapti, shuning uchun katalogimizdan restoranlarni koʻrsatyapman. Istalgan restoran sahifasidan stol band qilish soʻrovini yuborishingiz mumkin.",
+    ru: "ИИ-помощник сейчас недоступен, поэтому показываю рестораны из каталога. Забронировать стол можно со страницы ресторана.",
+  },
+  transport: {
+    en: "Our AI assistant is unavailable right now, so here are transport options from our catalogue with typical times and indicative fares. Compare them on the flights & trains page.",
+    uz: "AI yordamchi hozir ishlamayapti, shuning uchun katalogimizdagi transport variantlarini odatiy vaqt va taxminiy narxlar bilan koʻrsatyapman. Ularni aviareys va poyezdlar sahifasida solishtiring.",
+    ru: "ИИ-помощник сейчас недоступен, поэтому показываю варианты транспорта из каталога с типичным временем и ориентировочными ценами. Сравните их на странице авиа и поездов.",
+  },
+  phrases: {
+    en: "Our AI assistant is unavailable right now. Here are useful phrases from our phrasebook:",
+    uz: "AI yordamchi hozir ishlamayapti. Soʻzlashgichimizdan foydali iboralar:",
+    ru: "ИИ-помощник сейчас недоступен. Полезные фразы из нашего разговорника:",
+  },
 };
 
 export async function runAgent(opts: {
@@ -113,6 +142,8 @@ export async function runAgent(opts: {
   page: string | null;
   mode: "chat" | "planner";
   settings: AiSettings;
+  /** Compact summary of the visitor's trip constructor plan (no personal data). */
+  trip?: string | null;
 }): Promise<AgentReply> {
   const { db, conversationId, history, page, mode, settings: s } = opts;
   const lastUser = [...history].reverse().find((t) => t.role === "user")?.content ?? "";
@@ -122,10 +153,10 @@ export async function runAgent(opts: {
   const started = Date.now();
   let lastError: string | null = null;
 
-  for (const adapter of chain) {
+  for (const [index, adapter] of chain.entries()) {
     try {
-      const res = await adapter.run({
-        system: systemPrompt(s, language, page, mode),
+      const request: RunInput = {
+        system: systemPrompt(s, language, page, mode, opts.trip ?? null),
         history: history.slice(-12),
         tools: TOOL_SPECS,
         execute: (name, args) => executeTool(ctx, name, args),
@@ -133,7 +164,16 @@ export async function runAgent(opts: {
         maxOutputTokens: mode === "planner" ? Math.max(s.maxOutputTokens, 2500) : s.maxOutputTokens,
         timeoutMs: mode === "planner" ? Math.max(s.timeoutMs, 45000) : s.timeoutMs,
         json: mode === "planner",
-      });
+      };
+      let res;
+      try {
+        res = await adapter.run(request);
+      } catch (err) {
+        // One quick retry on a temporary outage of the first provider before moving down the chain.
+        if (index !== 0 || !(err instanceof ProviderError) || err.kind !== "unavailable") throw err;
+        await new Promise((r) => setTimeout(r, 700));
+        res = await adapter.run(request);
+      }
       if (!res.text) throw new ProviderError(adapter.id, "bad_response", "empty answer");
       // Second line of defence: never let a reply claim a confirmed booking, guaranteed seats or ask for payment.
       if (mode === "chat") {
@@ -143,6 +183,8 @@ export async function runAgent(opts: {
           res.text = safe.text;
           lastError = `guard:${safe.flagged.join(",")}`;
         }
+        // The model writes the current Latin spelling; the site shows Uzbek in the new alphabet.
+        if (language === "uz") res.text = uzText(res.text);
       }
       const unanswered = ctx.sources.size === 0 && /not (have|find)|нет информации|ma'lumot yo|maʼlumot yo|topa olmadim/i.test(res.text);
       const [msg] = await db
@@ -170,10 +212,14 @@ export async function runAgent(opts: {
 
   // Non-AI fallback: database search so the visitor still gets useful, real results.
   const found = await fallbackSearch(ctx, lastUser);
-  const text = FALLBACK_TEXT[language];
+  const shown = (s: string) => (language === "uz" ? uzText(s) : s);
+  const text =
+    found.kind === "phrases"
+      ? `${shown(FALLBACK_KIND_TEXT.phrases[language])}\n\n${phrasesAsText(lastUser, language)}`
+      : shown(found.kind !== "tour" && found.count ? FALLBACK_KIND_TEXT[found.kind][language] : FALLBACK_TEXT[language]);
   const [msg] = await db
     .insert(aiMessages)
     .values({ conversationId, role: "assistant", content: text, sources: [...ctx.sources], latencyMs: Date.now() - started, status: chain.length ? "error" : "fallback", error: lastError ?? (chain.length ? null : "no_provider_configured") })
     .returning({ id: aiMessages.id });
-  return { conversationId, text, status: "fallback", provider: null, cards: (found.tours ?? []).length ? [...ctx.cards.values()].slice(0, 4) : [], bookingDraft: null, language, messageId: msg?.id ?? null };
+  return { conversationId, text, status: "fallback", provider: null, cards: found.count ? [...ctx.cards.values()].slice(0, 4) : [], bookingDraft: null, language, messageId: msg?.id ?? null };
 }

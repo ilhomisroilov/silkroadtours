@@ -14,8 +14,9 @@
   --color-lapis-night: #0b1f36;
   --color-lapis-mist: #dce6f3;
   --color-cobalt: #245ba8; /* secondary blue */
-  --color-turquoise: #245ba8; /* icons and accents */
-  --color-turquoise-ink: #245ba8;
+  --color-turquoise: #1f9a96; /* turquoise accent (icons, borders) */
+  --color-turquoise-soft: #e4f4f2;
+  --color-turquoise-ink: #0f6f73; /* turquoise text on light (5.9:1) */
   --color-terracotta: #173d66; /* primary CTA background (white text 11:1) */
   --color-terracotta-deep: #245ba8; /* CTA hover */
   --color-saffron: #d9a441; /* gold accent */

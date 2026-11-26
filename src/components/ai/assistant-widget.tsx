@@ -119,7 +119,7 @@ export function AssistantWidget({ locale, welcome, enabled }: { locale: Locale; 
     void fetch("/api/ai/feedback", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ messageId: msg.id, rating }) });
   };
 
-  if (!enabled || pathname?.startsWith("/admin")) return null;
+  if (!enabled || pathname?.startsWith("/admin") || pathname?.endsWith("/ai-guide")) return null;
 
   return (
     <>
@@ -128,11 +128,12 @@ export function AssistantWidget({ locale, welcome, enabled }: { locale: Locale; 
           ref={launcherRef}
           type="button"
           onClick={() => setOpen(true)}
-          className="fixed bottom-4 right-4 z-40 inline-flex h-14 items-center gap-2 rounded-full bg-gradient-to-r from-lapis to-cobalt pl-2 pr-5 text-[0.95rem] font-bold text-white shadow-lift transition hover:brightness-110 focus-visible:outline-saffron max-sm:bottom-20"
+          className="fixed bottom-4 right-4 z-40 inline-flex h-14 items-center gap-2 rounded-full bg-gradient-to-r from-lapis to-cobalt pl-2 pr-5 text-[0.95rem] font-bold text-white shadow-lift transition hover:brightness-110 focus-visible:outline-saffron max-sm:bottom-20 max-sm:pr-2"
           aria-haspopup="dialog"
+          aria-label={t.open}
         >
           <span className="inline-flex size-11 items-center justify-center rounded-full bg-white/95"><RobotIllustration className="w-8" /></span>
-          {t.open}
+          <span className="max-sm:sr-only">{t.open}</span>
         </button>
       )}
       {open && (

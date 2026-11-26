@@ -11,7 +11,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: { default: "Admin · National Tours", template: "%s · Admin · National Tours" },
   robots: { index: false, follow: false },
-  icons: { icon: "/icon.svg" },
+  icons: { icon: "/icon.png", apple: "/apple-icon.png" },
 };
 export const viewport: Viewport = { themeColor: "#14235c", width: "device-width", initialScale: 1 };
 

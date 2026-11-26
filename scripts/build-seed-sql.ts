@@ -7,6 +7,7 @@
  * Departures are generated relative to the day the script runs, so re-run it before seeding.
  * Also writes drizzle/seed-images.txt — the image paths the seed expects under /public.
  */
+import { randomBytes } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -16,8 +17,10 @@ import { faq as baseFaq } from "./seed-data/faq.ts";
 import { domesticTours } from "./seed-data/tours-domestic.ts";
 import { inboundTours, type SeedTour } from "./seed-data/tours-inbound.ts";
 import { extraContent, extraDestinations, extraFaq, extraTours, sampleReviews } from "./seed-data/extra.ts";
+import { sampleLeads } from "./seed-data/leads.ts";
 import { samplePartners } from "./seed-data/partners.ts";
 import { seedPlaces } from "./seed-data/places.ts";
+import { uzText } from "../src/lib/uz-alphabet.ts";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const RESET = process.argv.includes("--reset");
@@ -131,6 +134,8 @@ const resetLines = [
   "DELETE FROM content_items;",
   "DELETE FROM places WHERE source = 'seed';",
   "DELETE FROM partners WHERE source = 'sample';",
+  "DELETE FROM lead_activities WHERE lead_id IN (SELECT id FROM leads WHERE source = 'admin' AND source_ref LIKE 'SAMPLE-%');",
+  "DELETE FROM leads WHERE source = 'admin' AND source_ref LIKE 'SAMPLE-%';",
   "UPDATE settings SET value = json_set(value, '$.agencyName', 'National Tours') WHERE key = 'contact' AND json_extract(value, '$.agencyName') IN ('Silk Road Tours', '');",
   "",
 ];
@@ -377,13 +382,15 @@ seedPlaces.forEach((p, i) => {
 });
 lines.push("");
 
-// Internal example partner applications (source = "sample"): admin only, never public.
+// Partner profiles (investor concept, source = "sample"): invented businesses. Approved ones are listed on /partners;
+// pending and rejected ones show the review workflow in the admin panel. placeSlugs link the partner to its places.
+const partnerEpoch = Math.floor(Date.now() / 1000);
 samplePartners.forEach((p, i) => {
-  const n = String(90001 + i);
+  const reference = `PA-${90001 + i}`;
   lines.push(
     insert("partners", {
-      reference: `PA-SAMPLE-${n}`,
-      token: `sample${n}${Math.random().toString(36).slice(2, 12)}`,
+      reference,
+      token: randomBytes(18).toString("base64url"),
       type: p.type,
       status: p.status,
       source: "sample",
@@ -397,12 +404,20 @@ samplePartners.forEach((p, i) => {
       description: p.description,
       services: p.services,
       locale: p.locale,
+      admin_note: p.adminNote ?? null,
+      created_at: partnerEpoch - (60 - i * 2) * 86400,
+      reviewed_at: p.status === "pending" ? null : partnerEpoch - (50 - i * 2) * 86400,
     }).replace(/^INSERT INTO/, "INSERT OR IGNORE INTO"),
   );
+  for (const key of p.placeSlugs ?? []) {
+    const [kind, slug] = key.split("/");
+    if (!seedPlaces.some((x) => x.kind === kind && x.slug === slug)) throw new Error(`Partner "${p.businessName}": unknown place ${key}`);
+    lines.push(`UPDATE places SET partner_id = (SELECT id FROM partners WHERE reference = ${q(reference)}) WHERE kind = ${q(kind)} AND slug = ${q(slug)};`);
+  }
 });
 lines.push("");
 
-// Sample reviews: visible only in the admin panel (source = 'sample', unpublished, unverified).
+// Sample reviews (investor concept): published, never verified, flagged internally with source = 'sample'.
 const tourIdBySlug = new Map(tours.map((t, i) => [t.slug, i + 1]));
 for (const r of sampleReviews) {
   lines.push(
@@ -411,16 +426,60 @@ for (const r of sampleReviews) {
       author_name: r.authorName,
       author_country: r.authorCountry,
       rating: r.rating,
-      title: r.title,
-      body: r.body,
+      // Catalogue text keeps the current spelling and is converted on display; review and lead text is plain, so it is converted here.
+      title: r.language === "uz" ? uzText(r.title) : r.title,
+      body: r.language === "uz" ? uzText(r.body) : r.body,
       language: r.language,
       source: "sample",
       travel_date: /^\d{4}-\d{2}$/.test(r.travelMonth) ? `${r.travelMonth}-01` : null,
       is_verified: false,
-      is_published: false,
+      is_published: true,
     }),
   );
 }
+// Sample CRM pipeline (admin only): invented people, flagged by source_ref "SAMPLE-xxxx".
+{
+  const today = tashkentToday();
+  const stageOrder = ["new", "contacted", "qualified", "offer_sent", "negotiation", "confirmed", "completed"];
+  for (const l of sampleLeads) {
+    const created = `unixepoch() - ${l.ageDays * 86400 + 3600}`;
+    const cols: Record<string, unknown> = {
+      source: "admin",
+      source_ref: l.ref,
+      stage: l.stage,
+      full_name: l.fullName,
+      email: l.email,
+      phone: l.phone,
+      locale: l.locale,
+      title: l.locale === "uz" ? uzText(l.title) : l.title,
+      destination: l.destination,
+      interests: l.locale === "uz" ? uzText(l.interests) : l.interests,
+      budget_usd: l.budgetUsd,
+      travel_from: iso(addDays(today, l.fromDays)),
+      travel_to: iso(addDays(today, l.toDays)),
+      travellers: l.travellers,
+      value_usd: l.valueUsd,
+      follow_up_at: l.followUpDays == null ? null : iso(addDays(today, l.followUpDays)),
+    };
+    lines.push(
+      `INSERT OR IGNORE INTO leads (${Object.keys(cols).map((k) => `"${k}"`).join(", ")}, "created_at", "updated_at") VALUES (${Object.values(cols).map(q).join(", ")}, ${created}, unixepoch() - ${Math.floor(l.ageDays / 2) * 86400});`,
+    );
+    const lead = `(SELECT id FROM leads WHERE source = 'admin' AND source_ref = ${q(l.ref)})`;
+    const acts: [string, string, number][] = [["created", "Lead created", l.ageDays * 86400 + 3600]];
+    const reached = l.stage === "lost" ? 1 : stageOrder.indexOf(l.stage);
+    for (let i = 1; i <= reached; i++) acts.push(["stage", `${stageOrder[i - 1]} → ${stageOrder[i]}`, Math.max(600, (l.ageDays * 86400 * (reached - i + 1)) / (reached + 1))]);
+    if (l.stage === "lost") acts.push(["stage", "contacted → lost", 7200]);
+    l.notes.forEach((n, i) => acts.push(["note", l.locale === "uz" ? uzText(n) : n, 3600 * (i + 2)]));
+    for (const [kind, text, ago] of acts) {
+      lines.push(`INSERT INTO lead_activities (lead_id, kind, text, created_at) SELECT ${lead}, ${q(kind)}, ${q(text)}, unixepoch() - ${Math.round(ago)} WHERE NOT EXISTS (SELECT 1 FROM lead_activities WHERE lead_id = ${lead} AND kind = ${q(kind)} AND text = ${q(text)});`);
+    }
+  }
+  lines.push("");
+}
+
+lines.push(
+  "UPDATE tours SET rating_avg = (SELECT coalesce(round(avg(rating), 2), 0) FROM reviews WHERE reviews.tour_id = tours.id AND is_published = 1), rating_count = (SELECT count(*) FROM reviews WHERE reviews.tour_id = tours.id AND is_published = 1);",
+);
 lines.push("");
 
 // Settings are only inserted if missing, so values edited in the admin panel are never overwritten.

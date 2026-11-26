@@ -87,7 +87,7 @@ export async function SiteHeader({ locale, currency }: { locale: Locale; currenc
         <DesktopNav items={items} label={t("nav.mainNav")} />
         <div className="flex items-center gap-1 sm:gap-2">
           <LanguageSwitcher currency={currency} />
-          <WishlistLink label={t("nt.menu.wishlist")} className="max-sm:hidden" />
+          <WishlistLink label={t("nt.menu.wishlist")} className="max-sm:hidden xl:max-2xl:hidden" />
           <Link
             href="/trip-builder"
             className="hidden min-h-11 shrink-0 items-center gap-2 whitespace-nowrap rounded-full bg-lapis px-5 text-sm font-bold text-white shadow-[0_8px_20px_-10px_rgb(23_61_102/0.8)] transition-colors hover:bg-cobalt sm:inline-flex"
@@ -137,7 +137,7 @@ export async function SiteFooter({ locale }: { locale: Locale }) {
   return (
     <footer className="on-dark mt-24 bg-girih-dark text-white">
       <div className="container-page grid gap-10 py-14 lg:grid-cols-12">
-        <div className="lg:col-span-4">
+        <div className="lg:col-span-3">
           <Logo tone="dark" />
           <p className="mt-4 max-w-sm text-white/75">{t("nt.footer.tagline")}</p>
           {contact.licenseNumber && <p className="mt-3 text-sm text-white/70">{t("footer.licence", { number: contact.licenseNumber })}</p>}
@@ -156,19 +156,26 @@ export async function SiteFooter({ locale }: { locale: Locale }) {
             </div>
           )}
         </div>
-        <nav aria-label={t("nav.footerNav")} className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:col-span-5">
+        <nav aria-label={t("nav.footerNav")} className="grid grid-cols-2 gap-8 sm:grid-cols-4 lg:col-span-6">
           {col(t("nt.footer.tours"), [
             { href: "/tours", label: t("nt.menu.allTours") },
             { href: "/inbound", label: t("hubs.inboundTitle") },
             { href: "/domestic", label: t("hubs.domesticTitle") },
             { href: "/experiences", label: t("nt.menu.experiences") },
-            { href: "/custom-tour", label: t("nt.menu.builder") },
-            { href: "/planner", label: t("nav.planner") },
-            { href: "/assistant", label: t("nt.menu.assistant") },
+            { href: "/virtual-tours", label: t("eco.nav.virtualTours") },
+            { href: "/destinations", label: t("nav.destinations") },
+          ])}
+          {col(t("eco.nav.plan"), [
+            { href: "/trip-builder", label: t("eco.nav.tripBuilder") },
+            { href: "/ai-guide", label: t("eco.nav.aiGuide") },
+            { href: "/hotels", label: t("eco.nav.hotels") },
+            { href: "/restaurants", label: t("eco.nav.restaurants") },
+            { href: "/transport", label: t("eco.nav.flightsTrains") },
+            { href: "/navigator", label: t("eco.nav.travelMap") },
           ])}
           {col(t("nt.footer.company"), [
             { href: "/about", label: t("nav.about") },
-            { href: "/destinations", label: t("nav.destinations") },
+            { href: "/partners", label: t("eco.nav.partners") },
             { href: "/travel-guide", label: t("nt.menu.guide") },
             { href: "/services", label: t("nt.menu.services") },
             { href: "/contact", label: t("nav.contact") },

@@ -1,5 +1,5 @@
 import "server-only";
-import { and, count, desc, eq, ne, sql, type SQL } from "drizzle-orm";
+import { and, count, desc, eq, sql, type SQL } from "drizzle-orm";
 import { conflict, isUniqueViolation, notFound } from "@/lib/http";
 import type { Db } from "../client";
 import { bookings, destinations, reviews, tours } from "../schema";
@@ -24,8 +24,8 @@ export async function listPublishedReviews(
   db: Db,
   f: { tourSlug?: string; destinationSlug?: string; limit: number },
 ) {
-  // Seeded "sample" reviews stay admin-only even if someone ticks "published".
-  const conds: (SQL | undefined)[] = [eq(reviews.isPublished, true), ne(reviews.source, "sample")];
+  // Seeded sample reviews (source "sample") are shown like other published reviews but never marked verified.
+  const conds: (SQL | undefined)[] = [eq(reviews.isPublished, true)];
   if (f.tourSlug) conds.push(eq(tours.slug, f.tourSlug));
   if (f.destinationSlug) {
     conds.push(
@@ -54,8 +54,8 @@ export async function recomputeTourRating(db: Db, tourId: number | null): Promis
   await db
     .update(tours)
     .set({
-      ratingAvg: sql`(SELECT coalesce(round(avg(rating), 2), 0) FROM reviews WHERE tour_id = ${tourId} AND is_published = 1 AND source <> 'sample')`,
-      ratingCount: sql`(SELECT count(*) FROM reviews WHERE tour_id = ${tourId} AND is_published = 1 AND source <> 'sample')`,
+      ratingAvg: sql`(SELECT coalesce(round(avg(rating), 2), 0) FROM reviews WHERE tour_id = ${tourId} AND is_published = 1)`,
+      ratingCount: sql`(SELECT count(*) FROM reviews WHERE tour_id = ${tourId} AND is_published = 1)`,
     })
     .where(eq(tours.id, tourId));
 }

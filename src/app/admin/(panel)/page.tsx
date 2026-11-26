@@ -3,6 +3,9 @@ import Link from "next/link";
 import { BarChart, HBars, PageHeader, Panel, StatTile } from "@/components/admin/ui";
 import { getDb } from "@/db/client";
 import { getDashboardStats } from "@/db/queries/stats";
+import { getCrmStats } from "@/db/queries/crm";
+import { CrmOverview } from "@/components/admin/crm/overview";
+import { todayInTashkent } from "@/validators/common";
 import { BOOKING_STATUSES, SERVICE_TYPES } from "@/db/types";
 import { formatDateLabel } from "@/lib/format";
 import { localize } from "@/lib/localize";
@@ -21,16 +24,21 @@ export default async function AdminOverview() {
   const tm = await getTranslations({ locale, namespace: "monthsShort" });
   const ms = (m: number) => tm(String(m) as never);
   const ta = await getTranslations({ locale, namespace: "audience" });
-  const s = await getDashboardStats(getDb(), {});
+  const [s, crm] = await Promise.all([getDashboardStats(getDb(), {}), getCrmStats(getDb(), todayInTashkent())]);
+  const tc = (k: string, v?: Record<string, string | number>) => t(`crm.${k}` as never, v as never);
   const usd = (c: number) => formatMoney(Math.round(c / 100) * 100, "USD", locale);
   const inbound = s.byAudience.find((a) => a.audience === "inbound")?.bookings ?? 0;
   const domestic = s.byAudience.find((a) => a.audience === "domestic")?.bookings ?? 0;
   const splitTotal = inbound + domestic;
   return (
     <>
-      <PageHeader title={t("overview.title")}>
+      <PageHeader title={t("overview.title")} />
+      <CrmOverview stats={crm} t={tc} locale={locale} />
+      <section aria-labelledby="bookings-overview" className="mt-10">
+      <div className="mb-4">
+        <h2 id="bookings-overview" className="text-2xl text-lapis-deep">{t("nav.bookings")}</h2>
         <p className="mt-1 text-ink-muted">{t("overview.last30")} · {formatDateLabel(s.range.from, ms)} – {formatDateLabel(s.range.to, ms)}</p>
-      </PageHeader>
+      </div>
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <StatTile label={t("overview.bookings")} value={String(s.totals.bookings)} />
         <StatTile label={t("overview.guests")} value={String(s.totals.guests)} />
@@ -91,6 +99,7 @@ export default async function AdminOverview() {
           )}
         </Panel>
       </div>
+      </section>
     </>
   );
 }

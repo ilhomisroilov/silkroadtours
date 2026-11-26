@@ -78,7 +78,7 @@ export async function pageMetadata(opts: {
       images: [{ url: ogImage, width: 1200, height: 630 }],
     },
     twitter: { card: "summary_large_image", title: opts.title, description, images: [ogImage] },
-    robots: opts.noIndex ? { index: false, follow: true } : undefined,
+    robots: process.env.SEARCH_INDEXING !== "on" ? { index: false, follow: false } : opts.noIndex ? { index: false, follow: true } : undefined,
   };
 }
 

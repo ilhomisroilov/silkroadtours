@@ -13,7 +13,7 @@ function isActive(pathname: string, href: string) {
 }
 
 const itemCls =
-  "relative inline-flex min-h-11 items-center gap-1 whitespace-nowrap px-2 text-[0.9rem] font-semibold text-ink transition-colors hover:text-cobalt 2xl:px-3 2xl:text-[0.95rem] after:absolute after:inset-x-2 after:bottom-1 after:h-0.5 after:origin-left after:scale-x-0 after:rounded-full after:bg-cobalt after:transition-transform";
+  "relative inline-flex min-h-11 items-center gap-1 whitespace-nowrap px-1.5 text-[0.875rem] font-semibold text-ink transition-colors hover:text-cobalt 2xl:px-3 2xl:text-[0.95rem] after:absolute after:inset-x-2 after:bottom-1 after:h-0.5 after:origin-left after:scale-x-0 after:rounded-full after:bg-cobalt after:transition-transform";
 
 function Dropdown({ item, active }: { item: NavItem; active: boolean }) {
   const [open, setOpen] = useState(false);

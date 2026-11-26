@@ -1,1 +1,310 @@
-{}
+{
+  "tripBuilder": {
+    "page": {
+      "eyebrow": "Sayohat konstruktori",
+      "title": "Sayohatingizni kunma-kun tuzing",
+      "lead": "Yoʻnalish va sanalarni tanlang, mehmonxona, ovqatlanish, poyezd, diqqatga sazovor joylar va tajribalarni qoʻshing, ularni kunlarga taqsimlang va taxminiy budjetni koʻring. Rejani ulashing yoki tasdiqlangan taklif olish uchun sayohat menejeriga yuboring."
+    },
+    "views": "Koʻrinishni almashtirish",
+    "viewCatalogue": "Katalog",
+    "viewTrip": "Sayohatim",
+    "shared": {
+      "missing": "Bu sayohat havolasining muddati tugagan yoki notoʻgʻri. Quyida yangi reja tuzishingiz mumkin.",
+      "loaded": "Ulashilgan sayohat ochildi. Xohlaganingizni oʻzgartiring, soʻng yangi havola bilan saqlang.",
+      "pending": "Siz ulashilgan sayohatni ochdingiz, lekin bu yerda allaqachon tuzilayotgan sayohatingiz bor.",
+      "open": "Ulashilgan sayohatni ochish",
+      "keep": "Oʻz sayohatimni qoldirish",
+      "dismiss": "Yopish"
+    },
+    "units": {
+      "durationHM": "{h} soat {m} daq",
+      "durationH": "{h} soat",
+      "durationM": "{m} daq",
+      "hours": "{n} soat",
+      "days": "{n} kun"
+    },
+    "setup": {
+      "title": "1-qadam · Sayohat tafsilotlari",
+      "name": "Sayohat nomi",
+      "namePlaceholder": "masalan, Bahorgi Ipak yoʻli",
+      "destinations": "Yoʻnalishlar",
+      "destinationsPlaceholder": "Qayerga borishni tanlang",
+      "destinationsHint": "{max} tagacha joy tanlang. Quyidagi katalog u yerda nimalar borligini koʻrsatadi.",
+      "group": {
+        "uzbekistan": "Oʻzbekiston",
+        "abroad": "Xorij"
+      },
+      "chosen": "Tanlangan yoʻnalishlar",
+      "removeDestination": "{name}ni olib tashlash",
+      "dates": "Sanalar",
+      "daysCount": "{count} kun",
+      "start": "Dan",
+      "end": "Gacha",
+      "travellers": "Sayohatchilar",
+      "adults": "Kattalar",
+      "children": "Bolalar",
+      "decrease": "Kamaytirish: {label}",
+      "increase": "Koʻpaytirish: {label}"
+    },
+    "price": {
+      "onSite": "Kirish joyida toʻlanadi",
+      "night": "{price} dan / kecha",
+      "meal": "kishi boshiga {price} dan",
+      "group": "mashina uchun {price} dan",
+      "trip": "{price} dan",
+      "person": "kishi boshiga {price} dan"
+    },
+    "catalogue": {
+      "eyebrow": "2-qadam · Xizmatlar",
+      "title": "Nimalar qilishni qoʻshing",
+      "scope": "Xizmatlarni koʻrsatish",
+      "everywhere": "Hamma joyda",
+      "mine": "Mening yoʻnalishlarim",
+      "pickHint": "Biz tashkil qiladigan hamma narsa koʻrsatilmoqda. Saralash uchun yuqorida yoʻnalishlarni tanlang.",
+      "search": "Katalogdan qidirish",
+      "searchPlaceholder": "Mehmonxona, joy, taom qidiring…",
+      "tabsLabel": "Xizmat turlari",
+      "tabs": {
+        "hotels": "Mehmonxonalar",
+        "restaurants": "Restoranlar",
+        "flights": "Parvozlar",
+        "trains": "Poyezdlar",
+        "transfers": "Transfer va mahalliy transport",
+        "attractions": "Diqqatga sazovor joylar",
+        "experiences": "Tajribalar",
+        "tours": "Turlar"
+      },
+      "error": "Katalogni yuklab boʻlmadi. Internetni tekshirib, qayta urinib koʻring.",
+      "retry": "Qayta urinish",
+      "empty": "Yoʻnalishlaringiz uchun bu turkumda hozircha hech narsa yoʻq.",
+      "showEverywhere": "Barcha yoʻnalishlarni koʻrsatish",
+      "kind": {
+        "hotel": "Mehmonxona",
+        "restaurant": "Restoran",
+        "transport": "Mahalliy transport",
+        "flight": "Parvoz",
+        "train": "Poyezd",
+        "transfer": "Transfer",
+        "attraction": "Diqqatga sazovor joy",
+        "experience": "Tajriba",
+        "tour": "Tur",
+        "activity": "Faoliyat"
+      }
+    },
+    "itinerary": {
+      "eyebrow": "3-qadam · Marshrut",
+      "title": "Kunlaringiz",
+      "summary": "{days} kun · {items} ta element",
+      "autoArrange": "Avtomatik taqsimlash",
+      "noDates": "{days} kunlik reja. Kunlar sonini oʻzgartirish uchun yuqorida sanalarni belgilang.",
+      "unscheduled": "Hali kun belgilanmagan ({count})",
+      "unscheduledHint": "Har bir element uchun kun tanlang yoki Avtomatik taqsimlash tugmasini bosing.",
+      "freeDay": "Boʻsh kun. Katalogdan biror narsa qoʻshing yoki Avtomatik taqsimlashdan foydalaning.",
+      "dayN": "{day}-kun",
+      "notScheduled": "Kun belgilanmagan",
+      "dayFor": "{title} uchun kun",
+      "moveUp": "{title}ni yuqoriga surish",
+      "moveDown": "{title}ni pastga surish",
+      "remove": "{title}ni olib tashlash",
+      "emptyTitle": "Sayohatingiz shu yerdan boshlanadi",
+      "emptyText": "Hali hech narsa qoʻshilmagan. Toʻliq sayohat rejasini tuzish taxminan uch daqiqa oladi.",
+      "emptySteps": {
+        "step1": "Yuqorida yoʻnalishlar, sanalar va sayohatchilar sonini tanlang.",
+        "step2": "Katalogdan mehmonxona, restoran, poyezd, diqqatga sazovor joy va tajribalarni qoʻshing.",
+        "step3": "Hammasini kunlarga taqsimlang yoki buni Avtomatik taqsimlash va AI rejalashtiruvchiga topshiring.",
+        "step4": "Budjetni tekshiring, havolani ulashing va sayohatni sayohat menejeriga yuboring."
+      },
+      "quickStart": "Yoki mashhur marshrutdan boshlang:"
+    },
+    "budget": {
+      "eyebrow": "4-qadam · Budjet",
+      "title": "Taxminiy budjet",
+      "estimate": "Taxmin",
+      "forGroup": "{travellers} sayohatchi · {days} kun, {nights} kecha",
+      "perPerson": "kishi boshiga {price}",
+      "meals": "Kundalik ovqatlanish",
+      "mealsHint": "Restoran rejalashtirilmagan ovqatlar uchun kishi boshiga kuniga taxminan {price}.",
+      "byCategory": "Turkumlar boʻyicha",
+      "cat": {
+        "stay": "Turar joy",
+        "food": "Ovqat",
+        "transport": "Transport",
+        "sights": "Diqqatga sazovor joylar",
+        "experiences": "Tajribalar",
+        "tours": "Turlar"
+      },
+      "nothingYet": "Budjetni koʻrish uchun mehmonxona, poyezd yoki tajriba qoʻshing.",
+      "byDay": "Kunlar boʻyicha",
+      "dayN": "{day}-kun",
+      "unscheduled": "Kun belgilanmagan",
+      "lines": "Qanday hisoblanadi",
+      "unit": {
+        "nightRoom": "{price} × {count} xona-kecha ({rooms} xona)",
+        "person": "{price} × {count} kishi",
+        "mealPerson": "{price} × {count} mehmon",
+        "dayPerson": "{price} × {days} kun × {count} kishi",
+        "group": "mashina uchun {price}",
+        "trip": "sayohat uchun {price}"
+      },
+      "note": "Taxminiy narxlar, {rooms} ta ikki kishilik xona hisobida. Boʻsh joylar va yakuniy narxni sayohat menejerimiz tasdiqlaydi.",
+      "unpriced": "{count} ta elementning taxminiy narxi hali yoʻq."
+    },
+    "ai": {
+      "eyebrow": "AI marshrut",
+      "title": "Kunlaringizni AI rejalashtiruvchi tuzsin",
+      "text": "U yoʻnalishlar, sanalar, sayohatchilar va tanlangan elementlarni oʻqib, sayohatingizga qoʻshishingiz mumkin boʻlgan kunma-kun rejani taklif qiladi.",
+      "cta": "AI marshrut tuzish",
+      "again": "Qayta tuzish",
+      "needInput": "Avval kamida bitta yoʻnalish tanlang yoki element qoʻshing.",
+      "loading": "Kunlaringiz tuzilmoqda…",
+      "busy": "Rejalashtiruvchi hozir band. Bir daqiqadan soʻng qayta urinib koʻring.",
+      "network": "Rejalashtiruvchi bilan aloqa yoʻq. Internetni tekshirib, qayta urinib koʻring.",
+      "error": "Rejalashtiruvchi bu sayohatni tuza olmadi. Qayta urinib koʻring.",
+      "retry": "Qayta urinish",
+      "addAll": "Barcha takliflarni qoʻshish ({count})",
+      "dayN": "{day}-kun",
+      "exploreDay": "{place} boʻylab sayr",
+      "suggested": "Bu kun uchun takliflar",
+      "openPlanner": "Bu rejani AI rejalashtiruvchida ochish",
+      "request": {
+        "base": "{places} boʻylab {days} kunlik sayohat rejasini tuz: {adults} kattalar va {children} bola.",
+        "anywhere": "Oʻzbekiston",
+        "dates": "Sayohat sanalari: {start} dan {end} gacha.",
+        "items": "Allaqachon tanlanganlar: {items}.",
+        "ask": "Kunlarni mantiqiy tartibda joylashtir va har bir kun uchun diqqatga sazovor joy va tajribalar taklif qil."
+      },
+      "fromCatalogue": "Tayyor marshrutlarimiz va siz tanlagan yoʻnalishlar asosida tuzildi. Yoqqan takliflarni kunlaringizga qoʻshing."
+    },
+    "map": {
+      "eyebrow": "Xarita",
+      "title": "Sayohatingiz xaritada",
+      "legend": "Kun ranglari",
+      "empty": "Qoʻshgan elementlaringiz shu yerda kunlar rangida koʻrinadi.",
+      "label": "Sayohat elementlari xaritasi",
+      "loading": "Xarita yuklanmoqda…",
+      "attribution": "OpenStreetMap ishtirokchilari",
+      "dayN": "{day}-kun",
+      "unscheduled": "kun belgilanmagan",
+      "details": "Batafsil"
+    },
+    "share": {
+      "eyebrow": "Saqlash va ulashish",
+      "title": "Bu sayohatga havola oling",
+      "text": "Rejaning nusxasini saqlang va hamrohlaringiz bilan ulashing. Havolaga ega har kim uni oʻz konstruktorida ochishi mumkin.",
+      "save": "Saqlash va havola olish",
+      "saveAgain": "Oʻzgarishlarni yangi havola bilan saqlash",
+      "saved": "Saqlandi",
+      "changed": "Saqlagandan keyin sayohatni oʻzgartirdingiz. Soʻnggi versiyani ulashish uchun qayta saqlang.",
+      "link": "Ulashish havolasi",
+      "copy": "Havolani nusxalash",
+      "copied": "Nusxalandi",
+      "shareNative": "Ulashish",
+      "shareTitle": "Mening sayohat rejam",
+      "rateLimited": "Qisqa vaqt ichida koʻp versiya saqladingiz. Bir necha daqiqa kuting.",
+      "network": "Aloqa yoʻq. Internetni tekshirib, qayta urinib koʻring.",
+      "invalid": "Bu sayohatni saqlab boʻlmaydi. Bir nechta elementni olib tashlab, qayta urinib koʻring.",
+      "error": "Sayohatni saqlab boʻlmadi. Qayta urinib koʻring."
+    },
+    "inquiry": {
+      "eyebrow": "5-qadam · Band qilish",
+      "title": "Sayohatni sayohat menejeriga yuboring",
+      "text": "Sayohat menejeri har bir element boʻyicha boʻsh joylarni tekshiradi, narxlarni tasdiqlaydi va sizga taklif yuboradi. Siz rozilik bermaguningizcha hech narsa band qilinmaydi va toʻlanmaydi.",
+      "check": {
+        "destinations": "Yoʻnalishlar tanlangan",
+        "dates": "Sayohat sanalari belgilangan",
+        "items": "Kamida bitta xizmat qoʻshilgan"
+      },
+      "done": "bajarildi",
+      "todo": "hali kerak",
+      "cta": "Bu sayohatni soʻrash",
+      "needMore": "Soʻrov yuborish uchun yuqorida yoʻnalishlar va kelgusi sayohat sanalarini tanlang.",
+      "contactTitle": "Siz bilan qanday bogʻlanamiz?",
+      "submit": "Sayohat soʻrovini yuborish",
+      "notesDay": "{day}-kun",
+      "notesUnscheduled": "Kun belgilanmagan",
+      "notesEstimate": "Taxminiy budjet: {total} (kishi boshiga {perPerson})",
+      "notesLink": "Sayohat havolasi"
+    },
+    "teaser": {
+      "eyebrow": "Sayohat konstruktori",
+      "title": "Oʻz sayohatingizni bir necha daqiqada yarating",
+      "text": "Mehmonxona, poyezd, diqqatga sazovor joylar, taom va tajribalarni jonli budjetli kunma-kun rejaga birlashtiring. Hammasi joyida boʻlsa, sayohat menejeri uni tasdiqlangan sayohatga aylantiradi.",
+      "stepLabel": "{n}-qadam",
+      "step1": {
+        "title": "Qayerga va qachon",
+        "text": "Yoʻnalishlar, sanalar va kimlar sayohat qilishini tanlang."
+      },
+      "step2": {
+        "title": "Xizmatlarni qoʻshing",
+        "text": "Mehmonxona, restoran, poyezd, parvoz, diqqatga sazovor joy va tajribalar."
+      },
+      "step3": {
+        "title": "Kunlarni tartiblang",
+        "text": "Elementlarni oʻzingiz kunlarga joylang yoki buni Avtomatik taqsimlash va AI rejalashtiruvchiga topshiring."
+      },
+      "step4": {
+        "title": "Budjet va yuborish",
+        "text": "Taxminni koʻring, havolani ulashing, tasdiqlangan taklif soʻrang."
+      },
+      "cta": "Sayohatimni tuzish",
+      "mapCta": "Sayohat xaritasini ochish",
+      "mockEyebrow": "Namuna marshrut",
+      "mockMeta": "{days} kun · {travellers} sayohatchi",
+      "dayN": "{day}-kun",
+      "mockTotal": "Taxminiy budjet",
+      "mockPerPerson": "kishi boshiga {price}"
+    }
+  },
+  "tripButton": {
+    "add": "Sayohatga qoʻshish",
+    "added": "Sayohatimda",
+    "addLabel": "{title}ni sayohatimga qoʻshish",
+    "removeLabel": "{title}ni sayohatimdan olib tashlash"
+  },
+  "navigator": {
+    "eyebrow": "Sayohat xaritasi",
+    "title": "Navigator",
+    "lead": "Diqqatga sazovor joylar, mehmonxonalar, restoranlar va transport bitta xaritada. Yoningizdagi joylarni toping va sayohatingizga qoʻshing.",
+    "destination": "Yoʻnalish",
+    "allDestinations": "Barcha yoʻnalishlar",
+    "nearMe": "Yonimda",
+    "layers": "Xaritada koʻrsatish",
+    "layer": {
+      "attraction": "Diqqatga sazovor joylar",
+      "hotel": "Mehmonxonalar",
+      "restaurant": "Restoranlar",
+      "transport": "Transport",
+      "trip": "Sayohatim"
+    },
+    "myTrip": "sayohatim",
+    "locating": "Joylashuvingiz aniqlanmoqda…",
+    "denied": "Bu sayt uchun joylashuvga ruxsat oʻchirilgan, shu sabab qayerdaligingizni koʻra olmaymiz.",
+    "unavailable": "Joylashuvingiz hozir mavjud emas.",
+    "pickOnMap": "Joyimni xaritada belgilash",
+    "picking": "Xaritada turgan joyingizni bosing. Masofalar shu nuqtadan hisoblanadi.",
+    "far": "Siz yoʻnalishlarimizdan uzoqdasiz shekilli. Masofalar hozirgi joylashuvingizdan hisoblanmoqda.",
+    "nearbyTitle": "Yaqin atrofda",
+    "listTitle": "Xaritadagi joylar",
+    "fromYou": "Sizdan masofa boʻyicha saralangan.",
+    "fromPicked": "Siz belgilagan nuqtadan masofa boʻyicha saralangan.",
+    "fromCentre": "{place} markazidan masofa boʻyicha saralangan.",
+    "pickDestination": "Masofa boʻyicha saralash uchun yoʻnalish tanlang yoki Yonimda tugmasini bosing.",
+    "nearbyButton": "Yaqin atrofda ({count})",
+    "listButton": "Roʻyxat ({count})",
+    "showOnMap": "Xaritada koʻrsatish",
+    "away": "{distance} uzoqlikda",
+    "km": "{km} km",
+    "meters": "{m} m",
+    "details": "Batafsil",
+    "empty": "Bu filtrlar bilan koʻrsatadigan narsa yoʻq. Koʻproq qatlam yoqing yoki boshqa yoʻnalish tanlang.",
+    "emptyMap": "Joylarni koʻrish uchun qatlamni yoqing",
+    "error": "Xarita maʼlumotlarini yuklab boʻlmadi.",
+    "retry": "Qayta urinish",
+    "mapLabel": "Diqqatga sazovor joylar, mehmonxonalar, restoranlar va transport xaritasi",
+    "loading": "Xarita yuklanmoqda…",
+    "attribution": "OpenStreetMap ishtirokchilari",
+    "you": "Siz shu yerdasiz",
+    "pickedPoint": "Boshlangʻich nuqtangiz",
+    "close": "Yopish"
+  }
+}

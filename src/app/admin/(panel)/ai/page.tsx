@@ -1,120 +1,154 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import type { ReactNode } from "react";
+import { getTranslations } from "next-intl/server";
+import { z } from "zod";
+import { TestConsole } from "@/components/admin/ai-center/test-console";
+import { ConversationTable, KnowledgePanel, KpiTiles, ModelConfigPanel, OutcomePanel, ProviderPanel, ToolsPanel, UsagePanels } from "@/components/admin/ai-center/sections";
 import { AiSettingsForm } from "@/components/admin/ai-settings-form";
-import { HBars, PageHeader, Panel, StatTile } from "@/components/admin/ui";
+import { FilterBar, FilterField, filterInput, Pager } from "@/components/admin/list-tools";
+import { PageHeader, Panel } from "@/components/admin/ui";
 import { getDb } from "@/db/client";
-import { aiStats, knowledgeStats, providerStatus, recentConversations } from "@/lib/ai/admin";
-import { contentCounts } from "@/db/queries/content";
-import { AI_ADMIN } from "@/lib/ai/admin-strings";
+import { aiStats, failedRequests, knowledgeStats, providerStatus, recentConversations, usageStats } from "@/lib/ai/admin";
 import { getAiSettings } from "@/lib/ai/agent";
-import { adminLocale, requireAdminPage } from "@/lib/server/admin";
+import { TOOL_SPECS } from "@/lib/ai/tools";
+import { formatDateLabel } from "@/lib/format";
+import { adminT, requireAdminPage } from "@/lib/server/admin";
+import { cn } from "@/lib/cn";
+import { uzText } from "@/lib/uz-alphabet";
 
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata(): Promise<Metadata> {
-  return { title: AI_ADMIN[await adminLocale()].title };
+  const { t } = await adminT();
+  return { title: t("aicenter.title") };
 }
 
-const STATUS_CLS: Record<string, string> = { ok: "text-turquoise-ink", fallback: "text-terracotta-deep", error: "text-danger", unanswered: "text-saffron-ink" };
+const TABS = ["overview", "console", "usage", "logs", "settings"] as const;
+type Tab = (typeof TABS)[number];
 
-export default async function AdminAi() {
+const logQuery = z.object({
+  status: z.enum(["ok", "error", "fallback", "unanswered"]).optional().catch(undefined),
+  source: z.enum(["assistant", "planner", "test"]).optional().catch(undefined),
+  lang: z.enum(["en", "uz", "ru"]).optional().catch(undefined),
+  q: z.string().trim().max(100).optional().catch(undefined),
+  page: z.coerce.number().int().min(1).max(1000).optional().catch(undefined),
+});
+
+export default async function AdminAiCenter({ searchParams }: { searchParams: Promise<Record<string, string | undefined>> }) {
   const admin = await requireAdminPage();
-  const locale = await adminLocale();
-  const t = AI_ADMIN[locale];
+  const { t, locale } = await adminT();
+  const sp = await searchParams;
+  const tab: Tab = (TABS as readonly string[]).includes(sp.tab ?? "") ? (sp.tab as Tab) : "overview";
   const db = getDb();
-  const [stats, kb, settings, convs, articles] = await Promise.all([aiStats(db), knowledgeStats(db), getAiSettings(db), recentConversations(db, 50), contentCounts(db)]);
-  const prov = providerStatus();
   const fmt = (n: number) => n.toLocaleString(locale === "uz" ? "uz-UZ" : "en-US");
+  const prov = providerStatus();
+  const settings = await getAiSettings(db);
+
+  let body: ReactNode = null;
+  if (tab === "overview") {
+    const [stats, kb] = await Promise.all([aiStats(db), knowledgeStats(db)]);
+    body = (
+      <>
+        <KpiTiles stats={stats} t={t} fmt={fmt} />
+        <div className="mt-6 grid gap-6 xl:grid-cols-3">
+          <ProviderPanel prov={prov} settings={settings} t={t} className="xl:col-span-2" />
+          <KnowledgePanel kb={kb} t={t} fmt={fmt} />
+        </div>
+        <div className="mt-6 grid gap-6 xl:grid-cols-2">
+          <ToolsPanel tools={TOOL_SPECS.map((s) => ({ name: s.name, description: s.description }))} usage={stats.tools} t={t} />
+          <OutcomePanel stats={stats} t={t} />
+        </div>
+      </>
+    );
+  } else if (tab === "console") {
+    body = <TestConsole chain={prov.chain} enabled={settings.enabled} defaultLocale={locale === "uz" ? "uz" : "en"} />;
+  } else if (tab === "usage") {
+    const tm = await getTranslations({ locale, namespace: "monthsShort" });
+    const ms = (d: string) => formatDateLabel(d, (m) => tm(String(m) as never), false);
+    const [usage, failures] = await Promise.all([usageStats(db), failedRequests(db)]);
+    body = <UsagePanels usage={usage} failures={failures} t={t} fmt={fmt} ms={ms} />;
+  } else if (tab === "logs") {
+    const parsed = logQuery.parse(sp);
+    const rows = await recentConversations(db, { status: parsed.status, source: parsed.source, locale: parsed.lang, q: parsed.q, page: parsed.page, pageSize: 30 });
+    const pages = Math.max(1, Math.ceil(rows.total / rows.pageSize));
+    const filtered = Boolean(parsed.status || parsed.source || parsed.lang || parsed.q);
+    body = (
+      <>
+        <FilterBar submitLabel={t("common.filter")}>
+          <input type="hidden" name="tab" value="logs" />
+          <FilterField label={t("aicenter.logs.search")}>
+            <input name="q" type="search" defaultValue={parsed.q ?? ""} className={`${filterInput} w-64 max-w-full`} />
+          </FilterField>
+          <FilterField label={t("aicenter.logs.cols.status")}>
+            <select name="status" defaultValue={parsed.status ?? ""} className={filterInput}>
+              <option value="">{t("common.all")}</option>
+              {(["ok", "unanswered", "fallback", "error"] as const).map((s) => <option key={s} value={s}>{t(`aicenter.status.${s}`)}</option>)}
+            </select>
+          </FilterField>
+          <FilterField label={t("aicenter.logs.cols.source")}>
+            <select name="source" defaultValue={parsed.source ?? ""} className={filterInput}>
+              <option value="">{t("common.all")}</option>
+              <option value="assistant">{t("aicenter.logs.sources.assistant")}</option>
+              <option value="planner">{t("aicenter.logs.sources.planner")}</option>
+              <option value="test">{t("aicenter.logs.test")}</option>
+            </select>
+          </FilterField>
+          <FilterField label={t("aicenter.logs.cols.lang")}>
+            <select name="lang" defaultValue={parsed.lang ?? ""} className={filterInput}>
+              <option value="">{t("common.all")}</option>
+              <option value="en">English</option>
+              <option value="uz">{uzText("Oʻzbekcha")}</option>
+              <option value="ru">Русский</option>
+            </select>
+          </FilterField>
+          {filtered && <Link href="/admin/ai?tab=logs" className="inline-flex min-h-11 items-center px-2 text-sm font-semibold text-cobalt underline">{t("aicenter.logs.reset")}</Link>}
+        </FilterBar>
+        <p className="mb-2 text-sm text-ink-muted">{t("aicenter.logs.count", { count: rows.total })}</p>
+        <ConversationTable rows={rows} t={t} fmt={fmt} />
+        {pages > 1 && (
+          <Pager
+            page={rows.page}
+            pageSize={rows.pageSize}
+            total={rows.total}
+            base="/admin/ai"
+            params={{ tab: "logs", status: parsed.status, source: parsed.source, lang: parsed.lang, q: parsed.q }}
+            labels={{ prev: t("common.prev"), next: t("common.next"), page: t("common.page", { page: rows.page, pages }) }}
+          />
+        )}
+        <p className="mt-4 text-xs text-ink-muted">{t("aicenter.logs.privacy", { days: settings.retentionDays })}</p>
+      </>
+    );
+  } else {
+    body = (
+      <div className="grid gap-6 xl:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
+        <Panel title={t("aicenter.settings.title")} className="min-w-0">
+          <p className="mb-5 border-l-2 border-terracotta bg-sand-soft p-3 text-sm">{t("aicenter.settings.protected")}</p>
+          <AiSettingsForm initial={settings} canEdit={admin.role === "owner"} />
+        </Panel>
+        <ModelConfigPanel prov={prov} t={t} />
+      </div>
+    );
+  }
+
   return (
     <>
-      <PageHeader title={t.title}>
-        <p className="mt-1 text-ink-muted">{t.last30}</p>
+      <PageHeader title={t("aicenter.title")}>
+        <p className="mt-1 max-w-2xl text-ink-muted">{t("aicenter.intro")}</p>
       </PageHeader>
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <StatTile label={t.conversations} value={fmt(stats.conversations)} />
-        <StatTile label={t.replies} value={fmt(stats.replies)} hint={`${t.fallback}: ${stats.fallback} · ${t.errors}: ${stats.errors}`} />
-        <StatTile label={t.tokens} value={`${fmt(stats.tokensIn)} / ${fmt(stats.tokensOut)}`} hint={`${t.latency}: ${(stats.avgLatencyMs / 1000).toFixed(1)} s`} />
-        <StatTile label={t.feedback} value={`${stats.feedback.up} / ${stats.feedback.down}`} hint={`${t.bookings}: ${stats.bookingInquiries}`} />
-      </div>
-      <div className="mt-6 grid gap-6 xl:grid-cols-3">
-        <Panel title={t.provider}>
-          {prov.chain.length === 0 ? (
-            <p className="text-danger">{t.noProvider}</p>
-          ) : (
-            <>
-              <p className="text-sm font-semibold text-ink-muted">{t.chain}</p>
-              <ol className="mt-2 list-decimal space-y-1 pl-5 text-sm">
-                {prov.chain.map((p) => (
-                  <li key={p.id + p.model}><b>{p.id}</b> · {p.model}</li>
-                ))}
-              </ol>
-            </>
-          )}
-          <p className="mt-4 text-sm font-semibold text-ink-muted">{t.keys}</p>
-          <ul className="mt-1 space-y-1 text-sm">
-            {prov.keys.map((k) => (
-              <li key={k.name} className="flex flex-wrap justify-between gap-2">
-                <span>{k.name}</span>
-                <code className={k.value ? "" : "text-ink-muted"}>{k.value ?? t.notSet}</code>
-              </li>
-            ))}
-          </ul>
-        </Panel>
-        <Panel title={t.knowledge}>
-          <dl className="space-y-2 text-sm">
-            <div className="flex justify-between border-b border-line pb-2"><dt>{t.tours}</dt><dd className="font-bold">{kb.toursPublished} / {kb.tours}</dd></div>
-            <div className="flex justify-between border-b border-line pb-2"><dt>{t.destinations}</dt><dd className="font-bold">{kb.destinations}</dd></div>
-            <div className="flex justify-between border-b border-line pb-2"><dt>{t.faq}</dt><dd className="font-bold">{kb.faq}</dd></div>
-            <div className="flex justify-between gap-3"><dt>{t.articles}</dt><dd className="font-bold">{articles.guide + articles.experience + articles.service}</dd></div>
-          </dl>
-        </Panel>
-        <Panel title={t.tools}>
-          {stats.tools.length ? <HBars rows={stats.tools} color="#2f8f8b" /> : <p className="text-ink-muted">{t.noData}</p>}
-          {stats.byProvider.length > 0 && (
-            <>
-              <p className="mb-2 mt-4 text-sm font-semibold text-ink-muted">{t.byProvider}</p>
-              <HBars rows={stats.byProvider} color="#26458f" />
-            </>
-          )}
-        </Panel>
-      </div>
-
-      <Panel title={t.recent} className="mt-6">
-        {convs.length === 0 ? (
-          <p className="text-ink-muted">{t.none}</p>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[48rem] text-left text-sm">
-              <thead className="text-xs uppercase tracking-wider text-ink-muted">
-                <tr>
-                  <th className="py-2 pr-3">{t.id}</th><th className="py-2 pr-3">{t.time}</th><th className="py-2 pr-3">{t.lang}</th><th className="py-2 pr-3">{t.source}</th><th className="py-2 pr-3">{t.question}</th><th className="py-2 pr-3">Model</th><th className="py-2 pr-3">Token</th><th className="py-2 pr-3">{t.status}</th><th />
-                </tr>
-              </thead>
-              <tbody>
-                {convs.map((c) => (
-                  <tr key={c.id} className="border-t border-line align-top">
-                    <td className="py-2 pr-3 font-mono text-xs">{c.id.slice(0, 8)}</td>
-                    <td className="py-2 pr-3 whitespace-nowrap">{c.createdAt.toISOString().slice(0, 16).replace("T", " ")}</td>
-                    <td className="py-2 pr-3 uppercase">{c.locale}</td>
-                    <td className="py-2 pr-3">{c.source}</td>
-                    <td className="max-w-[22rem] py-2 pr-3"><span className="line-clamp-2">{c.firstQuestion}</span></td>
-                    <td className="py-2 pr-3">{c.lastProvider}</td>
-                    <td className="py-2 pr-3">{fmt(Number(c.tokens))}</td>
-                    <td className={`py-2 pr-3 font-bold ${STATUS_CLS[c.lastStatus] ?? ""}`}>{c.lastStatus ?? "—"}{c.bookingReference ? ` · ${c.bookingReference}` : ""}</td>
-                    <td className="py-2"><Link href={`/admin/ai/${c.id}`} className="font-semibold text-lapis underline">{t.open}</Link></td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-        <p className="mt-3 text-xs text-ink-muted">{t.privacy}</p>
-      </Panel>
-
-      <Panel title={t.settings} className="mt-6">
-        <p className="mb-4 border-l-2 border-terracotta bg-sand-soft p-3 text-sm">{t.protected}</p>
-        <AiSettingsForm initial={settings} locale={locale} canEdit={admin.role === "owner"} />
-      </Panel>
+      <nav aria-label={t("aicenter.title")} className="mb-6 flex flex-wrap gap-2" data-testid="ai-tabs">
+        {TABS.map((k) => (
+          <Link
+            key={k}
+            href={k === "overview" ? "/admin/ai" : `/admin/ai?tab=${k}`}
+            aria-current={k === tab ? "page" : undefined}
+            className={cn("inline-flex min-h-11 items-center rounded-full px-4 text-sm font-semibold", k === tab ? "bg-lapis text-white" : "border border-line bg-white text-ink hover:bg-sand-soft")}
+          >
+            {t(`aicenter.tabs.${k}`)}
+          </Link>
+        ))}
+      </nav>
+      {body}
     </>
   );
 }

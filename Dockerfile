@@ -16,8 +16,10 @@ WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
 ARG NEXT_PUBLIC_SITE_URL=https://nationaltours.uz
 ARG NEXT_PUBLIC_TURNSTILE_SITE_KEY=
+ARG NEXT_PUBLIC_UZ_ALPHABET=new
 ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL \
-    NEXT_PUBLIC_TURNSTILE_SITE_KEY=$NEXT_PUBLIC_TURNSTILE_SITE_KEY
+    NEXT_PUBLIC_TURNSTILE_SITE_KEY=$NEXT_PUBLIC_TURNSTILE_SITE_KEY \
+    NEXT_PUBLIC_UZ_ALPHABET=$NEXT_PUBLIC_UZ_ALPHABET
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN npx tsx scripts/build-seed-sql.ts && npx next build
@@ -46,6 +48,7 @@ COPY --from=dbdriver --chown=app:app /drv/node_modules ./node_modules
 COPY --from=build --chown=app:app /app/drizzle/migrations ./drizzle/migrations
 COPY --from=build --chown=app:app /app/drizzle/seed.sql /app/drizzle/seed-reset.sql ./drizzle/
 COPY --chown=app:app scripts/db.mjs ./scripts/db.mjs
+COPY --chown=app:app scripts/ai-eval.mjs ./scripts/ai-eval.mjs
 COPY --chown=app:app docker/entrypoint.sh /entrypoint.sh
 USER app
 VOLUME ["/data"]

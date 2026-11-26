@@ -1,1 +1,153 @@
-{}
+{
+  "aiGuide": {
+    "meta": {
+      "title": "AI sayohat gidi",
+      "description": "AI sayohat gidimizdan Oʻzbekiston boʻylab marshrutlar, mehmonxonalar, restoranlar, poyezd va aviareyslar, madaniyat, iboralar va byudjet haqida soʻrang."
+    },
+    "hero": {
+      "eyebrow": "AI sayohat gidi",
+      "title": "Oʻzbekiston boʻylab shaxsiy gidingiz doim yoningizda",
+      "lead": "Istalgan savolni bering: qayerda tunash va ovqatlanish, shahardan shaharga qanday borish, yaqin atrofda nimani koʻrish, oʻzbekcha “rahmat” qanday aytilishi yoki sayohat qanchaga tushishi. Javoblar oʻzimizning turlar, mehmonxonalar, restoranlar va transport katalogimizdan olinadi."
+    },
+    "chat": {
+      "title": "National Tours gidi",
+      "subtitle": "Marshrutlar, turar joy, taomlar, transport va madaniyat",
+      "welcome": "Assalomu alaykum! Men National Tours sayohat gidiman. Qayerga bormoqchi ekaningizni yozing yoki quyidagi savollardan birini tanlang.",
+      "placeholder": "Mehmonxona, poyezd, taom, madaniyat haqida soʻrang…",
+      "send": "Yuborish",
+      "newChat": "Yangi suhbat",
+      "typing": "Gid javob yozmoqda",
+      "error": "Xatolik yuz berdi. Qaytadan urinib koʻring.",
+      "limited": "Bir daqiqada juda koʻp xabar yuborildi. Biroz kuting.",
+      "retry": "Qayta urinish",
+      "fallback": "Katalogimizdan natijalar",
+      "open": "Ochish",
+      "addToTrip": "Sayohatga qoʻshish",
+      "inTrip": "Sayohatingizda",
+      "removeFromTrip": "Sayohatdan olib tashlash",
+      "helpful": "Foydali",
+      "notHelpful": "Foydali emas",
+      "consent": "Bu suhbatni ushbu qurilmada eslab qolish",
+      "disclaimer": "Gid xato qilishi mumkin. Narxlar taxminiy, vaqtlar odatiy. Xona, joy va yakuniy narxni sayohat menejerimiz tasdiqlaydi.",
+      "bookTitle": "Bron soʻrovingizni tekshiring",
+      "bookBody": "{title} · {adults} kattalar{children}. Jamoamiz 24 soat ichida javob beradi. Bu hali tasdiqlangan bron emas.",
+      "bookCta": "Tekshirish va yuborish",
+      "kind": {
+        "tour": "Tur",
+        "destination": "Yoʻnalish",
+        "hotel": "Mehmonxona",
+        "restaurant": "Restoran",
+        "transport": "Transport",
+        "attraction": "Diqqatga sazovor joy"
+      }
+    },
+    "trip": {
+      "title": "Sizning sayohatingiz",
+      "empty": "Sayohatingiz hozircha boʻsh. Gid javoblaridan mehmonxona, restoran yoki poyezdlarni qoʻshing yoki sayohat konstruktorida tuzing.",
+      "summary": "{items, plural, one {# ta element} other {# ta element}} · {destinations, plural, =0 {yoʻnalish tanlanmagan} one {# ta yoʻnalish} other {# ta yoʻnalish}}",
+      "use": "Gid sayohatimni koʻra olsin",
+      "useHint": "Faqat joylar va sanalar roʻyxati yuboriladi, aloqa maʼlumotlaringiz hech qachon yuborilmaydi.",
+      "open": "Sayohat konstruktorini ochish"
+    },
+    "prompts": {
+      "title": "Masalan, soʻrang",
+      "groups": {
+        "plan": "Sayohat rejasi",
+        "stay": "Turar joy va taom",
+        "move": "Qatnov",
+        "culture": "Madaniyat va maslahatlar",
+        "phrases": "Iboralar",
+        "budget": "Byudjet",
+        "nearby": "Yaqin atrofda",
+        "modify": "Sayohatimni oʻzgartirish"
+      },
+      "plan": [
+        "7 kunlik reja: Toshkent, Samarqand va Buxoro",
+        "Bolalar bilan 4 kunlik shoshilmasdan oilaviy sayohat"
+      ],
+      "stay": [
+        "Buxoroda bir kechasi 100 dollargacha butik mehmonxona",
+        "Toshkentda qayerda mazali osh yesam boʻladi?",
+        "Samarqandda vegetarianlar uchun qulay restoranlar"
+      ],
+      "move": [
+        "Toshkentdan Samarqandga eng yaxshi qanday borish mumkin?",
+        "Buxorodan Xivaga qanday boraman?"
+      ],
+      "culture": [
+        "Masjidga kirishda qanday kiyinish kerak?",
+        "Choychaqa va savdolashish odatlari"
+      ],
+      "phrases": [
+        "Oʻzbekcha “rahmat” va “qancha” qanday aytiladi?",
+        "Bozor uchun foydali iboralar"
+      ],
+      "budget": [
+        "2 kishi, 6 kun, komfort uslubida byudjet"
+      ],
+      "nearby": [
+        "Registon yaqinida nimalarni koʻrish mumkin?"
+      ],
+      "modify": [
+        "Sayohatimga oshpazlik darsini qoʻsh",
+        "Sayohatim realmi? Nimani oʻzgartirgan boʻlarding?"
+      ]
+    },
+    "can": {
+      "title": "Gid nimalarga yordam beradi",
+      "items": {
+        "recommend": {
+          "title": "Shaxsiy tavsiyalar",
+          "text": "Qiziqishlaringiz, surʼatingiz va byudjetingizga mos turlar, joylar va tadbirlar."
+        },
+        "itinerary": {
+          "title": "Kunma-kun marshrutlar",
+          "text": "Shaharlar orasidagi yoʻl vaqtini hisobga olgan real marshrutlar."
+        },
+        "stay": {
+          "title": "Mehmonxona va restoranlar",
+          "text": "Katalogimizdagi turar joy va ovqatlanish joylari, taxminiy narxlari bilan."
+        },
+        "transport": {
+          "title": "Poyezd, aviareys va transfer",
+          "text": "Shaharlar orasida eng qulay yoʻl va odatiy yoʻl vaqti."
+        },
+        "nearby": {
+          "title": "Yaqin atrof va yoʻl topish",
+          "text": "Obida yoki mehmonxonangiz atrofida nima borligi, piyoda yurish vaqti bilan."
+        },
+        "culture": {
+          "title": "Madaniyat va odob",
+          "text": "Kiyinish qoidalari, urf-odatlar, taom anʼanalari va amaliy maslahatlar."
+        },
+        "phrases": {
+          "title": "Iboralar tarjimasi",
+          "text": "Kundalik oʻzbekcha va ruscha iboralar talaffuzi bilan."
+        },
+        "budget": {
+          "title": "Byudjet hisobi",
+          "text": "Guruhingiz uchun aniq taxminiy hisob: nima kiradi va nima kirmaydi."
+        },
+        "modify": {
+          "title": "Rejani oʻzgartirish",
+          "text": "Sayohatingizga qoʻshish, olib tashlash yoki kunlarni almashtirishni soʻrang."
+        }
+      }
+    },
+    "trust": {
+      "title": "Gidimiz qanday javob beradi",
+      "catalogue": {
+        "title": "Avvalo oʻz katalogimizdan",
+        "text": "Turlar, mehmonxonalar, restoranlar, marshrutlar va qoʻllanmalar oʻzimiz eʼlon qilgan maʼlumotlardan, ochish mumkin boʻlgan havolalar bilan."
+      },
+      "honest": {
+        "title": "Taxminlar aniq belgilanadi",
+        "text": "Narxlar taxminiy, jadval odatiy. Mavjudlik va yakuniy narxni sayohat menejerimiz tasdiqlaydi."
+      },
+      "private": {
+        "title": "Maxfiyligingiz",
+        "text": "Suhbatda parol yoki karta maʼlumotlarini yozmang. Aloqa maʼlumotlari faqat soʻrov shakllarida olinadi."
+      }
+    }
+  }
+}

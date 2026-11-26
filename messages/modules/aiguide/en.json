@@ -1,1 +1,153 @@
-{}
+{
+  "aiGuide": {
+    "meta": {
+      "title": "AI travel guide",
+      "description": "Ask our AI travel guide about itineraries, hotels, restaurants, trains and flights, culture, phrases and budgets across Uzbekistan."
+    },
+    "hero": {
+      "eyebrow": "AI travel guide",
+      "title": "Your personal guide to Uzbekistan, in your pocket",
+      "lead": "Ask anything: where to stay and eat, how to get from city to city, what to see nearby, how to say thank you in Uzbek, or how much your trip will cost. Answers come from our own catalogue of tours, hotels, restaurants and transport."
+    },
+    "chat": {
+      "title": "National Tours guide",
+      "subtitle": "Itineraries, stays, food, transport and culture",
+      "welcome": "Hello! I'm your National Tours travel guide. Tell me where you'd like to go, or pick a question below.",
+      "placeholder": "Ask about hotels, trains, food, culture…",
+      "send": "Send",
+      "newChat": "New chat",
+      "typing": "The guide is writing",
+      "error": "Something went wrong. Please try again.",
+      "limited": "Too many messages in a minute. Please wait a moment.",
+      "retry": "Retry",
+      "fallback": "Results from our catalogue",
+      "open": "Open",
+      "addToTrip": "Add to trip",
+      "inTrip": "In your trip",
+      "removeFromTrip": "Remove from trip",
+      "helpful": "Helpful",
+      "notHelpful": "Not helpful",
+      "consent": "Remember this chat on this device",
+      "disclaimer": "The guide can make mistakes. Prices are indicative and times are typical; our travel manager confirms rooms, seats and the final price.",
+      "bookTitle": "Review your booking request",
+      "bookBody": "{title} · {adults} adults{children}. Our team replies within 24 hours. This is not a confirmed booking yet.",
+      "bookCta": "Review & send request",
+      "kind": {
+        "tour": "Tour",
+        "destination": "Destination",
+        "hotel": "Hotel",
+        "restaurant": "Restaurant",
+        "transport": "Transport",
+        "attraction": "Sight"
+      }
+    },
+    "trip": {
+      "title": "Your trip",
+      "empty": "Your trip is empty. Add hotels, restaurants or trains from the guide's answers, or build it in the trip constructor.",
+      "summary": "{items, plural, one {# item} other {# items}} · {destinations, plural, =0 {no destinations yet} one {# destination} other {# destinations}}",
+      "use": "Let the guide see my trip",
+      "useHint": "Only the list of places and dates is shared, never your contact details.",
+      "open": "Open trip constructor"
+    },
+    "prompts": {
+      "title": "Try asking",
+      "groups": {
+        "plan": "Plan a trip",
+        "stay": "Stay & eat",
+        "move": "Getting around",
+        "culture": "Culture & tips",
+        "phrases": "Phrases",
+        "budget": "Budget",
+        "nearby": "Nearby",
+        "modify": "Change my trip"
+      },
+      "plan": [
+        "Plan 7 days: Tashkent, Samarkand and Bukhara",
+        "A relaxed 4-day family trip with children"
+      ],
+      "stay": [
+        "A boutique hotel in Bukhara under $100 a night",
+        "Where can I eat good plov in Tashkent?",
+        "Vegetarian-friendly restaurants in Samarkand"
+      ],
+      "move": [
+        "Best way from Tashkent to Samarkand",
+        "How do I get from Bukhara to Khiva?"
+      ],
+      "culture": [
+        "How should I dress to visit a mosque?",
+        "Tipping and bargaining customs"
+      ],
+      "phrases": [
+        "How do I say thank you and how much in Uzbek?",
+        "Useful phrases for the bazaar"
+      ],
+      "budget": [
+        "Budget for 2 people, 6 days, comfort style"
+      ],
+      "nearby": [
+        "What can I see near the Registan?"
+      ],
+      "modify": [
+        "Add a cooking class to my trip",
+        "Is my trip realistic? What would you change?"
+      ]
+    },
+    "can": {
+      "title": "What the guide can do",
+      "items": {
+        "recommend": {
+          "title": "Personal recommendations",
+          "text": "Tours, places and experiences matched to your interests, pace and budget."
+        },
+        "itinerary": {
+          "title": "Day-by-day itineraries",
+          "text": "Realistic routes with sensible travel times between cities."
+        },
+        "stay": {
+          "title": "Hotels & restaurants",
+          "text": "Stays and places to eat from our catalogue, with indicative prices."
+        },
+        "transport": {
+          "title": "Trains, flights & transfers",
+          "text": "The best way between cities, with typical journey times."
+        },
+        "nearby": {
+          "title": "Nearby & navigation",
+          "text": "What is around a landmark or your hotel, with walking times."
+        },
+        "culture": {
+          "title": "Culture & etiquette",
+          "text": "Dress codes, customs, food traditions and practical tips."
+        },
+        "phrases": {
+          "title": "Phrase translation",
+          "text": "Everyday Uzbek and Russian phrases with pronunciation."
+        },
+        "budget": {
+          "title": "Budget estimates",
+          "text": "A clear estimate for your group, with what is and isn't included."
+        },
+        "modify": {
+          "title": "Changes to your plan",
+          "text": "Ask to add, remove or move things in your trip."
+        }
+      }
+    },
+    "trust": {
+      "title": "How our guide answers",
+      "catalogue": {
+        "title": "From our catalogue first",
+        "text": "Tours, hotels, restaurants, routes and guides come from our own published data, with links you can open."
+      },
+      "honest": {
+        "title": "Estimates, clearly marked",
+        "text": "Prices are indicative and timetables typical. Our travel manager confirms availability and the final price."
+      },
+      "private": {
+        "title": "Your privacy",
+        "text": "Don't share passwords or card details in chat. Contact details are only collected by the request forms."
+      }
+    }
+  }
+}

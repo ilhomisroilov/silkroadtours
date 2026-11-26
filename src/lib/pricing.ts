@@ -1,6 +1,7 @@
 // Pricing & currency engine. Pure functions, used identically on the server
 // (authoritative quote stored with each booking) and in the client price card.
 
+import { uzText } from "./uz-alphabet";
 import type {
   BookingType,
   Currency,
@@ -65,7 +66,7 @@ export function roundToDisplayStep(amountMinor: number, currency: Currency): num
 // Uzbek locale data differs between Node and browsers (some ship without it), which breaks hydration;
 // Uzbek pages therefore use English number shapes with a space as the thousands separator.
 const INTL_LOCALE: Record<Locale, string> = { en: "en-US", uz: "en-US", ru: "ru-RU" };
-const UZS_SUFFIX: Record<Locale, string> = { en: "UZS", uz: "soʻm", ru: "сум" };
+const UZS_SUFFIX: Record<Locale, string> = { en: "UZS", uz: uzText("soʻm"), ru: "сум" };
 
 export function formatMoney(amountMinor: number, currency: Currency, locale: Locale): string {
   const major = toMajor(amountMinor, currency);

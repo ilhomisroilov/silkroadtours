@@ -5,10 +5,11 @@ import { useTranslations } from "next-intl";
 import { useId } from "react";
 import type { LocalizedText } from "@/db/types";
 import { cn } from "@/lib/cn";
+import { uzText } from "@/lib/uz-alphabet";
 
 const LANGS = [
   { key: "en", label: "English" },
-  { key: "uz", label: "Oʻzbekcha" },
+  { key: "uz", label: uzText("Oʻzbekcha") },
   { key: "ru", label: "Русский" },
 ] as const;
 

@@ -1,1 +1,61 @@
-{}
+{
+  "trips": {
+    "title": "Sayohat rejalari",
+    "lead": "Mehmonlar Sayohat konstruktorida tuzib, saqlagan yoki ulashgan rejalar. Faqat koʻrish uchun: kunlar, budjet va reja bilan yuborilgan soʻrovlarni koʻrish uchun rejani oching.",
+    "statSaved": "Saqlangan rejalar",
+    "statRequested": "Soʻrov sifatida yuborilgan",
+    "statAverage": "Oʻrtacha taxmin",
+    "statOnPage": "Ushbu sahifadagi rejalar",
+    "created": "Saqlangan",
+    "trip": "Sayohat",
+    "destinations": "Yoʻnalishlar",
+    "travellers": "Sayohatchilar",
+    "items": "Elementlar",
+    "total": "Taxminiy jami",
+    "requests": "Soʻrovlar",
+    "link": "Ulashish havolasi",
+    "empty": "Hozircha saqlangan sayohat rejalari yoʻq.",
+    "untitled": "Nomsiz sayohat",
+    "open": "Ochish",
+    "pax": "{adults} katta{children, plural, =0 {} other {, # bola}}",
+    "days": "{count} kun",
+    "openBuilder": "Konstruktorda ochish",
+    "perPerson": "Kishi boshiga {price}",
+    "dates": "Sanalar",
+    "itinerary": "Marshrut",
+    "noItems": "Bu rejada yoʻnalishlar bor, lekin elementlar hali qoʻshilmagan.",
+    "dayN": "{day}-kun",
+    "unscheduled": "Kun belgilanmagan",
+    "budget": "Taxminiy budjet (USD)",
+    "withMeals": "Odatiy kundalik ovqatlanish hisobga olingan.",
+    "withoutMeals": "Kundalik ovqatlanishsiz.",
+    "noRequests": "Bu reja bilan hali soʻrov yuborilmagan.",
+    "unit": {
+      "night": "/ kecha",
+      "person": "/ kishi",
+      "trip": "/ sayohat",
+      "meal": "/ kishi",
+      "group": "/ mashina"
+    },
+    "cat": {
+      "stay": "Turar joy",
+      "food": "Ovqat",
+      "transport": "Transport",
+      "sights": "Diqqatga sazovor joylar",
+      "experiences": "Tajribalar",
+      "tours": "Turlar"
+    },
+    "kind": {
+      "hotel": "Mehmonxona",
+      "restaurant": "Restoran",
+      "transport": "Transport",
+      "flight": "Parvoz",
+      "train": "Poyezd",
+      "transfer": "Transfer",
+      "attraction": "Diqqatga sazovor joy",
+      "experience": "Tajriba",
+      "tour": "Tur",
+      "activity": "Faoliyat"
+    }
+  }
+}

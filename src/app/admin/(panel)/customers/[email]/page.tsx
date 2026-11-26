@@ -5,6 +5,9 @@ import { notFound } from "next/navigation";
 import { PageHeader, Panel, StatusBadge, tableCls } from "@/components/admin/ui";
 import { getDb } from "@/db/client";
 import { getCustomer } from "@/db/queries/customers";
+import { listLeadsByEmail } from "@/db/queries/crm";
+import { SourceBadge, StageBadge } from "@/components/admin/crm/lead-card";
+import { serviceTypeKey, usd } from "@/components/admin/crm/shared";
 import { messengerLinks } from "@/lib/links";
 import { formatMoney } from "@/lib/pricing";
 import { adminT, requireAdminPage } from "@/lib/server/admin";
@@ -19,7 +22,7 @@ export default async function AdminCustomer({ params }: { params: Promise<{ emai
   const { t, locale } = await adminT();
   const email = decodeURIComponent((await params).email);
   if (email.length > 200 || !email.includes("@")) notFound();
-  const c = await getCustomer(getDb(), email);
+  const [c, leads] = await Promise.all([getCustomer(getDb(), email), listLeadsByEmail(getDb(), email)]);
   if (!c) notFound();
   const latest = [...c.bookings, ...c.requests].sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())[0];
   const first = [...c.bookings, ...c.requests].sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime())[0];
@@ -82,6 +85,24 @@ export default async function AdminCustomer({ params }: { params: Promise<{ emai
               </tbody>
             </table>
           </div>
+        </Panel>
+        <Panel title={t("crm.customer.title")} className="lg:col-span-3">
+          {leads.length === 0 ? (
+            <p className="text-ink-muted">{t("crm.customer.empty")}</p>
+          ) : (
+            <ul className="grid gap-3 md:grid-cols-2 xl:grid-cols-3" data-testid="customer-leads">
+              {leads.map((l) => (
+                <li key={l.id} className="rounded-sm border border-line p-3">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <StageBadge stage={l.stage} label={t(`crm.stages.${l.stage}`)} />
+                    <SourceBadge source={l.source} label={t(`crm.sources.${l.source}`)} />
+                  </div>
+                  <Link href={`/admin/crm/${l.id}`} className="mt-2 block font-semibold text-lapis underline-offset-2 hover:underline">{serviceTypeKey(l.title) ? t(`requests.types.${serviceTypeKey(l.title)}`) : l.title}</Link>
+                  <p className="text-sm text-ink-muted">{[l.sourceRef, l.valueUsd != null ? usd(l.valueUsd, locale) : null, l.assignedName].filter(Boolean).join(" · ")}</p>
+                </li>
+              ))}
+            </ul>
+          )}
         </Panel>
       </div>
     </>

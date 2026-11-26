@@ -2,8 +2,8 @@
   "eco": {
     "nav": {
       "explore": "Kashf eting",
-      "plan": "Rejalashtirish",
-      "stay": "Turar joy va taomlar",
+      "plan": "Reja tuzish",
+      "stay": "Turar joy va taom",
       "transport": "Transport",
       "partners": "Hamkorlar",
       "virtualTours": "Virtual sayohatlar",
@@ -24,9 +24,69 @@
       "restaurantsHint": "Osh markazlari, choyxonalar, tomdagi kechki ovqatlar",
       "flightsTrains": "Aviareyslar va poyezdlar",
       "transfers": "Transferlar va avtomobillar",
-      "planTrip": "Sayohatimni rejalash",
+      "planTrip": "Sayohat tuzish",
       "about": "Biz haqimizda",
       "contact": "Aloqa"
+    },
+    "home": {
+      "search": {
+        "label": "Platformada qidirish",
+        "tabs": {
+          "tours": "Turlar",
+          "hotels": "Mehmonxonalar",
+          "restaurants": "Restoranlar",
+          "transport": "Aviareys va poyezd",
+          "ai": "AI dan soʻrash"
+        },
+        "destination": "Yoʻnalish",
+        "anyDestination": "Istalgan yoʻnalish",
+        "checkIn": "Kelish sanasi",
+        "guests": "Mehmonlar",
+        "from": "Qayerdan",
+        "to": "Qayerga",
+        "date": "Sana",
+        "passengers": "Yoʻlovchilar",
+        "cuisine": "Nima qidiryapsiz",
+        "cuisinePlaceholder": "Osh, vegetarian, ochiq ayvon…",
+        "question": "Savolingiz",
+        "questionPlaceholder": "Masalan: may oyida tarix va taomlar uchun 5 kunlik sayohat",
+        "submitTours": "Turlarni qidirish",
+        "submitHotels": "Mehmonxona topish",
+        "submitRestaurants": "Restoran topish",
+        "submitTransport": "Solishtirish",
+        "submitAi": "Gidga soʻrash"
+      },
+      "journey": {
+        "eyebrow": "Butun sayohat uchun yagona platforma",
+        "title": "Ilk gʻoyadan soʻnggi piyola choygacha",
+        "lead": "Oʻzbekistonni bir joyda kashf eting, rejalashtiring, bron qiling va yoʻlingizni toping: har qadamda mahalliy jamoa va AI gid yoningizda.",
+        "steps": {
+          "discover": {
+            "title": "Kashf eting",
+            "text": "Buyuk Ipak yoʻli boʻylab yoʻnalishlar, turlar va taassurotlar."
+          },
+          "explore": {
+            "title": "Tomosha qiling",
+            "text": "Safardan oldin 360° panoramalar va fotosayohatlar."
+          },
+          "plan": {
+            "title": "Rejalang",
+            "text": "Sayohatni kunma-kun tuzing, byudjet darhol hisoblanadi."
+          },
+          "book": {
+            "title": "Bron qiling",
+            "text": "Mehmonxona, transport va gid uchun bitta soʻrov."
+          },
+          "navigate": {
+            "title": "Yoʻl toping",
+            "text": "Sayohatingiz xaritada, yaqin atrofdagi joylar bilan."
+          },
+          "experience": {
+            "title": "Zavqlaning",
+            "text": "Choʻntagingizda AI gid va doim aloqada mahalliy jamoa."
+          }
+        }
+      }
     }
   }
 }

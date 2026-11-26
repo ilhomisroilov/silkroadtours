@@ -1,4 +1,5 @@
 import type { Locale } from "@/db/types";
+import { uzDeep } from "@/lib/uz-alphabet";
 
 const en = {
     open: "Ask National Tours",
@@ -29,7 +30,7 @@ const en = {
 
 export type AiStrings = typeof en;
 
-export const AI_STRINGS: Record<Locale, AiStrings> = {
+const RAW_AI_STRINGS: Record<Locale, AiStrings> = {
   en,
   uz: {
     open: "National Tours yordamchisi",
@@ -84,3 +85,6 @@ export const AI_STRINGS: Record<Locale, AiStrings> = {
     notHelpful: "Не полезно",
   },
 };
+
+/** Uzbek is shown in the new alphabet; the stored spelling above is the backup. */
+export const AI_STRINGS: Record<Locale, AiStrings> = { ...RAW_AI_STRINGS, uz: uzDeep(RAW_AI_STRINGS.uz) };

@@ -1,4 +1,5 @@
 import type { Locale } from "@/db/types";
+import { uzDeep } from "@/lib/uz-alphabet";
 
 const en = {
   eyebrow: "AI trip planner",
@@ -59,7 +60,7 @@ const en = {
 
 export type PlannerStrings = typeof en;
 
-export const PLANNER_STRINGS: Record<Locale, PlannerStrings> = {
+const RAW_PLANNER_STRINGS: Record<Locale, PlannerStrings> = {
   en,
   uz: {
     eyebrow: "AI sayohat rejalashtiruvchi",
@@ -174,3 +175,6 @@ export const PLANNER_STRINGS: Record<Locale, PlannerStrings> = {
     contactTitle: "Ваши контактные данные",
   },
 };
+
+/** Uzbek is shown in the new alphabet; the stored spelling above is the backup. */
+export const PLANNER_STRINGS: Record<Locale, PlannerStrings> = { ...RAW_PLANNER_STRINGS, uz: uzDeep(RAW_PLANNER_STRINGS.uz) };

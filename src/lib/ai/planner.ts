@@ -2,6 +2,7 @@ import "server-only";
 import type { Db } from "@/db/client";
 import type { Locale } from "@/db/types";
 import { DAILY_COST_USD, executeTool, type ToolContext } from "./tools";
+import { uzDeep } from "@/lib/uz-alphabet";
 
 export interface TripPlan {
   title: string;
@@ -16,6 +17,18 @@ export interface TripPlan {
   food: string[];
   tips: string[];
   generatedBy: "ai" | "catalogue";
+}
+
+/** A plan as the visitor sees it: Uzbek text in the new alphabet, slugs and links untouched. Stored plans keep the original spelling. */
+export function planForDisplay<T extends Partial<TripPlan>>(plan: T, locale: string): T {
+  if (locale !== "uz" || !plan || typeof plan !== "object") return plan;
+  const shown = uzDeep(plan);
+  return {
+    ...shown,
+    destinations: plan.destinations,
+    days: shown.days?.map((d, i) => ({ ...d, tourSlug: plan.days?.[i]?.tourSlug ?? null })),
+    suggestedTours: shown.suggestedTours?.map((t, i) => ({ ...t, slug: plan.suggestedTours?.[i]?.slug ?? t.slug, url: plan.suggestedTours?.[i]?.url })),
+  };
 }
 
 export function parsePlan(text: string): TripPlan | null {

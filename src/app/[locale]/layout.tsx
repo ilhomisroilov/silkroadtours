@@ -14,6 +14,7 @@ import { getAiSettings } from "@/lib/ai/agent";
 import type { Locale } from "@/db/types";
 import { routing } from "@/i18n/routing";
 import { requestCurrency, siteUrl } from "@/lib/server/site";
+import { uzText } from "@/lib/uz-alphabet";
 
 export const viewport: Viewport = {
   themeColor: "#0e1830",
@@ -29,7 +30,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     title: { default: t("defaultTitle"), template: t("titleTemplate") },
     description: t("defaultDescription"),
     applicationName: t("siteName"),
-    icons: { icon: "/icon.svg" },
+    icons: { icon: "/icon.png", apple: "/apple-icon.png" },
     formatDetection: { telephone: false },
   };
 }
@@ -59,7 +60,7 @@ export default async function LocaleLayout({ children, params }: { children: Rea
             </main>
             <SiteFooter locale={locale} />
             <FloatingContact locale={locale} />
-            {ai && <AssistantWidget locale={locale} welcome={ai.welcome[locale] ?? ai.welcome.en} enabled={ai.enabled} />}
+            {ai && <AssistantWidget locale={locale} welcome={locale === "uz" && ai.welcome.uz ? uzText(ai.welcome.uz) : (ai.welcome[locale] ?? ai.welcome.en)} enabled={ai.enabled} />}
           </MotionProvider>
         </ClientMessages>
         <OrganizationJsonLd locale={locale} />

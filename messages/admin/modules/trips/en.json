@@ -1,1 +1,61 @@
-{}
+{
+  "trips": {
+    "title": "Trip plans",
+    "lead": "Trips visitors built in the Trip Constructor and saved or shared. Read-only: open a plan to see its days, budget and any request sent with it.",
+    "statSaved": "Saved plans",
+    "statRequested": "Sent as a request",
+    "statAverage": "Average estimate",
+    "statOnPage": "Plans on this page",
+    "created": "Saved",
+    "trip": "Trip",
+    "destinations": "Destinations",
+    "travellers": "Travellers",
+    "items": "Items",
+    "total": "Estimated total",
+    "requests": "Requests",
+    "link": "Share link",
+    "empty": "No saved trip plans yet.",
+    "untitled": "Untitled trip",
+    "open": "Open",
+    "pax": "{adults, plural, one {# adult} other {# adults}}{children, plural, =0 {} one {, # child} other {, # children}}",
+    "days": "{count, plural, one {# day} other {# days}}",
+    "openBuilder": "Open in the constructor",
+    "perPerson": "{price} per person",
+    "dates": "Dates",
+    "itinerary": "Itinerary",
+    "noItems": "This plan has destinations but no items yet.",
+    "dayN": "Day {day}",
+    "unscheduled": "Not scheduled",
+    "budget": "Estimated budget (USD)",
+    "withMeals": "Includes typical everyday meals.",
+    "withoutMeals": "Without everyday meals.",
+    "noRequests": "No request has been sent with this plan yet.",
+    "unit": {
+      "night": "/ night",
+      "person": "/ person",
+      "trip": "/ trip",
+      "meal": "/ person",
+      "group": "/ vehicle"
+    },
+    "cat": {
+      "stay": "Stay",
+      "food": "Food",
+      "transport": "Transport",
+      "sights": "Sights",
+      "experiences": "Experiences",
+      "tours": "Tours"
+    },
+    "kind": {
+      "hotel": "Hotel",
+      "restaurant": "Restaurant",
+      "transport": "Transport",
+      "flight": "Flight",
+      "train": "Train",
+      "transfer": "Transfer",
+      "attraction": "Sight",
+      "experience": "Experience",
+      "tour": "Tour",
+      "activity": "Activity"
+    }
+  }
+}

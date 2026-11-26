@@ -1,20 +1,16 @@
 import {
   ArrowRight,
   BadgeDollarSign,
-  CalendarDays,
   CheckCircle2,
-  ChevronDown,
   Clock,
   Gem,
   Globe2,
   Headset,
   HeartHandshake,
-  MapPin,
   Plane,
   ShieldCheck,
   Sparkles,
   Star,
-  Users,
   Wand2,
 } from "lucide-react";
 import type { Metadata } from "next";
@@ -24,7 +20,13 @@ import { Reveal } from "@/components/common/motion";
 import { SectionHeading } from "@/components/common/section";
 import { SmartImage } from "@/components/common/smart-image";
 import { ExperienceCard } from "@/components/content/experience-card";
+import { ClientMessages } from "@/components/common/client-messages";
+import { EcosystemSearch } from "@/components/home/ecosystem-search";
 import { HomeAiCard } from "@/components/home/home-ai-card";
+import { JourneyStrip } from "@/components/home/journey-strip";
+import { PartnersPreview } from "@/components/partners/preview";
+import { TripBuilderTeaser } from "@/components/trip/teaser";
+import { HotelsRestaurantsPreview, TransportPreview } from "@/components/places/home-previews";
 import { Testimonials } from "@/components/home/testimonials";
 import { TourCard } from "@/components/tours/tour-card";
 import { listContent } from "@/db/queries/content";
@@ -32,10 +34,11 @@ import { listPublishedDestinations } from "@/db/queries/destinations";
 import { listPublishedReviews } from "@/db/queries/reviews";
 import { listPublishedTours } from "@/db/queries/tours";
 import type { Locale } from "@/db/types";
-import { getPathname, Link } from "@/i18n/navigation";
+import { Link } from "@/i18n/navigation";
 import { localize } from "@/lib/localize";
 import { formatUsdIn } from "@/lib/pricing";
 import { db, exchangeRates, pageMetadata, requestCurrency } from "@/lib/server/site";
+import { VirtualToursPreview } from "@/components/virtual/preview";
 
 export const dynamic = "force-dynamic";
 
@@ -46,6 +49,17 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: L
 }
 
 const HOME_DESTINATIONS = ["samarkand", "bukhara", "tashkent", "dubai", "istanbul", "khiva"];
+/** Cities offered in the hero flights & trains search (value is what /transport expects). */
+const TRANSPORT_CITIES = [
+  { value: "Tashkent", slug: "tashkent" },
+  { value: "Samarkand", slug: "samarkand" },
+  { value: "Bukhara", slug: "bukhara" },
+  { value: "Khiva", slug: "khiva" },
+  { value: "Fergana", slug: "fergana-valley" },
+  { value: "Nukus", slug: "nukus" },
+  { value: "Termez", slug: "termez" },
+  { value: "Shakhrisabz", slug: "shakhrisabz" },
+];
 
 export default async function HomePage({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
@@ -85,9 +99,6 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
     { icon: HeartHandshake, title: t("nt.why.t4"), text: t("nt.why.s4") },
   ];
   const months = Array.from({ length: 12 }, (_, i) => ({ value: i + 1, label: t(`months.${i + 1}` as never) }));
-  const segment = "flex min-w-0 flex-1 items-center gap-3 px-4 py-2.5 sm:px-5";
-  const segSelect =
-    "w-full cursor-pointer appearance-none truncate bg-transparent pr-6 text-[0.95rem] font-semibold text-ink focus:outline-none";
 
   return (
     <>
@@ -119,64 +130,18 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
             <p className="mt-5 max-w-xl text-lg text-ink/80 sm:text-xl">{t("nt.hero.text")}</p>
           </div>
 
-          <form
-            action={getPathname({ locale, href: "/tours" })}
-            method="get"
-            role="search"
-            aria-label={t("home.searchTitle")}
-            className="animate-fade-up mt-8 flex max-w-[46rem] flex-col rounded-[1.75rem] bg-white p-2 shadow-lift [animation-delay:120ms] sm:flex-row sm:items-center sm:rounded-full"
-          >
-            <label className={`${segment} sm:flex-[1.35]`}>
-              <MapPin aria-hidden="true" className="size-5 shrink-0 text-lapis" />
-              <span className="relative min-w-0 flex-1">
-                <span className="block text-xs font-medium text-ink-muted">{t("nt.hero.destination")}</span>
-                <select name="destination" defaultValue="" className={segSelect}>
-                  <option value="">{t("nt.hero.anyDestination")}</option>
-                  {destinations.map((d) => (
-                    <option key={d.slug} value={d.slug}>{localize(d.name, locale)}</option>
-                  ))}
-                </select>
-                <ChevronDown aria-hidden="true" className="pointer-events-none absolute bottom-1 right-0 size-4 text-ink-muted" />
-              </span>
-            </label>
-            <span aria-hidden="true" className="mx-4 h-px bg-line sm:mx-0 sm:h-9 sm:w-px" />
-            <label className={segment}>
-              <CalendarDays aria-hidden="true" className="size-5 shrink-0 text-lapis" />
-              <span className="relative min-w-0 flex-1">
-                <span className="block text-xs font-medium text-ink-muted">{t("nt.hero.when")}</span>
-                <select name="month" defaultValue="" className={segSelect}>
-                  <option value="">{t("nt.hero.anyDate")}</option>
-                  {months.map((m) => (
-                    <option key={m.value} value={m.value}>{m.label}</option>
-                  ))}
-                </select>
-                <ChevronDown aria-hidden="true" className="pointer-events-none absolute bottom-1 right-0 size-4 text-ink-muted" />
-              </span>
-            </label>
-            <span aria-hidden="true" className="mx-4 h-px bg-line sm:mx-0 sm:h-9 sm:w-px" />
-            <label className={segment}>
-              <Users aria-hidden="true" className="size-5 shrink-0 text-lapis" />
-              <span className="relative min-w-0 flex-1">
-                <span className="block text-xs font-medium text-ink-muted">{t("nt.hero.travelers")}</span>
-                <select name="guests" defaultValue="2" className={segSelect}>
-                  {Array.from({ length: 12 }, (_, i) => i + 1).map((n) => (
-                    <option key={n} value={n}>{t("nt.hero.people", { count: n })}</option>
-                  ))}
-                </select>
-                <ChevronDown aria-hidden="true" className="pointer-events-none absolute bottom-1 right-0 size-4 text-ink-muted" />
-              </span>
-            </label>
-            <button
-              type="submit"
-              className="mt-2 inline-flex min-h-13 shrink-0 items-center justify-center gap-2 rounded-full bg-lapis-deep px-7 font-bold text-white transition-colors hover:bg-cobalt sm:mt-0"
-            >
-              <svg aria-hidden="true" viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
-                <circle cx="11" cy="11" r="7" />
-                <path d="m20 20-3.5-3.5" />
-              </svg>
-              {t("nt.hero.submit")}
-            </button>
-          </form>
+          <ClientMessages namespaces={["eco"]}>
+            <EcosystemSearch
+              locale={locale}
+              options={{
+                destinations: destinations.map((d) => ({ slug: d.slug, name: localize(d.name, locale) })),
+                cities: TRANSPORT_CITIES.map((c) => ({ value: c.value, name: destinations.find((d) => d.slug === c.slug) ? localize(destinations.find((d) => d.slug === c.slug)!.name, locale) : c.value })),
+                months,
+                people: Array.from({ length: 12 }, (_, i) => t("nt.hero.people", { count: i + 1 })),
+                labels: { destination: t("nt.hero.destination"), anyDestination: t("nt.hero.anyDestination"), when: t("nt.hero.when"), anyDate: t("nt.hero.anyDate"), travelers: t("nt.hero.travelers") },
+              }}
+            />
+          </ClientMessages>
         </div>
         {heroCredit && (
           <p className="absolute bottom-16 right-4 hidden text-[0.68rem] text-white/80 [text-shadow:0_1px_2px_rgba(0,0,0,0.5)] lg:block">
@@ -200,6 +165,8 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
           ))}
         </ul>
       </div>
+
+      <JourneyStrip locale={locale} />
 
       {/* ── Destinations + AI assistant ─────────────────────── */}
       <section className="container-page grid gap-8 pt-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)] lg:gap-6" aria-labelledby="dest-title">
@@ -259,8 +226,69 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
         />
       </section>
 
+      {/* ── Ecosystem modules ───────────────────────────────── */}
+      <VirtualToursPreview locale={locale} />
+
+      <TripBuilderTeaser locale={locale} />
+      <HotelsRestaurantsPreview locale={locale} />
+      <TransportPreview locale={locale} />
+
+      {/* ── Featured tours ──────────────────────────────────── */}
+      {featured.items.length > 0 && (
+        <section className="container-page pt-20" aria-labelledby="featured-title">
+          <SectionHeading
+            id="featured-title"
+            eyebrow={t("nt.featured.eyebrow")}
+            title={t("nt.featured.title")}
+            action={
+              <Link href="/tours" className="inline-flex min-h-11 items-center gap-2 text-[0.95rem] font-semibold text-cobalt hover:text-lapis">
+                {t("nt.featured.viewAll")} <ArrowRight aria-hidden="true" className="size-4" />
+              </Link>
+            }
+          />
+          <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {featured.items.map((tour, i) => (
+              <Reveal as="li" key={tour.id} delay={i * 0.04}>
+                <TourCard tour={tour} locale={locale} />
+              </Reveal>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {/* ── Experiences ─────────────────────────────────────── */}
+      {experiences.length > 0 && (
+        <section className="container-page pt-20" aria-labelledby="exp-title">
+          <SectionHeading
+            id="exp-title"
+            eyebrow={t("nt.exp.eyebrow")}
+            title={t("nt.exp.title")}
+            action={
+              <Link href="/experiences" className="inline-flex min-h-11 items-center gap-2 text-[0.95rem] font-semibold text-cobalt hover:text-lapis">
+                {t("nt.exp.viewAll")} <ArrowRight aria-hidden="true" className="size-4" />
+              </Link>
+            }
+          />
+          <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {experiences.map((e) => (
+              <li key={e.slug}>
+                <ExperienceCard
+                  item={e}
+                  locale={locale}
+                  place={e.destinationSlug ? localize(destinations.find((d) => d.slug === e.destinationSlug)?.name, locale) || undefined : undefined}
+                  hours={e.durationHours != null ? t("nt.exp.hours", { count: e.durationHours }) : undefined}
+                  price={e.priceFromUsd != null ? t("nt.exp.from", { price: formatUsdIn(e.priceFromUsd, currency, rates, locale) }) : undefined}
+                />
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      <PartnersPreview locale={locale} />
+
       {/* ── Planner banner + why + testimonials ─────────────── */}
-      <section className="container-page grid gap-6 pt-12 lg:grid-cols-12" aria-label={t("nt.why.title")}>
+      <section className="container-page grid gap-6 pt-20 lg:grid-cols-12" aria-label={t("nt.why.title")}>
         <div className="relative isolate overflow-hidden rounded-[1.5rem] shadow-card lg:col-span-5">
           <SmartImage src={plannerImage} alt="" label={t("nt.planner.title")} sizes="(min-width: 1024px) 40vw, 100vw" className="absolute inset-0 -z-10" />
           <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[linear-gradient(100deg,rgba(11,31,54,0.85)_0%,rgba(11,31,54,0.55)_50%,rgba(11,31,54,0.15)_100%)]" />
@@ -320,71 +348,6 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
               </Link>
             </div>
           )}
-        </div>
-      </section>
-
-      {/* ── Featured tours ──────────────────────────────────── */}
-      {featured.items.length > 0 && (
-        <section className="container-page pt-20" aria-labelledby="featured-title">
-          <SectionHeading
-            id="featured-title"
-            eyebrow={t("nt.featured.eyebrow")}
-            title={t("nt.featured.title")}
-            action={
-              <Link href="/tours" className="inline-flex min-h-11 items-center gap-2 text-[0.95rem] font-semibold text-cobalt hover:text-lapis">
-                {t("nt.featured.viewAll")} <ArrowRight aria-hidden="true" className="size-4" />
-              </Link>
-            }
-          />
-          <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {featured.items.map((tour, i) => (
-              <Reveal as="li" key={tour.id} delay={i * 0.04}>
-                <TourCard tour={tour} locale={locale} />
-              </Reveal>
-            ))}
-          </ul>
-        </section>
-      )}
-
-      {/* ── Experiences ─────────────────────────────────────── */}
-      {experiences.length > 0 && (
-        <section className="container-page pt-20" aria-labelledby="exp-title">
-          <SectionHeading
-            id="exp-title"
-            eyebrow={t("nt.exp.eyebrow")}
-            title={t("nt.exp.title")}
-            action={
-              <Link href="/experiences" className="inline-flex min-h-11 items-center gap-2 text-[0.95rem] font-semibold text-cobalt hover:text-lapis">
-                {t("nt.exp.viewAll")} <ArrowRight aria-hidden="true" className="size-4" />
-              </Link>
-            }
-          />
-          <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {experiences.map((e) => (
-              <li key={e.slug}>
-                <ExperienceCard
-                  item={e}
-                  locale={locale}
-                  place={e.destinationSlug ? destinations.find((d) => d.slug === e.destinationSlug)?.name[locale] : undefined}
-                  hours={e.durationHours != null ? t("nt.exp.hours", { count: e.durationHours }) : undefined}
-                  price={e.priceFromUsd != null ? t("nt.exp.from", { price: formatUsdIn(e.priceFromUsd, currency, rates, locale) }) : undefined}
-                />
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
-
-      {/* ── Tour builder band ───────────────────────────────── */}
-      <section className="container-page pt-20">
-        <div className="bg-girih-dark on-dark relative overflow-hidden rounded-[1.75rem] px-6 py-10 text-white sm:px-10 lg:flex lg:items-center lg:justify-between lg:gap-10">
-          <div className="max-w-2xl">
-            <h2 className="text-3xl text-white">{t("nt.builder.title")}</h2>
-            <p className="mt-3 text-lg text-white/80">{t("nt.builder.text")}</p>
-          </div>
-          <Link href="/custom-tour" className="mt-6 inline-flex min-h-12 shrink-0 items-center gap-2 rounded-full bg-saffron px-6 font-bold text-lapis-deep hover:bg-[#e6b55a] lg:mt-0">
-            {t("nt.builder.cta")} <ArrowRight aria-hidden="true" className="size-4" />
-          </Link>
         </div>
       </section>
 

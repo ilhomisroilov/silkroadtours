@@ -279,6 +279,13 @@ export function mockAdapter(): ProviderAdapter {
     configured: () => true,
     async run(input) {
       const last = input.history.at(-1)?.content ?? "";
+      // Route like a real model would: places for stays and food, tours for everything else.
+      const kind = /hotel|mehmonxona|отел|гостиниц/i.test(last) ? "hotel" : /restaurant|restoran|ресторан|plov|osh|плов/i.test(last) ? "restaurant" : null;
+      if (kind) {
+        const r = (await input.execute("search_places", { kind, query: last })) as { items?: { name: string; url: string }[] };
+        const items = (r.items ?? []).slice(0, 3).map((p) => `- [${p.name}](${p.url})`).join("\n");
+        return { text: items ? `Here are ${kind === "hotel" ? "hotels" : "restaurants"} from our catalogue (indicative prices):\n${items}` : "I could not find a match.", provider: "mock", model: "mock-1", tokensIn: 0, tokensOut: 0, toolCalls: [{ name: "search_places", args: { kind, query: last } }] };
+      }
       const result = (await input.execute("search_tours", { query: last })) as { tours?: { title: string; url: string }[] };
       const list = (result.tours ?? []).slice(0, 3).map((t) => `- [${t.title}](${t.url})`).join("\n");
       return { text: list ? `Here are tours from our catalogue:\n${list}` : "I could not find a matching tour.", provider: "mock", model: "mock-1", tokensIn: 0, tokensOut: 0, toolCalls: [{ name: "search_tours", args: { query: last } }] };

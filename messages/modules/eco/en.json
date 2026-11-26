@@ -27,6 +27,66 @@
       "planTrip": "Plan my trip",
       "about": "About us",
       "contact": "Contact"
+    },
+    "home": {
+      "search": {
+        "label": "Search the platform",
+        "tabs": {
+          "tours": "Tours",
+          "hotels": "Hotels",
+          "restaurants": "Restaurants",
+          "transport": "Flights & trains",
+          "ai": "Ask AI"
+        },
+        "destination": "Destination",
+        "anyDestination": "Any destination",
+        "checkIn": "Check-in",
+        "guests": "Guests",
+        "from": "From",
+        "to": "To",
+        "date": "Date",
+        "passengers": "Passengers",
+        "cuisine": "Looking for",
+        "cuisinePlaceholder": "Plov, vegetarian, rooftop…",
+        "question": "Your question",
+        "questionPlaceholder": "e.g. 5 days of history and food in May",
+        "submitTours": "Search tours",
+        "submitHotels": "Find hotels",
+        "submitRestaurants": "Find restaurants",
+        "submitTransport": "Compare",
+        "submitAi": "Ask the guide"
+      },
+      "journey": {
+        "eyebrow": "One platform for the whole journey",
+        "title": "From the first idea to the last cup of tea",
+        "lead": "Discover, plan, book and navigate Uzbekistan in one place, with a local team and an AI guide at every step.",
+        "steps": {
+          "discover": {
+            "title": "Discover",
+            "text": "Destinations, tours and experiences across the Silk Road."
+          },
+          "explore": {
+            "title": "Explore",
+            "text": "Walk through 360° panoramas and photo tours before you go."
+          },
+          "plan": {
+            "title": "Plan",
+            "text": "Build your trip day by day, with an instant budget."
+          },
+          "book": {
+            "title": "Book",
+            "text": "Send one request for hotels, transport and guides."
+          },
+          "navigate": {
+            "title": "Navigate",
+            "text": "Your trip on a map, with what is nearby."
+          },
+          "experience": {
+            "title": "Experience",
+            "text": "An AI guide in your pocket, and a local team on call."
+          }
+        }
+      }
     }
   }
 }

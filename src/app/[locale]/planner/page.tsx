@@ -7,6 +7,7 @@ import { ClientMessages } from "@/components/common/client-messages";
 import { listPublishedDestinations } from "@/db/queries/destinations";
 import type { Locale } from "@/db/types";
 import { db, pageMetadata } from "@/lib/server/site";
+import { uzText } from "@/lib/uz-alphabet";
 
 export const dynamic = "force-dynamic";
 
@@ -28,7 +29,7 @@ export default async function PlannerPage({
   setRequestLocale(locale);
   const t = PLANNER_STRINGS[locale] ?? PLANNER_STRINGS.en;
   const initialId = plan && /^p_[a-z0-9]{16}$/.test(plan) ? plan : undefined;
-  const places = (await listPublishedDestinations(db())).map((d) => ({ slug: d.slug, names: [d.name.en, d.name.uz, d.name.ru, d.slug.replace(/-/g, " ")] }));
+  const places = (await listPublishedDestinations(db())).map((d) => ({ slug: d.slug, names: [d.name.en, d.name.uz, uzText(d.name.uz), d.name.ru, d.slug.replace(/-/g, " ")] }));
   return (
     <>
       <section className="bg-ai-soft relative overflow-hidden">
