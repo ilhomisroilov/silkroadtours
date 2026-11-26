@@ -15,7 +15,6 @@ import {
 } from "lucide-react";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import credits from "../../../public/images/credits.json";
 import { Reveal } from "@/components/common/motion";
 import { SectionHeading } from "@/components/common/section";
 import { SmartImage } from "@/components/common/smart-image";
@@ -76,9 +75,6 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
   ]);
 
   const hero = destinations.find((d) => d.slug === "samarkand") ?? destinations[0];
-  const heroCredit = hero?.heroImage
-    ? (credits as Record<string, { author: string; license: string; source: string }>)[hero.heroImage.replace(/^\/images\//, "")]
-    : undefined;
   const plannerImage = "/images/destinations/chimgan-charvak/3.jpg";
   const top = HOME_DESTINATIONS.map((s) => destinations.find((d) => d.slug === s)).filter((d): d is NonNullable<typeof d> => !!d).slice(0, 5);
   const country = (d: { country: Record<Locale, string> | null }) => (d.country ? localize(d.country, locale) : t("nt.dest.country"));
@@ -104,30 +100,30 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
     <>
       {/* ── Hero ─────────────────────────────────────────────── */}
       <section className="relative isolate -mt-[72px] overflow-hidden" aria-labelledby="hero-title">
-        <SmartImage
-          src={hero?.heroImage}
-          alt={hero ? localize(hero.name, locale) : ""}
-          label={hero ? localize(hero.name, locale) : t("meta.siteName")}
-          priority
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/images/hero/samarkand-night.jpg"
+          srcSet="/images/hero/samarkand-night-960.jpg 960w, /images/hero/samarkand-night.jpg 1672w"
           sizes="100vw"
-          className="absolute inset-0 -z-10"
-          imgClassName="object-cover object-[62%_center]"
+          alt={hero ? localize(hero.name, locale) : ""}
+          fetchPriority="high"
+          className="absolute inset-0 -z-10 size-full object-cover object-[60%_center]"
         />
         <div
           aria-hidden="true"
-          className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(248,250,253,0.95)_0%,rgba(248,250,253,0.82)_48%,rgba(248,250,253,0.25)_100%)] lg:bg-[linear-gradient(90deg,rgba(248,250,253,0.97)_0%,rgba(248,250,253,0.86)_30%,rgba(248,250,253,0.25)_58%,rgba(248,250,253,0)_75%)]"
+          className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(6,17,38,0.78)_0%,rgba(6,17,38,0.45)_45%,rgba(8,21,48,0.92)_100%)] lg:bg-[linear-gradient(90deg,rgba(6,17,38,0.9)_0%,rgba(6,17,38,0.62)_32%,rgba(6,17,38,0.12)_62%,rgba(6,17,38,0)_80%)]"
         />
-        <div aria-hidden="true" className="absolute inset-x-0 top-0 -z-10 h-40 bg-gradient-to-b from-white/70 to-transparent" />
+        <div aria-hidden="true" className="absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-b from-transparent to-ivory" />
         <div className="container-page flex min-h-[640px] flex-col justify-center pb-28 pt-[calc(72px+2.5rem)] lg:min-h-[700px]">
           <div className="animate-fade-up max-w-[40rem]">
             <p className="inline-flex items-center gap-2 rounded-full bg-white/85 px-3.5 py-1.5 text-sm font-semibold text-saffron-ink shadow-[0_4px_14px_-8px_rgb(23_61_102/0.4)]">
               <Star aria-hidden="true" className="size-4 fill-saffron text-saffron" />
               {t("nt.hero.chip")}
             </p>
-            <h1 id="hero-title" className="mt-5 text-[clamp(2.55rem,1.6rem+4vw,4.4rem)] leading-[1.03] text-ink">
-              {t.rich("nt.hero.title", { b: (c) => <span className="text-cobalt">{c}</span> })}
+            <h1 id="hero-title" className="mt-5 font-[Georgia,'Times_New_Roman',serif] text-[clamp(2.8rem,1.7rem+4.6vw,5.2rem)] font-normal leading-[1.02] tracking-[-0.01em] text-white [text-shadow:0_2px_24px_rgb(0_0_0/0.35)]">
+              {t.rich("nt.hero.title", { b: (c) => <span className="bg-gradient-to-r from-[#f6d98b] to-[#e0a93f] bg-clip-text text-transparent">{c}</span> })}
             </h1>
-            <p className="mt-5 max-w-xl text-lg text-ink/80 sm:text-xl">{t("nt.hero.text")}</p>
+            <p className="mt-5 max-w-xl text-lg text-white/85 sm:text-xl">{t("nt.hero.text")}</p>
           </div>
 
           <ClientMessages namespaces={["eco"]}>
@@ -143,12 +139,6 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
             />
           </ClientMessages>
         </div>
-        {heroCredit && (
-          <p className="absolute bottom-16 right-4 hidden text-[0.68rem] text-white/80 [text-shadow:0_1px_2px_rgba(0,0,0,0.5)] lg:block">
-            {t("home.photoBy")} {heroCredit.author} · {heroCredit.license} ·{" "}
-            <a href={heroCredit.source} className="underline" rel="noopener noreferrer" target="_blank">Wikimedia Commons</a>
-          </p>
-        )}
       </section>
 
       {/* ── Trust bar ───────────────────────────────────────── */}

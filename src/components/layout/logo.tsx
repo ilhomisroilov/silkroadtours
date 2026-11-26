@@ -18,7 +18,7 @@ export function Logo({ tone = "light", className }: { tone?: "light" | "dark"; c
     />
   ) : (
     <Image
-      src="/brand/national-tours-header.webp"
+      src="/brand/national-tours-header-light.webp"
       alt="National Tours"
       width={439}
       height={168}
