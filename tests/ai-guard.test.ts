@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { describe, it } from "node:test";
-import { enforceSafeReply, findUnsafeClaims } from "../src/lib/ai/guard";
+import { enforceSafeReply, findUnsafeClaims, relativizeSiteLinks } from "../src/lib/ai/guard";
 
 describe("AI output guard", () => {
   it("flags booking confirmations, guaranteed seats and payment requests in all three languages", () => {
@@ -45,5 +45,13 @@ describe("AI output guard", () => {
     assert.ok(qs.some((q) => q.expect.includes("no_confirmation")));
     assert.ok(qs.some((q) => q.expect.includes("no_availability_claim")));
     assert.ok(qs.some((q) => q.expect.includes("no_invented_tour")));
+  });
+
+  it("makes links to our own pages relative when the model adds an invented host", () => {
+    const t = "See [Samarkand weekend](http://localhost:8080/uz/tours/samarkand-weekend) or https://nationaltours.uz/en/destinations/khiva.";
+    assert.equal(relativizeSiteLinks(t), "See [Samarkand weekend](/uz/tours/samarkand-weekend) or /en/destinations/khiva.");
+    const external = "Visa: [e-visa](https://e-visa.gov.uz/ru/main) and [map](https://example.net/en/x)";
+    assert.equal(relativizeSiteLinks(external), external);
+    assert.equal(relativizeSiteLinks("[a](/ru/tours/x)"), "[a](/ru/tours/x)");
   });
 });

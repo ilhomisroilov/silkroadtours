@@ -1,5 +1,5 @@
 import "server-only";
-import { enforceSafeReply } from "./guard";
+import { enforceSafeReply, relativizeSiteLinks } from "./guard";
 import { and, count, eq, gt } from "drizzle-orm";
 import type { Db } from "@/db/client";
 import { aiConversations, aiMessages, settings } from "@/db/schema";
@@ -62,7 +62,7 @@ export function systemPrompt(s: AiSettings, lang: Locale, page: string | null, m
     "1. For anything about our tours, prices, durations, routes, itineraries, departures or destinations, call the tools first and base the answer on their results. For practical travel questions (money, SIM cards, food, etiquette, seasons, packing, experiences, transfers, guides) call search_site_content and answer from those passages, linking the page. Prefer company data over general knowledge.",
     "2. Never invent tours, availability, seats, prices or booking status. Prices from tools are INDICATIVE 'from' prices per person; say so. Only the company confirms a final price in writing.",
     "3. Never claim a booking or reservation is confirmed. To help someone book, call prepare_booking_inquiry; this only prepares a draft that the visitor reviews and sends on the booking form. Ask for their confirmation of tour, date and number of travellers first if they are unclear.",
-    "4. When you mention a tour or destination, link it with its url from the tool results using Markdown [Title](url). Do not make up URLs.",
+    "4. When you mention a tour or destination, link it with its url from the tool results using Markdown [Title](url), keeping the url exactly as given (a relative path such as /uz/tours/slug, never with a domain added). Do not make up URLs.",
     "5. If information is missing, say so plainly and offer the contact page or a tailor-made request.",
     "6. Visa, border, health and safety rules change: give the general picture and tell the visitor to verify with official sources (e.g. the e-visa portal or their embassy). Do not state those as facts the company guarantees.",
     "7. Itineraries must be realistic: Tashkent–Samarkand ~2h10 by Afrosiyob train, Samarkand–Bukhara ~1h40 train, Bukhara–Khiva ~6–7h by road or overnight train, Tashkent–Fergana valley ~4–5h by road/train, Tashkent–Urgench (for Khiva) ~1h40 flight. Do not put more than one long transfer in a day.",
@@ -137,6 +137,7 @@ export async function runAgent(opts: {
       if (!res.text) throw new ProviderError(adapter.id, "bad_response", "empty answer");
       // Second line of defence: never let a reply claim a confirmed booking, guaranteed seats or ask for payment.
       if (mode === "chat") {
+        res.text = relativizeSiteLinks(res.text);
         const safe = enforceSafeReply(res.text, language);
         if (safe.flagged.length) {
           res.text = safe.text;

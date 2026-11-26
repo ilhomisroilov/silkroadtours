@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Install AI provider keys on the server without them ever touching Git, the screen or the shell history.
 #
-#   sudo bash deploy/set-ai-key.sh              asks for Mistral, Cerebras and OpenRouter keys in turn (Enter skips one)
+#   sudo bash deploy/set-ai-key.sh              asks for Mistral, Cerebras and OpenRouter keys in turn (Enter skips one;
+#                                               pressing Enter three times only re-applies the order and restarts)
 #   sudo bash deploy/set-ai-key.sh mistral      only one provider (mistral | cerebras | openrouter | groq | gemini)
 #
 # Each key is typed hidden, checked with a tiny test request (including tool calling, which the assistant needs),
@@ -53,10 +54,9 @@ setup_provider() {
 }
 
 ONLY="${1:-}"
-HAVE_MISTRAL=0
 case "$ONLY" in
   ""|mistral)
-    setup_provider Mistral MISTRAL_API_KEY MISTRAL_MODEL https://api.mistral.ai/v1 "mistral-small-latest mistral-medium-latest mistral-large-latest" && HAVE_MISTRAL=1 || true ;;
+    setup_provider Mistral MISTRAL_API_KEY MISTRAL_MODEL https://api.mistral.ai/v1 "mistral-small-latest mistral-medium-latest mistral-large-latest" || true ;;
 esac
 case "$ONLY" in
   ""|cerebras)
@@ -78,13 +78,21 @@ case "$ONLY" in
   *) echo "Usage: sudo bash deploy/set-ai-key.sh [mistral|cerebras|openrouter|groq|gemini]"; exit 1 ;;
 esac
 
-if [ "$HAVE_MISTRAL" = 1 ] || grep -q '^MISTRAL_API_KEY=.\+' .env; then
-  upsert AI_PROVIDER mistral
+# Order: Mistral → Cerebras → Gemini → OpenRouter → Groq, using only the providers that have a key.
+ORDER=()
+for p in mistral cerebras gemini openrouter groq; do
+  v="$(echo "$p" | tr '[:lower:]' '[:upper:]')_API_KEY"
+  grep -q "^$v=.\+" .env && ORDER+=("$p")
+done
+if [ ${#ORDER[@]} -gt 0 ]; then
+  upsert AI_PROVIDER "${ORDER[0]}"
   upsert AI_MODEL ""
   upsert AI_SECONDARY_MODEL none
-  upsert AI_FALLBACK_PROVIDER "cerebras,gemini,openrouter"
+  upsert AI_FALLBACK_PROVIDER "$(IFS=,; echo "${ORDER[*]:1}")"
   upsert AI_FALLBACK_MODEL ""
-  echo "Order: Mistral → Cerebras → Gemini → OpenRouter (only those with a key are used)."
+  echo "Order: $(printf '%s → ' "${ORDER[@]}" | sed 's/ → $//')"
+else
+  echo "No AI key saved: the assistant answers from the site's own database."
 fi
 chmod 600 .env
 

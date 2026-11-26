@@ -32,3 +32,16 @@ export function enforceSafeReply(text: string, lang: "en" | "uz" | "ru"): { text
   if (!flagged.length) return { text, flagged };
   return { text: `${text.trim()}\n\n**${NOTE[lang] ?? NOTE.en}**`, flagged };
 }
+
+/**
+ * Models sometimes turn the relative links our tools return (/uz/tours/…) into absolute ones with an invented
+ * host such as http://localhost:8080. Links to our own pages on such hosts (or our own domain) become relative
+ * again; links to other sites are left alone.
+ */
+const SITE_PATH = String.raw`/(?:en|uz|ru)(?:/[^\s)\]]*)?`;
+const OUR_HOSTS = String.raw`(?:localhost|127\.0\.0\.1|0\.0\.0\.0|\[::1\]|(?:www\.)?example\.(?:com|org)|(?:www\.)?nationaltours\.uz|(?:www\.)?silkroadtours\.uz)(?::\d+)?`;
+const OWN_LINK = new RegExp(String.raw`https?://${OUR_HOSTS}(${SITE_PATH})`, "gi");
+
+export function relativizeSiteLinks(text: string): string {
+  return text.replace(OWN_LINK, "$1");
+}

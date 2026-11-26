@@ -296,7 +296,7 @@ export function adapterFor(id: string | undefined, model?: string): ProviderAdap
 }
 
 /** Order in which any other provider with a key is tried after the ones named in the env. */
-const AUTO_FALLBACK = ["mistral", "gemini", "openrouter", "cerebras", "groq", "custom"];
+const AUTO_FALLBACK = ["mistral", "cerebras", "gemini", "openrouter", "groq", "custom"];
 
 /**
  * Primary provider, an optional second model on it, then fallbacks; quota/timeouts/outages fall through
