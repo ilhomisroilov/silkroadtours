@@ -3,21 +3,42 @@ import { getRequestConfig } from "next-intl/server";
 import { ADMIN_LOCALES, type AdminLocale } from "./admin";
 import { routing } from "./routing";
 
+/**
+ * Feature modules keep their messages in their own files, merged on top of the main dictionary:
+ *   messages/modules/<module>/<locale>.json        → top-level namespaces for the public site
+ *   messages/admin/modules/<module>/<locale>.json  → merged into the "admin" namespace
+ */
+export const SITE_MESSAGE_MODULES = ["eco", "places", "virtual", "builder", "partners"] as const;
+export const ADMIN_MESSAGE_MODULES = ["crm", "partners", "places"] as const;
+
+async function siteMessages(locale: string): Promise<Record<string, unknown>> {
+  const [base, ...mods] = await Promise.all([
+    import(`../../messages/${locale}.json`),
+    ...SITE_MESSAGE_MODULES.map((m) => import(`../../messages/modules/${m}/${locale}.json`)),
+  ]);
+  return Object.assign({}, base.default, ...mods.map((x) => x.default));
+}
+
+async function adminMessages(locale: string): Promise<Record<string, unknown>> {
+  const [base, ...mods] = await Promise.all([
+    import(`../../messages/admin/${locale}.json`),
+    ...ADMIN_MESSAGE_MODULES.map((m) => import(`../../messages/admin/modules/${m}/${locale}.json`)),
+  ]);
+  return Object.assign({}, base.default, ...mods.map((x) => x.default));
+}
+
 export default getRequestConfig(async ({ requestLocale, locale: explicit }) => {
   // The admin panel (outside [locale]) passes its locale explicitly: "uz" (default) or "en".
   if (explicit && (ADMIN_LOCALES as readonly string[]).includes(explicit)) {
     const l = explicit as AdminLocale;
-    const [site, admin] = await Promise.all([
-      import(`../../messages/${l}.json`),
-      import(`../../messages/admin/${l}.json`),
-    ]);
-    return { locale: l, messages: { ...site.default, admin: admin.default }, timeZone: "Asia/Tashkent" };
+    const [site, admin] = await Promise.all([siteMessages(l), adminMessages(l)]);
+    return { locale: l, messages: { ...site, admin }, timeZone: "Asia/Tashkent" };
   }
   const requested = explicit ?? (await requestLocale);
   const locale = hasLocale(routing.locales, requested) ? requested : routing.defaultLocale;
   return {
     locale,
-    messages: (await import(`../../messages/${locale}.json`)).default,
+    messages: await siteMessages(locale),
     timeZone: "Asia/Tashkent",
   };
 });

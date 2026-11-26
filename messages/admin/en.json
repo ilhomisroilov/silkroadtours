@@ -18,8 +18,12 @@
     "ai": "AI assistant",
     "customers": "Customers",
     "content": "Content",
-    "media": "Media library",
-    "newsletter": "Newsletter"
+    "media": "Virtual tours & media",
+    "newsletter": "Newsletter",
+    "crm": "CRM & leads",
+    "trips": "Trip plans",
+    "places": "Hotels, food & transport",
+    "partners": "Partners"
   },
   "login": {
     "title": "Staff sign-in",

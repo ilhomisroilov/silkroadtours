@@ -19,8 +19,16 @@ import {
   DEPARTURE_STATUSES,
   DIFFICULTIES,
   FAQ_CATEGORIES,
+  LEAD_ACTIVITY_KINDS,
+  LEAD_SOURCES,
+  LEAD_STAGES,
   LOCALES,
   NOTE_KINDS,
+  PARTNER_SOURCES,
+  PARTNER_STATUSES,
+  PARTNER_TYPES,
+  PLACE_KINDS,
+  PLACE_SOURCES,
   REVIEW_SOURCES,
   SERVICE_TYPES,
   TOUR_CATEGORIES,
@@ -29,6 +37,7 @@ import {
   type LocalizedText,
   type Meal,
   type MediaItem,
+  type PlaceDetails,
   type RoutePoint,
   type TourBadge,
   type TransportItem,
@@ -674,4 +683,127 @@ export const newsletterSubscribers = sqliteTable(
     createdAt: createdAt(),
   },
   (t) => [uniqueIndex("newsletter_subscribers_email_uq").on(t.email)],
+);
+
+// ── Travel ecosystem: hotels, restaurants, transport ───────────────────────
+
+export const places = sqliteTable(
+  "places",
+  {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    kind: text("kind", { enum: PLACE_KINDS }).notNull(),
+    slug: text("slug").notNull(),
+    destinationSlug: text("destination_slug"),
+    name: localized("name").notNull(),
+    summary: localized("summary").notNull(),
+    description: localized("description").notNull(),
+    image: text("image"),
+    gallery: text("gallery", { mode: "json" }).$type<string[]>().notNull().default(sql`'[]'`),
+    lat: real("lat"),
+    lng: real("lng"),
+    /** Indicative "from" price in whole USD (per night, per meal or per trip). Never live availability. */
+    priceFromUsd: integer("price_from_usd"),
+    /** 1 (budget) … 4 (premium). */
+    priceLevel: integer("price_level"),
+    tags: text("tags", { mode: "json" }).$type<string[]>().notNull().default(sql`'[]'`),
+    details: text("details", { mode: "json" }).$type<PlaceDetails>().notNull(),
+    partnerId: integer("partner_id").references(() => partners.id, { onDelete: "set null" }),
+    source: text("source", { enum: PLACE_SOURCES }).notNull().default("admin"),
+    isPublished: integer("is_published", { mode: "boolean" }).notNull().default(true),
+    sortOrder: integer("sort_order").notNull().default(0),
+    createdAt: createdAt(),
+    updatedAt: updatedAt(),
+  },
+  (t) => [
+    uniqueIndex("places_kind_slug_uq").on(t.kind, t.slug),
+    index("places_kind_dest_idx").on(t.kind, t.isPublished, t.destinationSlug),
+    check("places_kind_ck", sql`${t.kind} IN ('hotel', 'restaurant', 'transport')`),
+  ],
+);
+
+// ── Partner ecosystem ──────────────────────────────────────────────────────
+
+export const partners = sqliteTable(
+  "partners",
+  {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    /** e.g. PA-2026-20417 */
+    reference: text("reference").notNull(),
+    /** Secret for the partner's own status page (/partners/status/<token>). */
+    token: text("token").notNull(),
+    type: text("type", { enum: PARTNER_TYPES }).notNull(),
+    status: text("status", { enum: PARTNER_STATUSES }).notNull().default("pending"),
+    source: text("source", { enum: PARTNER_SOURCES }).notNull().default("application"),
+    businessName: text("business_name").notNull(),
+    contactName: text("contact_name").notNull(),
+    email: text("email").notNull(),
+    phone: text("phone").notNull(),
+    website: text("website"),
+    destinationSlug: text("destination_slug"),
+    city: text("city"),
+    description: text("description").notNull(),
+    /** What they offer, as short lines ("Double room from $45", "Plov masterclass"). */
+    services: text("services", { mode: "json" }).$type<string[]>().notNull().default(sql`'[]'`),
+    locale: text("locale", { enum: LOCALES }).notNull().default("en"),
+    adminNote: text("admin_note"),
+    reviewedBy: integer("reviewed_by").references(() => adminUsers.id, { onDelete: "set null" }),
+    reviewedAt: integer("reviewed_at", { mode: "timestamp" }),
+    ipHash: text("ip_hash"),
+    createdAt: createdAt(),
+    updatedAt: updatedAt(),
+  },
+  (t) => [
+    uniqueIndex("partners_reference_uq").on(t.reference),
+    uniqueIndex("partners_token_uq").on(t.token),
+    index("partners_status_idx").on(t.status, t.createdAt),
+  ],
+);
+
+// ── CRM: leads and their activity history ──────────────────────────────────
+
+export const leads = sqliteTable(
+  "leads",
+  {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    source: text("source", { enum: LEAD_SOURCES }).notNull(),
+    /** Booking (UZ-…) or request (SR-…) reference the lead came from. */
+    sourceRef: text("source_ref"),
+    stage: text("stage", { enum: LEAD_STAGES }).notNull().default("new"),
+    fullName: text("full_name").notNull(),
+    email: text("email").notNull(),
+    phone: text("phone"),
+    locale: text("locale").notNull().default("en"),
+    title: text("title").notNull(),
+    destination: text("destination"),
+    interests: text("interests"),
+    budgetUsd: integer("budget_usd"),
+    travelFrom: text("travel_from"),
+    travelTo: text("travel_to"),
+    travellers: integer("travellers"),
+    /** Expected deal value in whole USD, for the pipeline totals. */
+    valueUsd: integer("value_usd"),
+    assignedTo: integer("assigned_to").references(() => adminUsers.id, { onDelete: "set null" }),
+    followUpAt: text("follow_up_at"),
+    createdAt: createdAt(),
+    updatedAt: updatedAt(),
+  },
+  (t) => [
+    index("leads_stage_idx").on(t.stage, t.updatedAt),
+    uniqueIndex("leads_source_ref_uq").on(t.source, t.sourceRef),
+  ],
+);
+
+export const leadActivities = sqliteTable(
+  "lead_activities",
+  {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    leadId: integer("lead_id")
+      .notNull()
+      .references(() => leads.id, { onDelete: "cascade" }),
+    adminId: integer("admin_id").references(() => adminUsers.id, { onDelete: "set null" }),
+    kind: text("kind", { enum: LEAD_ACTIVITY_KINDS }).notNull(),
+    text: text("text").notNull(),
+    createdAt: createdAt(),
+  },
+  (t) => [index("lead_activities_lead_idx").on(t.leadId, t.createdAt)],
 );

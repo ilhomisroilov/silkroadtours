@@ -18,8 +18,12 @@
     "ai": "AI boshqaruvi",
     "customers": "Mijozlar",
     "content": "Kontent",
-    "media": "Media kutubxona",
-    "newsletter": "Obunachilar"
+    "media": "Virtual sayohatlar va media",
+    "newsletter": "Obunachilar",
+    "crm": "CRM va lidlar",
+    "trips": "Sayohat rejalari",
+    "places": "Mehmonxona, taom va transport",
+    "partners": "Hamkorlar"
   },
   "login": {
     "title": "Xodimlar uchun kirish",

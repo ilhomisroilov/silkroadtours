@@ -1,6 +1,6 @@
 "use client";
 
-import { BarChart3, BookOpenCheck, CalendarCheck2, Cog, FileText, HelpCircle, Images, LogOut, Mail, Map, MessageSquareQuote, PanelLeft, Route, Bot, Users } from "lucide-react";
+import { BarChart3, BookOpenCheck, Building2, CalendarCheck2, Cog, FileText, Handshake, HelpCircle, Images, KanbanSquare, LogOut, Mail, Map, MessageSquareQuote, NotebookPen, PanelLeft, Route, Bot, Users } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
@@ -12,14 +12,18 @@ import { GirihRosette } from "@/components/ornament";
 
 const NAV = [
   { href: "/admin", key: "overview", icon: BarChart3 },
+  { href: "/admin/crm", key: "crm", icon: KanbanSquare },
+  { href: "/admin/customers", key: "customers", icon: Users },
   { href: "/admin/bookings", key: "bookings", icon: CalendarCheck2 },
   { href: "/admin/requests", key: "requests", icon: BookOpenCheck },
-  { href: "/admin/customers", key: "customers", icon: Users },
+  { href: "/admin/trips", key: "trips", icon: NotebookPen },
+  { href: "/admin/places", key: "places", icon: Building2 },
   { href: "/admin/tours", key: "tours", icon: Route },
   { href: "/admin/destinations", key: "destinations", icon: Map },
-  { href: "/admin/ai", key: "ai", icon: Bot },
-  { href: "/admin/content", key: "content", icon: FileText },
   { href: "/admin/media", key: "media", icon: Images },
+  { href: "/admin/partners", key: "partners", icon: Handshake },
+  { href: "/admin/content", key: "content", icon: FileText },
+  { href: "/admin/ai", key: "ai", icon: Bot },
   { href: "/admin/faq", key: "faq", icon: HelpCircle },
   { href: "/admin/reviews", key: "reviews", icon: MessageSquareQuote },
   { href: "/admin/newsletter", key: "newsletter", icon: Mail },

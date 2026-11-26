@@ -1,0 +1,32 @@
+{
+  "eco": {
+    "nav": {
+      "explore": "Kashf eting",
+      "plan": "Rejalashtirish",
+      "stay": "Turar joy va taomlar",
+      "transport": "Transport",
+      "partners": "Hamkorlar",
+      "virtualTours": "Virtual sayohatlar",
+      "virtualToursHint": "Borishdan oldin 360° sayr",
+      "travelMap": "Sayohat xaritasi",
+      "travelMapHint": "Diqqatga sazovor joylar, mehmonxonalar va taomlar bir xaritada",
+      "travelGuide": "Sayohat qoʻllanmasi",
+      "experiences": "Taassurotlar",
+      "tripBuilder": "Sayohat konstruktori",
+      "tripBuilderHint": "Sayohatingizni kunma-kun oʻzingiz tuzing",
+      "aiGuide": "AI sayohat gidi",
+      "aiGuideHint": "Oʻz tilingizda istalgan savolni bering",
+      "aiPlanner": "AI sayohat rejalovchisi",
+      "compare": "Turlarni solishtirish",
+      "hotels": "Mehmonxonalar",
+      "hotelsHint": "Hovlili uylardan togʻ mehmonxonalarigacha",
+      "restaurants": "Restoranlar",
+      "restaurantsHint": "Osh markazlari, choyxonalar, tomdagi kechki ovqatlar",
+      "flightsTrains": "Aviareyslar va poyezdlar",
+      "transfers": "Transferlar va avtomobillar",
+      "planTrip": "Sayohatimni rejalash",
+      "about": "Biz haqimizda",
+      "contact": "Aloqa"
+    }
+  }
+}

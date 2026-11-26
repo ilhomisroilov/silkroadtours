@@ -16,6 +16,8 @@ import { faq as baseFaq } from "./seed-data/faq.ts";
 import { domesticTours } from "./seed-data/tours-domestic.ts";
 import { inboundTours, type SeedTour } from "./seed-data/tours-inbound.ts";
 import { extraContent, extraDestinations, extraFaq, extraTours, sampleReviews } from "./seed-data/extra.ts";
+import { samplePartners } from "./seed-data/partners.ts";
+import { seedPlaces } from "./seed-data/places.ts";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const RESET = process.argv.includes("--reset");
@@ -127,6 +129,8 @@ const resetLines = [
   "DELETE FROM destinations;",
   "DELETE FROM faq_items;",
   "DELETE FROM content_items;",
+  "DELETE FROM places WHERE source = 'seed';",
+  "DELETE FROM partners WHERE source = 'sample';",
   "UPDATE settings SET value = json_set(value, '$.agencyName', 'National Tours') WHERE key = 'contact' AND json_extract(value, '$.agencyName') IN ('Silk Road Tours', '');",
   "",
 ];
@@ -336,6 +340,68 @@ extraContent.forEach((c, i) => {
 });
 lines.push("");
 
+// Hotels, restaurants and transport (source = "seed"). INSERT OR IGNORE keeps rows an admin created with the same slug.
+const placeKeys = new Set<string>();
+seedPlaces.forEach((p, i) => {
+  const key = `${p.kind}/${p.slug}`;
+  if (placeKeys.has(key)) throw new Error(`Duplicate place ${key}`);
+  placeKeys.add(key);
+  if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(p.slug)) throw new Error(`Place ${key}: bad slug`);
+  if (p.destinationSlug && !destinations.some((d) => d.slug === p.destinationSlug)) throw new Error(`Place ${key}: unknown destination ${p.destinationSlug}`);
+  for (const f of ["name", "summary", "description"] as const) {
+    for (const l of ["en", "uz", "ru"] as const) if (!p[f][l]?.trim()) throw new Error(`Place ${key}: empty ${f}.${l}`);
+  }
+  if (p.image) images.push(p.image);
+  for (const g of p.gallery ?? []) images.push(g);
+  lines.push(
+    insert("places", {
+      kind: p.kind,
+      slug: p.slug,
+      destination_slug: p.destinationSlug,
+      name: p.name,
+      summary: p.summary,
+      description: p.description,
+      image: p.image,
+      gallery: p.gallery ?? [],
+      lat: p.lat,
+      lng: p.lng,
+      price_from_usd: p.priceFromUsd,
+      price_level: p.priceLevel,
+      tags: p.tags,
+      details: p.details,
+      source: "seed",
+      is_published: true,
+      sort_order: i,
+    }).replace(/^INSERT INTO/, "INSERT OR IGNORE INTO"),
+  );
+});
+lines.push("");
+
+// Internal example partner applications (source = "sample"): admin only, never public.
+samplePartners.forEach((p, i) => {
+  const n = String(90001 + i);
+  lines.push(
+    insert("partners", {
+      reference: `PA-SAMPLE-${n}`,
+      token: `sample${n}${Math.random().toString(36).slice(2, 12)}`,
+      type: p.type,
+      status: p.status,
+      source: "sample",
+      business_name: p.businessName,
+      contact_name: p.contactName,
+      email: p.email,
+      phone: p.phone,
+      website: p.website,
+      destination_slug: p.destinationSlug,
+      city: p.city,
+      description: p.description,
+      services: p.services,
+      locale: p.locale,
+    }).replace(/^INSERT INTO/, "INSERT OR IGNORE INTO"),
+  );
+});
+lines.push("");
+
 // Sample reviews: visible only in the admin panel (source = 'sample', unpublished, unverified).
 const tourIdBySlug = new Map(tours.map((t, i) => [t.slug, i + 1]));
 for (const r of sampleReviews) {
@@ -385,7 +451,8 @@ console.log(
   `seed.sql: ${destinations.length} destinations, ${tours.length} tours ` +
     `(${inboundTours.length} inbound, ${domesticTours.length} domestic), ${dayId - 1} itinerary days, ` +
     `${tierId - 1} price tiers, ${departureCount} departures, ${faq.length} FAQ items, ` +
-    `${extraContent.length} content items, ${sampleReviews.length} sample reviews${RESET ? " [with reset]" : ""}.`,
+    `${extraContent.length} content items, ${seedPlaces.length} places, ${samplePartners.length} sample partners, ` +
+    `${sampleReviews.length} sample reviews${RESET ? " [with reset]" : ""}.`,
 );
 if (missing.length) {
   console.log(`Note: ${missing.length} of ${images.length} images are not in /public yet — see drizzle/seed-images.txt.`);

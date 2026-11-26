@@ -103,6 +103,64 @@ export type AdminRole = (typeof ADMIN_ROLES)[number];
 export const NOTE_KINDS = ["note", "status_change"] as const;
 export type NoteKind = (typeof NOTE_KINDS)[number];
 
+// ── Travel ecosystem: places, partners, CRM ────────────────────────────────
+
+/** Bookable or listable services the agency arranges (attractions come from destinations.attractions). */
+export const PLACE_KINDS = ["hotel", "restaurant", "transport"] as const;
+export type PlaceKind = (typeof PLACE_KINDS)[number];
+
+/** Where a place row came from. "seed" rows are the starter catalogue; "partner" rows were submitted by a partner. */
+export const PLACE_SOURCES = ["seed", "admin", "partner"] as const;
+export type PlaceSource = (typeof PLACE_SOURCES)[number];
+
+export const PARTNER_TYPES = ["hotel", "restaurant", "transport", "tour_operator", "guide", "museum", "attraction", "experience"] as const;
+export type PartnerType = (typeof PARTNER_TYPES)[number];
+
+export const PARTNER_STATUSES = ["pending", "approved", "rejected"] as const;
+export type PartnerStatus = (typeof PARTNER_STATUSES)[number];
+
+/** "application" = submitted on /partners; "sample" = internal example profile (admin only, never public). */
+export const PARTNER_SOURCES = ["application", "admin", "sample"] as const;
+export type PartnerSource = (typeof PARTNER_SOURCES)[number];
+
+export const LEAD_STAGES = ["new", "contacted", "qualified", "offer_sent", "negotiation", "confirmed", "completed", "lost"] as const;
+export type LeadStage = (typeof LEAD_STAGES)[number];
+
+export const LEAD_SOURCES = ["booking", "request", "trip", "partner", "contact", "admin"] as const;
+export type LeadSource = (typeof LEAD_SOURCES)[number];
+
+export const LEAD_ACTIVITY_KINDS = ["created", "note", "stage", "assign", "follow_up", "call", "email"] as const;
+export type LeadActivityKind = (typeof LEAD_ACTIVITY_KINDS)[number];
+
+/** Per-kind details of a place (JSON column). Prices are indicative USD; nothing here is live availability. */
+export interface HotelDetails {
+  area: LocalizedText;
+  stars?: number;
+  amenities: string[];
+  roomTypes: { name: LocalizedText; sleeps: number; priceFromUsd: number }[];
+  checkIn?: string;
+  checkOut?: string;
+}
+export interface RestaurantDetails {
+  area: LocalizedText;
+  cuisine: string[];
+  dietary: string[];
+  /** Typical opening hours, e.g. "11:00–23:00". */
+  hours: LocalizedText;
+  menu: { name: LocalizedText; priceUsd: number }[];
+}
+export interface TransportDetails {
+  mode: "train" | "flight" | "bus" | "shared_taxi" | "taxi" | "transfer" | "metro" | "car";
+  from: string;
+  to: string;
+  durationMin: number;
+  operator?: string;
+  /** e.g. "Several departures daily; check railway.uz for live times". */
+  scheduleNote: LocalizedText;
+  classes?: { name: LocalizedText; priceFromUsd: number }[];
+}
+export type PlaceDetails = HotelDetails | RestaurantDetails | TransportDetails;
+
 // ── JSON column shapes ─────────────────────────────────────────────────────
 
 /** Every customer-facing string is stored in all three languages. */

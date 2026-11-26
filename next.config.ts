@@ -40,6 +40,8 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   output: "standalone",
+  // A separate build folder per dev server lets several servers run side by side (NEXT_DIST_DIR=.next-x).
+  distDir: process.env.NEXT_DIST_DIR || ".next",
   images: {
     // The Workers runtime has no built-in Next image optimizer. Media is served
     // from /public or absolute URLs (R2 / Cloudflare Images / CDN) that are already sized.

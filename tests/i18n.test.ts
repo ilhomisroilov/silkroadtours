@@ -12,8 +12,14 @@ const flatten = (o: Tree, prefix = ""): Record<string, string> =>
     return acc;
   }, {});
 
-const site = { en: flatten(load("messages/en.json")), uz: flatten(load("messages/uz.json")), ru: flatten(load("messages/ru.json")) };
-const admin = { en: flatten(load("messages/admin/en.json")), uz: flatten(load("messages/admin/uz.json")) };
+const SITE_MODULES = ["eco", "places", "virtual", "builder", "partners"];
+const ADMIN_MODULES = ["crm", "partners", "places"];
+const withModules = (base: string, dir: string, mods: string[], l: string): Tree =>
+  Object.assign({}, load(`${base}/${l}.json`), ...mods.map((m) => load(`${dir}/${m}/${l}.json`)));
+const siteTree = (l: string) => withModules("messages", "messages/modules", SITE_MODULES, l);
+const adminTree = (l: string) => withModules("messages/admin", "messages/admin/modules", ADMIN_MODULES, l);
+const site = { en: flatten(siteTree("en")), uz: flatten(siteTree("uz")), ru: flatten(siteTree("ru")) };
+const admin = { en: flatten(adminTree("en")), uz: flatten(adminTree("uz")) };
 
 /** Sample values for every placeholder so each message can be formatted. */
 function sampleArgs(msg: string): Record<string, unknown> {

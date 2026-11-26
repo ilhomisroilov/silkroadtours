@@ -1,5 +1,7 @@
 import { inArray } from "drizzle-orm";
 import { getDb, getEnv } from "@/db/client";
+import { createLead } from "@/db/queries/leads";
+import { getPublishedPlace } from "@/db/queries/places";
 import { getPublishedContent } from "@/db/queries/content";
 import { getPublishedDestinationBySlug } from "@/db/queries/destinations";
 import { insertServiceRequest } from "@/db/queries/service-requests";
@@ -31,9 +33,11 @@ export const POST = route(async (req) => {
   if (input.type === "accommodation" || input.type === "guide") {
     if (!(await getPublishedDestinationBySlug(db, input.destinationSlug))) throw notFound("destination_not_found");
   }
-  if (input.type === "inquiry" && input.refSlug && input.topic !== "general") {
-    const kind = input.topic === "experience" ? "experience" : "service";
-    if (!(await getPublishedContent(db, kind, input.refSlug))) throw notFound("not_found");
+  if (input.type === "inquiry" && input.refSlug && (input.topic === "experience" || input.topic === "service")) {
+    if (!(await getPublishedContent(db, input.topic, input.refSlug))) throw notFound("not_found");
+  }
+  if (input.type === "inquiry" && input.refSlug && (input.topic === "hotel" || input.topic === "restaurant" || input.topic === "transport")) {
+    if (!(await getPublishedPlace(db, input.topic, input.refSlug))) throw notFound("not_found");
   }
   if (input.type === "custom_tour") {
     const found = await db
@@ -55,6 +59,25 @@ export const POST = route(async (req) => {
     locale,
     payload,
     ipHash,
+  });
+
+  const p = payload as Record<string, unknown>;
+  const str = (v: unknown) => (typeof v === "string" && v ? v : null);
+  await createLead(db, {
+    source: input.type === "custom_tour" && p.tripId ? "trip" : "request",
+    sourceRef: reference,
+    fullName,
+    email,
+    phone,
+    locale,
+    title: str(p.subject) ?? input.type.replace(/_/g, " "),
+    destination: str(p.destinationSlug) ?? (Array.isArray(p.destinationSlugs) ? (p.destinationSlugs as string[]).join(", ") : null),
+    interests: [Array.isArray(p.interests) ? (p.interests as string[]).join(", ") : null, str(p.notes)].filter(Boolean).join(" · ").slice(0, 1000) || null,
+    budgetUsd: typeof p.budgetPerPersonUsd === "number" ? p.budgetPerPersonUsd : typeof p.budgetUsd === "number" ? p.budgetUsd : null,
+    travelFrom: str(p.startDate) ?? str(p.checkIn) ?? str(p.date),
+    travelTo: str(p.endDate) ?? str(p.checkOut),
+    travellers:
+      typeof p.adults === "number" ? p.adults + (typeof p.children === "number" ? p.children : 0) : typeof p.guests === "number" ? p.guests : typeof p.groupSize === "number" ? p.groupSize : typeof p.passengers === "number" ? p.passengers : null,
   });
 
   await runInBackground(

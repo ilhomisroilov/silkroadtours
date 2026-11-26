@@ -44,6 +44,8 @@ const customTour = contactFields
     accommodationLevel: z.enum(ACCOMMODATION_LEVELS),
     budgetPerPersonUsd: z.number().int().min(0).max(100_000).optional(),
     notes: z.string().trim().max(3000).optional(),
+    /** Saved trip from the Trip Constructor (/trip-builder?trip=<id>). */
+    tripId: z.string().regex(/^[a-z0-9]{6,32}$/).optional(),
   })
   .refine((d) => d.endDate >= d.startDate, { error: "end_before_start", path: ["endDate"] });
 
@@ -72,7 +74,7 @@ const guide = contactFields.extend({
 });
 
 /** General question about an experience, a travel service or anything else. */
-export const INQUIRY_TOPICS = ["experience", "service", "general"] as const;
+export const INQUIRY_TOPICS = ["experience", "service", "general", "hotel", "restaurant", "transport", "trip"] as const;
 const inquiry = contactFields.extend({
   type: z.literal("inquiry"),
   topic: z.enum(INQUIRY_TOPICS),

@@ -137,3 +137,6 @@ public/images/experiences/chimgan-horse-riding.jpg
 public/images/destinations/zaamin/hero.jpg
 public/images/destinations/termez/hero.jpg
 public/images/destinations/nuratau/hero.jpg
+public/images/destinations/bukhara/hero.jpg
+public/images/destinations/tashkent/2.jpg
+public/images/destinations/samarkand/hero.jpg

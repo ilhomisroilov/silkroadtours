@@ -1,0 +1,32 @@
+{
+  "eco": {
+    "nav": {
+      "explore": "Explore",
+      "plan": "Plan",
+      "stay": "Stay & eat",
+      "transport": "Transport",
+      "partners": "Partners",
+      "virtualTours": "Virtual tours",
+      "virtualToursHint": "360° walks before you go",
+      "travelMap": "Travel map",
+      "travelMapHint": "Sights, hotels and food on one map",
+      "travelGuide": "Travel guide",
+      "experiences": "Experiences",
+      "tripBuilder": "Trip constructor",
+      "tripBuilderHint": "Build your own trip, day by day",
+      "aiGuide": "AI travel guide",
+      "aiGuideHint": "Ask anything, in your language",
+      "aiPlanner": "AI trip planner",
+      "compare": "Compare tours",
+      "hotels": "Hotels",
+      "hotelsHint": "Courtyard houses to mountain lodges",
+      "restaurants": "Restaurants",
+      "restaurantsHint": "Plov centres, teahouses, rooftop dinners",
+      "flightsTrains": "Flights & trains",
+      "transfers": "Transfers & cars",
+      "planTrip": "Plan my trip",
+      "about": "About us",
+      "contact": "Contact"
+    }
+  }
+}

@@ -1,5 +1,6 @@
 import { getDb, getEnv } from "@/db/client";
 import { todayTashkent } from "@/db/batch";
+import { createLead } from "@/db/queries/leads";
 import { insertBooking } from "@/db/queries/bookings";
 import { getPublishedDestinationBySlug } from "@/db/queries/destinations";
 import { getContact, getRates } from "@/db/queries/settings";
@@ -109,6 +110,20 @@ export const POST = route(async (req) => {
     ipHash,
     userAgent: req.headers.get("user-agent")?.slice(0, 300) ?? null,
     utmSource: input.utmSource ?? null,
+  });
+
+  await createLead(db, {
+    source: "booking",
+    sourceRef: reference,
+    fullName: input.fullName,
+    email: input.email,
+    phone: input.phone,
+    locale: input.locale,
+    title: tourTitle ?? destinationName ?? "Booking request",
+    destination: destinationName,
+    travelFrom: preferredDate ?? null,
+    travellers: input.adults + input.children,
+    valueUsd: priced ? Math.round(priced.totalUsdCents / 100) : null,
   });
 
   await runInBackground(

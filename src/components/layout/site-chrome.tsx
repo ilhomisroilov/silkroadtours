@@ -23,20 +23,6 @@ async function navItems(locale: Locale): Promise<NavItem[]> {
   const local = dests.filter((d) => !d.country).slice(0, 8);
   const abroad = dests.filter((d) => d.country);
   return [
-    { href: "/", label: t("nav.home") },
-    {
-      href: "/tours",
-      label: t("nav.tours"),
-      children: [
-        { href: "/tours", label: t("nt.menu.allTours") },
-        { href: "/inbound", label: t("nt.menu.inbound") },
-        { href: "/domestic", label: t("nt.menu.domestic") },
-        { href: "/experiences", label: t("nt.menu.experiences") },
-        { href: "/custom-tour", label: t("nt.menu.builder") },
-        { href: "/compare", label: t("nt.menu.compare") },
-        { href: "/services", label: t("nt.menu.services") },
-      ],
-    },
     {
       href: "/destinations",
       label: t("nav.destinations"),
@@ -46,10 +32,46 @@ async function navItems(locale: Locale): Promise<NavItem[]> {
       ],
       footer: { href: "/destinations", label: t("nt.menu.allDestinations") },
     },
-    { href: "/planner", label: t("nav.planner") },
-    { href: "/travel-guide", label: t("nt.menu.guide") },
-    { href: "/about", label: t("nav.about") },
-    { href: "/contact", label: t("nav.contact") },
+    {
+      href: "/virtual-tours",
+      label: t("eco.nav.explore"),
+      children: [
+        { href: "/virtual-tours", label: t("eco.nav.virtualTours"), hint: t("eco.nav.virtualToursHint") },
+        { href: "/navigator", label: t("eco.nav.travelMap"), hint: t("eco.nav.travelMapHint") },
+        { href: "/experiences", label: t("eco.nav.experiences") },
+        { href: "/travel-guide", label: t("eco.nav.travelGuide") },
+      ],
+    },
+    {
+      href: "/tours",
+      label: t("nav.tours"),
+      children: [
+        { href: "/tours", label: t("nt.menu.allTours") },
+        { href: "/inbound", label: t("nt.menu.inbound") },
+        { href: "/domestic", label: t("nt.menu.domestic") },
+        { href: "/compare", label: t("nt.menu.compare") },
+        { href: "/services", label: t("nt.menu.services") },
+      ],
+    },
+    {
+      href: "/trip-builder",
+      label: t("eco.nav.plan"),
+      children: [
+        { href: "/trip-builder", label: t("eco.nav.tripBuilder"), hint: t("eco.nav.tripBuilderHint") },
+        { href: "/ai-guide", label: t("eco.nav.aiGuide"), hint: t("eco.nav.aiGuideHint") },
+        { href: "/planner", label: t("eco.nav.aiPlanner") },
+      ],
+    },
+    {
+      href: "/hotels",
+      label: t("eco.nav.stay"),
+      children: [
+        { href: "/hotels", label: t("eco.nav.hotels"), hint: t("eco.nav.hotelsHint") },
+        { href: "/restaurants", label: t("eco.nav.restaurants"), hint: t("eco.nav.restaurantsHint") },
+      ],
+    },
+    { href: "/transport", label: t("eco.nav.transport") },
+    { href: "/partners", label: t("eco.nav.partners") },
   ];
 }
 
@@ -67,14 +89,20 @@ export async function SiteHeader({ locale, currency }: { locale: Locale; currenc
           <LanguageSwitcher currency={currency} />
           <WishlistLink label={t("nt.menu.wishlist")} className="max-sm:hidden" />
           <Link
-            href="/tours"
+            href="/trip-builder"
             className="hidden min-h-11 shrink-0 items-center gap-2 whitespace-nowrap rounded-full bg-lapis px-5 text-sm font-bold text-white shadow-[0_8px_20px_-10px_rgb(23_61_102/0.8)] transition-colors hover:bg-cobalt sm:inline-flex"
           >
-            {t("nav.bookTour")}
+            {t("eco.nav.planTrip")}
             <ArrowRight aria-hidden="true" className="size-4" />
           </Link>
           <MobileMenu
-            items={[...items.map((i) => ({ href: i.href, label: i.label, children: i.children })), { href: "/wishlist", label: t("nt.menu.wishlist") }]}
+            items={[
+              { href: "/", label: t("nav.home") },
+              ...items.map((i) => ({ href: i.href, label: i.label, children: i.children })),
+              { href: "/about", label: t("eco.nav.about") },
+              { href: "/contact", label: t("eco.nav.contact") },
+              { href: "/wishlist", label: t("nt.menu.wishlist") },
+            ]}
             currency={currency}
           />
         </div>
