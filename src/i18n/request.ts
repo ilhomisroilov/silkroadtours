@@ -8,8 +8,8 @@ import { routing } from "./routing";
  *   messages/modules/<module>/<locale>.json        → top-level namespaces for the public site
  *   messages/admin/modules/<module>/<locale>.json  → merged into the "admin" namespace
  */
-export const SITE_MESSAGE_MODULES = ["eco", "places", "virtual", "builder", "partners"] as const;
-export const ADMIN_MESSAGE_MODULES = ["crm", "partners", "places"] as const;
+export const SITE_MESSAGE_MODULES = ["eco", "places", "virtual", "builder", "partners", "aiguide"] as const;
+export const ADMIN_MESSAGE_MODULES = ["crm", "partners", "places", "trips", "aicenter"] as const;
 
 async function siteMessages(locale: string): Promise<Record<string, unknown>> {
   const [base, ...mods] = await Promise.all([
