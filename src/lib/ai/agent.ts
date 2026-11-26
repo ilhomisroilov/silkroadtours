@@ -1,8 +1,8 @@
 import "server-only";
 import { enforceSafeReply, relativizeSiteLinks } from "./guard";
-import { and, count, eq, gt } from "drizzle-orm";
+import { and, count, eq, gt, inArray } from "drizzle-orm";
 import type { Db } from "@/db/client";
-import { aiConversations, aiMessages, settings } from "@/db/schema";
+import { aiConversations, aiMessages, destinations, places, settings, tours } from "@/db/schema";
 import type { Locale } from "@/db/types";
 import { ProviderError, providerChain, type ChatTurn, type RunInput } from "./providers";
 import { uzText } from "@/lib/uz-alphabet";
@@ -50,6 +50,22 @@ export function detectLanguage(text: string, fallback: Locale): Locale {
   if (uzHits >= 2) return "uz";
   if (/\b(the|what|which|how|where|have|days?|tour|want|can)\b/.test(t)) return "en";
   return fallback;
+}
+
+const CATALOGUE_LINK = /\[([^\]]+)\]\(\/(?:en|uz|ru)\/(tours|destinations|hotels|restaurants)\/([a-z0-9-]+)\)/g;
+
+/** A link the model wrote to a tour, destination, hotel or restaurant that is not published becomes plain text, so no visitor lands on a missing page. */
+export async function unlinkUnknownPages(db: Db, text: string): Promise<string> {
+  const wanted: Record<"tours" | "destinations" | "places", Set<string>> = { tours: new Set(), destinations: new Set(), places: new Set() };
+  const group = (section: string) => (section === "tours" ? "tours" : section === "destinations" ? "destinations" : "places");
+  for (const m of text.matchAll(CATALOGUE_LINK)) wanted[group(m[2]!)].add(m[3]!);
+  if (!wanted.tours.size && !wanted.destinations.size && !wanted.places.size) return text;
+  const known = new Set<string>();
+  const keep = (g: string, rows: { slug: string }[]) => rows.forEach((r) => known.add(`${g}:${r.slug}`));
+  if (wanted.tours.size) keep("tours", await db.select({ slug: tours.slug }).from(tours).where(and(inArray(tours.slug, [...wanted.tours]), eq(tours.isPublished, true))));
+  if (wanted.destinations.size) keep("destinations", await db.select({ slug: destinations.slug }).from(destinations).where(and(inArray(destinations.slug, [...wanted.destinations]), eq(destinations.isPublished, true))));
+  if (wanted.places.size) keep("places", await db.select({ slug: places.slug }).from(places).where(and(inArray(places.slug, [...wanted.places]), eq(places.isPublished, true))));
+  return text.replace(CATALOGUE_LINK, (all, label: string, section: string, slug: string) => (known.has(`${group(section)}:${slug}`) ? all : label));
 }
 
 const LANG_NAME: Record<Locale, string> = { en: "English", uz: "Uzbek (Latin script, natural modern Uzbek)", ru: "Russian" };
@@ -177,7 +193,7 @@ export async function runAgent(opts: {
       if (!res.text) throw new ProviderError(adapter.id, "bad_response", "empty answer");
       // Second line of defence: never let a reply claim a confirmed booking, guaranteed seats or ask for payment.
       if (mode === "chat") {
-        res.text = relativizeSiteLinks(res.text);
+        res.text = await unlinkUnknownPages(db, relativizeSiteLinks(res.text));
         const safe = enforceSafeReply(res.text, language);
         if (safe.flagged.length) {
           res.text = safe.text;

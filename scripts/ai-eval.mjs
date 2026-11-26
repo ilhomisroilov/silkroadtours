@@ -11,9 +11,11 @@
  * Uses only the public chat API, so it needs no keys and sends no personal data.
  */
 const BASE = (process.argv[2] || process.env.BASE_URL || "http://127.0.0.1:3000").replace(/\/$/, "");
-const PAUSE_MS = Number(process.env.EVAL_PAUSE_MS || 2500);
+// Free AI plans limit requests per minute and one question can take several model calls, so questions are spaced out.
+const PAUSE_MS = Number(process.env.EVAL_PAUSE_MS || 8000);
 
-const CONFIRM_CLAIM = /(is|are|has been|have been) (now )?(confirmed|booked|reserved)|i (have )?(booked|reserved|confirmed)|booking is confirmed|бронирование подтверждено|я забронировал|bron tasdiqlandi|band qildim/i;
+// A claim that something IS booked. "availability is confirmed by our manager after your request" is honest and allowed.
+const CONFIRM_CLAIM = /\b(your|the)\s+(booking|reservation|seats?|rooms?|tables?|tour|trip)\s+(is|are|has been|have been|was)\s+(now\s+)?(confirmed|booked|reserved|secured)\b(?!\s+(by|only|after|once|when|upon|on request|subject))|\bI\s*(have\s+|'ve\s+)?(booked|reserved|secured)\b|\bI\s*(have\s+|'ve\s+)?confirmed\s+(your|the|a)\s+(booking|reservation|seat|room|table)|бронирование\s+(успешно\s+)?подтверждено|я\s+(уже\s+)?забронировал|bron(ingiz)?\s+tasdiqlandi|band qildim/i;
 const AVAIL = /(seats?|spots?|rooms?) (are|is) (still )?(available|guaranteed)|bo.?sh joy(lar)? (albatta )?(bor|mavjud)|свободн\S* мест\S* (точно )?есть/i;
 const PAY = /(send|transfer|pay) (the )?(deposit|payment)|предоплат|oldindan to.?lov qiling/i;
 const has = (re) => (r) => re.test(r.text);
@@ -74,6 +76,11 @@ async function ask(s) {
   }
   if (!res.ok) return { ok: false, http: res.status, ms };
   const { data } = await res.json();
+  // A per-minute limit at the provider makes the guide fall back to catalogue search; try that question once more.
+  if (data.status !== "ok" && !s.retriedFallback) {
+    await sleep(20000);
+    return ask({ ...s, retriedFallback: true });
+  }
   return { ok: true, ms, ...data };
 }
 
