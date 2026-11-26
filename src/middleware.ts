@@ -5,10 +5,10 @@ import { routing } from "./i18n/routing";
 const intl = createMiddleware(routing);
 
 // Locale routing for the customer site: "/" → "/en" (or the visitor's language), "/tours" → "/en/tours".
-// Until launch the site stays out of search engines; set SEARCH_INDEXING=on in .env to allow indexing.
+// Search engines may index the site; set SEARCH_INDEXING=off in .env to keep it out of search results.
 export default function middleware(req: NextRequest) {
   const res = intl(req);
-  if (process.env.SEARCH_INDEXING !== "on") res.headers.set("X-Robots-Tag", "noindex, nofollow");
+  if (process.env.SEARCH_INDEXING === "off") res.headers.set("X-Robots-Tag", "noindex, nofollow");
   return res;
 }
 
