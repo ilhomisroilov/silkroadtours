@@ -5,7 +5,7 @@ import { cn } from "@/lib/cn";
 
 // shadcn/ui Button, restyled with the Silk Road tokens. Minimum target 44×44 px (WCAG 2.5.8).
 export const buttonVariants = cva(
-  "inline-flex min-h-11 items-center justify-center gap-2 whitespace-nowrap rounded-[2px] font-bold tracking-[0.01em] transition-colors duration-200 disabled:pointer-events-none disabled:opacity-55 [&_svg]:size-[1.15em] [&_svg]:shrink-0",
+  "inline-flex min-h-11 items-center justify-center gap-2 whitespace-nowrap rounded-xl font-bold tracking-[0.01em] transition-colors duration-200 disabled:pointer-events-none disabled:opacity-55 [&_svg]:size-[1.15em] [&_svg]:shrink-0",
   {
     variants: {
       variant: {

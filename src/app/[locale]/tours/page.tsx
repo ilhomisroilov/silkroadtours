@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Breadcrumbs } from "@/components/common/breadcrumbs";
+import { Compass, Scale, Wand2 } from "lucide-react";
 import { ClientMessages } from "@/components/common/client-messages";
 import { Pagination } from "@/components/common/pagination";
-import { SectionHeading } from "@/components/common/section";
+import { PageHero } from "@/components/common/page-hero";
 import { FiltersShell } from "@/components/tours/filters-shell";
 import { TourCard } from "@/components/tours/tour-card";
 import { buttonVariants } from "@/components/ui/button";
@@ -13,7 +13,7 @@ import { listPublishedTours } from "@/db/queries/tours";
 import { TOUR_CATEGORIES, type Locale } from "@/db/types";
 import { getPathname, Link } from "@/i18n/navigation";
 import { localize } from "@/lib/localize";
-import { db, exchangeRates, pageMetadata, requestCurrency, siteUrl } from "@/lib/server/site";
+import { db, exchangeRates, pageMetadata, requestCurrency } from "@/lib/server/site";
 import { filterValuesFrom, parseTourSearchParams } from "@/lib/tour-query";
 import { TOUR_SORTS } from "@/validators/public";
 
@@ -51,18 +51,31 @@ export default async function ToursPage({ params, searchParams }: Props) {
   const values = filterValuesFrom(query);
 
   return (
-    <div className="container-page py-10">
-      <Breadcrumbs
-        label={t("nav.breadcrumb")}
-        base={`${siteUrl()}/${locale}`}
-        items={[
+    <>
+      <PageHero
+        locale={locale}
+        crumbLabel={t("nav.breadcrumb")}
+        crumbs={[
           { name: t("nav.home"), href: "/" },
           { name: t("tours.title"), href: "/tours" },
         ]}
-      />
-      <div className="mb-10 mt-6">
-        <SectionHeading as="h1" title={t("tours.title")} text={t("tours.intro")} />
-      </div>
+        eyebrow={t("nt.toursPage.eyebrow")}
+        title={t("tours.title")}
+        lead={t("tours.intro")}
+      >
+        <div className="mt-6 flex flex-wrap gap-2">
+          <Link href="/custom-tour" className="inline-flex min-h-10 items-center gap-2 rounded-full bg-white px-4 text-sm font-semibold text-lapis shadow-sm hover:text-cobalt">
+            <Compass aria-hidden="true" className="size-4 text-cobalt" /> {t("nt.menu.builder")}
+          </Link>
+          <Link href="/compare" className="inline-flex min-h-10 items-center gap-2 rounded-full bg-white px-4 text-sm font-semibold text-lapis shadow-sm hover:text-cobalt">
+            <Scale aria-hidden="true" className="size-4 text-cobalt" /> {t("nt.menu.compare")}
+          </Link>
+          <Link href="/planner" className="inline-flex min-h-10 items-center gap-2 rounded-full bg-white px-4 text-sm font-semibold text-lapis shadow-sm hover:text-cobalt">
+            <Wand2 aria-hidden="true" className="size-4 text-cobalt" /> {t("nav.planner")}
+          </Link>
+        </div>
+      </PageHero>
+      <div className="container-page py-10">
       <ClientMessages namespaces={["tours"]}>
         <FiltersShell
           action={getPathname({ locale, href: "/tours" })}
@@ -86,7 +99,7 @@ export default async function ToursPage({ params, searchParams }: Props) {
               action={
                 <div className="flex flex-wrap justify-center gap-3">
                   <Link href="/tours" className={buttonVariants({ variant: "outline" })}>{t("tours.resetFilters")}</Link>
-                  <Link href="/services/tailor-made" className={buttonVariants({ variant: "primary" })}>{t("tours.emptyCta")}</Link>
+                  <Link href="/custom-tour" className={buttonVariants({ variant: "primary" })}>{t("tours.emptyCta")}</Link>
                 </div>
               }
             >
@@ -115,6 +128,7 @@ export default async function ToursPage({ params, searchParams }: Props) {
           />
         </FiltersShell>
       </ClientMessages>
-    </div>
+      </div>
+    </>
   );
 }

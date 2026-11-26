@@ -6,159 +6,180 @@ import { messengerLinks } from "@/lib/links";
 import { localize } from "@/lib/localize";
 import { contactSettings } from "@/lib/server/site";
 
-/** Eight-point khatam star (two overlapping squares): the Caravan Atlas brand mark. */
-export function KhatamStar({ size = 28, color = "#a8492a" }: { size?: number; color?: string }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
-      <g fill="none" stroke={color} strokeWidth="1.2">
-        <rect x="5.5" y="5.5" width="13" height="13" />
-        <rect x="5.5" y="5.5" width="13" height="13" transform="rotate(45 12 12)" />
-        <circle cx="12" cy="12" r="2.2" />
-      </g>
-    </svg>
-  );
-}
-import { AudienceToggle, CurrencySwitcher, LanguageSwitcher, MainNavLinks, MobileMenu } from "./switchers";
+import { ArrowRight } from "lucide-react";
+import { listPublishedDestinations } from "@/db/queries/destinations";
+import { db } from "@/lib/server/site";
+import { WishlistLink } from "@/components/common/wishlist";
+import { NewsletterForm } from "./newsletter-form";
+import { Logo } from "./logo";
+import { DesktopNav, HeaderFrame, type NavItem } from "./nav-menu";
+import { LanguageSwitcher, MobileMenu } from "./switchers";
 
-export function Logo({ name, tone = "light" }: { name: string; tone?: "light" | "dark" }) {
-  return (
-    <span className="inline-flex items-center gap-3">
-      <KhatamStar size={30} color={tone === "dark" ? "#e2be82" : "#a8492a"} />
-      <span className={`font-display text-[1.4rem] font-medium leading-none ${tone === "dark" ? "text-ivory" : "text-lapis-deep"}`}>{name}</span>
-    </span>
-  );
+export { Logo };
+
+async function navItems(locale: Locale): Promise<NavItem[]> {
+  const t = await getTranslations({ locale });
+  const dests = await listPublishedDestinations(db()).catch(() => []);
+  const local = dests.filter((d) => !d.country).slice(0, 8);
+  const abroad = dests.filter((d) => d.country);
+  return [
+    { href: "/", label: t("nav.home") },
+    {
+      href: "/tours",
+      label: t("nav.tours"),
+      children: [
+        { href: "/tours", label: t("nt.menu.allTours") },
+        { href: "/inbound", label: t("nt.menu.inbound") },
+        { href: "/domestic", label: t("nt.menu.domestic") },
+        { href: "/experiences", label: t("nt.menu.experiences") },
+        { href: "/custom-tour", label: t("nt.menu.builder") },
+        { href: "/compare", label: t("nt.menu.compare") },
+        { href: "/services", label: t("nt.menu.services") },
+      ],
+    },
+    {
+      href: "/destinations",
+      label: t("nav.destinations"),
+      children: [
+        ...local.map((d) => ({ href: `/destinations/${d.slug}`, label: localize(d.name, locale), group: t("nt.menu.uzbekistan") })),
+        ...abroad.map((d) => ({ href: `/destinations/${d.slug}`, label: localize(d.name, locale), hint: localize(d.country, locale), group: t("nt.menu.abroad") })),
+      ],
+      footer: { href: "/destinations", label: t("nt.menu.allDestinations") },
+    },
+    { href: "/planner", label: t("nav.planner") },
+    { href: "/travel-guide", label: t("nt.menu.guide") },
+    { href: "/about", label: t("nav.about") },
+    { href: "/contact", label: t("nav.contact") },
+  ];
 }
 
 export async function SiteHeader({ locale, currency }: { locale: Locale; currency: Currency }) {
-  const t = await getTranslations({ locale, namespace: "nav" });
-  const tm = await getTranslations({ locale, namespace: "meta" });
-  const contact = await contactSettings();
-  const items = [
-    { href: "/tours", label: t("tours") },
-    { href: "/destinations", label: t("destinations") },
-    { href: "/planner", label: t("planner") },
-    { href: "/services", label: t("services") },
-    { href: "/travel-guide", label: t("travelGuide") },
-    { href: "/about", label: t("about") },
-    { href: "/contact", label: t("contact") },
-  ];
+  const t = await getTranslations({ locale });
+  const items = await navItems(locale);
   return (
-    <header className="relative z-40">
-      <div className="bg-girih-dark on-dark">
-        <div className="container-page flex min-h-14 items-center justify-between gap-4 py-1">
-          <AudienceToggle />
-          <div className="flex items-center gap-1">
-            {contact.phone && (
-              <a href={`tel:${contact.phone.replace(/[^\d+]/g, "")}`} className="hidden min-h-11 items-center gap-2 rounded-full px-3 text-sm font-semibold text-ivory hover:bg-white/10 sm:inline-flex">
-                <Phone aria-hidden="true" className="size-4 text-saffron" />
-                {contact.phone}
-              </a>
-            )}
-            <LanguageSwitcher tone="dark" />
-          </div>
-        </div>
-      </div>
-      <div className="border-b border-lapis-deep/10 bg-ivory/95 backdrop-blur">
-        <div className="container-page flex min-h-20 items-center justify-between gap-4">
-          <Link href="/" className="shrink-0 rounded-sm" aria-label={`${tm("siteName")} — ${t("home")}`}>
-            <Logo name={tm("siteName")} />
+    <HeaderFrame>
+      <div className="container-page flex h-[72px] items-center justify-between gap-3">
+        <Link href="/" className="shrink-0 rounded-xl" aria-label={`${t("meta.siteName")}, ${t("nav.home")}`}>
+          <Logo />
+        </Link>
+        <DesktopNav items={items} label={t("nav.mainNav")} />
+        <div className="flex items-center gap-1 sm:gap-2">
+          <LanguageSwitcher currency={currency} />
+          <WishlistLink label={t("nt.menu.wishlist")} className="max-sm:hidden" />
+          <Link
+            href="/tours"
+            className="hidden min-h-11 shrink-0 items-center gap-2 whitespace-nowrap rounded-full bg-lapis px-5 text-sm font-bold text-white shadow-[0_8px_20px_-10px_rgb(23_61_102/0.8)] transition-colors hover:bg-cobalt sm:inline-flex"
+          >
+            {t("nav.bookTour")}
+            <ArrowRight aria-hidden="true" className="size-4" />
           </Link>
-          <nav aria-label={t("mainNav")} className="hidden xl:block">
-            <MainNavLinks
-              items={items}
-              className="flex items-center gap-1"
-              itemClassName="relative inline-flex min-h-11 items-center whitespace-nowrap px-2.5 text-[0.92rem] font-semibold text-ink hover:text-lapis after:absolute after:inset-x-3 after:bottom-1.5 after:h-0.5 after:origin-left after:scale-x-0 after:bg-terracotta after:transition-transform hover:after:scale-x-100"
-            />
-          </nav>
-          <div className="flex items-center gap-2">
-            <CurrencySwitcher value={currency} className="hidden sm:inline-flex" />
-            <Link
-              href="/tours"
-              className="hidden min-h-11 items-center rounded-[2px] bg-lapis-deep px-5 text-sm font-bold text-ivory hover:bg-lapis xl:inline-flex"
-            >
-              {t("bookTour")}
-            </Link>
-            <MobileMenu items={[{ href: "/", label: t("home") }, ...items]} currency={currency} />
-          </div>
+          <MobileMenu
+            items={[...items.map((i) => ({ href: i.href, label: i.label, children: i.children })), { href: "/wishlist", label: t("nt.menu.wishlist") }]}
+            currency={currency}
+          />
         </div>
       </div>
-    </header>
+    </HeaderFrame>
   );
 }
 
 export async function SiteFooter({ locale }: { locale: Locale }) {
-  const t = await getTranslations({ locale, namespace: "footer" });
-  const tn = await getTranslations({ locale, namespace: "nav" });
-  const ts = await getTranslations({ locale, namespace: "services" });
-  const tc = await getTranslations({ locale, namespace: "contact" });
-  const tm = await getTranslations({ locale, namespace: "meta" });
-  const th = await getTranslations({ locale, namespace: "hubs" });
+  const t = await getTranslations({ locale });
   const contact = await contactSettings();
   const links = messengerLinks(contact);
   const address = localize(contact.address, locale);
   const year = new Date().getFullYear();
-  const linkCls = "inline-flex min-h-11 items-center text-sand hover:text-white hover:underline";
+  const linkCls = "inline-flex min-h-10 items-center text-[0.95rem] text-white/75 transition-colors hover:text-white";
+  const col = (title: string, items: { href: string; label: string }[]) => (
+    <div>
+      <h2 className="text-sm font-bold uppercase tracking-[0.1em] text-saffron">{title}</h2>
+      <ul className="mt-3">
+        {items.map((i) => (
+          <li key={i.href}>
+            <Link className={linkCls} href={i.href}>{i.label}</Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+  const social = [
+    links.telegram && { href: links.telegram, label: "Telegram", icon: Send },
+    links.whatsapp && { href: links.whatsapp, label: "WhatsApp", icon: MessageCircle },
+  ].filter(Boolean) as { href: string; label: string; icon: typeof Send }[];
   return (
-    <footer className="on-dark mt-32 bg-lapis-night text-sand">
-      <div className="relative overflow-hidden">
-        
-        <div className="container-page relative grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-12">
-          <div className="lg:col-span-4">
-            <Logo name={tm("siteName")} tone="dark" />
-            <p className="mt-4 max-w-sm text-sand">{t("tagline")}</p>
-            {contact.licenseNumber && <p className="mt-3 text-sm text-sand">{t("licence", { number: contact.licenseNumber })}</p>}
-          </div>
-          <nav aria-label={tn("footerNav")} className="grid grid-cols-2 gap-8 lg:col-span-5">
-            <div>
-              <h2 className="eyebrow text-saffron">{t("explore")}</h2>
-              <ul className="mt-3">
-                <li><Link className={linkCls} href="/tours">{tn("tours")}</Link></li>
-                <li><Link className={linkCls} href="/destinations">{tn("destinations")}</Link></li>
-                <li><Link className={linkCls} href="/inbound">{th("inboundTitle")}</Link></li>
-                <li><Link className={linkCls} href="/domestic">{th("domesticTitle")}</Link></li>
-                <li><Link className={linkCls} href="/travel-guide">{tn("travelGuide")}</Link></li>
+    <footer className="on-dark mt-24 bg-girih-dark text-white">
+      <div className="container-page grid gap-10 py-14 lg:grid-cols-12">
+        <div className="lg:col-span-4">
+          <Logo tone="dark" />
+          <p className="mt-4 max-w-sm text-white/75">{t("nt.footer.tagline")}</p>
+          {contact.licenseNumber && <p className="mt-3 text-sm text-white/70">{t("footer.licence", { number: contact.licenseNumber })}</p>}
+          {social.length > 0 && (
+            <div className="mt-5">
+              <p className="text-sm font-semibold text-white/80">{t("nt.footer.follow")}</p>
+              <ul className="mt-2 flex gap-2">
+                {social.map((s) => (
+                  <li key={s.label}>
+                    <a href={s.href} target="_blank" rel="noopener" aria-label={s.label} className="inline-flex size-11 items-center justify-center rounded-full bg-white/10 hover:bg-white/20">
+                      <s.icon aria-hidden="true" className="size-5" />
+                    </a>
+                  </li>
+                ))}
               </ul>
             </div>
-            <div>
-              <h2 className="eyebrow text-saffron">{t("servicesTitle")}</h2>
-              <ul className="mt-3">
-                <li><Link className={linkCls} href="/services/airport-transfer">{ts("airport-transfer.title")}</Link></li>
-                <li><Link className={linkCls} href="/services/tailor-made">{ts("tailor-made.title")}</Link></li>
-                <li><Link className={linkCls} href="/services/accommodation">{ts("accommodation.title")}</Link></li>
-                <li><Link className={linkCls} href="/services/guides">{ts("guides.title")}</Link></li>
-                <li><Link className={linkCls} href="/about">{tn("about")}</Link></li>
-                <li><Link className={linkCls} href="/reviews/new">{t("reviewTrip")}</Link></li>
-              </ul>
-            </div>
-          </nav>
-          <div className="lg:col-span-3">
-            <h2 className="eyebrow text-saffron">{t("contactTitle")}</h2>
-            <ul className="mt-3 space-y-1">
-              {links.phone && (
-                <li><a className={`${linkCls} gap-2`} href={links.phone}><Phone aria-hidden="true" className="size-4" />{contact.phone}</a></li>
-              )}
-              {contact.email && (
-                <li><a className={`${linkCls} gap-2`} href={`mailto:${contact.email}`}><Mail aria-hidden="true" className="size-4" />{contact.email}</a></li>
-              )}
-              {links.whatsapp && (
-                <li><a className={`${linkCls} gap-2`} href={links.whatsapp} rel="noopener" target="_blank"><MessageCircle aria-hidden="true" className="size-4" />{tc("whatsapp")}</a></li>
-              )}
-              {links.telegram && (
-                <li><a className={`${linkCls} gap-2`} href={links.telegram} rel="noopener" target="_blank"><Send aria-hidden="true" className="size-4" />{tc("telegram")}</a></li>
-              )}
-              {address && (
-                <li className="flex items-start gap-2 py-2.5"><MapPin aria-hidden="true" className="mt-1 size-4 shrink-0" /><span>{address}</span></li>
-              )}
-            </ul>
-          </div>
+          )}
+        </div>
+        <nav aria-label={t("nav.footerNav")} className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:col-span-5">
+          {col(t("nt.footer.tours"), [
+            { href: "/tours", label: t("nt.menu.allTours") },
+            { href: "/inbound", label: t("hubs.inboundTitle") },
+            { href: "/domestic", label: t("hubs.domesticTitle") },
+            { href: "/experiences", label: t("nt.menu.experiences") },
+            { href: "/custom-tour", label: t("nt.menu.builder") },
+            { href: "/planner", label: t("nav.planner") },
+            { href: "/assistant", label: t("nt.menu.assistant") },
+          ])}
+          {col(t("nt.footer.company"), [
+            { href: "/about", label: t("nav.about") },
+            { href: "/destinations", label: t("nav.destinations") },
+            { href: "/travel-guide", label: t("nt.menu.guide") },
+            { href: "/services", label: t("nt.menu.services") },
+            { href: "/contact", label: t("nav.contact") },
+          ])}
+          {col(t("nt.footer.support"), [
+            { href: "/faq", label: t("nt.footer.faq") },
+            { href: "/reviews/new", label: t("footer.reviewTrip") },
+            { href: "/wishlist", label: t("nt.menu.wishlist") },
+            { href: "/terms", label: t("nt.footer.terms") },
+            { href: "/privacy", label: t("nt.footer.privacy") },
+          ])}
+        </nav>
+        <div className="lg:col-span-3">
+          <h2 className="text-sm font-bold uppercase tracking-[0.1em] text-saffron">{t("nt.footer.newsletterTitle")}</h2>
+          <p className="mt-3 text-sm text-white/75">{t("nt.footer.newsletterText")}</p>
+          <NewsletterForm
+            locale={locale}
+            labels={{ email: t("nt.footer.email"), subscribe: t("nt.footer.subscribe"), done: t("nt.footer.subscribed"), error: t("nt.footer.subscribeError") }}
+          />
+          <ul className="mt-6 space-y-1">
+            {links.phone && (
+              <li><a className={`${linkCls} gap-2`} href={links.phone}><Phone aria-hidden="true" className="size-4" />{contact.phone}</a></li>
+            )}
+            {contact.email && (
+              <li><a className={`${linkCls} gap-2`} href={`mailto:${contact.email}`}><Mail aria-hidden="true" className="size-4" />{contact.email}</a></li>
+            )}
+            {address && (
+              <li className="flex items-start gap-2 py-2 text-[0.95rem] text-white/75"><MapPin aria-hidden="true" className="mt-1 size-4 shrink-0" /><span>{address}</span></li>
+            )}
+          </ul>
         </div>
       </div>
       <div className="border-t border-white/10">
-        <div className="container-page flex flex-col gap-2 py-5 text-sm text-sand sm:flex-row sm:items-center sm:justify-between">
-          <p>{t("rights", { year, name: contact.agencyName || tm("siteName") })}</p>
-          <p className="flex items-center gap-3">
-            <span>{t("madeIn")}</span>
-            <a href="/admin/login" className="inline-flex min-h-11 items-center text-sand hover:text-white hover:underline">{tn("admin")}</a>
+        <div className="container-page flex flex-col gap-2 py-5 text-sm text-white/65 sm:flex-row sm:items-center sm:justify-between">
+          <p>{t("footer.rights", { year, name: contact.agencyName || t("meta.siteName") })}</p>
+          <p className="flex flex-wrap items-center gap-x-4">
+            <Link href="/privacy" className="inline-flex min-h-10 items-center hover:text-white">{t("nt.footer.privacy")}</Link>
+            <Link href="/terms" className="inline-flex min-h-10 items-center hover:text-white">{t("nt.footer.terms")}</Link>
+            <a href="/admin/login" className="inline-flex min-h-10 items-center hover:text-white">{t("nav.admin")}</a>
           </p>
         </div>
       </div>

@@ -15,10 +15,15 @@ declare global {
 }
 
 const SCRIPT = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
-/** Cloudflare's public always-pass test site key, used only outside production builds. */
-const TEST_SITE_KEY = "1x00000000000000000000AA";
-export const TURNSTILE_SITE_KEY =
-  process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || (process.env.NODE_ENV !== "production" ? TEST_SITE_KEY : "");
+const CONFIGURED_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? "";
+/**
+ * The widget is shown only with a real site key. Cloudflare's public test keys (1x…, 2x…, 3x…) render a
+ * "testing only" box that visitors should never see, so with them (or with no key) the page sends a fixed
+ * token and the server decides: its test secret accepts it, a real secret rejects it.
+ */
+export const TURNSTILE_SITE_KEY = /^[123]x0{10,}/.test(CONFIGURED_SITE_KEY) ? "" : CONFIGURED_SITE_KEY;
+export const TURNSTILE_ENABLED = TURNSTILE_SITE_KEY !== "";
+const UNCHECKED_TOKEN = "XXXX.DUMMY.TOKEN.XXXX";
 
 function loadScript(): Promise<void> {
   if (window.turnstile) return Promise.resolve();
@@ -55,12 +60,17 @@ export const Turnstile = forwardRef<TurnstileHandle, { onToken: (token: string) 
 
     useImperativeHandle(ref, () => ({
       reset: () => {
+        if (!TURNSTILE_ENABLED) return cb.current(UNCHECKED_TOKEN);
         if (widget.current && window.turnstile) window.turnstile.reset(widget.current);
         cb.current("");
       },
     }));
 
     useEffect(() => {
+      if (!TURNSTILE_ENABLED) {
+        cb.current(UNCHECKED_TOKEN);
+        return;
+      }
       let cancelled = false;
       loadScript()
         .then(() => {
@@ -83,6 +93,7 @@ export const Turnstile = forwardRef<TurnstileHandle, { onToken: (token: string) 
       };
     }, [locale]);
 
+    if (!TURNSTILE_ENABLED) return error ? <p role="alert" className="text-sm font-semibold text-danger">{error}</p> : null;
     return (
       <div>
         <p className="mb-2 text-sm font-semibold">{t("securityCheck")}</p>

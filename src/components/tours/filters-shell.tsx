@@ -147,7 +147,7 @@ export function FiltersShell({
   const activeCount = KEYS.filter((k) => k !== "sort" && values[k]).length;
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[18rem_1fr]">
+    <div className="grid grid-cols-1 gap-8 lg:grid-cols-[18rem_minmax(0,1fr)]">
       <aside className="hidden lg:block" aria-label={t("filters")}>
         <form action={action} method="get" className="sticky top-6 rounded-[var(--radius-card)] border border-line bg-white p-5 shadow-card" onSubmit={(e) => { e.preventDefault(); navigate(values); }}>
           <h2 className="mb-4 flex items-center gap-2 font-sans text-lg font-bold text-lapis-deep">
@@ -167,7 +167,7 @@ export function FiltersShell({
       <div>
         <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
           <p className="font-semibold text-ink" aria-live="polite" data-testid="results-count">{resultsLabel}</p>
-          <div className="flex items-center gap-2">
+          <div className="flex min-w-0 max-w-full items-center gap-2">
             <Dialog open={sheetOpen} onOpenChange={setSheetOpen}>
               <DialogTrigger asChild>
                 <Button variant="outline" size="sm" className="lg:hidden">
@@ -185,7 +185,7 @@ export function FiltersShell({
               </SheetContent>
             </Dialog>
             <label htmlFor="sort" className="sr-only">{t("sort")}</label>
-            <NativeSelect id="sort" value={values.sort ?? "featured"} onChange={(e) => onChange("sort", e.target.value, true)} className="w-auto min-w-48 rounded-full py-2 text-sm font-semibold">
+            <NativeSelect id="sort" value={values.sort ?? "featured"} onChange={(e) => onChange("sort", e.target.value, true)} className="w-auto min-w-0 flex-1 rounded-full py-2 text-sm font-semibold sm:flex-none sm:min-w-48">
               {options.sorts.map((o) => (
                 <option key={o.value} value={o.value}>{o.label}</option>
               ))}

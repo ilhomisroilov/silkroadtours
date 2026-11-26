@@ -1,404 +1,761 @@
 {
-  "destinations/bukhara/hero.jpg": {
-    "file": "Бухара,_медресе_Чор_Минор_(1).jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Бухара,_медресе_Чор_Минор_(1).jpg",
-    "license": "CC BY-SA 4.0",
-    "author": "ElenaLitera"
-  },
-  "destinations/samarkand/hero.jpg": {
-    "file": "Registan_01.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Registan_01.jpg",
-    "license": "CC0",
-    "author": "Bernard Gagnon"
-  },
-  "destinations/samarkand/1.jpg": {
-    "file": "Вечерний_Гур-Эмир.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Вечерний_Гур-Эмир.jpg",
-    "license": "CC BY-SA 4.0",
-    "author": "Arina Pan"
-  },
-  "destinations/samarkand/2.jpg": {
-    "file": "Обсерватория_Улугбека,_Самарканд_(Ulugh_Beg_Observatory,_Samarkand).jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Обсерватория_Улугбека,_Самарканд_(Ulugh_Beg_Observatory,_Samarkand).jpg",
-    "license": "CC BY-SA 4.0",
-    "author": "Petar Milošević"
-  },
-  "destinations/samarkand/3.jpg": {
-    "file": "20230615_Samarkand027.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:20230615_Samarkand027.jpg",
-    "license": "CC BY-SA 4.0",
-    "author": "Jean Housen"
-  },
-  "destinations/samarkand/4.jpg": {
-    "file": "Гур-Эмир_-_Amir_Temur_maqbarasi_-_Gur-e-Amir_(By_Khusen_Rustamov).jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Гур-Эмир_-_Amir_Temur_maqbarasi_-_Gur-e-Amir_(By_Khusen_Rustamov).jpg",
-    "license": "CC BY-SA 4.0",
-    "author": "Khusen Rustamov"
-  },
-  "destinations/bukhara/1.jpg": {
-    "file": "Bujará,_Po-i-Kalyan_01.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Bujará,_Po-i-Kalyan_01.jpg",
-    "license": "CC BY-SA 4.0",
-    "author": "LBM1948"
-  },
-  "destinations/bukhara/2.jpg": {
-    "file": "Kalon-Ensemble_Buchara.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Kalon-Ensemble_Buchara.jpg",
-    "license": "CC BY-SA 3.0",
-    "author": "Euyasik"
-  },
-  "destinations/bukhara/3.jpg": {
-    "file": "Kalyan_minaret_details.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Kalyan_minaret_details.jpg",
-    "license": "CC BY-SA 4.0",
-    "author": "Nassima Chahboun"
-  },
-  "destinations/bukhara/4.jpg": {
-    "file": "Po-i-Kalyan_Courtyard.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Po-i-Kalyan_Courtyard.jpg",
-    "license": "CC BY-SA 4.0",
-    "author": "RK"
-  },
-  "destinations/khiva/hero.jpg": {
-    "file": "Abulgazi_Muhammad_Rahim_Khan_1_Mausoleum_2.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Abulgazi_Muhammad_Rahim_Khan_1_Mausoleum_2.jpg",
-    "license": "CC BY-SA 4.0",
-    "author": "Nassima Chahboun"
-  },
-  "destinations/khiva/1.jpg": {
-    "file": "20230608_Khiva007.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:20230608_Khiva007.jpg",
-    "license": "CC BY-SA 4.0",
-    "author": "Jean Housen"
-  },
-  "destinations/khiva/2.jpg": {
-    "file": "At_the_Kalta_Minor.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:At_the_Kalta_Minor.jpg",
-    "license": "CC BY-SA 4.0",
-    "author": "Adam Harangozó"
-  },
-  "destinations/khiva/3.jpg": {
-    "file": "Jiva,_Itchan_Kala_15.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Jiva,_Itchan_Kala_15.jpg",
-    "license": "CC BY-SA 4.0",
-    "author": "LBM1948"
-  },
-  "destinations/khiva/4.jpg": {
-    "file": "Kalta_Minor_and_Kukhna_Ark,_early_morning,_Khiva_(4933933629).jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Kalta_Minor_and_Kukhna_Ark,_early_morning,_Khiva_(4933933629).jpg",
-    "license": "CC BY-SA 2.0",
-    "author": "Fulvio Spada from Torino, Italy"
-  },
-  "destinations/tashkent/hero.jpg": {
-    "file": "081_Eski_Juva_Bozori_(Taixkent),_Banc_Uzbek_de_la_Indústria_i_la_Construcció.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:081_Eski_Juva_Bozori_(Taixkent),_Banc_Uzbek_de_la_Indústria_i_la_Construcció.jpg",
-    "license": "CC BY 4.0",
-    "author": "Enric"
-  },
-  "destinations/tashkent/1.jpg": {
-    "file": "Milliy_bogʻ_metro_bekati_13.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Milliy_bogʻ_metro_bekati_13.jpg",
-    "license": "CC0",
-    "author": "Alpasli"
-  },
-  "destinations/tashkent/2.jpg": {
-    "file": "086_Eski_Juva_Bozori,_mercat_de_Chorsu_(Taixkent),_raves.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:086_Eski_Juva_Bozori,_mercat_de_Chorsu_(Taixkent),_raves.jpg",
-    "license": "CC BY 4.0",
-    "author": "Enric"
-  },
-  "destinations/tashkent/3.jpg": {
-    "file": "Tashkent-metro-zheton.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Tashkent-metro-zheton.jpg",
-    "license": "CC BY-SA 4.0",
-    "author": "StatisksExpert"
-  },
-  "destinations/tashkent/4.jpg": {
-    "file": "Vosit_vohidov_005.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Vosit_vohidov_005.jpg",
-    "license": "CC BY-SA 4.0",
-    "author": "Azizbek Karimov"
-  },
-  "destinations/shakhrisabz/hero.jpg": {
-    "file": "Ensemble_Dorout_Tilovat_(Shahrisabz)_(6018370667).jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Ensemble_Dorout_Tilovat_(Shahrisabz)_(6018370667).jpg",
-    "license": "CC BY 2.0",
-    "author": "Jean-Pierre Dalbéra from Paris, France"
-  },
-  "destinations/shakhrisabz/1.jpg": {
-    "file": "Chorsu_majmuasi_(shahrisabz).jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Chorsu_majmuasi_(shahrisabz).jpg",
-    "license": "CC0",
-    "author": "Asadbek Abdivayitov"
-  },
-  "destinations/fergana-valley/hero.jpg": {
-    "file": "Margilan_.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Margilan_.jpg",
-    "license": "CC BY-SA 4.0",
-    "author": "Stephanieadams99"
-  },
-  "destinations/fergana-valley/1.jpg": {
-    "file": "Chevrolet_Cobalt,_UZ.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Chevrolet_Cobalt,_UZ.jpg",
-    "license": "CC BY 2.0",
-    "author": "tomasz przechlewski"
-  },
-  "destinations/fergana-valley/2.jpg": {
-    "file": "Welcome_board_in_Kokand.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Welcome_board_in_Kokand.jpg",
-    "license": "CC0",
-    "author": "Bgag"
-  },
-  "destinations/fergana-valley/3.jpg": {
-    "file": "Woman_Walks_Past_Bicycle_and_Cotton_Bales_-_Margilon_-_Uzbekistan_(7551670490).jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Woman_Walks_Past_Bicycle_and_Cotton_Bales_-_Margilon_-_Uzbekistan_(7551670490).jpg",
-    "license": "CC BY-SA 2.0",
-    "author": "Adam Jones from Kelowna, BC, Canada"
-  },
-  "destinations/zaamin/hero.jpg": {
-    "file": "Bekat_(Zomin_tumani)303.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Bekat_(Zomin_tumani)303.jpg",
-    "license": "CC0",
-    "author": "Mirzoulugʻbek"
-  },
-  "destinations/zaamin/1.jpg": {
-    "file": "Dashtobod.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Dashtobod.jpg",
-    "license": "CC0",
-    "author": "Mirzoulugʻbek"
-  },
-  "destinations/zaamin/2.jpg": {
-    "file": "Kultepa_104851.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Kultepa_104851.jpg",
-    "license": "CC0",
-    "author": "Mirzoulugʻbek"
-  },
-  "destinations/zaamin/3.jpg": {
-    "file": "Laylak-uya.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Laylak-uya.jpg",
-    "license": "CC0",
-    "author": "Mirzoulugʻbek"
-  },
-  "destinations/zaamin/4.jpg": {
-    "file": "Pshagʻor_44.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Pshagʻor_44.jpg",
-    "license": "CC0",
-    "author": "Mirzoulugʻbek"
-  },
-  "destinations/chimgan-charvak/hero.jpg": {
-    "file": "Chorvoq_Staumauer.JPG",
-    "source": "https://commons.wikimedia.org/wiki/File:Chorvoq_Staumauer.JPG",
-    "license": "CC BY-SA 3.0",
-    "author": "Man77"
-  },
-  "destinations/chimgan-charvak/1.jpg": {
-    "file": "Chimgan_01.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Chimgan_01.jpg",
-    "license": "CC BY-SA 4.0",
-    "author": "LBM1948"
-  },
-  "destinations/chimgan-charvak/2.jpg": {
-    "file": "Chimgan_ski.JPG",
-    "source": "https://commons.wikimedia.org/wiki/File:Chimgan_ski.JPG",
-    "license": "Public domain",
-    "author": "TwoWings"
-  },
-  "destinations/chimgan-charvak/3.jpg": {
-    "file": "2_в_Бостанлыкском_районе_Ташкентской_области_Узбекистана,_расположен_на_берегу_Чарвакского_водохранилища.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:2_в_Бостанлыкском_районе_Ташкентской_области_Узбекистана,_расположен_на_берегу_Чарвакского_водохранилища.jpg",
-    "license": "CC BY-SA 4.0",
-    "author": "Uztop"
-  },
-  "destinations/chimgan-charvak/4.jpg": {
-    "file": "Chimyon_togʻi.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Chimyon_togʻi.jpg",
-    "license": "CC0",
-    "author": "Visola Tangirova"
-  },
-  "destinations/karakalpakstan-aral/hero.jpg": {
-    "file": "Ayaz-Kala-2.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Ayaz-Kala-2.jpg",
-    "license": "CC0",
-    "author": "Bernard Gagnon"
-  },
-  "destinations/karakalpakstan-aral/1.jpg": {
-    "file": "20230607_khiva033.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:20230607_khiva033.jpg",
-    "license": "CC BY-SA 4.0",
-    "author": "Jean Housen"
-  },
-  "destinations/karakalpakstan-aral/2.jpg": {
-    "file": "Ayaz_Kala_(Khorezm,_Ouzbékistan)_(5608879653).jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Ayaz_Kala_(Khorezm,_Ouzbékistan)_(5608879653).jpg",
-    "license": "CC BY 2.0",
-    "author": "Jean-Pierre Dalbéra from Paris, France"
-  },
-  "destinations/karakalpakstan-aral/3.jpg": {
-    "file": "Ayaz_Khala,_Khorezm_(4933877475).jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Ayaz_Khala,_Khorezm_(4933877475).jpg",
-    "license": "CC BY-SA 2.0",
-    "author": "Fulvio Spada from Torino, Italy"
-  },
-  "destinations/karakalpakstan-aral/4.jpg": {
-    "file": "Ayaz_Khala,_yurt_camp_and_Ayaz_Kul_lake,_Khorezm_(4933877117).jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Ayaz_Khala,_yurt_camp_and_Ayaz_Kul_lake,_Khorezm_(4933877117).jpg",
-    "license": "CC BY-SA 2.0",
-    "author": "Fulvio Spada from Torino, Italy"
-  },
-  "destinations/aydarkul/hero.jpg": {
-    "file": "Aydar_Lake.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Aydar_Lake.jpg",
-    "license": "CC BY-SA 2.0",
-    "author": "DAVID HOLT"
-  },
-  "destinations/aydarkul/1.jpg": {
-    "file": "Aydarsee.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Aydarsee.jpg",
-    "license": "CC BY 2.0",
-    "author": "Derek Morrison"
-  },
-  "destinations/aydarkul/2.jpg": {
-    "file": "R-57,_Uzbekistan_-_panoramio_(1).jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:R-57,_Uzbekistan_-_panoramio_(1).jpg",
-    "license": "CC BY-SA 3.0",
-    "author": "karb"
-  },
-  "destinations/aydarkul/3.jpg": {
-    "file": "R-57,_Uzbekistan_-_panoramio.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:R-57,_Uzbekistan_-_panoramio.jpg",
-    "license": "CC BY-SA 3.0",
-    "author": "karb"
-  },
-  "destinations/aydarkul/4.jpg": {
-    "file": "Айдаркуль_(Арнасайские_озера).jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Айдаркуль_(Арнасайские_озера).jpg",
-    "license": "CC BY-SA 4.0",
-    "author": "Marat Nadjibaev"
-  },
-  "tours/classic-silk-road-8-days.jpg": {
-    "file": "Registan_01.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Registan_01.jpg",
-    "license": "CC0",
-    "author": "Bernard Gagnon",
-    "derivedFrom": "destinations/samarkand/hero.jpg"
-  },
-  "tours/samarkand-bukhara-express.jpg": {
-    "file": "Бухара,_медресе_Чор_Минор_(1).jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Бухара,_медресе_Чор_Минор_(1).jpg",
-    "license": "CC BY-SA 4.0",
-    "author": "ElenaLitera",
-    "derivedFrom": "destinations/bukhara/hero.jpg"
-  },
-  "tours/ayaz-kala-yurt-camp-desert-fortresses.jpg": {
-    "file": "20230607_khiva033.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:20230607_khiva033.jpg",
-    "license": "CC BY-SA 4.0",
-    "author": "Jean Housen",
-    "derivedFrom": "destinations/karakalpakstan-aral/1.jpg"
-  },
-  "tours/aral-sea-expedition.jpg": {
-    "file": "Ayaz-Kala-2.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Ayaz-Kala-2.jpg",
-    "license": "CC0",
-    "author": "Bernard Gagnon",
-    "derivedFrom": "destinations/karakalpakstan-aral/hero.jpg"
-  },
-  "tours/zaamin-juniper-forest-trek.jpg": {
-    "file": "Bekat_(Zomin_tumani)303.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Bekat_(Zomin_tumani)303.jpg",
-    "license": "CC0",
-    "author": "Mirzoulugʻbek",
-    "derivedFrom": "destinations/zaamin/hero.jpg"
-  },
-  "tours/big-chimgan-summit-hike.jpg": {
-    "file": "Chorvoq_Staumauer.JPG",
-    "source": "https://commons.wikimedia.org/wiki/File:Chorvoq_Staumauer.JPG",
-    "license": "CC BY-SA 3.0",
-    "author": "Man77",
-    "derivedFrom": "destinations/chimgan-charvak/hero.jpg"
-  },
-  "tours/fergana-valley-silk-and-ceramics.jpg": {
-    "file": "Margilan_.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Margilan_.jpg",
-    "license": "CC BY-SA 4.0",
-    "author": "Stephanieadams99",
-    "derivedFrom": "destinations/fergana-valley/hero.jpg"
-  },
-  "tours/shakhrisabz-day-trip-from-samarkand.jpg": {
-    "file": "Ensemble_Dorout_Tilovat_(Shahrisabz)_(6018370667).jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Ensemble_Dorout_Tilovat_(Shahrisabz)_(6018370667).jpg",
-    "license": "CC BY 2.0",
-    "author": "Jean-Pierre Dalbéra from Paris, France",
-    "derivedFrom": "destinations/shakhrisabz/hero.jpg"
-  },
-  "tours/tashkent-city-and-metro-tour.jpg": {
-    "file": "081_Eski_Juva_Bozori_(Taixkent),_Banc_Uzbek_de_la_Indústria_i_la_Construcció.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:081_Eski_Juva_Bozori_(Taixkent),_Banc_Uzbek_de_la_Indústria_i_la_Construcció.jpg",
-    "license": "CC BY 4.0",
-    "author": "Enric",
-    "derivedFrom": "destinations/tashkent/hero.jpg"
-  },
-  "tours/khiva-itchan-kala-and-khorezm.jpg": {
-    "file": "Abulgazi_Muhammad_Rahim_Khan_1_Mausoleum_2.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Abulgazi_Muhammad_Rahim_Khan_1_Mausoleum_2.jpg",
-    "license": "CC BY-SA 4.0",
-    "author": "Nassima Chahboun",
-    "derivedFrom": "destinations/khiva/hero.jpg"
-  },
-  "tours/bukhara-food-and-crafts.jpg": {
-    "file": "Bujará,_Po-i-Kalyan_01.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Bujará,_Po-i-Kalyan_01.jpg",
-    "license": "CC BY-SA 4.0",
-    "author": "LBM1948",
-    "derivedFrom": "destinations/bukhara/1.jpg"
-  },
-  "tours/zomin-weekend-mountain-getaway.jpg": {
-    "file": "Dashtobod.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Dashtobod.jpg",
-    "license": "CC0",
-    "author": "Mirzoulugʻbek",
-    "derivedFrom": "destinations/zaamin/1.jpg"
-  },
-  "tours/chimgan-charvak-weekend.jpg": {
-    "file": "Chimgan_01.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Chimgan_01.jpg",
-    "license": "CC BY-SA 4.0",
-    "author": "LBM1948",
-    "derivedFrom": "destinations/chimgan-charvak/1.jpg"
-  },
-  "tours/samarkand-family-weekend-by-afrosiyob.jpg": {
-    "file": "Вечерний_Гур-Эмир.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Вечерний_Гур-Эмир.jpg",
-    "license": "CC BY-SA 4.0",
-    "author": "Arina Pan",
-    "derivedFrom": "destinations/samarkand/1.jpg"
-  },
-  "tours/bukhara-khiva-group-tour.jpg": {
-    "file": "20230608_Khiva007.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:20230608_Khiva007.jpg",
-    "license": "CC BY-SA 4.0",
-    "author": "Jean Housen",
-    "derivedFrom": "destinations/khiva/1.jpg"
-  },
-  "tours/charvak-corporate-team-building.jpg": {
-    "file": "Chimgan_ski.JPG",
-    "source": "https://commons.wikimedia.org/wiki/File:Chimgan_ski.JPG",
-    "license": "Public domain",
-    "author": "TwoWings",
-    "derivedFrom": "destinations/chimgan-charvak/2.jpg"
-  },
-  "tours/fergana-valley-3-day-group.jpg": {
-    "file": "Chevrolet_Cobalt,_UZ.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Chevrolet_Cobalt,_UZ.jpg",
-    "license": "CC BY 2.0",
-    "author": "tomasz przechlewski",
-    "derivedFrom": "destinations/fergana-valley/1.jpg"
-  },
-  "tours/samarkand-shakhrisabz-ziyorat.jpg": {
-    "file": "Chorsu_majmuasi_(shahrisabz).jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Chorsu_majmuasi_(shahrisabz).jpg",
-    "license": "CC0",
-    "author": "Asadbek Abdivayitov",
-    "derivedFrom": "destinations/shakhrisabz/1.jpg"
-  }
+ "destinations/bukhara/hero.jpg": {
+  "file": "Бухара,_медресе_Чор_Минор_(1).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Бухара,_медресе_Чор_Минор_(1).jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "ElenaLitera"
+ },
+ "destinations/samarkand/hero.jpg": {
+  "file": "Registan_01.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Registan_01.jpg",
+  "license": "CC0",
+  "author": "Bernard Gagnon"
+ },
+ "destinations/samarkand/1.jpg": {
+  "file": "Вечерний_Гур-Эмир.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Вечерний_Гур-Эмир.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Arina Pan"
+ },
+ "destinations/samarkand/2.jpg": {
+  "file": "Обсерватория_Улугбека,_Самарканд_(Ulugh_Beg_Observatory,_Samarkand).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Обсерватория_Улугбека,_Самарканд_(Ulugh_Beg_Observatory,_Samarkand).jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Petar Milošević"
+ },
+ "destinations/samarkand/3.jpg": {
+  "file": "20230615_Samarkand027.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:20230615_Samarkand027.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Jean Housen"
+ },
+ "destinations/samarkand/4.jpg": {
+  "file": "Гур-Эмир_-_Amir_Temur_maqbarasi_-_Gur-e-Amir_(By_Khusen_Rustamov).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Гур-Эмир_-_Amir_Temur_maqbarasi_-_Gur-e-Amir_(By_Khusen_Rustamov).jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Khusen Rustamov"
+ },
+ "destinations/bukhara/1.jpg": {
+  "file": "Bujará,_Po-i-Kalyan_01.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Bujará,_Po-i-Kalyan_01.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "LBM1948"
+ },
+ "destinations/bukhara/2.jpg": {
+  "file": "Kalon-Ensemble_Buchara.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Kalon-Ensemble_Buchara.jpg",
+  "license": "CC BY-SA 3.0",
+  "author": "Euyasik"
+ },
+ "destinations/bukhara/3.jpg": {
+  "file": "Kalyan_minaret_details.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Kalyan_minaret_details.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Nassima Chahboun"
+ },
+ "destinations/bukhara/4.jpg": {
+  "file": "Po-i-Kalyan_Courtyard.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Po-i-Kalyan_Courtyard.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "RK"
+ },
+ "destinations/khiva/hero.jpg": {
+  "file": "Abulgazi_Muhammad_Rahim_Khan_1_Mausoleum_2.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Abulgazi_Muhammad_Rahim_Khan_1_Mausoleum_2.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Nassima Chahboun"
+ },
+ "destinations/khiva/1.jpg": {
+  "file": "20230608_Khiva007.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:20230608_Khiva007.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Jean Housen"
+ },
+ "destinations/khiva/2.jpg": {
+  "file": "At_the_Kalta_Minor.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:At_the_Kalta_Minor.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Adam Harangozó"
+ },
+ "destinations/khiva/3.jpg": {
+  "file": "Jiva,_Itchan_Kala_15.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Jiva,_Itchan_Kala_15.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "LBM1948"
+ },
+ "destinations/khiva/4.jpg": {
+  "file": "Kalta_Minor_and_Kukhna_Ark,_early_morning,_Khiva_(4933933629).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Kalta_Minor_and_Kukhna_Ark,_early_morning,_Khiva_(4933933629).jpg",
+  "license": "CC BY-SA 2.0",
+  "author": "Fulvio Spada from Torino, Italy"
+ },
+ "destinations/chimgan-charvak/hero.jpg": {
+  "file": "Chorvoq_Staumauer.JPG",
+  "source": "https://commons.wikimedia.org/wiki/File:Chorvoq_Staumauer.JPG",
+  "license": "CC BY-SA 3.0",
+  "author": "Man77"
+ },
+ "destinations/chimgan-charvak/1.jpg": {
+  "file": "Chimgan_01.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Chimgan_01.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "LBM1948"
+ },
+ "destinations/chimgan-charvak/2.jpg": {
+  "file": "Chimgan_ski.JPG",
+  "source": "https://commons.wikimedia.org/wiki/File:Chimgan_ski.JPG",
+  "license": "Public domain",
+  "author": "TwoWings"
+ },
+ "destinations/chimgan-charvak/3.jpg": {
+  "file": "2_в_Бостанлыкском_районе_Ташкентской_области_Узбекистана,_расположен_на_берегу_Чарвакского_водохранилища.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:2_в_Бостанлыкском_районе_Ташкентской_области_Узбекистана,_расположен_на_берегу_Чарвакского_водохранилища.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Uztop"
+ },
+ "destinations/chimgan-charvak/4.jpg": {
+  "file": "Chimyon_togʻi.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Chimyon_togʻi.jpg",
+  "license": "CC0",
+  "author": "Visola Tangirova"
+ },
+ "destinations/karakalpakstan-aral/hero.jpg": {
+  "file": "Ayaz-Kala-2.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Ayaz-Kala-2.jpg",
+  "license": "CC0",
+  "author": "Bernard Gagnon"
+ },
+ "destinations/karakalpakstan-aral/1.jpg": {
+  "file": "20230607_khiva033.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:20230607_khiva033.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Jean Housen"
+ },
+ "destinations/karakalpakstan-aral/2.jpg": {
+  "file": "Ayaz_Kala_(Khorezm,_Ouzbékistan)_(5608879653).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Ayaz_Kala_(Khorezm,_Ouzbékistan)_(5608879653).jpg",
+  "license": "CC BY 2.0",
+  "author": "Jean-Pierre Dalbéra from Paris, France"
+ },
+ "destinations/karakalpakstan-aral/3.jpg": {
+  "file": "Ayaz_Khala,_Khorezm_(4933877475).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Ayaz_Khala,_Khorezm_(4933877475).jpg",
+  "license": "CC BY-SA 2.0",
+  "author": "Fulvio Spada from Torino, Italy"
+ },
+ "destinations/karakalpakstan-aral/4.jpg": {
+  "file": "Ayaz_Khala,_yurt_camp_and_Ayaz_Kul_lake,_Khorezm_(4933877117).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Ayaz_Khala,_yurt_camp_and_Ayaz_Kul_lake,_Khorezm_(4933877117).jpg",
+  "license": "CC BY-SA 2.0",
+  "author": "Fulvio Spada from Torino, Italy"
+ },
+ "destinations/aydarkul/hero.jpg": {
+  "file": "Aydar_Lake.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Aydar_Lake.jpg",
+  "license": "CC BY-SA 2.0",
+  "author": "DAVID HOLT"
+ },
+ "destinations/aydarkul/1.jpg": {
+  "file": "Aydarsee.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Aydarsee.jpg",
+  "license": "CC BY 2.0",
+  "author": "Derek Morrison"
+ },
+ "destinations/aydarkul/2.jpg": {
+  "file": "R-57,_Uzbekistan_-_panoramio_(1).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:R-57,_Uzbekistan_-_panoramio_(1).jpg",
+  "license": "CC BY-SA 3.0",
+  "author": "karb"
+ },
+ "destinations/aydarkul/3.jpg": {
+  "file": "R-57,_Uzbekistan_-_panoramio.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:R-57,_Uzbekistan_-_panoramio.jpg",
+  "license": "CC BY-SA 3.0",
+  "author": "karb"
+ },
+ "destinations/aydarkul/4.jpg": {
+  "file": "Айдаркуль_(Арнасайские_озера).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Айдаркуль_(Арнасайские_озера).jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Marat Nadjibaev"
+ },
+ "tours/classic-silk-road-8-days.jpg": {
+  "file": "Registan_01.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Registan_01.jpg",
+  "license": "CC0",
+  "author": "Bernard Gagnon",
+  "derivedFrom": "destinations/samarkand/hero.jpg"
+ },
+ "tours/samarkand-bukhara-express.jpg": {
+  "file": "Бухара,_медресе_Чор_Минор_(1).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Бухара,_медресе_Чор_Минор_(1).jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "ElenaLitera",
+  "derivedFrom": "destinations/bukhara/hero.jpg"
+ },
+ "tours/ayaz-kala-yurt-camp-desert-fortresses.jpg": {
+  "file": "20230607_khiva033.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:20230607_khiva033.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Jean Housen",
+  "derivedFrom": "destinations/karakalpakstan-aral/1.jpg"
+ },
+ "tours/aral-sea-expedition.jpg": {
+  "file": "Ayaz-Kala-2.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Ayaz-Kala-2.jpg",
+  "license": "CC0",
+  "author": "Bernard Gagnon",
+  "derivedFrom": "destinations/karakalpakstan-aral/hero.jpg"
+ },
+ "tours/zaamin-juniper-forest-trek.jpg": {
+  "file": "Зааминский_национальный_парк.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Зааминский_национальный_парк.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "26D",
+  "derivedFrom": "destinations/zaamin/hero.jpg"
+ },
+ "tours/big-chimgan-summit-hike.jpg": {
+  "file": "Chorvoq_Staumauer.JPG",
+  "source": "https://commons.wikimedia.org/wiki/File:Chorvoq_Staumauer.JPG",
+  "license": "CC BY-SA 3.0",
+  "author": "Man77",
+  "derivedFrom": "destinations/chimgan-charvak/hero.jpg"
+ },
+ "tours/fergana-valley-silk-and-ceramics.jpg": {
+  "file": "Дом_Рустама_Усманова_в_Риштане._Мастерская_по_росписи_посуды._2026_год_(2).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Дом_Рустама_Усманова_в_Риштане._Мастерская_по_росписи_посуды._2026_год_(2).jpg",
+  "license": "CC BY-SA 4.0",
+  "author": ".mw-parser-output .commons-creator-table{background-color:#f0f0ff;box-sizing:border-box;font-size:95%;text-align:start;color:inherit}.mw-parser-output .commons-creator-table>tbody>tr{vertical-align:to",
+  "derivedFrom": "destinations/fergana-valley/hero.jpg"
+ },
+ "tours/shakhrisabz-day-trip-from-samarkand.jpg": {
+  "file": "Portico_of_Ak-Saray_Palace_-_Shakhrisabz_-_Uzbekistan_(7494239284).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Portico_of_Ak-Saray_Palace_-_Shakhrisabz_-_Uzbekistan_(7494239284).jpg",
+  "license": "CC BY-SA 2.0",
+  "author": "Adam Jones from Kelowna, BC, Canada",
+  "derivedFrom": "destinations/shakhrisabz/hero.jpg"
+ },
+ "tours/tashkent-city-and-metro-tour.jpg": {
+  "file": "Milliy_bogʻ_metro_bekati_13.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Milliy_bogʻ_metro_bekati_13.jpg",
+  "license": "CC0",
+  "author": "Alpasli",
+  "derivedFrom": "destinations/tashkent/1.jpg"
+ },
+ "tours/khiva-itchan-kala-and-khorezm.jpg": {
+  "file": "Abulgazi_Muhammad_Rahim_Khan_1_Mausoleum_2.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Abulgazi_Muhammad_Rahim_Khan_1_Mausoleum_2.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Nassima Chahboun",
+  "derivedFrom": "destinations/khiva/hero.jpg"
+ },
+ "tours/bukhara-food-and-crafts.jpg": {
+  "file": "Bujará,_Po-i-Kalyan_01.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Bujará,_Po-i-Kalyan_01.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "LBM1948",
+  "derivedFrom": "destinations/bukhara/1.jpg"
+ },
+ "tours/zomin-weekend-mountain-getaway.jpg": {
+  "file": "Landscape_of_the_Zaamin_National_park.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Landscape_of_the_Zaamin_National_park.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Humoyun Mehridinov",
+  "derivedFrom": "destinations/zaamin/1.jpg"
+ },
+ "tours/chimgan-charvak-weekend.jpg": {
+  "file": "2_в_Бостанлыкском_районе_Ташкентской_области_Узбекистана,_расположен_на_берегу_Чарвакского_водохранилища.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:2_в_Бостанлыкском_районе_Ташкентской_области_Узбекистана,_расположен_на_берегу_Чарвакского_водохранилища.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Uztop",
+  "derivedFrom": "destinations/chimgan-charvak/3.jpg"
+ },
+ "tours/samarkand-family-weekend-by-afrosiyob.jpg": {
+  "file": "Вечерний_Гур-Эмир.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Вечерний_Гур-Эмир.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Arina Pan",
+  "derivedFrom": "destinations/samarkand/1.jpg"
+ },
+ "tours/bukhara-khiva-group-tour.jpg": {
+  "file": "20230608_Khiva007.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:20230608_Khiva007.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Jean Housen",
+  "derivedFrom": "destinations/khiva/1.jpg"
+ },
+ "tours/charvak-corporate-team-building.jpg": {
+  "file": "Chimgan_ski.JPG",
+  "source": "https://commons.wikimedia.org/wiki/File:Chimgan_ski.JPG",
+  "license": "Public domain",
+  "author": "TwoWings",
+  "derivedFrom": "destinations/chimgan-charvak/2.jpg"
+ },
+ "tours/fergana-valley-3-day-group.jpg": {
+  "file": "Palace_of_Khudáyár_Khán,_Kokand_(Дворец_Худояр-хана,_Xudoyorxon_oʻrdasi).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Palace_of_Khudáyár_Khán,_Kokand_(Дворец_Худояр-хана,_Xudoyorxon_oʻrdasi).jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Petar Milošević",
+  "derivedFrom": "destinations/fergana-valley/2.jpg"
+ },
+ "tours/samarkand-shakhrisabz-ziyorat.jpg": {
+  "file": "Ensemble_Dorout_Tilovat_(Shahrisabz)_(6018370667).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Ensemble_Dorout_Tilovat_(Shahrisabz)_(6018370667).jpg",
+  "license": "CC BY 2.0",
+  "author": "Jean-Pierre Dalbéra from Paris, France",
+  "derivedFrom": "destinations/shakhrisabz/1.jpg"
+ },
+ "destinations/dubai/hero.jpg": {
+  "file": "Burj_Khalifa_(16260269606).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Burj_Khalifa_(16260269606).jpg",
+  "license": "CC BY-SA 2.0",
+  "author": "Laika ac"
+ },
+ "destinations/dubai/1.jpg": {
+  "file": "Burj_Khalifa_Dubai,_UAE_at_Sunset_001_by_Eric_Chamchoum.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Burj_Khalifa_Dubai,_UAE_at_Sunset_001_by_Eric_Chamchoum.jpg",
+  "license": "CC BY 4.0",
+  "author": "ECWiki1"
+ },
+ "destinations/dubai/2.jpg": {
+  "file": "The_making_of_Burj_Khalifa,_Dubai_(Ank_Kumar)_09.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:The_making_of_Burj_Khalifa,_Dubai_(Ank_Kumar)_09.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Ank Kumar"
+ },
+ "destinations/dubai/3.jpg": {
+  "file": "Burj_Khalifa_Image.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Burj_Khalifa_Image.jpg",
+  "license": "CC0",
+  "author": "Meandmybrix"
+ },
+ "destinations/dubai/4.jpg": {
+  "file": "Dubai_creek-2011_(7).JPG",
+  "source": "https://commons.wikimedia.org/wiki/File:Dubai_creek-2011_(7).JPG",
+  "license": "CC BY-SA 3.0",
+  "author": "Alberto-g-rovi"
+ },
+ "destinations/istanbul/hero.jpg": {
+  "file": "Exterior_of_Sultan_Ahmed_I_Mosque_in_Istanbul,_Turkey_002.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Exterior_of_Sultan_Ahmed_I_Mosque_in_Istanbul,_Turkey_002.jpg",
+  "license": "CC BY-SA 3.0",
+  "author": "Moonik"
+ },
+ "destinations/istanbul/1.jpg": {
+  "file": "Blue_Mosque_Courtyard_Dusk_Wikimedia_Commons.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Blue_Mosque_Courtyard_Dusk_Wikimedia_Commons.jpg",
+  "license": "CC BY-SA 3.0",
+  "author": "Benh LIEU SONG (Flickr)"
+ },
+ "destinations/istanbul/2.jpg": {
+  "file": "The_Blue_Mosque_at_sunset.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:The_Blue_Mosque_at_sunset.jpg",
+  "license": "CC BY 2.0",
+  "author": "Constantin Barbu"
+ },
+ "destinations/istanbul/3.jpg": {
+  "file": "Sultan_Ahmed_Mosque_2022_2.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Sultan_Ahmed_Mosque_2022_2.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "kallerna"
+ },
+ "destinations/istanbul/4.jpg": {
+  "file": "Hagia_Sophia_Mars_2013.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Hagia_Sophia_Mars_2013.jpg",
+  "license": "CC BY-SA 3.0",
+  "author": "Arild Vågen"
+ },
+ "destinations/termez/hero.jpg": {
+  "file": "Fayaz_Tepe,_Buddhist_archeological_site_near_Termez_in_Uzbekistan,1st_to_5th_cents._CER_(4).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Fayaz_Tepe,_Buddhist_archeological_site_near_Termez_in_Uzbekistan,1st_to_5th_cents._CER_(4).jpg",
+  "license": "CC BY 2.0",
+  "author": "Richard Mortel"
+ },
+ "destinations/termez/1.jpg": {
+  "file": "Fayaz_Tepe,_Buddhist_archeological_site_near_Termez_in_Uzbekistan,1st_to_5th_cents._CER_(9).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Fayaz_Tepe,_Buddhist_archeological_site_near_Termez_in_Uzbekistan,1st_to_5th_cents._CER_(9).jpg",
+  "license": "CC BY 2.0",
+  "author": "Richard Mortel"
+ },
+ "destinations/termez/2.jpg": {
+  "file": "Fayaz_Tepe,_Buddhist_archeological_site_near_Termez_in_Uzbekistan,1st_to_5th_cents._CER_(10).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Fayaz_Tepe,_Buddhist_archeological_site_near_Termez_in_Uzbekistan,1st_to_5th_cents._CER_(10).jpg",
+  "license": "CC BY 2.0",
+  "author": "Richard Mortel"
+ },
+ "destinations/termez/3.jpg": {
+  "file": "Fayaz_Tepe,_Buddhist_archeological_site_near_Termez_in_Uzbekistan,1st_to_5th_cents._CER_(8).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Fayaz_Tepe,_Buddhist_archeological_site_near_Termez_in_Uzbekistan,1st_to_5th_cents._CER_(8).jpg",
+  "license": "CC BY 2.0",
+  "author": "Richard Mortel"
+ },
+ "destinations/termez/4.jpg": {
+  "file": "Eastern_structure_Sultan_Saodat_complex.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Eastern_structure_Sultan_Saodat_complex.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Panpanchik"
+ },
+ "destinations/nukus/hero.jpg": {
+  "file": "Kurzin-nukus_museum_of_art-1120048.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Kurzin-nukus_museum_of_art-1120048.jpg",
+  "license": "Public domain",
+  "author": "Fabienkhan"
+ },
+ "destinations/nukus/1.jpg": {
+  "file": "Morgunov-nukus_museum_of_art-1120042.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Morgunov-nukus_museum_of_art-1120042.jpg",
+  "license": "Public domain",
+  "author": "Fabienkhan"
+ },
+ "destinations/nukus/2.jpg": {
+  "file": "Grigoriev-nukus_museum_of_art-1110996.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Grigoriev-nukus_museum_of_art-1110996.jpg",
+  "license": "Public domain",
+  "author": "Fabienkhan"
+ },
+ "destinations/nukus/3.jpg": {
+  "file": "Sokolov-nukus_museum_of_art-1120038.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Sokolov-nukus_museum_of_art-1120038.jpg",
+  "license": "Public domain",
+  "author": "Fabienkhan"
+ },
+ "destinations/nukus/4.jpg": {
+  "file": "Necropolis_Mizdakhan_02.JPG",
+  "source": "https://commons.wikimedia.org/wiki/File:Necropolis_Mizdakhan_02.JPG",
+  "license": "CC BY-SA 4.0",
+  "author": "Erik Albers"
+ },
+ "destinations/kokand/hero.jpg": {
+  "file": "Palace_of_Khudáyár_Khán,_Kokand_(Дворец_Худояр-хана,_Xudoyorxon_oʻrdasi).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Palace_of_Khudáyár_Khán,_Kokand_(Дворец_Худояр-хана,_Xudoyorxon_oʻrdasi).jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Petar Milošević"
+ },
+ "destinations/kokand/1.jpg": {
+  "file": "Iwan_Khudayar_Khan_Palace,_Kokand,_Uzbekistan.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Iwan_Khudayar_Khan_Palace,_Kokand,_Uzbekistan.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Petar Milošević"
+ },
+ "destinations/kokand/2.jpg": {
+  "file": "Khudayar_Khan_Palace,_Kokand,_Uzbekistan_(Дворец_Худояр-хана,_Коканд,_Узбекистан).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Khudayar_Khan_Palace,_Kokand,_Uzbekistan_(Дворец_Худояр-хана,_Коканд,_Узбекистан).jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Petar Milošević"
+ },
+ "destinations/kokand/3.jpg": {
+  "file": "Khudayar_Khan_Palace,_Kokand_(2004-09-19).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Khudayar_Khan_Palace,_Kokand_(2004-09-19).jpg",
+  "license": "CC BY 2.0",
+  "author": "upyernoz from Haverford, USA"
+ },
+ "destinations/kokand/4.jpg": {
+  "file": "Hall_with_Wooden_Timbers_-_Jami_Mosque_-_Kokand_-_Uzbekistan_-_02_(7536692452).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Hall_with_Wooden_Timbers_-_Jami_Mosque_-_Kokand_-_Uzbekistan_-_02_(7536692452).jpg",
+  "license": "CC BY-SA 2.0",
+  "author": "Adam Jones from Kelowna, BC, Canada"
+ },
+ "destinations/margilan/hero.jpg": {
+  "file": "Silk_factory_in_Margilan.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Silk_factory_in_Margilan.jpg",
+  "license": "CC0",
+  "author": "Bgag"
+ },
+ "destinations/margilan/1.jpg": {
+  "file": "Yodgorlik_Silk_Factory,_Margilan_(497109).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Yodgorlik_Silk_Factory,_Margilan_(497109).jpg",
+  "license": "CC BY 2.0",
+  "author": "upyernoz from Haverford, USA"
+ },
+ "destinations/nuratau/hero.jpg": {
+  "file": "Sap-Say.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Sap-Say.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Carpodacus"
+ },
+ "destinations/nuratau/1.jpg": {
+  "file": "Sap_village.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Sap_village.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Carpodacus"
+ },
+ "destinations/nuratau/2.jpg": {
+  "file": "Nurata_town.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Nurata_town.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Carpodacus"
+ },
+ "destinations/nuratau/3.jpg": {
+  "file": "Nurata_banner.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Nurata_banner.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Carpodacus"
+ },
+ "destinations/nuratau/4.jpg": {
+  "file": "Nurata_5.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Nurata_5.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Marat Nadjibaev"
+ },
+ "destinations/boysun/hero.jpg": {
+  "file": "Boysun_bahori_darvozasi.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Boysun_bahori_darvozasi.jpg",
+  "license": "CC BY 4.0",
+  "author": "Iaa2023"
+ },
+ "destinations/boysun/1.jpg": {
+  "file": "Boysun_shahriga_kiraverishdagi_tepalik.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Boysun_shahriga_kiraverishdagi_tepalik.jpg",
+  "license": "CC BY 4.0",
+  "author": "Iaa2023"
+ },
+ "destinations/boysun/2.jpg": {
+  "file": "Boysun_shahri_manzarasi_01.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Boysun_shahri_manzarasi_01.jpg",
+  "license": "CC BY 4.0",
+  "author": "Iaa2023"
+ },
+ "destinations/boysun/3.jpg": {
+  "file": "Boysun_shahrining_yuqoridan_koʻrinishi.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Boysun_shahrining_yuqoridan_koʻrinishi.jpg",
+  "license": "CC BY 4.0",
+  "author": "Iaa2023"
+ },
+ "destinations/boysun/4.jpg": {
+  "file": "Baysun_Spring_2026._02.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Baysun_Spring_2026._02.jpg",
+  "license": "CC0",
+  "author": "Miss Kamola"
+ },
+ "destinations/zaamin/hero.jpg": {
+  "file": "Зааминский_национальный_парк.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Зааминский_национальный_парк.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "26D"
+ },
+ "destinations/zaamin/1.jpg": {
+  "file": "Landscape_of_the_Zaamin_National_park.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Landscape_of_the_Zaamin_National_park.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Humoyun Mehridinov"
+ },
+ "destinations/zaamin/2.jpg": {
+  "file": "Zaamin_National_Park_Entrance,_Uzbekistan.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Zaamin_National_Park_Entrance,_Uzbekistan.jpg",
+  "license": "CC BY-SA 3.0",
+  "author": "Yoshi Canopus"
+ },
+ "destinations/zaamin/3.jpg": {
+  "file": "Zaamin_National_Park,_Uzbekistan.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Zaamin_National_Park,_Uzbekistan.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Mirzozominiy"
+ },
+ "destinations/zaamin/4.jpg": {
+  "file": "Zomin_tog'lari.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Zomin_tog'lari.jpg",
+  "license": "CC0",
+  "author": "Lobar Ulug'bekovna"
+ },
+ "experiences/plov-cooking-class-tashkent.jpg": {
+  "file": "Plov_Tashkent.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Plov_Tashkent.jpg",
+  "license": "CC BY-SA 3.0",
+  "author": "Ekrem Canli"
+ },
+ "experiences/bread-baking-samarkand.jpg": {
+  "file": "Samarkand_naan_at_Siyob_Bazaar.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Samarkand_naan_at_Siyob_Bazaar.jpg",
+  "license": "CC BY-SA 3.0",
+  "author": "Yoshi Canopus"
+ },
+ "experiences/bukhara-hammam-and-spice-trail.jpg": {
+  "file": "Bukhara_Tok-i-Sarrafon_dome.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Bukhara_Tok-i-Sarrafon_dome.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Ymblanter"
+ },
+ "experiences/suzani-embroidery-workshop-bukhara.jpg": {
+  "file": "Suzani_(detail),_Central_Asia,_probably_Bukhara,_1800s,_embroidery,_silk_and_wool_on_cotton_-_Museum_für_Völkerkunde_Dresden_-_DSC08188.JPG",
+  "source": "https://commons.wikimedia.org/wiki/File:Suzani_(detail),_Central_Asia,_probably_Bukhara,_1800s,_embroidery,_silk_and_wool_on_cotton_-_Museum_für_Völkerkunde_Dresden_-_DSC08188.JPG",
+  "license": "Public domain",
+  "author": "Daderot"
+ },
+ "experiences/camel-ride-aydarkul.jpg": {
+  "file": "Bactrian_camel_in_Kyzyllkum.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Bactrian_camel_in_Kyzyllkum.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Edmart80"
+ },
+ "experiences/rishtan-ceramics-masterclass.jpg": {
+  "file": "Дом_Рустама_Усманова_в_Риштане._Мастерская_по_росписи_посуды._2026_год_(2).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Дом_Рустама_Усманова_в_Риштане._Мастерская_по_росписи_посуды._2026_год_(2).jpg",
+  "license": "CC BY-SA 4.0",
+  "author": ".mw-parser-output .commons-creator-table{background-color:#f0f0ff;box-sizing:border-box;font-size:95%;text-align:start;color:inherit}.mw-parser-output .commons-creator-table>tbody>tr{vertical-align:to"
+ },
+ "experiences/margilan-ikat-silk-weaving.jpg": {
+  "file": "Yodgorlik_Silk_Factory,_Margilan.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Yodgorlik_Silk_Factory,_Margilan.jpg",
+  "license": "CC BY 2.0",
+  "author": "upyernoz from Haverford, USA"
+ },
+ "experiences/savitsky-museum-private-tour.jpg": {
+  "file": "Kurzin-nukus_museum_of_art-1120048.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Kurzin-nukus_museum_of_art-1120048.jpg",
+  "license": "Public domain",
+  "author": "Fabienkhan"
+ },
+ "experiences/chimgan-horse-riding.jpg": {
+  "file": "Chimgan_03.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Chimgan_03.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "LBM1948"
+ },
+ "destinations/tashkent/hero.jpg": {
+  "file": "Minor_Mosque_Tashkent.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Minor_Mosque_Tashkent.jpg",
+  "license": "CC0",
+  "author": "Yuriy Pavlovich"
+ },
+ "destinations/tashkent/1.jpg": {
+  "file": "Milliy_bogʻ_metro_bekati_13.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Milliy_bogʻ_metro_bekati_13.jpg",
+  "license": "CC0",
+  "author": "Alpasli"
+ },
+ "destinations/tashkent/2.jpg": {
+  "file": "086_Eski_Juva_Bozori,_mercat_de_Chorsu_(Taixkent),_raves.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:086_Eski_Juva_Bozori,_mercat_de_Chorsu_(Taixkent),_raves.jpg",
+  "license": "CC BY 4.0",
+  "author": "Enric"
+ },
+ "destinations/tashkent/3.jpg": {
+  "file": "Tashkent_TV_Tower_179.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Tashkent_TV_Tower_179.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "BeshevI"
+ },
+ "destinations/shakhrisabz/hero.jpg": {
+  "file": "Portico_of_Ak-Saray_Palace_-_Shakhrisabz_-_Uzbekistan_(7494239284).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Portico_of_Ak-Saray_Palace_-_Shakhrisabz_-_Uzbekistan_(7494239284).jpg",
+  "license": "CC BY-SA 2.0",
+  "author": "Adam Jones from Kelowna, BC, Canada"
+ },
+ "destinations/shakhrisabz/1.jpg": {
+  "file": "Ensemble_Dorout_Tilovat_(Shahrisabz)_(6018370667).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Ensemble_Dorout_Tilovat_(Shahrisabz)_(6018370667).jpg",
+  "license": "CC BY 2.0",
+  "author": "Jean-Pierre Dalbéra from Paris, France"
+ },
+ "destinations/shakhrisabz/2.jpg": {
+  "file": "Dorut_Tilovat_1.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Dorut_Tilovat_1.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Marat Nadjibaev"
+ },
+ "destinations/fergana-valley/hero.jpg": {
+  "file": "Дом_Рустама_Усманова_в_Риштане._Мастерская_по_росписи_посуды._2026_год_(2).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Дом_Рустама_Усманова_в_Риштане._Мастерская_по_росписи_посуды._2026_год_(2).jpg",
+  "license": "CC BY-SA 4.0",
+  "author": ".mw-parser-output .commons-creator-table{background-color:#f0f0ff;box-sizing:border-box;font-size:95%;text-align:start;color:inherit}.mw-parser-output .commons-creator-table>tbody>tr{vertical-align:to"
+ },
+ "destinations/fergana-valley/1.jpg": {
+  "file": "Дом_Рустама_Усманова_в_Риштане_в_2011_году_(7).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Дом_Рустама_Усманова_в_Риштане_в_2011_году_(7).jpg",
+  "license": "CC BY-SA 4.0",
+  "author": ".mw-parser-output .commons-creator-table{background-color:#f0f0ff;box-sizing:border-box;font-size:95%;text-align:start;color:inherit}.mw-parser-output .commons-creator-table>tbody>tr{vertical-align:to"
+ },
+ "destinations/fergana-valley/2.jpg": {
+  "file": "Palace_of_Khudáyár_Khán,_Kokand_(Дворец_Худояр-хана,_Xudoyorxon_oʻrdasi).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Palace_of_Khudáyár_Khán,_Kokand_(Дворец_Худояр-хана,_Xudoyorxon_oʻrdasi).jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Petar Milošević"
+ },
+ "destinations/fergana-valley/3.jpg": {
+  "file": "Дом_Рустама_Усманова_в_Риштане_в_2011_году_(3).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Дом_Рустама_Усманова_в_Риштане_в_2011_году_(3).jpg",
+  "license": "CC BY-SA 4.0",
+  "author": ".mw-parser-output .commons-creator-table{background-color:#f0f0ff;box-sizing:border-box;font-size:95%;text-align:start;color:inherit}.mw-parser-output .commons-creator-table>tbody>tr{vertical-align:to"
+ },
+ "tours/termez-buddhist-heritage-4-days.jpg": {
+  "file": "Eastern_structure_Sultan_Saodat_complex.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Eastern_structure_Sultan_Saodat_complex.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Panpanchik",
+  "derivedFrom": "destinations/termez/4.jpg"
+ },
+ "tours/sarmishsay-petroglyphs-and-nurata-weekend.jpg": {
+  "file": "2023.03.20_Sarmishsay_110.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:2023.03.20_Sarmishsay_110.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Relisa Granovskaya",
+  "derivedFrom": "destinations/sarmishsay/hero.jpg"
+ },
+ "tours/fergana-silk-and-ceramics-masters.jpg": {
+  "file": "Дом_Рустама_Усманова_в_Риштане_в_2011_году_(7).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Дом_Рустама_Усманова_в_Риштане_в_2011_году_(7).jpg",
+  "license": "CC BY-SA 4.0",
+  "author": ".mw-parser-output .commons-creator-table{background-color:#f0f0ff;box-sizing:border-box;font-size:95%;text-align:start;color:inherit}.mw-parser-output .commons-creator-table>tbody>tr{vertical-align:to",
+  "derivedFrom": "destinations/fergana-valley/1.jpg"
+ },
+ "tours/nuratau-aydarkul-yurt-safari.jpg": {
+  "file": "Айдаркуль_(Арнасайские_озера).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Айдаркуль_(Арнасайские_озера).jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Marat Nadjibaev",
+  "derivedFrom": "destinations/aydarkul/4.jpg"
+ },
+ "tours/karakalpakstan-savitsky-and-desert-fortresses.jpg": {
+  "file": "Ayaz_Kala_(Khorezm,_Ouzbékistan)_(5608879653).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Ayaz_Kala_(Khorezm,_Ouzbékistan)_(5608879653).jpg",
+  "license": "CC BY 2.0",
+  "author": "Jean-Pierre Dalbéra from Paris, France",
+  "derivedFrom": "destinations/karakalpakstan-aral/2.jpg"
+ },
+ "tours/grand-uzbekistan-12-days.jpg": {
+  "file": "Po-i-Kalyan_Courtyard.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Po-i-Kalyan_Courtyard.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "RK",
+  "derivedFrom": "destinations/bukhara/4.jpg"
+ },
+ "tours/samarkand-bukhara-family-5-days.jpg": {
+  "file": "Bujará,_Po-i-Kalyan_01.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Bujará,_Po-i-Kalyan_01.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "LBM1948",
+  "derivedFrom": "destinations/bukhara/1.jpg"
+ },
+ "tours/dubai-city-and-desert-5-days.jpg": {
+  "file": "Burj_Khalifa_(16260269606).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Burj_Khalifa_(16260269606).jpg",
+  "license": "CC BY-SA 2.0",
+  "author": "Laika ac",
+  "derivedFrom": "destinations/dubai/hero.jpg"
+ },
+ "tours/istanbul-bosphorus-and-old-city-5-days.jpg": {
+  "file": "The_Blue_Mosque_at_sunset.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:The_Blue_Mosque_at_sunset.jpg",
+  "license": "CC BY 2.0",
+  "author": "Constantin Barbu",
+  "derivedFrom": "destinations/istanbul/2.jpg"
+ },
+ "destinations/sarmishsay/hero.jpg": {
+  "file": "2023.03.20_Sarmishsay_110.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:2023.03.20_Sarmishsay_110.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Relisa Granovskaya"
+ },
+ "destinations/sarmishsay/1.jpg": {
+  "file": "2023.03.20_Sarmishsay_015.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:2023.03.20_Sarmishsay_015.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Relisa Granovskaya"
+ },
+ "destinations/sarmishsay/2.jpg": {
+  "file": "2023.03.20_Sarmishsay_003.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:2023.03.20_Sarmishsay_003.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Relisa Granovskaya"
+ }
 }

@@ -346,8 +346,11 @@ export function BookingCard({ idPrefix = "card", title, className }: { idPrefix?
   const { types, state, set, minGroup, maxGroup, quote, error, bookHref } = useBooking();
   const pax = state.adults + state.children;
   const needsDate = state.type === "group" ? state.departureId == null : state.date == null;
+  // Marks the card as interactive once React has taken over the server-rendered markup.
+  const [ready, setReady] = useState(false);
+  useEffect(() => setReady(true), []);
   return (
-    <div className={cn("flex flex-col gap-5", className)} data-testid={`${idPrefix}-booking-card`}>
+    <div className={cn("flex flex-col gap-5", className)} data-testid={`${idPrefix}-booking-card`} data-ready={ready || undefined}>
       {title && <h2 className="font-display text-2xl text-lapis-deep">{title}</h2>}
       {types.length > 1 && (
         <div role="radiogroup" aria-label={t("bookingTitle")} className="grid grid-cols-2 gap-1 rounded-full bg-sand-soft p-1">

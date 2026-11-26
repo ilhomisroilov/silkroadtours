@@ -16,6 +16,8 @@ import {
   TOUR_CATEGORIES,
   TRANSPORT_MODES,
 } from "../db/types";
+/** Same list as CONTENT_KINDS in db/schema (kept here so client bundles do not pull in the schema). */
+const CONTENT_KINDS = ["guide", "experience", "service"] as const;
 import { isoDate, slug } from "./common";
 
 /** Short fields (titles, names) must exist in all three languages. */
@@ -328,7 +330,7 @@ export const reviewCreateSchema = z
     title: z.string().trim().max(120).nullable(),
     body: z.string().trim().min(10).max(3000),
     language: z.string().trim().min(2).max(5),
-    source: z.enum(REVIEW_SOURCES),
+    source: z.enum(["site", "google", "tripadvisor"]),
     sourceUrl: z.url().nullable(),
     travelDate: isoDate.nullable(),
     isPublished: z.boolean(),
@@ -339,4 +341,43 @@ export const adminListQuerySchema = z.object({
   q: z.string().trim().max(100).optional(),
   audience: z.enum(AUDIENCES).optional(),
   published: z.enum(["true", "false"]).optional(),
+});
+
+// ── CMS content (travel guides, experiences, services) ─────────────────────
+
+const optionalText = (max: number) =>
+  z
+    .string()
+    .trim()
+    .max(max)
+    .nullable()
+    .transform((v) => (v ? v : null));
+
+export const contentUpsertSchema = z.object({
+  kind: z.enum(CONTENT_KINDS),
+  slug,
+  category: optionalText(60),
+  title: localizedRequired,
+  excerpt: localizedLong,
+  body: localizedLong,
+  image: mediaUrl.nullable().or(z.literal("").transform(() => null)),
+  destinationSlug: optionalText(120),
+  icon: optionalText(40),
+  requestType: z.enum(SERVICE_TYPES).nullable(),
+  durationHours: z.number().min(0.5).max(240).nullable(),
+  priceFromUsd: z.number().int().min(0).max(100_000).nullable(),
+  readingMinutes: z.number().int().min(1).max(120).nullable(),
+  isPublished: z.boolean(),
+  sortOrder: z.number().int().min(0).max(10_000),
+});
+export type ContentUpsertInput = z.output<typeof contentUpsertSchema>;
+
+export const contentListQuerySchema = z.object({
+  kind: z.enum(CONTENT_KINDS).default("guide"),
+  q: z.string().trim().max(100).optional(),
+});
+
+export const customerListQuerySchema = z.object({
+  q: z.string().trim().max(100).optional(),
+  page: z.coerce.number().int().min(1).max(10_000).default(1),
 });

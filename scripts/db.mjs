@@ -5,6 +5,7 @@
  *   node scripts/db.mjs migrate          apply drizzle/migrations/*.sql not yet applied
  *   node scripts/db.mjs seed             load drizzle/seed.sql if the catalog is empty
  *   node scripts/db.mjs seed --force     load drizzle/seed.sql even if tours exist
+ *   node scripts/db.mjs seed --reset     replace the catalogue (destinations, tours, FAQ, content); bookings are kept
  *   node scripts/db.mjs status           list applied migrations and row counts
  *   node scripts/db.mjs backup           consistent copy to $BACKUP_DIR (default /data/backups), keeps $BACKUP_KEEP (14)
  *   node scripts/db.mjs prune            delete AI conversations older than the retention set in admin (default 90 days)
@@ -45,10 +46,11 @@ async function migrate() {
 }
 
 async function seed() {
-  const file = join(ROOT, "drizzle", "seed.sql");
-  if (!existsSync(file)) throw new Error("drizzle/seed.sql not found (run npm run db:seed:build)");
+  const reset = flags.includes("--reset");
+  const file = join(ROOT, "drizzle", reset ? "seed-reset.sql" : "seed.sql");
+  if (!existsSync(file)) throw new Error(`${file} not found (run npm run db:seed:build)`);
   const [{ n }] = (await db.execute("SELECT count(*) AS n FROM tours")).rows;
-  if (Number(n) > 0 && !flags.includes("--force")) {
+  if (Number(n) > 0 && !flags.includes("--force") && !reset) {
     console.log(`catalog already has ${n} tours — seed skipped (use --force)`);
     return;
   }

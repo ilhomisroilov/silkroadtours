@@ -71,13 +71,26 @@ const guide = contactFields.extend({
   notes: z.string().trim().max(1000).optional(),
 });
 
+/** General question about an experience, a travel service or anything else. */
+export const INQUIRY_TOPICS = ["experience", "service", "general"] as const;
+const inquiry = contactFields.extend({
+  type: z.literal("inquiry"),
+  topic: z.enum(INQUIRY_TOPICS),
+  subject: z.string().trim().min(2).max(200),
+  refSlug: slug.optional(),
+  date: futureDate.optional(),
+  groupSize: z.number().int().min(1).max(100).optional(),
+  notes: z.string().trim().min(5, { error: "message_too_short" }).max(3000),
+});
+
 /** POST /api/service-requests — the `type` field selects the form. */
 export const serviceRequestSchema = z.discriminatedUnion("type", [
   airportTransfer,
   customTour,
   accommodation,
   guide,
+  inquiry,
 ]);
 
 export type ServiceRequestInput = z.infer<typeof serviceRequestSchema>;
-export const serviceRequestSchemas = { airportTransfer, customTour, accommodation, guide };
+export const serviceRequestSchemas = { airportTransfer, customTour, accommodation, guide, inquiry };

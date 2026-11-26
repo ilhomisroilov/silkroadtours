@@ -1,4 +1,4 @@
-import { BedDouble, Bus, CalendarDays, Footprints, Gauge, Languages, MapPin, Moon, Route, Users, Utensils } from "lucide-react";
+import { ArrowRight, BedDouble, Bus, CalendarDays, Footprints, Gauge, Languages, MapPin, Moon, Route, Users, Utensils } from "lucide-react";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -8,7 +8,8 @@ import { ReviewList, Stars } from "@/components/common/reviews";
 import { SectionHeading } from "@/components/common/section";
 import { SmartImage } from "@/components/common/smart-image";
 import { LazyMap } from "@/components/maps/lazy-map";
-import { ArchFrame, GirihPattern, IkatDivider } from "@/components/ornament";
+import { AskAssistantButton } from "@/components/ai/ask-button";
+import { WishlistButton } from "@/components/common/wishlist";
 import { JsonLd } from "@/components/seo/json-ld";
 import { BookingCard, BookingProvider, MobileBookBar, type DepartureOption } from "@/components/tours/booking-card";
 import nextDynamic from "next/dynamic";
@@ -20,6 +21,7 @@ import { listFaq } from "@/db/queries/faq";
 import { listPublishedReviews } from "@/db/queries/reviews";
 import { getPublishedTourBySlug, listPublishedTours, priceTable } from "@/db/queries/tours";
 import type { BookingType, Locale } from "@/db/types";
+import { Link } from "@/i18n/navigation";
 import { imageExists } from "@/lib/images";
 import { localize } from "@/lib/localize";
 import { formatDateLabel, monthRanges } from "@/lib/format";
@@ -146,47 +148,53 @@ export default async function TourPage({ params }: Props) {
         initialQuote={initialQuote.ok ? initialQuote : null}
       >
         {/* ── Header ───────────────────────────────────────── */}
-        <section className="on-dark relative overflow-hidden bg-lapis-deep text-ivory">
-          <GirihPattern className="absolute inset-0" tone="saffron" opacity={0.25} />
-          <div className="container-page relative grid gap-8 py-10 lg:grid-cols-12 lg:py-14">
-            <div className="lg:col-span-7">
-              <Breadcrumbs
-                tone="dark"
-                label={t("nav.breadcrumb")}
-                base={`${siteUrl()}/${locale}`}
-                items={[
-                  { name: t("nav.home"), href: "/" },
-                  { name: t("nav.tours"), href: "/tours" },
-                  { name: title, href: `/tours/${slug}` },
-                ]}
-              />
-              <div className="mt-5 flex flex-wrap gap-2">
+        <section className="relative isolate overflow-hidden bg-lapis-deep text-white">
+          <div className="absolute inset-0 -z-10">
+            <SmartImage src={tour.heroImage} alt="" label={region} priority sizes="100vw" />
+            <div className="absolute inset-0 bg-gradient-to-r from-lapis-deep/95 via-lapis-deep/70 to-lapis-deep/15" />
+            <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-lapis-deep/60 to-transparent" />
+          </div>
+          <div className="container-page flex min-h-[28rem] flex-col justify-end py-10 lg:min-h-[32rem] lg:py-14">
+            <Breadcrumbs
+              tone="dark"
+              label={t("nav.breadcrumb")}
+              base={`${siteUrl()}/${locale}`}
+              items={[
+                { name: t("nav.home"), href: "/" },
+                { name: t("nav.tours"), href: "/tours" },
+                { name: title, href: `/tours/${slug}` },
+              ]}
+            />
+            <div className="mt-auto pt-10">
+              <div className="flex flex-wrap gap-2">
                 <Badge tone={tour.audience === "domestic" ? "saffron" : "turquoise"}>{t(tour.audience === "domestic" ? "audience.domesticShort" : "audience.inboundShort")}</Badge>
                 <Badge tone="sand">{t(`categories.${tour.category}`)}</Badge>
                 {tour.badges.map((b) => (
                   <Badge key={b} tone="sand">{t(`badges.${b}` as never)}</Badge>
                 ))}
               </div>
-              <h1 className="mt-4 text-5xl text-ivory">{title}</h1>
-              <p className="mt-4 max-w-2xl text-lg text-sand">{localize(tour.summary, locale)}</p>
+              <h1 className="mt-4 max-w-3xl text-[clamp(2rem,1.3rem+2.6vw,3.4rem)] leading-[1.08] text-white">{title}</h1>
+              <p className="mt-4 max-w-2xl text-lg text-white/85">{localize(tour.summary, locale)}</p>
               {tour.ratingCount > 0 && (
-                <p className="mt-4 flex items-center gap-2 text-sand">
+                <p className="mt-4 flex items-center gap-2 text-white/85">
                   <Stars rating={tour.ratingAvg} label={t("common.ratingOutOf", { rating: tour.ratingAvg.toFixed(1) })} />
                   <a href="#reviews" className="underline">{t("common.reviewsCount", { count: tour.ratingCount })}</a>
                 </p>
               )}
-              <p className="mt-6 text-2xl font-bold text-saffron">{fromLabel} <span className="text-base font-normal text-sand">{t("common.perPerson")}</span></p>
-            </div>
-            <div className="relative mx-auto w-full max-w-sm lg:col-span-5">
-              <div className="relative aspect-[5/6]">
-                <div className="arch-mask absolute inset-0">
-                  <SmartImage src={tour.heroImage} alt={title} label={region} priority sizes="(min-width: 1024px) 24rem, 90vw" />
+              <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-4">
+                <p className="text-[1.75rem] font-extrabold leading-none text-saffron">
+                  {fromLabel} <span className="text-base font-medium text-white/80">{t("common.perPerson")}</span>
+                </p>
+                <div className="flex flex-wrap items-center gap-2">
+                  <Link href={`/book/${slug}`} className="inline-flex min-h-11 items-center gap-2 rounded-full bg-saffron px-5 text-sm font-bold text-lapis-deep hover:bg-[#e6b55a]">
+                    {t("tour.bookShort")} <ArrowRight aria-hidden="true" className="size-4" />
+                  </Link>
+                  <AskAssistantButton label={t("nt.tourPage.ask")} question={t("nt.tourPage.askQuestion", { title })} className="bg-white/15 backdrop-blur hover:bg-white/25" />
+                  <WishlistButton slug={slug} addLabel={t("nt.wishlist.add")} removeLabel={t("nt.wishlist.remove")} />
                 </div>
-                <ArchFrame className="-inset-2.5 h-[calc(100%+1.25rem)] w-[calc(100%+1.25rem)]" />
               </div>
             </div>
           </div>
-          <IkatDivider height={12} />
         </section>
 
         {/* ── Key facts ────────────────────────────────────── */}
@@ -195,7 +203,7 @@ export default async function TourPage({ params }: Props) {
             {facts.map((f) => (
               <div key={f.label} className="relative pl-8">
                 <dt className="text-xs font-bold uppercase tracking-wide text-ink-muted">
-                  <f.icon aria-hidden="true" className="absolute left-0 top-0.5 size-5 text-turquoise-ink" />
+                  <f.icon aria-hidden="true" className="absolute left-0 top-0.5 size-5 text-cobalt" />
                   {f.label}
                 </dt>
                 <dd className="font-semibold text-ink">{f.value}</dd>
@@ -435,7 +443,7 @@ export default async function TourPage({ params }: Props) {
         </div>
 
         {relatedTours.length > 0 && (
-          <section className="bg-sand-soft py-16" aria-labelledby="related">
+          <section className="bg-sky/50 py-16" aria-labelledby="related">
             <div className="container-page">
               <SectionHeading id="related" title={t("tour.related")} />
               <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

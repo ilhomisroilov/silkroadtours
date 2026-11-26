@@ -14,7 +14,7 @@
     "db:seed:build": "tsx scripts/build-seed-sql.ts",
     "db:studio": "drizzle-kit studio",
     "db:check": "python3 scripts/check-schema-parity.py",
-    "test:unit": "tsx --test tests/*.test.ts",
+    "test:unit": "tsx --conditions=react-server --test tests/*.test.ts",
     "test:smoke": "node scripts/smoke-test.mjs",
     "setup:codespace": "bash scripts/codespace-setup.sh",
     "test:e2e": "playwright test",

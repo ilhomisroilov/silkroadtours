@@ -1,0 +1,2457 @@
+[
+ {
+  "slug": "nuratau-aydarkul-yurt-safari",
+  "title": {
+   "en": "Nuratau Mountains and Aydarkul Lake Yurt Safari",
+   "uz": "Nurota togʻlari va Aydarqoʻl koʻli yurta safari",
+   "ru": "Сафари в Нуратинских горах и на озере Айдаркуль"
+  },
+  "summary": {
+   "en": "Experience nomadic desert life in a traditional yurt, swim in Lake Aydarkul, and stay in a mountain guesthouse in the Nuratau range.",
+   "uz": "Anʼanaviy yurtda koʻchmanchilar hayotini his qiling, Aydarqoʻl koʻlida choʻmiling va Nurota tizmasidagi togʻ mehmonxonasida qoling.",
+   "ru": "Испытайте жизнь кочевников в традиционной юрте, искупайтесь в озере Айдаркуль и остановитесь в горном гостевом доме в Нуратинских горах."
+  },
+  "description": {
+   "en": "Depart from Samarkand by private vehicle towards the Kyzylkum desert margin and Lake Aydarkul, taking approximately 3.5 hours for the 220 km journey. Enjoy a camel ride, lunch by the water, and spend the night in a traditional felt yurt camp with an evening campfire under the stars. On the second day, travel to the Nuratau foothills to explore local village life and walk along mountain streams. The third day includes a visit to Nurata town's ancient water reservoir and fortress ruins before returning to Samarkand by road.",
+   "uz": "Samarqanddan shaxsiy mashinada Qizilqum choʻli cheti va Aydarqoʻl koʻli tomon yoʻl oling, 220 km masofa taxminan 3,5 soat davom etadi. Tuya minishdan zavqlaning, suv boʻgʻtida tushlik qiling va yulduzlar ostida oqshom gulxani bilan anʼanaviy kigiz yurt lagerida tunang. Ikkinchi kuni mahalliy qishloq hayotini oʻrganish va togʻ irmoqlari boʻylab sayr qilish uchun Nurota etaklariga yoʻl oling. Uchinchi kuni Samarqandga qaytishdan oldin Nurota shahrining qadimiy suv havzasi va qalʼa xarobalariga tashrif buyuring.",
+   "ru": "Отправление из Самарканда на личном транспорте в сторону окраины Кызылкума и озера Айдаркуль, поездка на 220 км занимает около 3,5 часов. Насладитесь катанием на верблюдах, обедом у воды и ночевкой в традиционном юрточном лагере с вечерним костром под звездами. На второй день отправляйтесь к предгорьям Нуратау, чтобы познакомиться с деревенским бытом и прогуляться вдоль горных ручьев. Третий день включает посещение древнего водохранилища и руин крепости в Нурате перед возвращением в Самарканд на машине."
+  },
+  "difficulty": "moderate",
+  "minGroup": 1,
+  "maxGroup": 8,
+  "childPricePercent": 70,
+  "badges": [
+   "best_seller",
+   "eco_camp"
+  ],
+  "includedKeys": [
+   "privateCar",
+   "breakfast",
+   "entrances",
+   "water",
+   "yurtStay",
+   "campfire",
+   "allMeals",
+   "guesthouse",
+   "camel"
+  ],
+  "excludedKeys": [
+   "flights",
+   "visa",
+   "tips",
+   "insurance",
+   "personal",
+   "alcohol"
+  ],
+  "accommodation": [
+   {
+    "type": "yurt_camp",
+    "name": {
+     "en": "Aydarkul Yurt Camp",
+     "uz": "Aydarqoʻl yurta lageri",
+     "ru": "Юрточный лагерь Айдаркуль"
+    },
+    "nights": 1
+   },
+   {
+    "type": "guesthouse",
+    "name": {
+     "en": "Hayat Village Mountain Guesthouse",
+     "uz": "Hayot qishlogʻi togʻ mehmonxonasi",
+     "ru": "Горный гостевой дом в селе Хаят"
+    },
+    "nights": 1
+   }
+  ],
+  "transport": [
+   {
+    "mode": "private_car",
+    "description": {
+     "en": "Comfortable air-conditioned private car or minivan for all transfers between Samarkand, Aydarkul, Nuratau, and back.",
+     "uz": "Samarqand, Aydarqoʻl, Nurota va qaytish yoʻnalishlari uchun qulay konditsionerli shaxsiy mashina yoki miniven.",
+     "ru": "Комфортабельный автомобиль или минивэн с кондиционером для всех трансферов между Самаркандом, Айдаркулем, Нуратау и обратно."
+    }
+   },
+   {
+    "mode": "camel",
+    "description": {
+     "en": "Short camel ride near the shores of Lake Aydarkul.",
+     "uz": "Aydarqoʻl koʻli qirgʻogʻi yaqinida qisqa tuya minish.",
+     "ru": "Короткая прогулка на верблюдах у берегов озера Айдаркуль."
+    }
+   },
+   {
+    "mode": "walking",
+    "description": {
+     "en": "Light trekking and village walks in the Nuratau Mountains.",
+     "uz": "Nurota togʻlarida yengil trekkiнг va qishloq boʻylab sayr.",
+     "ru": "Легкий треккинг и прогулки по селу в Нуратинских горах."
+    }
+   }
+  ],
+  "route": [
+   {
+    "lat": 39.6542,
+    "lng": 66.9597,
+    "label": {
+     "en": "Samarkand Departure",
+     "uz": "Samarqanddan joʻnash",
+     "ru": "Отправление из Самарканда"
+    },
+    "day": 1
+   },
+   {
+    "lat": 40.5833,
+    "lng": 66.8333,
+    "label": {
+     "en": "Lake Aydarkul",
+     "uz": "Aydarqoʻl koʻli",
+     "ru": "Озеро Айдаркуль"
+    },
+    "day": 1
+   },
+   {
+    "lat": 40.55,
+    "lng": 66.55,
+    "label": {
+     "en": "Nurata Town",
+     "uz": "Nurota shahri",
+     "ru": "Город Нурата"
+    },
+    "day": 2
+   },
+   {
+    "lat": 40.523,
+    "lng": 66.621,
+    "label": {
+     "en": "Hayat Mountain Village",
+     "uz": "Hayot togʻ qishlogʻi",
+     "ru": "Горная деревня Хаят"
+    },
+    "day": 2
+   },
+   {
+    "lat": 39.6542,
+    "lng": 66.9597,
+    "label": {
+     "en": "Samarkand Return",
+     "uz": "Samarqandga qaytish",
+     "ru": "Возвращение в Самарканд"
+    },
+    "day": 3
+   }
+  ],
+  "seasonMonths": [
+   4,
+   5,
+   6,
+   9,
+   10,
+   11
+  ],
+  "tiers": [
+   {
+    "bookingType": "private",
+    "minPax": 1,
+    "maxPax": 1,
+    "usd": 650
+   },
+   {
+    "bookingType": "private",
+    "minPax": 2,
+    "maxPax": 3,
+    "usd": 420
+   },
+   {
+    "bookingType": "private",
+    "minPax": 4,
+    "maxPax": 8,
+    "usd": 340
+   }
+  ],
+  "itinerary": [
+   {
+    "title": {
+     "en": "From Samarkand to Lake Aydarkul Yurt Camp",
+     "uz": "Samarqanddan Aydarqoʻl yurta lageriga",
+     "ru": "Из Самарканда в юрточный лагерь Айдаркуль"
+    },
+    "description": {
+     "en": "At 09:00, depart from your Samarkand hotel by private vehicle towards the Kyzylkum desert. Arrive at Lake Aydarkul around 12:30 after a 220 km drive, enjoy grilled fish for lunch, and take a swim or a camel ride. In the late afternoon, transfer to the nearby yurt camp to settle in. Gather around the evening campfire for traditional songs and stargazing.",
+     "uz": "Soat 09:00 da Samarqanddagi mehmonxonangizdan shaxsiy mashinada Qizilqum choʻli tomon yoʻl oling. 220 km yoʻl bosib, taxminan 12:30 da Aydarqoʻl koʻliga yetib boring, tushlikka qovurilgan baliqdan tatib koʻring, choʻmiling yoki tuyamining. Tushdan keyin joylashish uchun yaqin atrofdagi yurta lageriga boring. Kechki oqshomda anʼanaviy qoʻshiqlar va yulduzlarni kuzatish uchun gulxan atrofida yigʻiling.",
+     "ru": "В 09:00 выезд из отеля в Самарканде на машине в сторону Кызылкума. Прибытие на озеро Айдаркуль около 12:30 после поездки на 220 км, обед из жареной рыбы, купание и катание на верблюдах. Во второй половине дня переезд в близлежащий юрточный лагерь для размещения. Вечером сбор у костра под традиционные песни и любование звездами."
+    },
+    "meals": [
+     "L",
+     "D"
+    ],
+    "overnight": {
+     "en": "Aydarkul Yurt Camp",
+     "uz": "Aydarqoʻl yurta lageri",
+     "ru": "Юрточный лагерь Айдаркуль"
+    }
+   },
+   {
+    "title": {
+     "en": "Nurata Sights and Nuratau Mountain Village",
+     "uz": "Nurota diqqatga sazovor joylari va Nurota togʻ qishlogʻi",
+     "ru": "Достопримечательности Нураты и горное село Нуратау"
+    },
+    "description": {
+     "en": "After breakfast at 08:30, drive 60 km to Nurata town to visit the Alexander the Great fortress ruins, the holy spring Chashma, and an ancient underground mosque. Continue driving into the Nuratau Mountains to the village of Hayat, arriving around 13:00 for a local lunch. Spend the afternoon on a guided walking tour along the valley to spot the rare Severtsov's wild sheep.",
+     "uz": "Soat 08:30 da nonushtadan soʻng Nurota shahriga 60 km masofani bosib oʻtib, Iskandar Zulqarnayn qalʼasi xarobalari, Chashma muqaddas bulogʻi va qadimiy yer osti masjidini ziyorat qiling. Mahalliy tushlik uchun taxminan 13:00 da Hayot qishlogʻiga yetib kelib, Nurota togʻlari boʻylab harakatni davom ettiring. Tushdan keyin noyob Severtsov togʻ qoʻylarini koʻrish uchun vodiy boʻylab gid hamrohligida piyoda sayr qiling.",
+     "ru": "После завтрака в 08:30 поездка на 60 км в Нурату для осмотра руин крепости Александра Македонского, святого источника Чашма и древней подземной мечети. Продолжение пути в Нуратинские горы в деревню Хаят, прибытие около 13:00 на местный обед. Во второй половине дня пешая экскурсия с гидом по долине в поисках редкого дикого барана Северцова."
+    },
+    "meals": [
+     "B",
+     "L",
+     "D"
+    ],
+    "overnight": {
+     "en": "Hayat Mountain Guesthouse",
+     "uz": "Hayot togʻ mehmonxonasi",
+     "ru": "Горный гостевой дом в селе Хаят"
+    }
+   },
+   {
+    "title": {
+     "en": "Mountain Walk and Return to Samarkand",
+     "uz": "Togʻda sayr va Samarqandga qaytish",
+     "ru": "Горная прогулка и возвращение в Самарканд"
+    },
+    "description": {
+     "en": "Enjoy breakfast at 08:00 followed by a morning walk around Hayat village and its walnut groves. At 11:00, check out and begin the return drive to Samarkand, covering the 200 km distance in approximately 3.5 hours. Arrive back in Samarkand by 15:00 for drop-off at your hotel.",
+     "uz": "Soat 08:00 da nonushtadan soʻng Hayot qishlogʻi va yongʻoqzorlari boʻylab tonggi sayr qiling. Soat 11:00 da mehmonxonadan chiqib, 200 km masofani taxminan 3,5 soatda bosib oʻtib, Samarqandga qaytish safarini boshlang. Soat 15:00 da Samarqandga yetib kelib, mehmonxonangizga eltib qoʻyilasiz.",
+     "ru": "Завтрак в 08:00, затем утренняя прогулка по деревне Хаят и ее ореховым рощам. В 11:00 выселение и начало обратной дороги в Самарканд, расстояние в 200 км преодолевается примерно за 3,5 часа. Прибытие в Самарканд к 15:00 с доставкой в ваш отель."
+    },
+    "meals": [
+     "B",
+     "L"
+    ]
+   }
+  ]
+ },
+ {
+  "slug": "termez-buddhist-heritage-4-days",
+  "title": {
+   "en": "Buddhist Heritage and Mountain Canyons of Termez and Boysun",
+   "uz": "Termiz buddaviylik merosi va Boysun togʻ kanyonlari",
+   "ru": "Буддийское наследие Термеза и горные каньоны Байсуна"
+  },
+  "summary": {
+   "en": "Explore ancient Greco-Buddhist monasteries on the Oxus River and discover the rugged sandstone gorges of Boysun on a four-day southern Uzbekistan tour.",
+   "uz": "Amudaryo boʻyidagi qadimiy buddaviylik monastirlari hamda Boysunning qoyali daralarini toʻrt kunlik janubiy Oʻzbekiston safari davomida kashf eting.",
+   "ru": "Исследуйте древние буддийские монастыри на берегу Амударьи и живописные ущелья Байсуна в четырехдневном путешествии по югу Узбекистана."
+  },
+  "description": {
+   "en": "Southern Uzbekistan preserves an exceptional archaeological landscape where Hellenistic culture, Kushan Buddhism, and early Islamic thought converged along the ancient Oxus River. Following a scheduled flight from Tashkent to Termez, this four-day itinerary visits the 1st–3rd century monastic sites of Fayaz Tepe and Kara Tepe, together with the Zurmala Stupa. The journey continues through the medieval architecture of Sultan Saodat and the Kirk Kiz fortress before ascending into the Hissar mountain district of Boysun. Here, travelers encounter UNESCO-recognized folklore traditions and hike through the limestone narrows of Darband Canyon. The tour concludes with an extensive visit to the Termez Archaeological Museum before the evening flight back to Tashkent.",
+   "uz": "Janubiy Oʻzbekiston qadimiy Oks (Amudaryo) boʻyida ellinistik madaniyat, Kushon buddaviyligi va ilk islom tafakkuri tutashgan noyob arxeologik yodgorliklarni saqlab qolgan. Toshkentdan Termizga amalga oshiriladigan parvozdan soʻng ushbu toʻrt kunlik dastur milodiy I–III asrlarga oid Fayoztepa, Qoratepa monastirlari va Zurmala stupasini qamrab oladi. Sayohat Sulton Saodat meʼmoriy majmuasi hamda Qirqqiz qalʼasi orqali Hisor togʻ tizmasi bagʻridagi Boysun tumaniga qarab davom etadi. Bu yerda sayohatchilar YUNESKO eʼtirofiga sazovor boʻlgan anʼanalar bilan tanishib, Darband darasining qoyali yoʻlaklarida piyoda sayr qiladilar. Safar Termiz arxeologiya muzeyiga tashrif va Toshkentga kechki parvoz bilan yakunlanadi.",
+   "ru": "Южный Узбекистан сохранил уникальный исторический пласт, где эллинистическая культура, кушанский буддизм и исламская мысль переплелись на берегах древнего Окса. После перелета из Ташкента в Термез этот четырехдневный тур познакомит вас с буддийскими монастырями I–III веков Фаяз-тепа и Кара-тепа, а также со ступой Зурмала. Далее путь лежит через мемориальный ансамбль Султан Саодат и крепость Кырк-Кыз в горный Байсунский район у подножия Гиссарского хребта. Гости увидят ремесленные традиции, признанные ЮНЕСКО, и совершат прогулку по узким теснинам каньона Дарбанд. Тур завершается визитом в Термезский археологический музей и вечерним рейсом обратно в Ташкент."
+  },
+  "difficulty": "moderate",
+  "minGroup": 1,
+  "maxGroup": 10,
+  "childPricePercent": 70,
+  "badges": [
+   "small_group",
+   "new"
+  ],
+  "includedKeys": [
+   "guide",
+   "privateCar",
+   "hotels",
+   "guesthouse",
+   "breakfast",
+   "entrances",
+   "airport",
+   "water"
+  ],
+  "excludedKeys": [
+   "domesticFlight",
+   "visa",
+   "meals",
+   "tips",
+   "photo",
+   "insurance",
+   "personal",
+   "singleRoom",
+   "alcohol"
+  ],
+  "accommodation": [
+   {
+    "type": "hotel",
+    "name": {
+     "en": "Asson Hotel Termez (or similar)",
+     "uz": "Asson mehmonxonasi Termiz (yoki shunga oʻxshash)",
+     "ru": "Гостиница Asson Термез (или аналогичная)"
+    },
+    "nights": 1
+   },
+   {
+    "type": "guesthouse",
+    "name": {
+     "en": "Gaza Family Guesthouse Boysun",
+     "uz": "Gaza oilaviy mehmon uyi Boysun",
+     "ru": "Семейный гостевой дом Gaza Байсун"
+    },
+    "nights": 1
+   },
+   {
+    "type": "hotel",
+    "name": {
+     "en": "Asson Hotel Termez (or similar)",
+     "uz": "Asson mehmonxonasi Termiz (yoki shunga oʻxshash)",
+     "ru": "Гостиница Asson Термез (или аналогичная)"
+    },
+    "nights": 1
+   }
+  ],
+  "transport": [
+   {
+    "mode": "private_car",
+    "description": {
+     "en": "Air-conditioned sedan or comfortable minivan for all transfers and intercity travel.",
+     "uz": "Barcha transferlar va shaharlararo qatnovlar uchun konditsionerli yengil mashina yoki mikroavtobus.",
+     "ru": "Кондиционированный седан или комфортабельный минивэн для всех трансферов и поездок."
+    }
+   },
+   {
+    "mode": "walking",
+    "description": {
+     "en": "Light to moderate walking over archaeological mounds and through Darband Canyon.",
+     "uz": "Arxeologik tepaliklar va Darband darasi boʻylab yengil va oʻrtacha darajadagi piyoda yurish.",
+     "ru": "Пешие прогулки умеренной сложности по археологическим раскопкам и ущелью Дарбанд."
+    }
+   }
+  ],
+  "route": [
+   {
+    "lat": 37.2867,
+    "lng": 67.3097,
+    "label": {
+     "en": "Termez International Airport",
+     "uz": "Termiz xalqaro aeroporti",
+     "ru": "Международный аэропорт Термез"
+    },
+    "day": 1
+   },
+   {
+    "lat": 37.2858,
+    "lng": 67.1844,
+    "label": {
+     "en": "Fayaz Tepe Buddhist Monastery",
+     "uz": "Fayoztepa buddaviylik monastiri",
+     "ru": "Буддийский монастырь Фаяз-тепа"
+    },
+    "day": 1
+   },
+   {
+    "lat": 37.2792,
+    "lng": 67.1722,
+    "label": {
+     "en": "Kara Tepe Cave Complex",
+     "uz": "Qoratepa gʻor-monastir majmuasi",
+     "ru": "Пещерный комплекс Кара-тепа"
+    },
+    "day": 1
+   },
+   {
+    "lat": 37.2789,
+    "lng": 67.3183,
+    "label": {
+     "en": "Zurmala Stupa",
+     "uz": "Zurmala stupasi",
+     "ru": "Ступа Зурмала"
+    },
+    "day": 1
+   },
+   {
+    "lat": 37.2611,
+    "lng": 67.3117,
+    "label": {
+     "en": "Sultan Saodat Ensemble",
+     "uz": "Sulton Saodat majmuasi",
+     "ru": "Ансамбль Султан Саодат"
+    },
+    "day": 2
+   },
+   {
+    "lat": 37.2683,
+    "lng": 67.3164,
+    "label": {
+     "en": "Kirk Kiz Fortress",
+     "uz": "Qirqqiz qalʼasi",
+     "ru": "Крепость Кырк-Кыз"
+    },
+    "day": 2
+   },
+   {
+    "lat": 38.2044,
+    "lng": 67.2025,
+    "label": {
+     "en": "Boysun Town",
+     "uz": "Boysun shahri",
+     "ru": "Город Байсун"
+    },
+    "day": 2
+   },
+   {
+    "lat": 38.1961,
+    "lng": 67.0142,
+    "label": {
+     "en": "Darband Canyon",
+     "uz": "Darband darasi",
+     "ru": "Каньон Дарбанд"
+    },
+    "day": 3
+   },
+   {
+    "lat": 38.0167,
+    "lng": 67.0083,
+    "label": {
+     "en": "Sayrob Ancient Plane Trees",
+     "uz": "Sayrob koʻhna chinorlari",
+     "ru": "Вековые чинары в Сайробе"
+    },
+    "day": 3
+   },
+   {
+    "lat": 37.2344,
+    "lng": 67.2831,
+    "label": {
+     "en": "Termez Archaeological Museum",
+     "uz": "Termiz arxeologiya muzeyi",
+     "ru": "Термезский археологический музей"
+    },
+    "day": 4
+   }
+  ],
+  "seasonMonths": [
+   3,
+   4,
+   5,
+   9,
+   10,
+   11
+  ],
+  "tiers": [
+   {
+    "bookingType": "private",
+    "minPax": 1,
+    "maxPax": 1,
+    "usd": 760
+   },
+   {
+    "bookingType": "private",
+    "minPax": 2,
+    "maxPax": 3,
+    "usd": 480
+   },
+   {
+    "bookingType": "private",
+    "minPax": 4,
+    "maxPax": 6,
+    "usd": 370
+   },
+   {
+    "bookingType": "private",
+    "minPax": 7,
+    "maxPax": 10,
+    "usd": 310
+   }
+  ],
+  "itinerary": [
+   {
+    "title": {
+     "en": "Day 1: Arrival in Termez and Kushan Buddhist Sanctuaries",
+     "uz": "1-kun: Termizga yetib kelish va Kushon buddaviylik ziyoratgohlari",
+     "ru": "День 1: Прибытие в Термез и буддийские святыни Кушанского царства"
+    },
+    "description": {
+     "en": "Arrive at Termez Airport on the morning flight from Tashkent (1 hour 30 minutes) and transfer 12 km to your hotel to check in. At 14:00, drive 15 km northwest to Fayaz Tepe, an exceptionally preserved 1st–3rd century Buddhist temple and monastery complex featuring an inner courtyard and surviving stupa dome. Continue 3 km south to the sandstone ridge of Kara Tepe, an ancient cave-monastery situated directly on the Afghan border overlooking the Amu Darya. Conclude the afternoon at the 14-meter-tall Zurmala Stupa, the oldest surviving raw-brick structure in Central Asia, before returning to Termez.",
+     "uz": "Toshkentdan ertalabki parvoz bilan (1 soat 30 daqiqa) Termiz aeroportiga yetib keling va 12 km masofadagi mehmonxonaga joylashing. Soat 14:00 da shimoli-gʻarbga 15 km yoʻl bosib, ichki hovlisi va gumbazli stupasi saqlangan I–III asrlarga oid Fayoztepa monastir majmuasiga yoʻl oling. Soʻngra 3 km janubda joylashgan, Amudaryo va chegara chizigʻiga qaragan Qoratepa gʻor-monastir majmuasini koʻzdan kechiring. Kun yakunida Markaziy Osiyodagi eng qadimgi xom gʻishtli inshoot hisoblangan 14 metrli Zurmala stupasini ziyorat qilib, shaharga qaytasiz.",
+     "ru": "Прибытие в аэропорт Термеза утренним рейсом из Ташкента (время в полете 1 час 30 минут) и трансфер 12 км в отель. В 14:00 выезд на 15 км к северо-западу к монастырю Фаяз-тепа I–III веков, где сохранились внутренние дворы и защитный купол над древней ступой. Затем проезд 3 км к скальному комплексу Кара-тепа, вырубленному в песчаниковых холмах прямо у границы с Афганистаном на берегу Амударьи. Осмотр завершается у 14-метровой ступы Зурмала — древнейшего сырцового сооружения региона, после чего группа возвращается в отель."
+    },
+    "meals": [],
+    "overnight": {
+     "en": "Asson Hotel, Termez",
+     "uz": "Asson mehmonxonasi, Termiz",
+     "ru": "Гостиница Asson, Термез"
+    }
+   },
+   {
+    "title": {
+     "en": "Day 2: Islamic Architecture of Termez and Transfer to Boysun",
+     "uz": "2-kun: Termizning islomiy meʼmorchiligi va Boysunga yoʻl",
+     "ru": "День 2: Исламское зодчество Термеза и переезд в Байсун"
+    },
+    "description": {
+     "en": "After breakfast at 09:00, visit the Sultan Saodat ensemble, an 11th–17th century dynastic necropolis of the Termez Sayyid rulers located 7 km outside town. Next, explore the monumental adobe ruins of the 9th-century Kirk Kiz fortress, whose 40 symmetrical vaulted chambers remain an architectural mystery. Drive 10 km to the mausoleum of Sufi scholar Al-Hakim at-Termizi on the border riverbank for a brief cultural visit. After lunch, take the scenic M39 highway north for 135 km (about 2.5 hours) through dry steppe into the Hissar mountain foothills, checking into a traditional family guesthouse in Boysun.",
+     "uz": "Mehmonxonada nonushtadan soʻng soat 09:00 da shahar chetidan 7 km masofada joylashgan XI–XVII asrlarga oid Sulton Saodat sayyidlar xilxonasini ziyorat qiling. Soʻngra meʼmoriy tuzilishi bilan hanuz jumboq boʻlib kelayotgan, 40 ta xonadan iborat IX asrga oid xom gʻishtli Qirqqiz qalʼasiga oʻting. Daryo boʻyida joylashgan buyuk muhaddis va soʻfiy Al-Hakim at-Termiziy maqbarasini (10 km) ziyorat qiling. Tushlikdan keyin M39 trassasi boʻylab shimolga 135 km (taxminan 2,5 soat) yoʻl bosib, Hisor togʻ etaklaridagi Boysun shahriga yetib boring va oilaviy mehmondoʻst xonadonga joylashing.",
+     "ru": "После завтрака в 09:00 осмотр мемориального комплекса Султан Саодат XI–XVII веков — фамильной усыпальницы термезских сейидов в 7 км от города. Далее посещение загадочной сырцовой крепости Кырк-Кыз IX века с сохранившейся системой из сорока сводчатых залов. Затем переезд 10 км к мазару суфийского мыслителя Аль-Хакима ат-Термизи на самом берегу реки. После обеда — 135 км в пути (около 2,5 часов) по живописной трассе M39 на север через холмы к предгорьям Гиссарского хребта и размещение в традиционном гостевом доме в Байсуне."
+    },
+    "meals": [
+     "B"
+    ],
+    "overnight": {
+     "en": "Gaza Family Guesthouse, Boysun",
+     "uz": "Gaza oilaviy mehmon uyi, Boysun",
+     "ru": "Семейный гостевой дом Gaza, Байсун"
+    }
+   },
+   {
+    "title": {
+     "en": "Day 3: Darband Canyon Hike, Sayrob Village, and Return to Termez",
+     "uz": "3-kun: Darband darasida sayr, Sayrob qishlogʻi va Termizga qaytish",
+     "ru": "День 3: Поход по ущелью Дарбанд, селение Сайроб и возвращение в Термез"
+    },
+    "description": {
+     "en": "Depart Boysun at 08:30 for a 25 km drive west to the dramatic limestone gorge of Darband Canyon, the historical gateway of the Iron Gate passes. Undertake an easy 2-hour guided hike along the riverbed between vertical cliffs rising several hundred meters overhead. On the return drive, stop at Sayrob village to see two hollow thousand-year-old plane trees, one of which historically served as a miniature tea shop and classroom. Continue 140 km south along the highway back to Termez, arriving by mid-afternoon for check-in and an evening walk along the central park.",
+     "uz": "Ertalab soat 08:30 da Boysundan gʻarbga 25 km yoʻl bosib, qadimiy Temir darvoza yoʻlagi hisoblangan mashhur Darband darasiga yoʻl oling. Baland qoyalar orasidagi daryo oʻzani boʻylab 2 soatlik yengil piyoda ekskursiyada qatnashing. Ortga qaytishda Sayrob qishlogʻida toʻxtab, oʻtmishda ichida kichik choyxona va maktab boʻlgan ming yillik kovak chinorlarni tomosha qiling. Soʻngra M39 yoʻli orqali Termizga tomon 140 km masofani bosib oʻting va tushdan keyin mehmonxonaga joylashib, shahar bogʻi boʻylab hordiq chiqaring.",
+     "ru": "В 08:30 выезд из Байсуна на 25 км на запад к узкой теснине каньона Дарбанд, исторически служившей частью знаменитых Железных Ворот. Простая пешая прогулка с гидом около 2 часов вдоль русла горной речки среди вздымающихся известняковых скал. На обратном пути остановка в селе Сайроб у двух тысячелетних платанов-чинар, в дупле одной из которых раньше помещались чайхана и начальная школа. Переезд 140 км обратно на юг в Термез, заселение в отель во второй половине дня и свободный вечер для прогулки по городу."
+    },
+    "meals": [
+     "B"
+    ],
+    "overnight": {
+     "en": "Asson Hotel, Termez",
+     "uz": "Asson mehmonxonasi, Termiz",
+     "ru": "Гостиница Asson, Термез"
+    }
+   },
+   {
+    "title": {
+     "en": "Day 4: Termez Archaeological Museum and Evening Flight to Tashkent",
+     "uz": "4-kun: Termiz arxeologiya muzeyi va Toshkentga kechki parvoz",
+     "ru": "День 4: Археологический музей Термеза и вечерний перелет в Ташкент"
+    },
+    "description": {
+     "en": "At 10:00, enjoy a guided 2-hour tour of the Termez Archaeological Museum, one of Uzbekistan's finest regional collections showcasing Kushan gold coins, Hellenistic terracotta figurines, and stone friezes. Spend the afternoon browsing local dried fruits and spices at the Central Bazaar or relaxing in a traditional chaikhana. Transfer 10 km to Termez International Airport at 17:30 to board the evening scheduled flight back to Tashkent (1 hour 30 minutes).",
+     "uz": "Soat 10:00 da Kushon tangalari, ellinistik sopol haykalchalar va tosh barelyeflar jamlangan boy fondga ega Termiz arxeologiya muzeyi boʻylab 2 soatlik ekskursiyada qatnashing. Tushdan keyin Markaziy bozordan quruq mevalar va ziravorlar xarid qiling yoki choyxonada dam oling. Soat 17:30 da Termiz xalqaro aeroportiga (10 km) yetib borib, Toshkentga uchadigan kechki muntazam reysga (1 soat 30 daqiqa) roʻyxatdan oʻtasiz.",
+     "ru": "В 10:00 двухчасовая экскурсия с гидом по Термезскому археологическому музею — одной из лучших региональных экспозиций страны с кушанскими монетами, греко-бактрийской терракотой и каменными фризами. Свободное время после обеда на городском базаре для покупки сухофруктов или чаепития в местной чайхане. В 17:30 трансфер 10 км в международный аэропорт Термеза к вечернему рейсу в Ташкент (перелет длится 1 час 30 минут)."
+    },
+    "meals": [
+     "B"
+    ]
+   }
+  ]
+ },
+ {
+  "slug": "fergana-silk-and-ceramics-masters",
+  "title": {
+   "en": "Fergana Silk and Ceramics Masters",
+   "uz": "Fargʻona ipak va kulolchilik ustalari",
+   "ru": "Мастера шелка и керамики Ферганы"
+  },
+  "summary": {
+   "en": "Explore the vibrant crafts of the Fergana Valley over 4 days, featuring Kokand palaces, Rishtan masterclasses, and Margilan silk weaving.",
+   "uz": "4 kun davomida Fargʻona vodiysining yorqin hunarmandchiligini,jumladan Qoʻqon saroylari, Rishton ustaxonalari va Margʻilon ipak toʻqish jarayonini kashf eting.",
+   "ru": "Исследуйте яркие ремесла Ферганской долины за 4 дня, включая дворцы Коканда, мастер-классы в Риштане и шелкоткачество в Маргилане."
+  },
+  "description": {
+   "en": "This cultural journey takes you across the scenic Kamchik pass into the fertile Fergana Valley. You will explore the historic Khudayar Khan Palace in Kokand and wander through bustling local markets. Witness the ancient art of blue ceramics production during a hands-on workshop in Rishtan. Conclude with a visit to the Yodgorlik silk factory in Margilan to see traditional ikat weaving from cocoon to loom. Comfortable transport and expert guides ensure an immersive and seamless experience.",
+   "uz": "Bu madaniy sayohat sizni goʻzal Qamchiq dovoni orqali unumdor Fargʻona vodiysiga olib boradi. Siz Qoʻqondagi tarixiy Xudoyorxon saroyini tomosha qilasiz va gavjum mahalliy bozorlarni aylanib chiqasiz. Rishtondagi amaliy mahorat darsida moviy kulolchilikning qadimiy sanʼatiga guvoh boʻlasiz. Yakunda Margʻilondagi Yodgorlik ipak fabrikasiga tashrif buyurib, pilla qurtidan tayyor toʻqimachilikgacha boʻlgan anʼanaviy ikat toʻqish jarayonini koʻrasiz.",
+   "ru": "Это культурное путешествие приведет вас через живописный Камчикский перевал в плодородную Ферганскую долину. Вы осмотрите исторический дворец Худояр-хана в Коканде и прогуляетесь по шумным местным базарам. Увидите древнее искусство производства синей керамики на мастер-классе в Риштане. В завершение вы посетите шелковую фабрику «Ёдгорлик» в Маргилане, чтобы познакомиться с традиционным ткачеством икатом."
+  },
+  "difficulty": "easy",
+  "minGroup": 1,
+  "maxGroup": 8,
+  "childPricePercent": 70,
+  "badges": [
+   "best_seller",
+   "small_group"
+  ],
+  "includedKeys": [
+   "guide",
+   "privateCar",
+   "hotels",
+   "breakfast",
+   "entrances",
+   "water",
+   "lunch",
+   "masterclass"
+  ],
+  "excludedKeys": [
+   "flights",
+   "visa",
+   "dinner",
+   "tips",
+   "insurance",
+   "personal",
+   "singleRoom",
+   "alcohol"
+  ],
+  "accommodation": [
+   {
+    "type": "boutique_hotel",
+    "name": {
+     "en": "Fergana Valley Boutique Hotel",
+     "uz": "Fargʻona vodiysi butik mehmonxonasi",
+     "ru": "Бутик-отель Ферганской долины"
+    },
+    "nights": 3
+   }
+  ],
+  "transport": [
+   {
+    "mode": "private_car",
+    "description": {
+     "en": "Private air-conditioned car or minivan for all transfers and intercity travel across the Fergana Valley and Kamchik pass.",
+     "uz": "Fargʻona vodiysi va Qamchiq dovoni boʻylab barcha transferlar va shaharlararo sayohatlar uchun shaxsiy konditsionerli mashina yoki miniven.",
+     "ru": "Личный автомобильный транспорт с кондиционером для всех трансферов и поездок по Ферганской долине и через перевал Камчик."
+    }
+   }
+  ],
+  "route": [
+   {
+    "lat": 40.5311,
+    "lng": 70.9344,
+    "label": {
+     "en": "Kokand",
+     "uz": "Qoʻqon",
+     "ru": "Коканд"
+    },
+    "day": 1
+   },
+   {
+    "lat": 40.3556,
+    "lng": 71.7864,
+    "label": {
+     "en": "Fergana",
+     "uz": "Fargʻona",
+     "ru": "Фергана"
+    },
+    "day": 1
+   },
+   {
+    "lat": 40.3478,
+    "lng": 70.8753,
+    "label": {
+     "en": "Rishtan",
+     "uz": "Rishton",
+     "ru": "Риштан"
+    },
+    "day": 2
+   },
+   {
+    "lat": 40.4725,
+    "lng": 71.7242,
+    "label": {
+     "en": "Margilan",
+     "uz": "Margʻilon",
+     "ru": "Маргилан"
+    },
+    "day": 3
+   },
+   {
+    "lat": 40.3898,
+    "lng": 71.7806,
+    "label": {
+     "en": "Kumtepa Bazaar",
+     "uz": "Qumtepa bozori",
+     "ru": "Базар Кумтепа"
+    },
+    "day": 4
+   }
+  ],
+  "seasonMonths": [
+   3,
+   4,
+   5,
+   6,
+   9,
+   10,
+   11
+  ],
+  "tiers": [
+   {
+    "bookingType": "private",
+    "minPax": 1,
+    "maxPax": 1,
+    "usd": 920
+   },
+   {
+    "bookingType": "private",
+    "minPax": 2,
+    "maxPax": 3,
+    "usd": 580
+   },
+   {
+    "bookingType": "private",
+    "minPax": 4,
+    "maxPax": 8,
+    "usd": 450
+   }
+  ],
+  "itinerary": [
+   {
+    "title": {
+     "en": "Tashkent to Kokand via Kamchik Pass",
+     "uz": "Toshkentdan Qoʻqonga Qamchiq dovoni orqali",
+     "ru": "Из Ташкента в Коканд через перевал Камчик"
+    },
+    "description": {
+     "en": "Depart Tashkent at 8:00 AM in a private vehicle and drive 220 km (approx. 4 hours) across the scenic Kamchik pass into the Fergana Valley. Arrive in Kokand by noon to explore the magnificent Palace of Khudayar Khan and the Juma Mosque. Enjoy lunch at a local restaurant before checking into your hotel in Fergana in the late afternoon.",
+     "uz": "Soat 8:00 da Toshkentdan shaxsiy mashinada joʻnab ketasiz va 220 km yoʻl bosib (taxminan 4 soat), goʻzal Qamchiq dovoni orqali Fargʻona vodiysiga borasiz. Peshingacha Qoʻqonga yetib kelib, ulugʻvor Xudoyorxon saroyi va Juma masjidini tomosha qilasiz. Mahalliy restoranlardan birida tushlik qilib, tushdan keyin Fargʻonadagi mehmonxonaga joylashasiz.",
+     "ru": "Отправление из Ташкента в 8:00 на личном автомобиле и поездка на расстояние 220 км (около 4 часов) через живописный перевал Камчик в Ферганскую долину. Прибытие в Коканд к полудню для осмотра величественного дворца Худояр-хана и Джума-мечети. Обед в местном ресторане перед заселением в отель в Фергане."
+    },
+    "meals": [
+     "L"
+    ],
+    "overnight": {
+     "en": "Fergana",
+     "uz": "Fargʻona",
+     "ru": "Фергана"
+    }
+   },
+   {
+    "title": {
+     "en": "Rishtan Ceramics and Craft Workshops",
+     "uz": "Rishton kulolchiligi va hunarmandchilik ustaxonalari",
+     "ru": "Риштанская керамика и ремесленные мастерские"
+    },
+    "description": {
+     "en": "After breakfast at 9:00 AM, take a 50 km drive (approx. 1 hour) to Rishtan, the undisputed capital of Central Asian ceramics. Visit master potters to observe the intricate process of shaping local red clay and applying signature turquoise 'ishkor' glaze. Participate in a hands-on pottery masterclass and enjoy a traditional lunch served in a master's courtyard. Return to Fergana in the evening.",
+     "uz": "Soat 9:00 dagi nonushtadan soʻng, Markaziy Osiyo kulolchiligining poytaxti boʻlgan Rishtonga 50 km masofani bosib oʻtasiz (taxminan 1 soat). Mahalliy qizil loydan buyum yasash va feruza rangli 'ishkor' sirini qoʻllash jarayonini kuzatasiz. Amaliy kulolchilik mahorat darsida qatnashib, usta hovlisida milliy tushlik tanovul qilasiz. Kechqurun Fargʻonaga qaytasiz.",
+     "ru": "После завтрака в 9:00 поездка на 50 км (около 1 часа) в Риштан, признанную столицу среднеазиатской керамики. Посещение мастеров-гончаров для наблюдения за процессом работы с красной глиной и глазурью «ишкор». Участие в практическом мастер-классе и традиционный обед во дворе мастера. Возвращение в Фергану вечером."
+    },
+    "meals": [
+     "B",
+     "L"
+    ],
+    "overnight": {
+     "en": "Fergana",
+     "uz": "Fargʻona",
+     "ru": "Фергана"
+    }
+   },
+   {
+    "title": {
+     "en": "Margilan Silk Weaving and Traditions",
+     "uz": "Margʻilon ipak toʻqish va anʼanalari",
+     "ru": "Маргиланское шелкоткачество и традиции"
+    },
+    "description": {
+     "en": "Head out at 9:30 AM for a short 15 km drive (approx. 20-30 minutes) to Margilan, the historic center of Uzbek silk. Tour the famous Yodgorlik Silk Factory to witness the entire production cycle from silkworm cocoons to hand-woven vibrant ikat fabrics. Visit a traditional craftsman's workshop to see carpet weaving before having lunch at a local chaikhana. Spend the afternoon exploring the bustling local bazaar.",
+     "uz": "Soat 9:30 da Oʻzbekiston ipakchiligining tarixiy markazi boʻlgan Margʻilonga qisqa 15 km masofaga (taxminan 20-30 daqiqa) yoʻl olasiz. Mashhur Yodgorlik ipak fabrikasiga tashrif buyurib, pilla qurtidan tortib to qoʻlda toʻqilgan yorqin ikat matolarigacha boʻlgan butun jarayonni koʻrasiz. Choyxonadagi tushlikdan soʻng, gilam toʻqish ustaxonasiga borasiz va tushdan keyin gavjum mahalliy bozorni aylanib chiqasiz.",
+     "ru": "Отправление в 9:30 на короткое расстояние 15 км (около 20–30 минут) в Маргилан, исторический центр узбекского шелка. Экскурсия по шелковой фабрике «Ёдгорлик» для знакомства с полным циклом производства тканей икат. Посещение мастерской ковроделия, обед в местной чайхане и свободное время на оживленном базаре во второй половине дня."
+    },
+    "meals": [
+     "B",
+     "L"
+    ],
+    "overnight": {
+     "en": "Fergana",
+     "uz": "Fargʻona",
+     "ru": "Фергана"
+    }
+   },
+   {
+    "title": {
+     "en": "Kumtepa Bazaar and Return to Tashkent",
+     "uz": "Qumtepa bozori va Toshkentga qaytish",
+     "ru": "Базар Кумтепа и возвращение в Ташкент"
+    },
+    "description": {
+     "en": "Check out of your hotel at 9:00 AM and visit the massive Kumtepa Bazaar, famous across the region for its textiles, fresh produce, and local crafts. After browsing the stalls and picking up souvenirs, begin your return journey across the Kamchik pass to Tashkent. Arrive back in the capital by late afternoon, concluding your Fergana Valley tour.",
+     "uz": "Soat 9:00 da mehmonxonadan chiqib, oʻzining matolari, mahalliy mahsulotlari va hunarmandchilik buyumlari bilan mashhur boʻlgan ulkan Qumtepa bozoriga borasiz. Savdo rastalarini kezib, esdalik sovgʻalarini sotib olgach, Qamchiq dovoni orqali Toshkentga qaytishni boshlaysiz. Tushdan keyin poytaxtga qaytib kelib, Fargʻona vodiysi sayohatingizni yakunlaysiz.",
+     "ru": "Выселение из отеля в 9:00 и посещение масштабного базара Кумтепа, известного текстилем и ремеслами. После прогулки по рядам и покупки сувениров начинается обратная поездка через перевал Камчик в Ташкент. Возвращение в столицу во второй половине дня."
+    },
+    "meals": [
+     "B"
+    ]
+   }
+  ]
+ },
+ {
+  "slug": "karakalpakstan-savitsky-and-desert-fortresses",
+  "title": {
+   "en": "Karakalpakstan: Savitsky Museum and Desert Fortresses",
+   "uz": "Qoraqalpogʻiston: Savitskiy muzeyi va sahro qalʼalari",
+   "ru": "Каракалпакстан: Музей Савицкого и пустынные крепости"
+  },
+  "summary": {
+   "en": "Explore the avant-garde masterpieces of the Nukus Museum, ancient Khorezm desert castles, and sleep in a traditional yurt.",
+   "uz": " Nukus muzeyi avangard durdonalarini, qadimiy Xorazm sahro qalʼalarini kashf eting va anʼanaviy yrtmada tunang.",
+   "ru": "Исследуйте шедевры авангарда в Нукусе, древние пустынные крепости Хорезма и проведите ночь в традиционной юрте."
+  },
+  "description": {
+   "en": "Begin your journey with a flight from Tashkent to Nukus to visit the world-famous Igor Savitsky Museum and its unmatched avant-garde collection. Continue across the desert landscapes of Karakalpakstan to explore ancient archaeological sites like Mizdakhan necropolis and Chilpik dakhma. Discover the monumental mud-brick ruins of Toprak-Kala and Ayaz-Kala before experiencing a night under the stars in a desert yurt camp. Conclude your tour with a seamless transfer to the UNESCO-listed city of Khiva.",
+   "uz": "Toshkentdan Nukusga uchar samolyot bilan boshlanuvchi sayohatingiz davomida jahonga mashhur Igor Savitskiy nomidagi muzey va uning tengsiz avangard toʻplamini kashf etasiz. Qoraqalpogʻiston choʻl manzaralari boʻylab harakatlanib, Mizdaxon nekropoli va Chilpik dahmasi kabi qadimiy yodgorliklarni koʻzdan kechirasiz. Toproq-qalʼa va Ayoz-qalʼaning mahobatli xarobalarini oʻrganib, choʻl yurta lagerida yulduzlar ostida bir kecha oʻtkazasiz. Safaringiz YuNESKO roʻyxatiga kiritilgan Xiva shahriga qulay transfer bilan yakunlanadi.",
+   "ru": "Начните путешествие с перелета из Ташкента в Нукус, чтобы посетить всемирно известный музей Игоря Савицкого с его уникальной коллекцией авангарда. Продолжите путь по пустынным ландшафтам Каракалпакстана, осмотрев древний некрополь Миздахкан и башню молчания Чильпик. Исследуйте монументальные руины крепостей Топрак-Кала и Аяз-Кала, а затем проведите незабываемую ночь под звездным небом в юрточном лагере. Завершите тур комфортным трансфером в внесенный в список ЮНЕСКО город Хива."
+  },
+  "difficulty": "moderate",
+  "minGroup": 1,
+  "maxGroup": 8,
+  "childPricePercent": 70,
+  "badges": [
+   "small_group",
+   "eco_camp"
+  ],
+  "includedKeys": [
+   "guide",
+   "privateCar",
+   "hotels",
+   "breakfast",
+   "entrances",
+   "water",
+   "yurtStay",
+   "campfire",
+   "lunch",
+   "dinner"
+  ],
+  "excludedKeys": [
+   "flights",
+   "visa",
+   "tips",
+   "insurance",
+   "personal",
+   "singleRoom",
+   "alcohol",
+   "domesticFlight"
+  ],
+  "accommodation": [
+   {
+    "type": "hotel",
+    "name": {
+     "en": "Jipek Joly Hotel Nukus",
+     "uz": "Jipek Joly mehmonxonasi Nukus",
+     "ru": "Отель Жипек Жолы Нукус"
+    },
+    "nights": 1
+   },
+   {
+    "type": "yurt_camp",
+    "name": {
+     "en": "Ayaz-Kala Yurt Camp",
+     "uz": "Ayoz-qalʼa yurta lageri",
+     "ru": "Юртовый лагерь Аяз-Кала"
+    },
+    "nights": 1
+   },
+   {
+    "type": "boutique_hotel",
+    "name": {
+     "en": "Orient Star Khiva",
+     "uz": "Orient Star Xiva",
+     "ru": "Ориент Стар Хива"
+    },
+    "nights": 1
+   }
+  ],
+  "transport": [
+   {
+    "mode": "domestic_flight",
+    "description": {
+     "en": "Morning flight from Tashkent to Nukus (~2 hours).",
+     "uz": "Toshkentdan Nukusga ertalabki reys (~2 soat).",
+     "ru": "Утренний авиаперелет из Ташкента в Нукус (~2 часа)."
+    }
+   },
+   {
+    "mode": "private_car",
+    "description": {
+     "en": "Comfortable private vehicle with driver for all desert excursions and transfers.",
+     "uz": "Barcha choʻl ekskursiyalari va transferlar uchun haydovchiga ega qulay shaxsiy avtomobil.",
+     "ru": "Комфортабельный легковой автомобиль с водителем для всех поездок по пустыне и трансферов."
+    }
+   }
+  ],
+  "route": [
+   {
+    "lat": 42.4602,
+    "lng": 59.6166,
+    "label": {
+     "en": "Nukus",
+     "uz": "Nukus",
+     "ru": "Нукус"
+    },
+    "day": 1
+   },
+   {
+    "lat": 42.3481,
+    "lng": 59.4294,
+    "label": {
+     "en": "Mizdakhan",
+     "uz": "Mizdaxon",
+     "ru": "Миздахкан"
+    },
+    "day": 1
+   },
+   {
+    "lat": 42.2031,
+    "lng": 60.1283,
+    "label": {
+     "en": "Chilpik Dakhma",
+     "uz": "Chilpik dahmasi",
+     "ru": "Чильпик"
+    },
+    "day": 2
+   },
+   {
+    "lat": 41.9719,
+    "lng": 60.8167,
+    "label": {
+     "en": "Toprak-Kala",
+     "uz": "Toproq-qalʼa",
+     "ru": "Топрак-Кала"
+    },
+    "day": 2
+   },
+   {
+    "lat": 41.9542,
+    "lng": 60.8719,
+    "label": {
+     "en": "Ayaz-Kala",
+     "uz": "Ayoz-qalʼa",
+     "ru": "Аяз-Кала"
+    },
+    "day": 2
+   },
+   {
+    "lat": 41.3775,
+    "lng": 60.3603,
+    "label": {
+     "en": "Khiva",
+     "uz": "Xiva",
+     "ru": "Хива"
+    },
+    "day": 3
+   }
+  ],
+  "seasonMonths": [
+   3,
+   4,
+   5,
+   9,
+   10,
+   11
+  ],
+  "tiers": [
+   {
+    "bookingType": "private",
+    "minPax": 1,
+    "maxPax": 1,
+    "usd": 920
+   },
+   {
+    "bookingType": "private",
+    "minPax": 2,
+    "maxPax": 3,
+    "usd": 610
+   },
+   {
+    "bookingType": "private",
+    "minPax": 4,
+    "maxPax": 8,
+    "usd": 480
+   }
+  ],
+  "itinerary": [
+   {
+    "title": {
+     "en": "Arrival in Nukus and Savitsky Museum",
+     "uz": "Nukusga kelish va Savitskiy muzeyi",
+     "ru": "Прибытие в Нукус и Музей Савицкого"
+    },
+    "description": {
+     "en": "Take a morning domestic flight from Tashkent to Nukus (~2 hours). Upon arrival at 10:00, meet your guide and head straight to the world-renowned Igor Savitsky Museum to view its stunning Russian avant-garde and Karakalpak applied art collections. After lunch at a local restaurant, drive 20 km west to explore the ancient Mizdakhan necropolis and Gyaur-Kala ruins. Return to Nukus in the late afternoon for check-in and dinner.",
+     "uz": "Toshkentdan Nukusga ertalabki reys bilan uchib keling (~2 soat). Soat 10:00 da gid bilan uchrashib, jahonga mashhur Igor Savitskiy nomidagi muzeyga tashrif buyuring va rus avangardi hamda qoraqalpoq amaliy sanʼati kolleksiyalarini tomosha qiling. Mahalliy restoranda tushlik qilgandan soʻng, 20 km gʻarbga yoʻl olib, qadimiy Mizdaxon nekropoli va Gʻovur-qalʼa xarobalarini oʻrganing. Kechki payt Nukusga qaytib, mehmonxonaga joylashing va kechki ovqat tanovul qiling.",
+     "ru": "Совершите утренний перелет из Ташкента в Нукус (~2 часа). По прибытии в 10:00 встретитесь с гидом и направляйтесь в всемирно известный Музей имени Савицкого для осмотра уникальной коллекции русского авангарда и прикладного искусства Каракалпакстана. После обеда в местном ресторане поезжайте в 20 км к западу к древнему некрополю Миздахкан и руинам Гяур-Калы. Ближе к вечеру возвращение в Нукус, размещение в отеле и ужин."
+    },
+    "meals": [
+     "L",
+     "D"
+    ],
+    "overnight": {
+     "en": "Hotel in Nukus",
+     "uz": "Nukusdagi mehmonxona",
+     "ru": "Отель в Нукусе"
+    }
+   },
+   {
+    "title": {
+     "en": "Nukus to Desert Fortresses and Yurt Camp",
+     "uz": "Nukusdan sahro qalʼalari va yurta lagerigacha",
+     "ru": "Из Нукуса к пустынным крепостям и юртовому лагерю"
+    },
+    "description": {
+     "en": "Depart Nukus at 08:30 for a scenic drive across the desert towards Khorezm region (~180 km, 3 hours). Stop at the dramatic Chilpik Dakhma, an ancient Zoroastrian tower of silence overlooking the Amu Darya river. Continue to the monumental mud-brick ruins of Toprak-Kala (1st–4th centuries AD) for a guided exploration. In the afternoon, arrive at Ayaz-Kala, climb the hilltop fortress, and settle into a traditional yurt camp for dinner around the campfire.",
+     "uz": "Soat 08:30 da Nukusdan Xorazm viloyati tomon choʻl boʻylab goʻzal safarga chiqing (~180 km, 3 soat). Amudaryo boʻyida joylashgan qadimiy zardushtiy dahmasi Chilpikni ziyorat qiling. I–IV asrlarga oid Toproq-qalʼaning mahobatli xarobalarini oʻrganishni davom eting. Tushdan keyin Ayoz-qalʼaga yetib kelib, tepalikdagi qalʼaga chiqasiz va choʻl yurta lageriga joylashib, gulxan atrofida kechki ovqat qabul qilasiz.",
+     "ru": "Выезд из Нукуса в 08:30 в сторону Хорезмской области через пустыню (~180 км, 3 часа). Сделайте остановку у впечатляющей башни Чильпик — древней зороастрийской башни молчания с видом на Амударью. Продолжите путь к монументальным глинобитным руинам Топрак-Калы (I–IV века н.э.). Во второй половине дня прибытие к Аяз-Кале, подъем к крепости на холме и размещение в традиционном юртовом лагере с ужином у костра."
+    },
+    "meals": [
+     "B",
+     "L",
+     "D"
+    ],
+    "overnight": {
+     "en": "Yurt Camp near Ayaz-Kala",
+     "uz": "Ayoz-qalʼa yaqinidagi yurta lageri",
+     "ru": "Юртовый лагерь у Аяз-Калы"
+    }
+   },
+   {
+    "title": {
+     "en": "Desert Sunrise and Transfer to Khiva",
+     "uz": "Choʻldagi tong va Xivaga transfer",
+     "ru": "Рассвет в пустыне и переезд в Хиву"
+    },
+    "description": {
+     "en": "Wake up to a magnificent sunrise over the Kyzylkum desert around 06:30 and enjoy breakfast at the yurt camp. Take a short morning camel ride near the lake or relax amidst the dunes. At 10:00, depart by car for the final leg of your journey to Khiva (~120 km, 2 hours). Arrive in Khiva by noon, check in to your boutique hotel, and begin your independent exploration of the Ichan-Kala inner town.",
+     "uz": "Qizilqum choʻlidagi ajoyib tongni soat 06:30 larda qarshi oling va yurta lagerida nonushta qiling. Koʻl yaqinida qisqa tuya minish yoki qum tepaliklarida hordiq chiqarish imkoniyati mavjud. Soat 10:00 da Xiva tomon oxirgi manzilga yoʻl oling (~120 km, 2 soat). Peshovonda Xivaga yetib kelib, butik mehmonxonaga joylashing va Ichan-qalʼa ichki shahrini mustaqil oʻrganishni boshlang.",
+     "ru": "Встретьте великолепный рассвет над пустыней Кызылкум около 06:30 и позавтракайте в юрточном лагере. Совершите короткую утреннюю прогулку на верблюдах у озера или отдохните среди барханов. В 10:00 выезд на машине в заключительную часть пути до Хивы (~120 км, 2 часа). Прибытие в Хиву к полудню, заселение в бутик-отель и начало самостоятельного знакомства с внутренним городом Ичан-Кала."
+    },
+    "meals": [
+     "B",
+     "L"
+    ],
+    "overnight": {
+     "en": "Boutique Hotel in Khiva",
+     "uz": "Xivadagi butik mehmonxona",
+     "ru": "Бутик-отель в Хиве"
+    }
+   }
+  ]
+ },
+ {
+  "slug": "grand-uzbekistan-12-days",
+  "title": {
+   "en": "Grand Tour of Uzbekistan: From Fergana Valley to the Aral Plains",
+   "uz": "Oʻzbekiston boʻylab katta sayohat: Fargʻona vodiysidan Orolboʻyigacha",
+   "ru": "Гранд-тур по Узбекистану: от Ферганской долины до Приаралья"
+  },
+  "summary": {
+   "en": "A comprehensive 12-day journey linking Tashkent, the artisan workshops of the Fergana Valley, the Silk Road jewels of Samarkand and Bukhara, walled Khiva, and the avant-garde Savitsky Museum in Nukus.",
+   "uz": "Toshkent, Fargʻona hunarmandlari, Samarqand va Buxoro obidalari, qadimiy Xiva hamda Nukusdagi Savitskiy muzeyini qamrab olgan 12 kunlik toʻliq sayohat.",
+   "ru": "Всесторонний 12-дневный тур через Ташкент, ремесленные центры Ферганской долины, Самарканд, Бухару, Хиву и музей Савицкого в Нукусе."
+  },
+  "description": {
+   "en": "This flagship itinerary covers the extraordinary cultural breadth of Uzbekistan in twelve well-paced days. Travel from modern Tashkent across the Kamchik Pass into the Fergana Valley to meet traditional silk weavers and master ceramists. Journey onward aboard the high-speed Afrosiyob train to the monumental architectural ensembles of Samarkand and across the mountain pass to Shakhrisabz. Continue westward through noble Bukhara and across the red sands of the Kyzylkum Desert to intact Khiva and the desert fortresses of ancient Khorezm. The tour concludes in Nukus with the world-renowned Savitsky Art Museum before a convenient domestic flight returns you to the capital.",
+   "uz": "Ushbu 12 kunlik keng qamrovli marshrut butun Oʻzbekistonning madaniy boyliklarini kashf etish uchun moʻljallangan. Qamchiq dovoni orqali Fargʻona vodiysiga oʻtib, Rishton kulollari va Margʻilon ipakchilik ustalari bilan tanishasiz. Soʻng tezyurar «Afrosiyob» poyezdida Samarqandning muazzam meʼmoriy durdonalariga yoʻl olib, Taxtaqoracha dovoni orqali Shahrisabzga oʻtasiz. Qadimiy Buxoroni kezib, Qizilqum sahrosi boʻylab afsonaviy Xivaga hamda qadimgi Xorazm qalʼalariga sayohat qilasiz. Safar Nukus shahridagi mashhur Savitskiy muzeyini ziyorat qilish va poytaxt Toshkentga ichki aviaparvoz bilan yakunlanadi.",
+   "ru": "Этот флагманский маршрут охватывает культурное богатство Узбекистана за двенадцать насыщенных дней. Вы переедете через перевал Камчик в Ферганскую долину к шелкоткацким мастерским и керамистам, а затем на скоростном поезде «Афросиаб» отправитесь к грандиозным памятникам Самарканда и Шахрисабза. Далее путь ведет в благородную Бухару и через пески Кызылкума в сказочную Ичан-Калу в Хиве и древние крепости Хорезма. Завершится путешествие знакомством со знаменитым музеем Савицкого в Нукусе и удобным перелетом обратно в Ташкент."
+  },
+  "difficulty": "moderate",
+  "minGroup": 1,
+  "maxGroup": 12,
+  "childPricePercent": 70,
+  "badges": [
+   "best_seller",
+   "small_group"
+  ],
+  "includedKeys": [
+   "guide",
+   "privateCar",
+   "hotels",
+   "breakfast",
+   "entrances",
+   "afrosiyob",
+   "airport",
+   "water",
+   "masterclass"
+  ],
+  "excludedKeys": [
+   "flights",
+   "visa",
+   "meals",
+   "tips",
+   "photo",
+   "insurance",
+   "personal",
+   "singleRoom"
+  ],
+  "accommodation": [
+   {
+    "type": "hotel",
+    "name": {
+     "en": "Lotte City Hotel Palace or similar (Tashkent)",
+     "uz": "Lotte City Hotel Palace yoki shunga oʻxshash (Toshkent)",
+     "ru": "Lotte City Hotel Palace или аналогичный (Ташкент)"
+    },
+    "nights": 1
+   },
+   {
+    "type": "hotel",
+    "name": {
+     "en": "Asia Hotel Fergana or Grand Fergana (Fergana)",
+     "uz": "Asia Hotel Fergana yoki Grand Fergana (Fargʻona)",
+     "ru": "Asia Hotel Fergana или Grand Fergana (Фергана)"
+    },
+    "nights": 1
+   },
+   {
+    "type": "boutique_hotel",
+    "name": {
+     "en": "Platan Hotel or Alexander Hotel (Samarkand)",
+     "uz": "Platan Hotel yoki Alexander Hotel (Samarqand)",
+     "ru": "Platan Hotel или Alexander Hotel (Самарканд)"
+    },
+    "nights": 2
+   },
+   {
+    "type": "boutique_hotel",
+    "name": {
+     "en": "Kalyan Hotel or Minzifa Inn (Bukhara)",
+     "uz": "Kalyan Hotel yoki Minzifa Inn (Buxoro)",
+     "ru": "Kalyan Hotel или Minzifa Inn (Бухара)"
+    },
+    "nights": 3
+   },
+   {
+    "type": "boutique_hotel",
+    "name": {
+     "en": "Orient Star Khiva or Zarafshan Boutique (Khiva)",
+     "uz": "Orient Star Khiva yoki Zarafshan Boutique (Xiva)",
+     "ru": "Orient Star Khiva или Zarafshan Boutique (Хива)"
+    },
+    "nights": 2
+   },
+   {
+    "type": "hotel",
+    "name": {
+     "en": "Jipek Joli Hotel or Tashkent Hotel (Nukus)",
+     "uz": "Jipek Joli Hotel yoki Tashkent Hotel (Nukus)",
+     "ru": "Jipek Joli Hotel или Tashkent Hotel (Нукус)"
+    },
+    "nights": 1
+   },
+   {
+    "type": "hotel",
+    "name": {
+     "en": "Lotte City Hotel Palace or similar (Tashkent)",
+     "uz": "Lotte City Hotel Palace yoki shunga oʻxshash (Toshkent)",
+     "ru": "Lotte City Hotel Palace или аналогичный (Ташкент)"
+    },
+    "nights": 1
+   }
+  ],
+  "transport": [
+   {
+    "mode": "private_car",
+    "description": {
+     "en": "Air-conditioned sedan or comfortable minivan for road legs, Kamchik pass transfer, and city tours.",
+     "uz": "Shahar sayohatlari, Qamchiq dovoni va shaharlararo qatnovlar uchun konditsionerli yengil mashina yoki miniven.",
+     "ru": "Кондиционированный седан или минивэн для переездов, перевала Камчик и городских экскурсий."
+    }
+   },
+   {
+    "mode": "afrosiyob_train",
+    "description": {
+     "en": "High-speed Afrosiyob or express train on Tashkent to Samarkand route in comfort class.",
+     "uz": "Toshkentdan Samarqandga qulay toifadagi tezyurar «Afrosiyob» yoki tezyurar poyezd.",
+     "ru": "Скоростной поезд «Афросиаб» или экспресс на маршруте Ташкент — Самарканд в комфорт-классе."
+    }
+   },
+   {
+    "mode": "domestic_flight",
+    "description": {
+     "en": "Scheduled domestic flight Nukus to Tashkent operated by Uzbekistan Airways (economy class, ~1h 45m).",
+     "uz": "Uzbekistan Airways aviakompaniyasining Nukusdan Toshkentga muntazam ichki reysi (ekonom klass, ~1s 45d).",
+     "ru": "Регулярный внутренний авиарейс Нукус — Ташкент авиакомпании Uzbekistan Airways (эконом-класс, ~1ч 45мин)."
+    }
+   }
+  ],
+  "route": [
+   {
+    "lat": 41.2995,
+    "lng": 69.2401,
+    "label": {
+     "en": "Tashkent",
+     "uz": "Toshkent",
+     "ru": "Ташкент"
+    },
+    "day": 1
+   },
+   {
+    "lat": 40.5286,
+    "lng": 70.9426,
+    "label": {
+     "en": "Kokand",
+     "uz": "Qoʻqon",
+     "ru": "Коканд"
+    },
+    "day": 2
+   },
+   {
+    "lat": 40.3564,
+    "lng": 71.2828,
+    "label": {
+     "en": "Rishtan",
+     "uz": "Rishton",
+     "ru": "Риштан"
+    },
+    "day": 2
+   },
+   {
+    "lat": 40.4716,
+    "lng": 71.7164,
+    "label": {
+     "en": "Margilan & Fergana",
+     "uz": "Margʻilon va Fargʻona",
+     "ru": "Маргилан и Фергана"
+    },
+    "day": 3
+   },
+   {
+    "lat": 39.6542,
+    "lng": 66.9597,
+    "label": {
+     "en": "Samarkand",
+     "uz": "Samarqand",
+     "ru": "Самарканд"
+    },
+    "day": 4
+   },
+   {
+    "lat": 39.0578,
+    "lng": 66.8339,
+    "label": {
+     "en": "Shakhrisabz",
+     "uz": "Shahrisabz",
+     "ru": "Шахрисабз"
+    },
+    "day": 5
+   },
+   {
+    "lat": 39.7747,
+    "lng": 64.4286,
+    "label": {
+     "en": "Bukhara",
+     "uz": "Buxoro",
+     "ru": "Бухара"
+    },
+    "day": 6
+   },
+   {
+    "lat": 41.3783,
+    "lng": 60.3639,
+    "label": {
+     "en": "Khiva",
+     "uz": "Xiva",
+     "ru": "Хива"
+    },
+    "day": 8
+   },
+   {
+    "lat": 41.9333,
+    "lng": 61.0833,
+    "label": {
+     "en": "Ancient Khorezm Fortresses",
+     "uz": "Qadimgi Xorazm qalʼalari",
+     "ru": "Древние крепости Хорезма"
+    },
+    "day": 10
+   },
+   {
+    "lat": 42.4602,
+    "lng": 59.6166,
+    "label": {
+     "en": "Nukus",
+     "uz": "Nukus",
+     "ru": "Нукус"
+    },
+    "day": 11
+   },
+   {
+    "lat": 41.2995,
+    "lng": 69.2401,
+    "label": {
+     "en": "Tashkent",
+     "uz": "Toshkent",
+     "ru": "Ташкент"
+    },
+    "day": 12
+   }
+  ],
+  "seasonMonths": [
+   3,
+   4,
+   5,
+   6,
+   9,
+   10,
+   11
+  ],
+  "tiers": [
+   {
+    "bookingType": "private",
+    "minPax": 1,
+    "maxPax": 1,
+    "usd": 2780
+   },
+   {
+    "bookingType": "private",
+    "minPax": 2,
+    "maxPax": 3,
+    "usd": 1890
+   },
+   {
+    "bookingType": "private",
+    "minPax": 4,
+    "maxPax": 7,
+    "usd": 1520
+   },
+   {
+    "bookingType": "private",
+    "minPax": 8,
+    "maxPax": 12,
+    "usd": 1340
+   }
+  ],
+  "itinerary": [
+   {
+    "title": {
+     "en": "Day 1: Arrival in Tashkent and Capital Sightseeing",
+     "uz": "1-kun: Toshkentga kelish va poytaxt boʻylab ekskursiya",
+     "ru": "День 1: Прибытие в Ташкент и экскурсия по столице"
+    },
+    "description": {
+     "en": "Meet your private driver at Tashkent International Airport (TAS) and check in to your hotel. At 14:00, explore the old quarter including the Hazrati Imam Complex, where the 7th-century Uthman Quran is preserved. Conclude with a ride through the decorated stations of the Tashkent Metro to Amir Timur Square.",
+     "uz": "Toshkent xalqaro aeroportida kutib olish va mehmonxonaga joylashish. Soat 14:00 da Hazrati Imom majmuasi va VII asr Usmon Qurʼonini ziyorat qilish bilan eski shahar boʻylab tanishuv boshlanadi. Kun Toshkent metrosining tarixiy bekatlari va Amir Temur xiyoboni bilan yakunlanadi.",
+     "ru": "Встреча в международном аэропорту Ташкента и трансфер в отель. В 14:00 начинается экскурсия по старому городу с посещением комплекса Хазрати Имам и Корана Усмана VII века. Завершит день поездка по станциям ташкентского метро до сквера Амира Тимура."
+    },
+    "meals": [],
+    "overnight": {
+     "en": "Hotel in Tashkent",
+     "uz": "Toshkentdagi mehmonxona",
+     "ru": "Гостиница в Ташкенте"
+    }
+   },
+   {
+    "title": {
+     "en": "Day 2: Tashkent to Fergana via Kamchik Pass, Kokand, and Rishtan",
+     "uz": "2-kun: Toshkentdan Qamchiq dovoni, Qoʻqon va Rishton orqali Fargʻonaga",
+     "ru": "День 2: Ташкент — перевал Камчик — Коканд — Риштан — Фергана"
+    },
+    "description": {
+     "en": "Depart Tashkent at 08:00 by car across the Kamchik Mountain Pass (2,268 m) into the fertile Fergana Valley (240 km, 4 hours). Arrive in Kokand to visit the 19th-century Palace of Khudayar Khan and the Juma Mosque. Stop in Rishtan for a private ceramics masterclass with a master craftsman before continuing 50 km to Fergana city.",
+     "uz": "Ertalab soat 08:00 da Qamchiq togʻ dovoni (2 268 m) orqali Fargʻona vodiysiga yoʻl olinadi (240 km, 4 soat). Qoʻqonda Xudoyorxon saroyi va Jome masjidi ziyorat qilinadi. Soʻng Rishtonda mashhur kulolchilik ustaxonasida mahorat darsi oʻtkazilib, Fargʻona shahriga yetib boriladi.",
+     "ru": "Выезд из Ташкента в 08:00 через живописный горный перевал Камчик (2268 м) в Ферганскую долину (240 км, 4 часа). В Коканде вы осмотрите дворец Худояр-хана XIX века и соборную Джума-мечеть. В Риштане состоится мастер-класс в керамической мастерской, после чего переезд 50 км в Фергану."
+    },
+    "meals": [
+     "B"
+    ],
+    "overnight": {
+     "en": "Hotel in Fergana",
+     "uz": "Fargʻonadagi mehmonxona",
+     "ru": "Гостиница в Фергане"
+    }
+   },
+   {
+    "title": {
+     "en": "Day 3: Margilan Silk Heritage and Transfer to Samarkand",
+     "uz": "3-kun: Margʻilon ipakchilik anʼanalari va Samarqandga safar",
+     "ru": "День 3: Шелкоткачество Маргилана и переезд в Самарканд"
+    },
+    "description": {
+     "en": "In the morning, visit the Yodgorlik Silk Factory in Margilan (15 km from Fergana) to observe traditional ikat extraction, dyeing, and hand-weaving. Board the midday train or transfer back to Tashkent, then connect to the evening high-speed Afrosiyob train departing at 18:45 to Samarkand (344 km, 2 h 15 min). Arrive in Samarkand around 21:00 and transfer to your hotel.",
+     "uz": "Ertalab Margʻilondagi «Yodgorlik» ipakchilik fabrikasida anʼanaviy abrbandi ipak toʻqish jarayoni bilan tanishasiz. Peshinda Toshkentga qaytilib, soat 18:45 dagi tezyurar «Afrosiyob» poyezdida Samarqandga joʻnab ketiladi (344 km, 2 soat 15 daqiqa). Soat 21:00 da Samarqandga yetib kelib mehmonxonaga joylashiladi.",
+     "ru": "Утром посещение фабрики «Ёдгорлик» в Маргилане (15 км от Ферганы), где вручную производят икаты и шелк. Переезд на дневном транспорте в Ташкент и посадка на вечерний скоростной поезд «Афросиаб» в Самарканд (18:45, 344 км, 2 ч 15 мин). Прибытие в Самарканд около 21:00 и трансфер в отель."
+    },
+    "meals": [
+     "B"
+    ],
+    "overnight": {
+     "en": "Boutique hotel in Samarkand",
+     "uz": "Samarqanddagi butik mehmonxona",
+     "ru": "Бутик-отель в Самарканде"
+    }
+   },
+   {
+    "title": {
+     "en": "Day 4: Splendours of Samarkand",
+     "uz": "4-kun: Samarqandning qadimiy obidalari",
+     "ru": "День 4: Шедевры средневекового Самарканда"
+    },
+    "description": {
+     "en": "Begin a full day in Samarkand at 09:00 with the grand Registan Square, encompassing the Ulugh Beg, Sher-Dor, and Tilya-Kori madrasahs. Continue to Gur-e-Amir, the gold-leafed mausoleum of Amir Timur, and the monumental Bibi-Khanym Mosque. In the afternoon, walk through the stunning blue tilework of the Shah-i-Zinda necropolis and visit the 15th-century Ulugh Beg Observatory.",
+     "uz": "Samarqand boʻylab toʻliq kunlik ekskursiya soat 09:00 da Registon maydoni (Ulugʻbek, Sherdor, Tillakori) va Amir Temur maqbarasi (Goʻri Amir)dan boshlanadi. Tushdan keyin Bibixonim masjidi, moviy koshinlar bilan bezatilgan Shohi Zinda meʼmoriy ansambli hamda Mirzo Ulugʻbek rasadxonasi ziyorat qilinadi.",
+     "ru": "В 09:00 начало экскурсии по Самарканду: площадь Регистан с тремя медресе, мавзолей Амира Тимура Гур-Эмир и соборная мечеть Биби-Ханым. Во второй половине дня вы увидите ансамбль резной лазурной майолики Шахи-Зинда и подлинную секцию секстанта в обсерватории Улугбека XV века."
+    },
+    "meals": [
+     "B"
+    ],
+    "overnight": {
+     "en": "Boutique hotel in Samarkand",
+     "uz": "Samarqanddagi butik mehmonxona",
+     "ru": "Бутик-отель в Самарканде"
+    }
+   },
+   {
+    "title": {
+     "en": "Day 5: Samarkand to Bukhara via Shakhrisabz",
+     "uz": "5-kun: Samarqanddan Shahrisabz orqali Buxoroga",
+     "ru": "День 5: Самарканд — Шахрисабз — Бухара"
+    },
+    "description": {
+     "en": "Depart Samarkand at 08:30 driving across the scenic Takhta-Karacha Pass to Shakhrisabz (85 km, 2 hours). Tour the monumental ruins of Amir Timur's Ak-Saray Palace, the Dorus Saodat memorial complex, and the Dorut Tilavat ensemble. After lunch, drive west across the plains to noble Bukhara (290 km, 4.5 hours), arriving in the historic center by early evening.",
+     "uz": "Ertalab soat 08:30 da Taxtaqoracha dovoni orqali Shahrisabzga yoʻl olinadi (85 km, 2 soat). Oqsaroy qoldiqlari, Dorus-saodat va Dorut-tilovat meʼmoriy majmualari koʻzdan kechiriladi. Tushlikdan soʻng Buxoroi sharif tomon yoʻl davom ettiriladi (290 km, 4,5 soat) va kechga yaqin yetib boriladi.",
+     "ru": "Выезд в 08:30 через живописный перевал Тахта-Карача в Шахрисабз (85 км, 2 часа). Экскурсия к руинам грандиозного дворца Аксарай, комплексам Дорус-Саодат и Дорут-Тилават. После обеда — автомобильный переезд на запад в Бухару (290 км, 4,5 часа) с прибытием в старый город к вечеру."
+    },
+    "meals": [
+     "B"
+    ],
+    "overnight": {
+     "en": "Boutique hotel in Bukhara",
+     "uz": "Buxorodagi butik mehmonxona",
+     "ru": "Бутик-отель в Бухаре"
+    }
+   },
+   {
+    "title": {
+     "en": "Day 6: Bukhara Old City Walking Tour",
+     "uz": "6-kun: Qadimiy Buxoro boʻylab piyoda sayohat",
+     "ru": "День 6: Пешеходная экскурсия по старой Бухаре"
+    },
+    "description": {
+     "en": "Explore Bukhara on foot starting at 09:00 around the Lyabi-Khauz ensemble and Nadir Divan-begi Madrasah. Walk through the domed trading bazaars to the Po-i-Kalyan complex with its soaring 47-meter minaret and Kalyan Mosque. Conclude with the massive 5th-century Ark of Bukhara fortress and the 10th-century Samanid Mausoleum in the city park.",
+     "uz": "Soat 09:00 da Labi Hovuz majmuasi va Nodir Devonbegi madrasasidan piyoda sayohat boshlanadi. Qadimiy toqilar (savdo gumbazlari) orqali 47 metrli Minorai Kalon va Masjidi Kalon ansambliga oʻtiladi. Soʻng qadimiy Ark qalʼasi, Bolo Hovuz masjidi va Somoniylar maqbarasi ziyorat qilinadi.",
+     "ru": "Пешая экскурсия с 09:00 охватывает ансамбль Ляби-Хауз, медресе Нодир-Диван-беги и купольные торговые пассажи XVI века. Далее вы осмотрите символ города — минарет и мечеть Пои-Калян, цитадель Арк V века и кирпичный шедевр X века — мавзолей Саманидов."
+    },
+    "meals": [
+     "B"
+    ],
+    "overnight": {
+     "en": "Boutique hotel in Bukhara",
+     "uz": "Buxorodagi butik mehmonxona",
+     "ru": "Бутик-отель в Бухаре"
+    }
+   },
+   {
+    "title": {
+     "en": "Day 7: Bukhara Outskirts and Sitorai Mokhi-Khosa",
+     "uz": "7-kun: Buxoro atrofi va Sitorai Mohi Xosa",
+     "ru": "День 7: Загородные дворцы и некрополи Бухары"
+    },
+    "description": {
+     "en": "Drive short distances around Bukhara at 09:00, visiting the summer palace of the last Bukharian emirs at Sitorai Mokhi-Khosa. Continue to the holy memorial complex of Bahauddin Naqshband, founder of the prominent Sufi order, and the Chor-Bakr memorial necropolis. Enjoy a free afternoon for spice browsing and miniature painting shops in the old quarters.",
+     "uz": "Soat 09:00 da Buxoro amirlarining yozgi qarorgohi — Sitorai Mohi Xosa saroyiga boriladi. Soʻng tasavvuf taʼlimotining ulugʻ namoyandasi Bahouddin Naqshband majmuasi va Chor Bakr xonaqohi ziyorat qilinadi. Tushdan keyin eski shahar hunarmandlari doʻkonlarini mustaqil aylanish uchun boʻsh vaqt beriladi.",
+     "ru": "В 09:00 выезд за пределы города во дворец последних бухарских эмиров Ситораи Мохи-Хоса. Затем посещение суфийского комплекса Бахауддина Накшбанда и «города мертвых» Чор-Бакр. Вторая половина дня свободна для прогулок по ремесленным улочкам и чайханам."
+    },
+    "meals": [
+     "B"
+    ],
+    "overnight": {
+     "en": "Boutique hotel in Bukhara",
+     "uz": "Buxorodagi butik mehmonxona",
+     "ru": "Бутик-отель в Бухаре"
+    }
+   },
+   {
+    "title": {
+     "en": "Day 8: Across the Kyzylkum Desert to Khiva",
+     "uz": "8-kun: Qizilqum sahrosi orqali Xivaga yoʻl",
+     "ru": "День 8: Переезд через пустыню Кызылкум в Хиву"
+    },
+    "description": {
+     "en": "Depart Bukhara at 08:00 for the scenic road journey through the red sands of the Kyzylkum Desert toward Khiva (450 km, 6 to 7 hours). Stop along the Amu Darya riverbank viewpoint to observe the historic Oxus flowing through the arid wilderness. Reach the adobe-walled oasis of Khiva by late afternoon and check in to your hotel inside or adjoining Ichan Kala.",
+     "uz": "Ertalab soat 08:00 da Buxorodan Qizilqum sahrosi orqali Xiva shahriga yoʻlga chiqiladi (450 km, 6–7 soat). Yoʻlda Amudaryo sohilida toʻxtab, manzara tomosha qilinadi. Kun oxirida afsonaviy Ichan Qalʼaga yetib boriladi va mehmonxonaga joylashiladi.",
+     "ru": "В 08:00 выезд из Бухары на северо-запад через пески Кызылкума в Хиву (450 км, около 6–7 часов). По пути запланирована остановка у смотровой площадки с панорамой реки Амударья. Прибытие в Хиву во второй половине дня и размещение в гостинице у стен Ичан-Калы."
+    },
+    "meals": [
+     "B"
+    ],
+    "overnight": {
+     "en": "Boutique hotel in Khiva",
+     "uz": "Xivadagi butik mehmonxona",
+     "ru": "Бутик-отель в Хиве"
+    }
+   },
+   {
+    "title": {
+     "en": "Day 9: Khiva Open-Air Museum City Tour",
+     "uz": "9-kun: Ochiq osmon ostidagi shahar — Xiva boʻylab sayohat",
+     "ru": "День 9: Экскурсия по музею под открытым небом Ичан-Кала"
+    },
+    "description": {
+     "en": "Spend the full day inside the UNESCO-listed Ichan Kala, beginning at 09:00 with the stout Kalta Minor minaret and Muhammad Amin Khan madrasah. Visit the Juma Mosque with its forest of 218 carved wooden pillars and the multi-courtyard Tash-Khauli Palace. Climb the watchtower of Kunya-Ark fortress in the late afternoon for expansive panoramic views over mud-brick rooftops.",
+     "uz": "Kun boʻyi YuNESKO roʻyxatidagi Ichan Qalʼa obidalari: Kalta Minor, Muhammad Aminxon madrasasi va Koʻhna Ark koʻzdan kechiriladi. 218 ta oʻymakor yogʻoch ustunli Jome masjidi hamda Toshhovli saroyi boʻylab ekskursiya qilinadi. Kun oxirida Koʻhna Ark kuzatuv maydonidan quyosh botishini tomosha qilish mumkin.",
+     "ru": "Целый день посвящен Ичан-Кале: недостроенный минарет Кальта-Минор, медресе Мухаммад Амин-хана и крепость Куня-Арк. Вы увидите Джума-мечеть с 218 резными деревянными колоннами и лабиринты гарема во дворце Таш-Хаули, а на закате подниметесь на бастион цитадели."
+    },
+    "meals": [
+     "B"
+    ],
+    "overnight": {
+     "en": "Boutique hotel in Khiva",
+     "uz": "Xivadagi butik mehmonxona",
+     "ru": "Бутик-отель в Хиве"
+    }
+   },
+   {
+    "title": {
+     "en": "Day 10: Desert Fortresses of Ancient Khorezm to Nukus",
+     "uz": "10-kun: Qadimgi Xorazm qalʼalari orqali Nukusga sayohat",
+     "ru": "День 10: Древние крепости Хорезма и переезд в Нукус"
+    },
+    "description": {
+     "en": "Set off from Khiva at 08:30 into the Karakalpak desert to explore the dramatic 2,000-year-old mud-brick fortresses of Ancient Khorezm. Scramble through the ruins of Toprak-Kala, an ancient royal seat, and Ayaz-Kala perched high on a natural hilltop (140 km from Khiva). Continue north another 140 km to Nukus, checking in to your hotel by late afternoon.",
+     "uz": "Soat 08:30 da Xivadan Qoraqalpogʻiston hududiga yoʻl olinib, 2000 yillik qadimiy tuproq qalʼalar oʻrganiladi. Qadimgi hukmdorlar maskani Tuproqqalʼa hamda tepalik ustida joylashgan Ayozqalʼa xarobalari ziyorat qilinadi. Kechga tomon Nukus shahriga yetib kelinadi (jami 280 km).",
+     "ru": "Выезд в 08:30 в пустынные районы Каракалпакстана для исследования крепостей древнего Хорезма возрастом более 2000 лет. Осмотр руин царского дворца Топрак-Кала и цитадели Аяз-Кала на вершине холма. Переезд далее на север в Нукус (всего около 280 км за день) и заселение в отель."
+    },
+    "meals": [
+     "B"
+    ],
+    "overnight": {
+     "en": "Hotel in Nukus",
+     "uz": "Nukusdagi mehmonxona",
+     "ru": "Гостиница в Нукусе"
+    }
+   },
+   {
+    "title": {
+     "en": "Day 11: Nukus Savitsky Museum and Flight to Tashkent",
+     "uz": "11-kun: Nukusdagi Savitskiy muzeyi va Toshkentga parvoz",
+     "ru": "День 11: Музей Савицкого в Нукусе и перелет в Ташкент"
+    },
+    "description": {
+     "en": "At 09:30, visit the world-famous Savitsky Karakalpakstan State Museum of Art to view its extraordinary collection of banned Soviet avant-garde paintings and regional applied arts. In the afternoon, explore the ancient Mizdakhan necropolis and Gyaur-Kala fortress nearby (25 km). Transfer to Nukus Airport (NCU) for your evening domestic flight to Tashkent (~1 h 45 min), followed by transfer to the hotel.",
+     "uz": "Soat 09:30 da dunyoga mashhur Savitskiy nomidagi Qoraqalpogʻiston davlat sanʼat muzeyida sovet avangardi asarlari tomosha qilinadi. Tushdan keyin qadimiy Mizdakxon majmuasi va Gavur qalʼasi (25 km) ziyorat qilinadi. Kechki reys bilan Nukus aeroportidan Toshkentga uchiladi (~1 soat 45 daqiqa) va poytaxt mehmonxonasiga yetkaziladi.",
+     "ru": "В 09:30 визит в Государственный музей искусств имени И. В. Савицкого — вторую в мире коллекцию русского авангарда 1920–1930-х годов и этнографию каракалпаков. Днем — поездка к некрополю Миздахан (25 км). Вечером трансфер в аэропорт Нукуса, прямой перелет в Ташкент (~1 ч 45 мин) и заселение в отель."
+    },
+    "meals": [
+     "B"
+    ],
+    "overnight": {
+     "en": "Hotel in Tashkent",
+     "uz": "Toshkentdagi mehmonxona",
+     "ru": "Гостиница в Ташкенте"
+    }
+   },
+   {
+    "title": {
+     "en": "Day 12: Chorsu Bazaar and Departure from Tashkent",
+     "uz": "12-kun: Chorsu bozori va Toshkentdan kuzatish",
+     "ru": "День 12: Базар Чорсу и вылет из Ташкента"
+    },
+    "description": {
+     "en": "Spend your final morning visiting Tashkent's vibrant Chorsu Bazaar beneath its monumental turquoise dome, sampling dry fruits, mountain honey, and fresh non bread. Depending on flight timings, enjoy free time for souvenir shopping along Broadway Street. Transfer to Tashkent International Airport 3 hours prior to your scheduled international flight home.",
+     "uz": "Ertalab Toshkentning eng gavjum savdo maskani — Chorsu bozorida quruq mevalar, yongʻoqlar va yangi pishgan nonlar xarid qilinadi. Parvoz vaqtiga qarab sayr qilish uchun boʻsh vaqt ajratiladi. Xalqaro reysdan 3 soat oldin Toshkent xalqaro aeroportiga kuzatib qoʻyiladi.",
+     "ru": "Утренний визит под бирюзовый купол рынка Чорсу за сухофруктами, орехами, специями и свежими лепешками. Свободное время для покупки сувениров в зависимости от времени вылета. Индивидуальный трансфер в международный аэропорт Ташкента за 3 часа до вылета вашего рейса."
+    },
+    "meals": [
+     "B"
+    ]
+   }
+  ]
+ },
+ {
+  "slug": "samarkand-bukhara-family-5-days",
+  "title": {
+   "en": "Samarkand & Bukhara Family Discovery",
+   "uz": "Samarqand va Buxoro boʻylab oilaviy sayohat",
+   "ru": "Семейное путешествие: Самарканд и Бухара"
+  },
+  "summary": {
+   "en": "A relaxed five-day family adventure featuring ancient monuments, interactive craft workshops, and child-friendly pool hotels.",
+   "uz": "Qadimiy obidalar, hunarmandchilik mahorat darslari va basseynli qulay mehmonxonalarni oʻz ichiga olgan 5 kunlik oilaviy sayohat.",
+   "ru": "Неспешный пятидневный семейный тур со сказочными памятниками, мастер-классами для детей и отелями с бассейнами."
+  },
+  "description": {
+   "en": "Designed thoughtfully for families with children, this five-day journey covers the essential highlights of Samarkand and Bukhara at a gentle, comfortable pace. Kids and adults alike will enjoy hands-on activities, including mulberry paper making in the lush village of Konigil, a traditional bread-baking session, and a private workshop with a Bukhara puppet master. Daily sightseeing is kept to manageable two- to three-hour blocks, leaving hot afternoons open for swimming and relaxation at family-oriented hotels with pools. Travel between cities is quick and smooth aboard the modern Afrosiyob high-speed train, eliminating long, tiring road transfers. We select quiet heritage areas with pedestrian zones so young travelers can explore safely and joyfully.",
+   "uz": "Bolali oilalar uchun maxsus ishlab chiqilgan ushbu 5 kunlik marshrut Samarqand va Buxoroning asosiy diqqatga sazovor joylarini qulay va xotirjam surʼatda kashf etish imkonini beradi. Bolalar Konigil qishlogʻida tut poʻstlogʻidan qogʻoz tayyorlash, tandirda non yopish va Buxoro qoʻgʻirchoqbozi ustaxonasida interaktiv darslarda bajonidil qatnashadilar. Kundalik ekskursiyalar 2–3 soatdan oshmaydi, bu esa issiq tushdan keyingi vaqtni basseynli mehmonxonalarda dam olishga ajratishga imkon beradi. Shaharlararo qatnov tezyurar «Afrosiyob» poyezdida amalga oshiriladi, bu esa yoʻldagi charchoqning oldini oladi. Qadimiy shaharlarning piyodalar yurishi uchun qulay boʻlgan sokin goʻshalari tanlangan.",
+   "ru": "Этот пятидневный маршрут продуман специально для семей с детьми и позволяет без спешки увидеть главные чудеса Самарканда и Бухары. Программа наполнена увлекательными интерактивами: производством шелковой бумаги в ремесленном поселке Конигил, выпечкой лепешек в тандыре и визитом к бухарскому мастеру кукольного театра. Экскурсии длятся не более 2–3 часов подряд, оставляя жаркие дневные часы для отдыха и купания в отелях с бассейнами. Между городами семья перемещается на современном скоростном поезде «Афросиаб», что исключает утомительные переезды на автотранспорте. Прогулки проходят преимущественно по пешеходным историческим кварталам, где безопасно и комфортно даже с самыми маленькими путешественниками."
+  },
+  "difficulty": "easy",
+  "minGroup": 1,
+  "maxGroup": 8,
+  "childPricePercent": 65,
+  "badges": [
+   "family_friendly",
+   "small_group"
+  ],
+  "includedKeys": [
+   "guide",
+   "privateCar",
+   "hotels",
+   "breakfast",
+   "entrances",
+   "afrosiyob",
+   "water",
+   "masterclass"
+  ],
+  "excludedKeys": [
+   "flights",
+   "visa",
+   "meals",
+   "tips",
+   "photo",
+   "insurance",
+   "personal"
+  ],
+  "accommodation": [
+   {
+    "type": "hotel",
+    "name": {
+     "en": "Hotel Dilimah Premium Luxury (with outdoor pool), Samarkand",
+     "uz": "«Dilimah Premium Luxury» mehmonxonasi (ochiq basseynli), Samarqand",
+     "ru": "Отель Dilimah Premium Luxury (с открытым бассейном), Самарканд"
+    },
+    "nights": 2
+   },
+   {
+    "type": "hotel",
+    "name": {
+     "en": "Shahriston Hotel (with courtyard pool), Bukhara",
+     "uz": "«Shahriston» mehmonxonasi (hovlidagi basseynli), Buxoro",
+     "ru": "Отель Shahriston (с бассейном во внутреннем дворе), Бухара"
+    },
+    "nights": 2
+   }
+  ],
+  "transport": [
+   {
+    "mode": "afrosiyob_train",
+    "description": {
+     "en": "High-speed Afrosiyob train between Samarkand and Bukhara (1 h 40 min)",
+     "uz": "Samarqand va Buxoro oʻrtasida «Afrosiyob» tezyurar poyezdi (1 soat 40 daqiqa)",
+     "ru": "Скоростной поезд «Афросиаб» между Самаркандом и Бухарой (1 ч 40 мин)"
+    }
+   },
+   {
+    "mode": "minivan",
+    "description": {
+     "en": "Air-conditioned private minivan for city transfers and workshop visits",
+     "uz": "Shahar ichidagi transferlar va mahorat darslariga borish uchun qulay mikroavtobus",
+     "ru": "Комфортабельный минивэн с кондиционером для городских трансферов и выездов"
+    }
+   }
+  ],
+  "route": [
+   {
+    "lat": 39.6548,
+    "lng": 66.9757,
+    "label": {
+     "en": "Registan Square, Samarkand",
+     "uz": "Registon maydoni, Samarqand",
+     "ru": "Площадь Регистан, Самарканд"
+    },
+    "day": 1
+   },
+   {
+    "lat": 39.6641,
+    "lng": 67.0427,
+    "label": {
+     "en": "Konigil Meros Paper Mill",
+     "uz": "Konigil «Meros» qogʻoz fabrikasi",
+     "ru": "Бумажная мастерская «Мерос» в Конигиле"
+    },
+    "day": 2
+   },
+   {
+    "lat": 39.7733,
+    "lng": 64.4206,
+    "label": {
+     "en": "Lyabi-Khauz Ensemble, Bukhara",
+     "uz": "Labihovuz majmuasi, Buxoro",
+     "ru": "Ансамбль Ляби-Хауз, Бухара"
+    },
+    "day": 3
+   },
+   {
+    "lat": 39.7778,
+    "lng": 64.4103,
+    "label": {
+     "en": "Ark of Bukhara",
+     "uz": "Buxoro Arki",
+     "ru": "Крепость Арк, Бухара"
+    },
+    "day": 4
+   },
+   {
+    "lat": 39.8128,
+    "lng": 64.4428,
+    "label": {
+     "en": "Sitorai Mokhi-Khosa Palace",
+     "uz": "Sitorai Mohi-Xosa saroyi",
+     "ru": "Дворец Ситораи Мохи-Хоса"
+    },
+    "day": 5
+   }
+  ],
+  "seasonMonths": [
+   4,
+   5,
+   6,
+   8,
+   9,
+   10
+  ],
+  "tiers": [
+   {
+    "bookingType": "private",
+    "minPax": 1,
+    "maxPax": 1,
+    "usd": 1280
+   },
+   {
+    "bookingType": "private",
+    "minPax": 2,
+    "maxPax": 3,
+    "usd": 760
+   },
+   {
+    "bookingType": "private",
+    "minPax": 4,
+    "maxPax": 5,
+    "usd": 590
+   },
+   {
+    "bookingType": "private",
+    "minPax": 6,
+    "maxPax": 8,
+    "usd": 480
+   }
+  ],
+  "itinerary": [
+   {
+    "title": {
+     "en": "Arrival in Samarkand: Gur-e-Amir & Registan",
+     "uz": "Samarqandga yetib kelish: Goʻri Amir va Registon",
+     "ru": "Прибытие в Самарканд: Гур-Эмир и Регистан"
+    },
+    "description": {
+     "en": "Upon arrival in Samarkand, your driver meets your family and transfers you to the hotel for a smooth check-in. At 15:00, enjoy an unhurried 2-hour walking tour of the azure-domed Gur-e-Amir mausoleum and the world-famous Registan Square, where wide open courtyards give children space to walk freely. Return to your hotel by 17:30 to unwind by the swimming pool and rest after your journey.",
+     "uz": "Samarqandga yetib kelgach, haydovchi oilangizni kutib oladi va mehmonxonaga joylashtiradi. Soat 15:00 da Goʻri Amir maqbarasi hamda Registon maydoni boʻylab bolalar uchun qulay boʻlgan 2 soatlik sokin sayohat boshlanadi. Soat 17:30 da mehmonxonaga qaytib, basseynda dam olishingiz va hordiq chiqarishingiz mumkin.",
+     "ru": "По прибытии в Самарканд трансфер доставит семью в отель для комфортного заселения. В 15:00 начинается спокойная двухчасовая экскурсия к мавзолею Гур-Эмир и на площадь Регистан, просторные площади которой удобны для безопасных прогулок с детьми. К 17:30 вы вернетесь в отель, чтобы поплавать в бассейне и восстановить силы."
+    },
+    "meals": [],
+    "overnight": {
+     "en": "Hotel Dilimah Premium Luxury, Samarkand",
+     "uz": "«Dilimah Premium Luxury» mehmonxonasi, Samarqand",
+     "ru": "Отель Dilimah Premium Luxury, Самарканд"
+    }
+   },
+   {
+    "title": {
+     "en": "Konigil Craft Village & Traditional Bread Baking",
+     "uz": "Konigil hunarmandlar qishlogʻi va tandirda non yopish",
+     "ru": "Ремесленная деревня Конигил и выпечка самаркандских лепешек"
+    },
+    "description": {
+     "en": "Depart at 09:30 for a short 12 km drive northeast to Konigil village, where the Siab River turns waterwheels in a shaded walnut grove. Children will spend 2 hours discovering ancient mulberry paper craftsmanship and getting their hands floury during a fun traditional Samarkand bread-baking workshop. After lunch at a creekside teahouse, return to Samarkand by 14:00 to visit the turquoise stairs of Shah-i-Zinda, followed by an open afternoon for family swimming.",
+     "uz": "Ertalab soat 09:30 da Samarqanddan 12 km uzoqlikdagi salqin Konigil qishlogʻiga yoʻl olamiz. Bolalar qadimiy usulda ipak qogʻoz tayyorlash jarayonini koʻradilar hamda tandirda mashhur Samarqand nonini yopish mahorat darsida ishtirok etadilar. Soy boʻyidagi choyxonada tushlikdan soʻng, soat 14:00 da Shohi Zinda majmuasini ziyorat qilib, qolgan vaqtni mehmonxona basseynida oilaviy hordiqqa bagʻishlaymiz.",
+     "ru": "В 09:30 мы выезжаем в ремесленную деревню Конигил (12 км от города), расположенную в тенистой роще у реки Сиаб. В течение 2 часов дети увидят, как водяное колесо приводит в движение механизмы для выделки шелковой бумаги, и сами слепят узорные лепешки на мастер-классе у глиняного тандыра. После обеда в чайхане у ручья возвращаемся в город к 14:00, посещаем лазурный ансамбль Шахи-Зинда и посвящаем вторую половину дня купанию в бассейне."
+    },
+    "meals": [
+     "B"
+    ],
+    "overnight": {
+     "en": "Hotel Dilimah Premium Luxury, Samarkand",
+     "uz": "«Dilimah Premium Luxury» mehmonxonasi, Samarqand",
+     "ru": "Отель Dilimah Premium Luxury, Самарканд"
+    }
+   },
+   {
+    "title": {
+     "en": "Afrosiyob Train to Bukhara & Puppet Workshop",
+     "uz": "Buxoroga «Afrosiyob» poyezdi va qoʻgʻirchoq ustaxonasi",
+     "ru": "Поезд «Афросиаб» в Бухару и мастерская кукол"
+    },
+    "description": {
+     "en": "Board the smooth Afrosiyob train at 09:45, covering the 270 km distance to Bukhara in just 1 hour and 40 minutes. Arrive at 11:25 and transfer to your courtyard hotel near the historic Lyabi-Khauz pond to settle in. At 15:30, visit a renowned local puppet artisan near the trading domes, where kids will watch a brief traditional marionette show and try operating the handmade puppets themselves.",
+     "uz": "Soat 09:45 da «Afrosiyob» tezyurar poyezdiga chiqib, 270 km masofani 1 soat 40 daqiqada bosib oʻtamiz va Buxoroga yetib kelamiz. Soat 11:25 da yetib kelgach, Labihovuz yonidagi shinam mehmonxonaga joylashamiz. Soat 15:30 da savdo toqlari yaqinidagi mashhur qoʻgʻirchoqsoz ustaxonasiga tashrif buyurib, kichik tomosha tomosha qilamiz va qoʻgʻirchoqlarni boshqarish sirlarini oʻrganamiz.",
+     "ru": "В 09:45 отправляемся на скоростном поезде «Афросиаб», преодолевая 270 км до Бухары всего за 1 час 40 минут. Прибыв в 11:25, размещаемся в отеле с уютным бассейном во внутреннем дворике в районе Ляби-Хауз. В 15:30 идем в мастерскую бухарского кукольника у старинных торговых куполов: дети увидят веселое представление марионеток и сами попробуют управлять персонажами восточных сказок."
+    },
+    "meals": [
+     "B"
+    ],
+    "overnight": {
+     "en": "Shahriston Hotel, Bukhara",
+     "uz": "«Shahriston» mehmonxonasi, Buxoro",
+     "ru": "Отель Shahriston, Бухара"
+    }
+   },
+   {
+    "title": {
+     "en": "Fortress Legends & Bukhara Trading Domes",
+     "uz": "Buxoro arki afsonalari va qadimiy savdo toqlari",
+     "ru": "Легенды цитадели Арк и торговые купола Бухары"
+    },
+    "description": {
+     "en": "Spend a relaxed morning from 09:30 to 12:00 exploring the massive Ark Citadel, the fairytale wooden-pillared Bolo Hauz Mosque, and the soaring Kalon Minaret. The route is entirely pedestrian-friendly, with plenty of shade and rest stops under domed bazaars where artisans forge scissors and weave carpets. After a midday swim at your hotel, take a late afternoon family walk through the medieval trading domes for spice scents and dried fruit tastings.",
+     "uz": "Ertalab soat 09:30 dan 12:00 gacha qadimiy Ark qalʼasi, oʻymakor ustunli Bolohovuz masjidi va ulugʻvor Minorai Kalonni tomosha qilamiz. Yoʻnalish toʻliq piyoda sayr qilishga moʻljallangan boʻlib, qadimiy gumbazlar ostida dam olish uchun joylar yetarli. Peshindagi jaziramada basseynda hordiq chiqargach, kechki salqinda savdo toqlari boʻylab mevalar va shirinliklar tatib koʻrish uchun sayr qilamiz.",
+     "ru": "С 09:30 до 12:00 осматриваем внушительную крепость Арк, резные деревянные колонны мечети Боло-Хауз и грандиозный минарет Калян. Маршрут проходит по пешеходным улочкам с прохладными купольными базарами, где можно увидеть работу чеканщиков и ткачей ковров. После полуденного отдыха у бассейна приятно выйти на вечернюю прогулку за восточными сладостями и сувенирами."
+    },
+    "meals": [
+     "B"
+    ],
+    "overnight": {
+     "en": "Shahriston Hotel, Bukhara",
+     "uz": "«Shahriston» mehmonxonasi, Buxoro",
+     "ru": "Отель Shahriston, Бухара"
+    }
+   },
+   {
+    "title": {
+     "en": "Palace of Moon-like Stars & Departure",
+     "uz": "Sitorai Mohi-Xosa saroyi va xayrlashuv",
+     "ru": "Дворец Ситораи Мохи-Хоса и завершение тура"
+    },
+    "description": {
+     "en": "At 09:30, take a 15-minute drive (5 km north) to Sitorai Mokhi-Khosa, the summer residence of Bukhara's last emirs, where peacocks roam the royal rose gardens freely. Children will marvel at the mirrored banquet halls, colorful stained glass, and tranquil open courtyard pavilion. Conclude your tour at 12:30 with a private transfer to Bukhara railway station or Bukhara International Airport (BHK) for your journey home.",
+     "uz": "Soat 09:30 da Buxoroning soʻnggi amiri yozgi saroyi — 5 km shimolda joylashgan Sitorai Mohi-Xosaga boramiz, uning chiroyli bogʻlarida tovuslar erkin yuradi. Bolalar oynavand qabullar zali va rang-barang vitrajlarni qiziqish bilan tomosha qiladilar. Sayohatimiz soat 12:30 da oilangizni Buxoro temir yoʻl vokzali yoki xalqaro aeroportiga (BHK) kuzatib qoʻyish bilan yakunlanadi.",
+     "ru": "В 09:30 отправляемся в загородный летний дворец последних бухарских эмиров Ситораи Мохи-Хоса (5 км к северу), по тенистым садам которого свободно гуляют павлины. Маленьким путешественникам понравятся зеркальный Белый зал, цветные витражи и резные павильоны у пруда. Программа завершается в 12:30 индивидуальным трансфером на железнодорожный вокзал или в международный аэропорт Бухары (BHK)."
+    },
+    "meals": [
+     "B"
+    ]
+   }
+  ]
+ },
+ {
+  "slug": "sarmishsay-petroglyphs-and-nurata-weekend",
+  "title": {
+   "en": "Sarmishsay Petroglyphs and Nurata Weekend",
+   "uz": "Sarmishsay petrogliflari va Nurota dam olish kuni",
+   "ru": "Петроглифы Sarmishsay и выходные в Нурате"
+  },
+  "summary": {
+   "en": "Discover ancient rock art in Sarmishsay and stay in a traditional Nuratau village over a weekend.",
+   "uz": "Dam olish kunida Sarmishsaydagi qadimiy qoyatosh rasmlarini kashf eting va Nurota togʻ qishlogʻida qoling.",
+   "ru": "Откройте для себя древние наскальные рисунки в Сармышсае и проведите ночь в традиционном селе Нуратинских гор."
+  },
+  "description": {
+   "en": "Escape the city for a two-day weekend journey tailored for residents seeking history and nature. Explore the open-air gallery of Sarmishsay with over ten thousand petroglyphs spanning millennia. Continue to the historic town of Nurata to see the Chashma spring and ancient fortress ruins. Spend the night in a cozy village guesthouse enjoying authentic local hospitality and homemade plov. Return refreshed after experiencing the landscapes and heritage of the Nuratau region.",
+   "uz": "Tarix va tabiatni sevuvchilar uchun moʻljallangan ikki kunlik dam olish safari bilan shahardan uzoqlashing. Ming yillik oʻn mingdan ortiq petrogliflarga ega Sarmishsay ochiq osmon ostidagi galereyasini oʻrganing. Chashma bulogʻi va qadimiy qalʼa xarobalarini koʻrish uchun Nurota shahriga yoʻl oling. Qishloq mehmonxonasida tunab, mahalliy mehmondoʻstlik va uy oshpazligidan bahramand boʻling. Nurota viloyatining manzaralari va madaniy merosini kashf etib, hordiq chiqaring.",
+   "ru": "Отдохните от городской суеты в двухдневной поездке, созданной для любителей истории и природы. Исследуйте музей под открытым небом Сармышсай, где насчитывается более десяти тысяч петроглифов разных эпох. Продолжите путь в исторический город Нурату, чтобы увидеть источник Чашма и руины древней крепости. Проведите ночь в уютном сельском гостевом доме, наслаждаясь местным гостеприимством и домашним пловом. Вернитесь обновленными после знакомства с природой и наследием Нуратинского края."
+  },
+  "difficulty": "easy",
+  "minGroup": 1,
+  "maxGroup": 12,
+  "childPricePercent": 70,
+  "badges": [
+   "weekend_trip",
+   "eco_camp"
+  ],
+  "includedKeys": [
+   "transport",
+   "guesthouse",
+   "breakfast",
+   "lunch",
+   "dinner",
+   "guide",
+   "entrances",
+   "water"
+  ],
+  "excludedKeys": [
+   "insurance",
+   "personal",
+   "tips",
+   "alcohol"
+  ],
+  "accommodation": [
+   {
+    "type": "guesthouse",
+    "name": {
+     "en": "Nurata Mountain Village Guesthouse",
+     "uz": "Nurota togʻ qishlogʻi mehmon uyi",
+     "ru": "Гостевой дом в Нуратинских горах"
+    },
+    "nights": 1
+   }
+  ],
+  "transport": [
+   {
+    "mode": "minivan",
+    "description": {
+     "en": "Comfortable air-conditioned minivan for transfers from Tashkent or Samarkand and regional sightseeing.",
+     "uz": "Toshkent yoki Samarqanddan transferlar va hududiy sayohatlar uchun qulay konditsionerli miniven.",
+     "ru": "Комфортабельный минивэн с кондиционером для трансферов из Ташкента или Самарканда и экскурсий."
+    }
+   }
+  ],
+  "route": [
+   {
+    "lat": 40.0119,
+    "lng": 66.9749,
+    "label": {
+     "en": "Sarmishsay Gorge",
+     "uz": "Sarmishsay darasi",
+     "ru": "Ущелье Сармышсай"
+    },
+    "day": 1
+   },
+   {
+    "lat": 40.5606,
+    "lng": 65.6883,
+    "label": {
+     "en": "Nurata Town",
+     "uz": "Nurota shahri",
+     "ru": "Город Нурата"
+    },
+    "day": 1
+   },
+   {
+    "lat": 40.6333,
+    "lng": 66.5,
+    "label": {
+     "en": "Nuratau Foothills Village",
+     "uz": "Nurota togʻ etaklaridagi qishloq",
+     "ru": "Село в предгорьях Нуратау"
+    },
+    "day": 2
+   }
+  ],
+  "seasonMonths": [
+   3,
+   4,
+   5,
+   9,
+   10,
+   11
+  ],
+  "tiers": [
+   {
+    "bookingType": "private",
+    "minPax": 1,
+    "maxPax": 1,
+    "uzs": 3200000
+   },
+   {
+    "bookingType": "private",
+    "minPax": 2,
+    "maxPax": 3,
+    "uzs": 1950000
+   },
+   {
+    "bookingType": "private",
+    "minPax": 4,
+    "maxPax": 8,
+    "uzs": 1400000
+   },
+   {
+    "bookingType": "group",
+    "minPax": 1,
+    "maxPax": 12,
+    "uzs": 1200000
+   }
+  ],
+  "itinerary": [
+   {
+    "title": {
+     "en": "Departure to Sarmishsay and Nurata Exploration",
+     "uz": "Sarmishsay va Nurotaga safar",
+     "ru": "Отправление в Сармышсай и экскурсия по Нурате"
+    },
+    "description": {
+     "en": "Depart from Tashkent or Samarkand early in the morning by minivan, driving approximately 250 km to the Sarmishsay Gorge. Arrive around 10:00 for a guided 2-hour walking tour among ancient petroglyphs and unique desert flora. After a picnic lunch, continue for 45 km to Nurata town to visit the sacred Chashma spring, local mosques, and the ruins of Alexander the Great's fortress. In the late afternoon, drive to the nearby village guesthouse for dinner and overnight.",
+     "uz": "Ertalab minivanda Toshkent yoki Samarqanddan yoʻlga chiqib, Sarmishsay darasigacha taxminan 250 km masofani bosib oʻting. Soat 10:00 atrofida yetib kelib, qadimiy petrogliflar va choʻl tabiyoti boʻylab 2 soatlik piyoda ekskursiyasini qiling. Piknik tushlikdan soʻng, Nurota shahriga 45 km yoʻl olib, muqaddas Chashma bulogʻi, mahalliy masjidlar va Iskandar Zulqarnayn qalʼasi xarobalarini koʻring. Kechki payt qishloq mehmonxonasiga borib, kechki ovqat tanovul qilasiz va tunaysiz.",
+     "ru": "Рано утром выезд из Ташкента или Самарканда на минивэне, расстояние до ущелья Сармышсай составляет около 250 км. Прибытие около 10:00 на двухчасовую пешеходную экскурсию среди древних петроглифов и пустынной флоры. После обеда-пикника поездка (45 км) в город Нурата для посещения святого источника Чашма, мечетей и руин крепости Александра Македонского. Во второй половине дня переезд в сельский гостевой дом на ужин и ночлег."
+    },
+    "meals": [
+     "L",
+     "D"
+    ],
+    "overnight": {
+     "en": "Guesthouse in Nuratau village",
+     "uz": "Nurota qishlogʻidagi mehmon uyi",
+     "ru": "Гостевой дом в Нуратинском селе"
+    }
+   },
+   {
+    "title": {
+     "en": "Village Life, Local Plov, and Return",
+     "uz": "Qishloq hayoti, milliy osh va qaytish",
+     "ru": "Деревенская жизнь, местный плов и возвращение"
+    },
+    "description": {
+     "en": "Enjoy a relaxed village breakfast featuring homemade bread, local honey, and dairy products. Take a morning walk around the foothills to observe traditional rural life and chat with friendly locals. Participate in a masterclass of preparing traditional regional plov for lunch at the guesthouse. Afterward, board the minivan at 14:00 for the return journey to Samarkand or Tashkent, arriving by evening.",
+     "uz": "Uy noni, mahalliy asal va sut mahsulotlaridan iborat qishloq nonushtasidan bahramand boʻling. Qishloq hayotini kuzatish va mahalliy aholi bilan muloqot qilish uchun togʻ etaklari boʻylab tonggi sayr qiling. Mehmonxonada tushlik uchun anʼanaviy mintaqaviy osh tayyorlash mahorat darsida qatnashing. Shundan soʻng, soat 14:00 da Samarqand yoki Toshkentga qaytish uchun minivanga chiqasiz va kechki payt yetib kelasiz.",
+     "ru": "Насладитесь неспешным деревенским завтраком с домашним хлебом, местным мёдом и молочными продуктами. Утром совершите прогулку по предгорьям, наблюдая за сельским укладом жизни. Примите участие в мастер-классе по приготовлению традиционного местного плова к обеду в гостевом доме. После обеда, в 14:00, посадка в минивэн для возвращения в Самарканд или Ташкент, прибытие к вечеру."
+    },
+    "meals": [
+     "B",
+     "L"
+    ]
+   }
+  ]
+ },
+ {
+  "slug": "dubai-city-and-desert-5-days",
+  "title": {
+   "en": "Dubai City and Desert Experience",
+   "uz": "Dubay shahri va choʻl sarguzashti",
+   "ru": "Город и пустыня Дубая"
+  },
+  "summary": {
+   "en": "Discover the vibrant highlights of Dubai and the majestic Arabian desert in a 5-day getaway designed for travelers from Uzbekistan.",
+   "uz": "Oʻzbekistondan kelgan sayohatchilar uchun moʻljallangan 5 kunlik safarda Dubayning eng diqqatga sazovor joylari va ulugʻvor Arab choʻlini kashf eting.",
+   "ru": "Откройте для себя яркие достопримечательности Дубая и величественную Арабскую пустыню в 5-дневном путешествии для туристов из Узбекистана."
+  },
+  "description": {
+   "en": "Escape to the vibrant metropolis of Dubai with this comprehensive 5-day package departing from Tashkent. Explore the historical Al Fahidi neighborhood, ride a traditional abra across the creek, and take in panoramic views from the Burj Khalifa. Experience an exhilarating desert safari complete with dune bashing, camel rides, and a traditional barbecue dinner under the stars. Enjoy leisure time for world-class shopping in renowned malls or relaxing on the sandy beaches of the Arabian Gulf. Accommodation is provided in a comfortable 4-star hotel with daily breakfast and seamless private transfers included.",
+   "uz": "Toshkentdan joʻnab ketadigan ushbu 5 kunlik toʻliq paket bilan Dubay metropoliteniga sayohat qiling. Tarixiy Al Fahidi mahallasini oʻrganing, kanal boʻylab anʼanaviy abra qayigʻida sayr qiling va Burj Khalifaning kuzatuv maydonchasidan panoramik manzaralardan bahramand boʻling. Qum tepaliklari boʻylab yurish, tuya minish va yulduzlar ostida barbekyu kechki ovqatini oʻz ichiga olgan hayajonli choʻl safarisini boshdan kechiring. Mashhur savdo markazlarida xarid qilish yoki Fors koʻrfazining qumli пляжlarida dam olish uchun boʻsh vaqtdan foydalaning. Turar joy kundalik nonushta va qulay shaxsiy transferlar bilan taʼminlangan 4 yulduzli mehmonxonada tashkil etiladi.",
+   "ru": "Отправляйтесь в яркий мегаполис Дубай по этой комплексной 5-дневной программе с вылетом из Ташкента. Исследуйте исторический район Аль-Фахиди, прокатитесь на традиционной лодке абра через бухту и насладитесь панорамными видами с башни Бурдж-Халифа. Вас ждет захватывающее сафари по пустыне с катанием на дюнах, поездками на верблюдах и традиционным ужином-барбекю под звездами. Насладитесь свободным временем для шопинга в мировых торговых центрах или отдыха на песчаных пляжах Персидского залива. Проживание организовано в комфортабельном 4-звездочном отеле с ежедневными завтраками и трансферами."
+  },
+  "difficulty": "easy",
+  "minGroup": 1,
+  "maxGroup": 8,
+  "childPricePercent": 70,
+  "badges": [
+   "family_friendly",
+   "weekend_trip"
+  ],
+  "includedKeys": [
+   "guide",
+   "privateCar",
+   "hotels",
+   "breakfast",
+   "entrances",
+   "airport",
+   "water",
+   "jeep"
+  ],
+  "excludedKeys": [
+   "flights",
+   "visa",
+   "meals",
+   "tips",
+   "insurance",
+   "personal",
+   "singleRoom",
+   "alcohol"
+  ],
+  "accommodation": [
+   {
+    "type": "hotel",
+    "name": {
+     "en": "Signature 1 Hotel Tecom or similar 4-star hotel",
+     "uz": "Signature 1 Hotel Tecom yoki shunga oʻxshash 4 yulduzli mehmonxona",
+     "ru": "Signature 1 Hotel Tecom или аналогичный 4-звездочный отель"
+    },
+    "nights": 4
+   }
+  ],
+  "transport": [
+   {
+    "mode": "private_car",
+    "description": {
+     "en": "Airport transfers and city tours in a comfortable air-conditioned vehicle.",
+     "uz": "Aeroport transferlari va shahar boʻylab ekskursiyalar qulay konditsionerli avtomobilda.",
+     "ru": "Трансферы из аэропорта и городские экскурсии на комфортабельном автомобиле с кондиционером."
+    }
+   },
+   {
+    "mode": "4x4",
+    "description": {
+     "en": "Desert safari excursion in 4x4 land cruisers.",
+     "uz": "4x4 rusumli avtomobillarda choʻl safari ekskursiyasi.",
+     "ru": "Экскурсия на сафари в пустыню на внедорожниках 4x4."
+    }
+   },
+   {
+    "mode": "walking",
+    "description": {
+     "en": "Walking tours in Al Fahidi district and Dubai Marina.",
+     "uz": "Al Fahidi tumani va Dubay Marinada piyoda sayohatlar.",
+     "ru": "Пешеходные экскурсии по району Аль-Фахиди и Дубай Марина."
+    }
+   }
+  ],
+  "route": [
+   {
+    "lat": 25.2048,
+    "lng": 55.2708,
+    "label": {
+     "en": "Dubai International Airport / City",
+     "uz": "Dubay xalqaro aeroporti / Shahar",
+     "ru": "Международный аэропорт Дубая / Город"
+    },
+    "day": 1
+   },
+   {
+    "lat": 25.1972,
+    "lng": 55.2744,
+    "label": {
+     "en": "Burj Khalifa and Downtown",
+     "uz": "Burj Khalifa va Shahar markazi",
+     "ru": "Бурдж-Халифа и центр города"
+    },
+    "day": 2
+   },
+   {
+    "lat": 24.8607,
+    "lng": 55.3398,
+    "label": {
+     "en": "Dubai Desert Conservation Reserve",
+     "uz": "Dubay choʻl tabiatni muhofaza qilish qoʻriqxonasi",
+     "ru": "Пустынный заповедник Дубая"
+    },
+    "day": 3
+   },
+   {
+    "lat": 25.0805,
+    "lng": 55.1403,
+    "label": {
+     "en": "Dubai Marina and Palm Jumeirah",
+     "uz": "Dubay Marina va Palm Jumeirah",
+     "ru": "Дубай Марина и Пальма Джумейра"
+    },
+    "day": 4
+   }
+  ],
+  "seasonMonths": [
+   1,
+   2,
+   3,
+   4,
+   10,
+   11,
+   12
+  ],
+  "tiers": [
+   {
+    "bookingType": "private",
+    "minPax": 1,
+    "maxPax": 1,
+    "usd": 950
+   },
+   {
+    "bookingType": "private",
+    "minPax": 2,
+    "maxPax": 3,
+    "usd": 680
+   },
+   {
+    "bookingType": "private",
+    "minPax": 4,
+    "maxPax": 8,
+    "usd": 550
+   }
+  ],
+  "itinerary": [
+   {
+    "title": {
+     "en": "Arrival in Dubai and Hotel Check-in",
+     "uz": "Dubayga kelish va mehmonxonaga joylashish",
+     "ru": "Прибытие в Дубай и заселение в отель"
+    },
+    "description": {
+     "en": "Upon arrival at Dubai International Airport, meet our representative and transfer to your 4-star hotel (approx. 30 minutes, 25 km). Complete check-in procedures and spend the rest of the day at leisure to rest from your flight or take an evening stroll nearby. Overnight at the hotel.",
+     "uz": "Dubay xalqaro aeroportiga kelgach, vakilimiz bilan uchrashing va 4 yulduzli mehmonxonangizga transfer qiling (taxminan 30 daqiqa, 25 km). Roʻyxatdan oʻtish tartib-qoidalarini bajaring va kunning qolgan qismini parvozdan dam olish yoki yaqin atrofda kechki sayr qilish uchun oʻtkazing. Mehmonxonada tunash.",
+     "ru": "По прибытии в международный аэропорт Дубая встретьтесь с нашим представителем и отправляйтесь в ваш 4-звездочный отель (около 30 минут, 25 км). Пройдите процедуру регистрации и проведите остаток дня на отдыхе после перелета или совершите вечернюю прогулку неподалеку. Ночь в отеле."
+    },
+    "meals": [],
+    "overnight": {
+     "en": "Dubai",
+     "uz": "Dubay",
+     "ru": "Дубай"
+    }
+   },
+   {
+    "title": {
+     "en": "Classic Dubai City Tour and Burj Khalifa",
+     "uz": "Klassik Dubay shahar ekskursiyasi va Burj Khalifa",
+     "ru": "Классическая обзорная экскурсия по Дубаю и Бурдж-Халифа"
+    },
+    "description": {
+     "en": "Start your morning with breakfast at the hotel, followed by a guided city tour covering the historic Al Fahidi district and the Gold and Spice Souks. Cross the Dubai Creek on a traditional abra boat and proceed to Downtown Dubai. In the afternoon, ascend to the At The Top observation deck on the 124th floor of the Burj Khalifa for stunning views. Return to the hotel in the evening.",
+     "uz": "Ertalab mehmonxonada nonushta qilib, tarixiy Al Fahidi tumani va Oltin hamda Ziravorlar bozorlarini oʻz ichiga olgan shahar boʻylab ekskursiyani boshlang. Anʼanaviy abra qayigʻida Dubay kanalini kesib oʻting va Downtown Dubai tomon yoʻl oling. Tushdan keyin Burj Khalifaning 124-qavatidagi At The Top kuzatuv maydonchasiga chiqib, ajoyib manzaralardan bahramand boʻling. Kechqurun mehmonxonaga qaytish.",
+     "ru": "Начните утро с завтрака в отеле, после чего вас ждет обзорная экскурсия с гидом по историческому району Аль-Фахиди и рынкам золота и специй. Пересеките бухту Дубай-Крик на традиционной лодке абра и отправляйтесь в центр Даунтаун Дубай. Во второй половине дня поднимитесь на смотровую площадку At The Top на 124-м этаже Бурдж-Халифа, откуда открываются потрясающие виды. Вечером возвращение в отель."
+    },
+    "meals": [
+     "B"
+    ],
+    "overnight": {
+     "en": "Dubai",
+     "uz": "Dubay",
+     "ru": "Дубай"
+    }
+   },
+   {
+    "title": {
+     "en": "Desert Safari and Barbecue Dinner",
+     "uz": "Choʻl safari va barbekyu kechki ovqati",
+     "ru": "Сафари по пустыне и ужин-барбекю"
+    },
+    "description": {
+     "en": "Enjoy a leisurely morning and breakfast at the hotel. In the afternoon around 15:00, depart in a 4x4 vehicle for an adrenaline-pumping desert safari (approx. 45 minutes drive to the conservation reserve). Experience dune bashing, camel riding, sandboarding, and watch the desert sunset. Conclude the evening with a traditional buffet barbecue dinner and live entertainment around the camp.",
+     "uz": "Mehmonxonada ertalabki dam olish va nonushtadan bahramand boʻling. Tushdan keyin soat 15:00 atrofida 4x4 rusumli avtomobilda hayajonli choʻl safiga yoʻl oling (qoʻriqxonagacha taxminan 45 daqiqalik yoʻl). Qum tepaliklari boʻylab yurish, tuya minish, sandbordingdan bahramand boʻling va choʻl quyosh botishini tomosha qiling. Kechqurun anʼanaviy bufet barbekyu kechki ovqati va lager atrofida jonli koʻngilochar dastur bilan yakunlang.",
+     "ru": "Насладитесь неспешным утром и завтраком в отеле. Во второй половине дня около 15:00 отправляйтесь на внедорожнике 4x4 на захватывающее сафари по пустыне (около 45 минут езды до заповедника). Вас ждут катание на дюнах, поездки на верблюдах, сэндбординг и наблюдение за закатом в пустыне. Завершите вечер традиционным ужином-барбекю в формате шведского стола и живыми развлечениями в лагере."
+    },
+    "meals": [
+     "B",
+     "D"
+    ],
+    "overnight": {
+     "en": "Dubai",
+     "uz": "Dubay",
+     "ru": "Дубай"
+    }
+   },
+   {
+    "title": {
+     "en": "Modern Dubai, Palm Jumeirah and Marina",
+     "uz": "Zamonaviy Dubay, Palm Jumeirah va Marina",
+     "ru": "Современный Дубай, Пальма Джумейра и Марина"
+    },
+    "description": {
+     "en": "After breakfast, head out to explore modern Dubai landmarks. Visit the man-made Palm Jumeirah island, take photos outside the iconic Burj Al Arab hotel, and walk along the scenic Dubai Marina promenade. The afternoon is free for shopping at the Mall of the Emirates or Dubai Mall. Return to your hotel for the final night.",
+     "uz": "Nonushtadan soʻng zamonaviy Dubay diqqatga sazovor joylarini oʻrganishga boring. Sunʼiy Palm Jumeirah oroliga tashrif buyuring, mashhur Burj Al Arab mehmonxonasi qarshisida suratga tushing va goʻzal Dubay Marina qirgʻogʻi boʻylab sayr qiling. Tushdan keyin Mall of the Emirates yoki Dubai Mall savdo markazlarida xarid qilish uchun vaqt beriladi. Soʻnggi tun uchun mehmonxonaga qayting.",
+     "ru": "После завтрака отправляйтесь на осмотр достопримечательностей современного Дубая. Посетите искусственный остров Пальма Джумейра, сделайте фотографии на фоне культового отеля Бурдж-эль-Араб и прогуляйтесь по живописной набережной Дубай Марина. Вторая половина дня свободна для шопинга в Mall of the Emirates или Dubai Mall. Возвращение в отель на последнюю ночь."
+    },
+    "meals": [
+     "B"
+    ],
+    "overnight": {
+     "en": "Dubai",
+     "uz": "Dubay",
+     "ru": "Дубай"
+    }
+   },
+   {
+    "title": {
+     "en": "Departure from Dubai",
+     "uz": "Dubaydan joʻnab ketish",
+     "ru": "Отправление из Дубая"
+    },
+    "description": {
+     "en": "Enjoy breakfast at the hotel and complete check-out procedures. Depending on your flight schedule, your private driver will transfer you to Dubai International Airport for your return flight to Tashkent (approx. 30 minutes, 25 km). End of tour services.",
+     "uz": "Mehmonxonada nonushta qiling va xonadan chiqish tartib-qoidalarini bajaring. Parvoz jadvalingizga qarab, shaxsiy haydovchingiz sizni Toshkentga qaytish reysi uchun Dubay xalqaro aeroportiga kuzatib qoʻyadi (taxminan 30 daqiqa, 25 km). Sayohat xizmatlari tugadi.",
+     "ru": "Насладитесь завтраком в отеле и завершите процедуру выселения. В зависимости от расписания вашего рейса, ваш личный водитель отвезет вас в международный аэропорт Дубая для обратного рейса в Ташкент (около 30 минут, 25 км). Конец обслуживания."
+    },
+    "meals": [
+     "B"
+    ]
+   }
+  ]
+ },
+ {
+  "slug": "istanbul-bosphorus-and-old-city-5-days",
+  "title": {
+   "en": "Istanbul Bosphorus and Old City 5 Days",
+   "uz": "Istanbul Bosfor va Eski shahar 5 kun",
+   "ru": "Стамбул: Босфор и Старый город за 5 дней"
+  },
+  "summary": {
+   "en": "Discover the timeless heritage of Istanbul with visits to iconic monuments, scenic Bosphorus cruising, and vibrant local bazaars.",
+   "uz": "Tarixiy yodgorliklar, manzarali Bosfor kruizi va jonli mahalliy bozorlar orqali Istanbulning abadiy merosini kashf eting.",
+   "ru": "Откройте для себя вечное наследие Стамбула с посещением культовых памятников, живописным круизом по Босфору и яркими местными базарами."
+  },
+  "description": {
+   "en": "This outbound city break designed for travellers from Uzbekistan combines comfortable accommodation in central Istanbul with expert-guided cultural tours. You will explore the majestic landmarks of Sultanahmet, including Hagia Sophia, the Blue Mosque, and Topkapi Palace. The itinerary also features a scenic private Bosphorus cruise, walks through historic Galata, and vibrant Asian-side Kadikoy. Enjoy seamless airport transfers, daily breakfasts, and dedicated local support throughout your stay.",
+   "uz": "Oʻzbekistondan kelgan sayohatchilar uchun moʻljallangan ushbu shahar safari Istanbul markazidagi qulay mehmonxona hamda tajribali gid hamrohligidagi madaniy ekskursiyalarni oʻz ichiga oladi. Siz Sultonahmetning ulugʻvor diqqatga sazovor joylarini, jumladan Ayasofya, Koʻk masjid va Toʻpqopi saroyini oʻrganasiz. Dastur, shuningdek, manzarali shaxsiy Bosfor kruizi, tarixiy Galata va jonli Osiyo qismidagi Kadikoy boʻylab sayrlarni oʻz ichiga oladi. Safar davomida qulay aeroport transferlari, har kuni nonushta va mahalliy koʻmak taqdim etiladi.",
+   "ru": "Этот городской тур для путешественников из Узбекистана сочетает комфортное проживание в центре Стамбула и культурные экскурсии с гидом. Вы исследуете величественные достопримечательности Султанахмета, включая Айя-Софию, Голубую мечеть и дворец Топкапы. Программа также включает живописный частный круиз по Босфору, прогулки по историческому району Галата и яркому азиатскому Кадыкюю. На протяжении всего пребывания вам обеспечены трансферы из аэропорта, ежедневные завтраки и местная поддержка."
+  },
+  "difficulty": "easy",
+  "minGroup": 1,
+  "maxGroup": 8,
+  "childPricePercent": 70,
+  "badges": [
+   "best_seller",
+   "weekend_trip"
+  ],
+  "includedKeys": [
+   "guide",
+   "privateCar",
+   "hotels",
+   "breakfast",
+   "entrances",
+   "airport"
+  ],
+  "excludedKeys": [
+   "flights",
+   "visa",
+   "meals",
+   "tips",
+   "insurance",
+   "personal"
+  ],
+  "accommodation": [
+   {
+    "type": "hotel",
+    "name": {
+     "en": "Central Istanbul Hotel (Sultanahmet or Taksim area)",
+     "uz": "Markaziy Istanbul mehmonxonasi (Sultonahmet yoki Taksim hududi)",
+     "ru": "Центральный отель Стамбула (район Султанахмет или Таксим)"
+    },
+    "nights": 4
+   }
+  ],
+  "transport": [
+   {
+    "mode": "private_car",
+    "description": {
+     "en": "Private airport transfers and city tours with a licensed vehicle.",
+     "uz": "Litsenziyalangan avtotransportda shaxsiy aeroport transferlari va shahar ekskursiyalari.",
+     "ru": "Частные трансферы из аэропорта и городской тур на лицензированном транспорте."
+    }
+   },
+   {
+    "mode": "walking",
+    "description": {
+     "en": "Walking tours in historic pedestrian zones like Sultanahmet and Galata.",
+     "uz": "Sultonahmet va Galata kabi tarixiy piyodalar zonalarida piyoda sayrlar.",
+     "ru": "Пешеходные экскурсии по историческим пешеходным зонам, таким как Султанахмет и Галата."
+    }
+   }
+  ],
+  "route": [
+   {
+    "lat": 41.0082,
+    "lng": 28.9784,
+    "label": {
+     "en": "Sultanahmet Historic Peninsula",
+     "uz": "Sultonahmet tarixiy yarim oroli",
+     "ru": "Исторический полуостров Султанахмет"
+    },
+    "day": 1
+   },
+   {
+    "lat": 41.0138,
+    "lng": 28.9756,
+    "label": {
+     "en": "Grand Bazaar",
+     "uz": "Katta bozor",
+     "ru": "Гранд Базар"
+    },
+    "day": 2
+   },
+   {
+    "lat": 41.0256,
+    "lng": 28.9741,
+    "label": {
+     "en": "Bosphorus and Galata",
+     "uz": "Bosfor va Galata",
+     "ru": "Босфор и Галата"
+    },
+    "day": 3
+   },
+   {
+    "lat": 40.9901,
+    "lng": 29.0278,
+    "label": {
+     "en": "Kadikoy Asian Side",
+     "uz": "Kadikoy Osiyo qismi",
+     "ru": "Азиатская часть Кадыкюй"
+    },
+    "day": 4
+   }
+  ],
+  "seasonMonths": [
+   3,
+   4,
+   5,
+   9,
+   10,
+   11
+  ],
+  "tiers": [
+   {
+    "bookingType": "private",
+    "minPax": 1,
+    "maxPax": 1,
+    "usd": 950
+   },
+   {
+    "bookingType": "private",
+    "minPax": 2,
+    "maxPax": 3,
+    "usd": 650
+   },
+   {
+    "bookingType": "private",
+    "minPax": 4,
+    "maxPax": 8,
+    "usd": 520
+   }
+  ],
+  "itinerary": [
+   {
+    "title": {
+     "en": "Arrival and Sultanahmet Heritage",
+     "uz": "Kelish va Sultonahmet merosi",
+     "ru": "Прибытие и наследие Султанахмета"
+    },
+    "description": {
+     "en": "Upon arrival at Istanbul Airport, meet your driver and transfer to your hotel. At 14:00, meet your guide for a walking tour of the Old City. Visit the magnificent Hagia Sophia and the adjacent Blue Mosque within the historic Sultanahmet square. Return to the hotel in the evening for a restful night.",
+     "uz": "Istanbul aeroportiga kelgach, haydovchi bilan uchrashib, mehmonxonaga transfer qilasiz. Soat 14:00 da gid bilan uchrashib, Eski shahar boʻylab piyoda sayrni boshlaysiz. Tarixiy Sultonahmet maydonida muhtasham Ayasofya va Koʻk masjidni ziyorat qilasiz. Kechqurun dam olish uchun mehmonxonaga qaytasiz.",
+     "ru": "По прибытии в аэропорт Стамбула встретитесь с водителем и отправьтесь в отель. В 14:00 встретитесь с гидом для пешеходной экскурсии по Старому городу. Посетите великолепную Айя-Софию и прилегающую Голубую мечеть на исторической площади Султанахмет. Вечером возвращение в отель для отдыха."
+    },
+    "meals": [
+     "B"
+    ],
+    "overnight": {
+     "en": "Hotel in Istanbul",
+     "uz": "Istanbuldagi mehmonxona",
+     "ru": "Отель в Стамбуле"
+    }
+   },
+   {
+    "title": {
+     "en": "Topkapi Palace and Grand Bazaar",
+     "uz": "Toʻpqopi saroyi va Katta bozor",
+     "ru": "Дворец Топкапы и Гранд Базар"
+    },
+    "description": {
+     "en": "At 09:30, start your morning tour at Topkapi Palace, the opulent residence of Ottoman sultans for centuries. Explore its courtyards, treasury, and sacred relics with your guide. In the afternoon at 14:30, walk to the bustling Grand Bazaar to experience local trade and shop for carpets, spices, and souvenirs. The rest of the evening is at leisure.",
+     "uz": "Soat 09:30 da Usmonli sultonlarining asrlar davomidagi qarorgohi boʻlgan Toʻpqopi saroyida tonggi ekskursiyani boshlaysiz. Gid bilan birga hovlilar, xazinaxona va muqaddas yodgorliklarni koʻzdan kechirasiz. Tushdan keyin soat 14:30 da gavjum Katta bozorga borib, savdo-sotiq muhitini his qilasiz va gilamlar, ziravorlar hamda esdalik sovgʻalarini xarid qilasiz. Kechaning qolgan qismi oʻzingizga beriladi.",
+     "ru": "В 09:30 начните утреннюю экскурсию во дворце Топкапы, роскошной резиденции османских султанов. Исследуйте дворы, сокровищницу и священные реликвии с гидом. Во второй половине дня в 14:30 отправляйтесь на шумный Гранд Базар, чтобы окунуться в местную торговлю и купить ковры, специи и сувениры. Остаток вечера свободен."
+    },
+    "meals": [
+     "B"
+    ],
+    "overnight": {
+     "en": "Hotel in Istanbul",
+     "uz": "Istanbuldagi mehmonxona",
+     "ru": "Отель в Стамбуле"
+    }
+   },
+   {
+    "title": {
+     "en": "Bosphorus Cruise and Galata Tower",
+     "uz": "Bosfor kruizi va Galata minorasi",
+     "ru": "Круиз по Босфору и Галатская башня"
+    },
+    "description": {
+     "en": "At 10:00, board a private boat for a scenic 2-hour cruise along the Bosphorus Strait, viewing palaces and fortresses from the water. Disembark near Eminonu and take a public tram to the Galata district. At 15:00, walk up to the historic Galata Tower for panoramic views of the Golden Horn and the city skyline. Enjoy the evening strolling down Istiklal Avenue.",
+     "uz": "Soat 10:00 da xususiy kemaga chiqib, Bosfor boʻgʻozi boʻylab 2 soatlik manzarali kruizda qatnashasiz va suvdan turib saroylar hamda qalʼalarni tomosha qilasiz. Eminonu yaqinida tushib, jamoat traktorida Galata tumaniga yoʻl olasiz. Soat 15:00 da tarixiy Galata minorasiga chiqib, Oltin Shox va shahar manzarasi panohidan bahramand boʻlasiz. Kechqurun Istiqlol koʻchasi boʻylab sayr qilasiz.",
+     "ru": "В 10:00 сядьте на частный катер для 2-часового живописного круиза по проливу Босфор с видом на дворцы и крепости с воды. Сойдите на берег у Эминоню и на трамвае отправьтесь в район Галата. В 15:00 поднимитесь на историческую Галатскую башню для панорамного вида на Золотой Рог. Вечер можно провести за прогулкой по проспекту Истикляль."
+    },
+    "meals": [
+     "B"
+    ],
+    "overnight": {
+     "en": "Hotel in Istanbul",
+     "uz": "Istanbuldagi mehmonxona",
+     "ru": "Отель в Стамбуле"
+    }
+   },
+   {
+    "title": {
+     "en": "Asian Side and Kadikoy Market",
+     "uz": "Osiyo qismi va Kadikoy bozori",
+     "ru": "Азиатская часть и рынок Кадыкюй"
+    },
+    "description": {
+     "en": "At 10:00, take a traditional ferry across the Bosphorus from European Istanbul to Kadikoy on the Asian side. Meet your guide to explore the vibrant Kadikoy food market, local artisan shops, and the lively Moda seaside promenade. Enjoy a relaxed afternoon tasting traditional Turkish coffee and local snacks. Return to your European-side hotel by evening.",
+     "uz": "Soat 10:00 da Yevropa qismidan Osiyo qismidagi Kadikoyga anʼanaviy paromda oʻtasiz. Gid bilan birga jonli Kadikoy oziq-ovqat bozori, mahalliy hunarmandchilik doʻkonlari va Moda qirgʻogʻi boʻylab sayr qilasiz. Tushdan keyin anʼanaviy turk qahvasi va mahalliy gazaklardan tatib koʻrasiz. Kechqurun Yevropa qismidagi mehmonxonangizga qaytasiz.",
+     "ru": "В 10:00 совершите переправу на традиционном пароме через Босфор из европейской части в азиатский Кадыкюй. Встретитесь с гидом, чтобы исследовать оживленный рынок Кадыкюй, ремесленные лавки и прибрежную зону Мода. Проведите расслабленный день, дегустируя турецкий кофе и местные закуски. К вечеру возвращение в отель на европейской стороне."
+    },
+    "meals": [
+     "B"
+    ],
+    "overnight": {
+     "en": "Hotel in Istanbul",
+     "uz": "Istanbuldagi mehmonxona",
+     "ru": "Отель в Стамбуле"
+    }
+   },
+   {
+    "title": {
+     "en": "Free Time and Departure",
+     "uz": "Boʻsh vaqt va joʻnab ketish",
+     "ru": "Свободное время и отъезд"
+    },
+    "description": {
+     "en": "Enjoy a leisurely morning for last-minute shopping or photography in the city. Check out from your hotel by 12:00. Meet your private driver at the scheduled time for a comfortable transfer to Istanbul Airport for your return flight to Uzbekistan.",
+     "uz": "Soʻnggi daqiqalardagi xaridlar yoki suratga olish uchun tonggi vaqtdan erkin foydalaning. Soat 12:00 gacha mehmonxonadan chiqish rasmiylashtiriladi. Oʻzbekistonga qaytish reysingiz uchun Istanbul aeroportiga qulay transfer amalga oshirish maqsadida belgilangan vaqtda shaxsiy haydovchingiz bilan uchrashasiz.",
+     "ru": "Насладитесь свободным утром для последних покупок или фотографий в городе. Освободите номер в отеле до 12:00. В назначенное время встретитесь с частным водителем для комфортного трансфера в аэропорт Стамбула на обратный рейс в Узбекистан."
+    },
+    "meals": [
+     "B"
+    ]
+   }
+  ]
+ }
+]

@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Locale } from "@/db/types";
 import { RichText } from "./rich-text";
+import { RobotIllustration } from "./robot";
 import { AI_STRINGS } from "./strings";
 
 type Card = { kind: "tour" | "destination"; slug: string; title: string; url: string; image: string; meta: string };
@@ -12,18 +13,6 @@ type Draft = { slug: string; title: string; url: string; adults: number; childre
 type Msg = { role: "user" | "assistant"; content: string; cards?: Card[]; draft?: Draft; status?: "ok" | "fallback"; id?: number | null; rated?: 1 | -1 };
 
 const STORE = "srt-ai-chat";
-
-function Star({ size = 26 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
-      <g fill="none" stroke="#e2be82" strokeWidth="1.2">
-        <rect x="5.5" y="5.5" width="13" height="13" />
-        <rect x="5.5" y="5.5" width="13" height="13" transform="rotate(45 12 12)" />
-        <circle cx="12" cy="12" r="2.2" />
-      </g>
-    </svg>
-  );
-}
 
 export function AssistantWidget({ locale, welcome, enabled }: { locale: Locale; welcome: string; enabled: boolean }) {
   const t = AI_STRINGS[locale];
@@ -38,6 +27,7 @@ export function AssistantWidget({ locale, welcome, enabled }: { locale: Locale; 
   const listRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const launcherRef = useRef<HTMLButtonElement>(null);
+  const sendRef = useRef<(text: string) => void>(() => {});
 
   // Restore only if the visitor opted in to remembering the chat on this device.
   useEffect(() => {
@@ -54,8 +44,10 @@ export function AssistantWidget({ locale, welcome, enabled }: { locale: Locale; 
     }
     const openFromEvent = (e: Event) => {
       setOpen(true);
-      const q = (e as CustomEvent<string>).detail;
-      if (q) setInput(q);
+      const d = (e as CustomEvent<{ question?: string; send?: boolean } | undefined>).detail;
+      if (!d?.question) return;
+      if (d.send) setTimeout(() => sendRef.current(d.question!), 0);
+      else setInput(d.question);
     };
     window.addEventListener("srt:open-assistant", openFromEvent);
     return () => window.removeEventListener("srt:open-assistant", openFromEvent);
@@ -116,6 +108,10 @@ export function AssistantWidget({ locale, welcome, enabled }: { locale: Locale; 
     [busy, consent, conversationId, locale, pathname, t],
   );
 
+  useEffect(() => {
+    sendRef.current = (text: string) => void send(text);
+  }, [send]);
+
   const rate = async (index: number, rating: 1 | -1) => {
     const msg = messages[index];
     if (!msg?.id || msg.rated) return;
@@ -132,10 +128,10 @@ export function AssistantWidget({ locale, welcome, enabled }: { locale: Locale; 
           ref={launcherRef}
           type="button"
           onClick={() => setOpen(true)}
-          className="fixed bottom-4 right-4 z-40 inline-flex h-14 items-center gap-3 rounded-full bg-lapis-deep pl-4 pr-5 text-[0.95rem] font-bold text-ivory shadow-lift hover:bg-lapis focus-visible:outline-saffron max-sm:bottom-20"
+          className="fixed bottom-4 right-4 z-40 inline-flex h-14 items-center gap-2 rounded-full bg-gradient-to-r from-lapis to-cobalt pl-2 pr-5 text-[0.95rem] font-bold text-white shadow-lift transition hover:brightness-110 focus-visible:outline-saffron max-sm:bottom-20"
           aria-haspopup="dialog"
         >
-          <Star />
+          <span className="inline-flex size-11 items-center justify-center rounded-full bg-white/95"><RobotIllustration className="w-8" /></span>
           {t.open}
         </button>
       )}
@@ -144,18 +140,18 @@ export function AssistantWidget({ locale, welcome, enabled }: { locale: Locale; 
           role="dialog"
           aria-modal="false"
           aria-label={t.title}
-          className="fixed inset-x-0 bottom-0 z-50 flex h-[100dvh] flex-col bg-ivory shadow-lift sm:inset-x-auto sm:bottom-4 sm:right-4 sm:h-[min(760px,calc(100dvh-2rem))] sm:w-[420px] sm:rounded-sm sm:border sm:border-lapis-deep/15"
+          className="fixed inset-x-0 bottom-0 z-50 flex h-[100dvh] flex-col overflow-hidden bg-ivory shadow-lift sm:inset-x-auto sm:bottom-4 sm:right-4 sm:h-[min(760px,calc(100dvh-2rem))] sm:w-[420px] sm:rounded-[1.5rem] sm:border sm:border-lapis/10"
         >
-          <header className="on-dark flex items-center gap-3 bg-lapis-deep px-4 py-3 text-ivory sm:rounded-t-sm">
-            <Star size={32} />
+          <header className="on-dark flex items-center gap-3 bg-gradient-to-r from-lapis to-cobalt px-4 py-3 text-white">
+            <span className="inline-flex size-11 shrink-0 items-center justify-center rounded-full bg-white/95"><RobotIllustration className="w-8" /></span>
             <div className="min-w-0 flex-1">
-              <p className="font-display text-lg leading-tight">{t.title}</p>
-              <p className="truncate text-xs text-sand">{t.subtitle}</p>
+              <p className="font-display text-lg font-bold leading-tight">{t.title}</p>
+              <p className="truncate text-xs text-white/80">{t.subtitle}</p>
             </div>
-            <button type="button" onClick={() => { setMessages([]); setConversationId(undefined); setError(null); }} className="inline-flex size-10 items-center justify-center rounded-[2px] border border-ivory/30 hover:bg-white/10" aria-label={t.clear} title={t.clear}>
+            <button type="button" onClick={() => { setMessages([]); setConversationId(undefined); setError(null); }} className="inline-flex size-10 items-center justify-center rounded-xl border border-ivory/30 hover:bg-white/10" aria-label={t.clear} title={t.clear}>
               <RotateCcw aria-hidden="true" className="size-4" />
             </button>
-            <button type="button" onClick={() => { setOpen(false); launcherRef.current?.focus(); }} className="inline-flex size-10 items-center justify-center rounded-[2px] border border-ivory/30 hover:bg-white/10" aria-label={t.close}>
+            <button type="button" onClick={() => { setOpen(false); launcherRef.current?.focus(); }} className="inline-flex size-10 items-center justify-center rounded-xl border border-ivory/30 hover:bg-white/10" aria-label={t.close}>
               <X aria-hidden="true" className="size-5" />
             </button>
           </header>
@@ -173,7 +169,7 @@ export function AssistantWidget({ locale, welcome, enabled }: { locale: Locale; 
             )}
             {messages.map((m, i) =>
               m.role === "user" ? (
-                <div key={i} className="ml-auto max-w-[88%] whitespace-pre-wrap rounded-sm bg-lapis-deep px-3.5 py-2.5 text-ivory">{m.content}</div>
+                <div key={i} className="ml-auto max-w-[88%] whitespace-pre-wrap rounded-sm bg-cobalt px-3.5 py-2.5 text-white">{m.content}</div>
               ) : (
                 <div key={i} className="max-w-[94%] space-y-2">
                   <div className={`rounded-sm border bg-white px-3.5 py-2 ${m.status === "fallback" ? "border-terracotta/40" : "border-lapis-deep/10"}`}>
@@ -205,17 +201,17 @@ export function AssistantWidget({ locale, welcome, enabled }: { locale: Locale; 
                           .replace("{adults}", String(m.draft.adults))
                           .replace("{children}", m.draft.children ? ` + ${m.draft.children}` : "")}
                       </p>
-                      <a href={m.draft.url} className="mt-3 inline-flex min-h-11 items-center rounded-[2px] bg-terracotta px-4 text-sm font-bold text-white hover:bg-terracotta-deep">
+                      <a href={m.draft.url} className="mt-3 inline-flex min-h-11 items-center rounded-xl bg-terracotta px-4 text-sm font-bold text-white hover:bg-terracotta-deep">
                         {t.bookCta}
                       </a>
                     </div>
                   )}
                   {m.id && m.status === "ok" && (
                     <div className="flex gap-1 text-ink-muted">
-                      <button type="button" aria-label={t.helpful} aria-pressed={m.rated === 1} onClick={() => rate(i, 1)} className={`inline-flex size-8 items-center justify-center rounded-[2px] hover:bg-sand ${m.rated === 1 ? "text-turquoise-ink" : ""}`}>
+                      <button type="button" aria-label={t.helpful} aria-pressed={m.rated === 1} onClick={() => rate(i, 1)} className={`inline-flex size-8 items-center justify-center rounded-xl hover:bg-sand ${m.rated === 1 ? "text-turquoise-ink" : ""}`}>
                         <ThumbsUp aria-hidden="true" className="size-4" />
                       </button>
-                      <button type="button" aria-label={t.notHelpful} aria-pressed={m.rated === -1} onClick={() => rate(i, -1)} className={`inline-flex size-8 items-center justify-center rounded-[2px] hover:bg-sand ${m.rated === -1 ? "text-terracotta-deep" : ""}`}>
+                      <button type="button" aria-label={t.notHelpful} aria-pressed={m.rated === -1} onClick={() => rate(i, -1)} className={`inline-flex size-8 items-center justify-center rounded-xl hover:bg-sand ${m.rated === -1 ? "text-terracotta-deep" : ""}`}>
                         <ThumbsDown aria-hidden="true" className="size-4" />
                       </button>
                     </div>
@@ -261,10 +257,10 @@ export function AssistantWidget({ locale, welcome, enabled }: { locale: Locale; 
                     }
                   }}
                   placeholder={t.placeholder}
-                  className="block max-h-32 min-h-12 w-full resize-none rounded-[2px] border border-field bg-white px-3.5 py-3 text-[0.95rem]"
+                  className="block max-h-32 min-h-12 w-full resize-none rounded-xl border border-field bg-white px-3.5 py-3 text-[0.95rem]"
                 />
               </label>
-              <button type="submit" disabled={busy || !input.trim()} aria-label={t.send} className="inline-flex size-12 shrink-0 items-center justify-center rounded-[2px] bg-lapis-deep text-ivory disabled:opacity-50">
+              <button type="submit" disabled={busy || !input.trim()} aria-label={t.send} className="inline-flex size-12 shrink-0 items-center justify-center rounded-xl bg-lapis-deep text-ivory disabled:opacity-50">
                 <ArrowUp aria-hidden="true" className="size-5" />
               </button>
             </div>
@@ -284,6 +280,6 @@ export function AssistantWidget({ locale, welcome, enabled }: { locale: Locale; 
 }
 
 /** Any button can open the assistant with a pre-filled question. */
-export function openAssistant(question?: string) {
-  window.dispatchEvent(new CustomEvent("srt:open-assistant", { detail: question }));
+export function openAssistant(question?: string, send = false) {
+  window.dispatchEvent(new CustomEvent("srt:open-assistant", { detail: question ? { question, send } : undefined }));
 }

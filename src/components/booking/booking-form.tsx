@@ -133,6 +133,10 @@ export function BookingForm({
     heading.current?.focus();
   }, [step]);
 
+  // Marks the form as interactive once React has taken over the server-rendered markup.
+  const [ready, setReady] = useState(false);
+  useEffect(() => setReady(true), []);
+
   const next = async () => {
     const ok = await trigger(STEP_FIELDS[step]);
     if (ok && (step !== 0 || !quoteError)) setStep((s) => Math.min(2, s + 1));
@@ -164,7 +168,7 @@ export function BookingForm({
   const values = getValues();
 
   return (
-    <form onSubmit={onSubmit} noValidate className="flex flex-col gap-8" data-testid="booking-form">
+    <form onSubmit={onSubmit} noValidate className="flex flex-col gap-8" data-testid="booking-form" data-ready={ready || undefined}>
       <nav aria-label={t("stepsLabel")}>
         <ol className="flex gap-2">
           {steps.map((label, i) => (
@@ -204,7 +208,7 @@ export function BookingForm({
                   <input type="radio" value={ty} {...register("bookingType")} className="size-4 accent-[var(--color-lapis)]" data-testid={`book-type-${ty}`} />
                   {tt(ty)}
                 </span>
-                <span className="pl-6 text-sm text-ink-muted">{tt(ty === "group" ? "groupHint" : "privateHint")}</span>
+                <span className={cn("pl-6 text-sm", type === ty ? "text-ink/80" : "text-ink-muted")}>{tt(ty === "group" ? "groupHint" : "privateHint")}</span>
               </label>
             ))}
           </div>
@@ -318,12 +322,13 @@ export function BookingForm({
         ) : (
           <span />
         )}
+        {/* Separate keys: reusing one <button> would let the "Next" click land on the new submit button and send the booking. */}
         {step < 2 ? (
-          <Button onClick={next} size="lg" data-testid="book-next">
+          <Button key="next" onClick={next} size="lg" data-testid="book-next">
             {tc("next")} →
           </Button>
         ) : (
-          <Button type="submit" size="lg" disabled={formState.isSubmitting} data-testid="book-submit">
+          <Button key="submit" type="submit" size="lg" disabled={formState.isSubmitting} data-testid="book-submit">
             {formState.isSubmitting ? (
               <>
                 <Loader2 aria-hidden="true" className="animate-spin" /> {t("submitting")}

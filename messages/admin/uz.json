@@ -1,11 +1,11 @@
 {
   "title": "Boshqaruv paneli",
-  "brand": "Silk Road Tours · Boshqaruv",
+  "brand": "National Tours · Boshqaruv",
   "language": "Til",
   "nav": {
     "overview": "Umumiy koʻrinish",
     "bookings": "Bronlar",
-    "requests": "Xizmat soʻrovlari",
+    "requests": "Lidlar va soʻrovlar",
     "tours": "Turlar",
     "destinations": "Yoʻnalishlar",
     "faq": "Savol-javob",
@@ -15,14 +15,18 @@
     "logout": "Chiqish",
     "menu": "Boshqaruv menyusi",
     "signedInAs": "{name} sifatida kirgansiz",
-    "ai": "AI boshqaruvi"
+    "ai": "AI boshqaruvi",
+    "customers": "Mijozlar",
+    "content": "Kontent",
+    "media": "Media kutubxona",
+    "newsletter": "Obunachilar"
   },
   "login": {
     "title": "Xodimlar uchun kirish",
     "email": "Email",
     "password": "Parol",
     "submit": "Kirish",
-    "noAccount": "Hali admin hisobi yoʻqmi? Birinchi egasi docs/DEPLOYMENT.md da tasvirlangan sozlash soʻrovi bilan bir marta yaratiladi."
+    "noAccount": "Hisobingiz yoʻqmi? Sayt egasidan sizni jamoa aʼzosi sifatida qoʻshishini soʻrang."
   },
   "common": {
     "save": "Saqlash",
@@ -130,7 +134,8 @@
       "airport_transfer": "Aeroport transferi",
       "custom_tour": "Individual tur",
       "accommodation": "Turar joy",
-      "guide": "Gid"
+      "guide": "Gid",
+      "inquiry": "Soʻrov"
     },
     "details": "Soʻrov tafsilotlari",
     "internalNotes": "Ichki izohlar",
@@ -209,7 +214,7 @@
     },
     "heroImage": "Asosiy rasm",
     "gallery": "Galereya (har qatorda bitta rasm yoʻli yoki https havola)",
-    "imageHint": "Loyihadagi fayllar uchun /images/... yoki https:// havola (masalan, Cloudflare R2) ishlating.",
+    "imageHint": "Rasmni Media boʻlimiga yuklang va havolasini shu yerga qoʻying.",
     "imageMissing": "Hali yuklanmagan — saytda brend bezagi koʻrsatiladi.",
     "routePoints": "Yoʻnalish nuqtalari",
     "addPoint": "Nuqta qoʻshish",
@@ -306,5 +311,82 @@
     "currentPassword": "Joriy parol",
     "changePassword": "Parolni oʻzgartirish",
     "ownerOnly": "Bu sozlamalarni faqat egalar oʻzgartira oladi."
+  },
+  "customers": {
+    "title": "Mijozlar",
+    "search": "Ism, email yoki telefon",
+    "name": "Mijoz",
+    "contact": "Aloqa",
+    "bookings": "Bronlar",
+    "requests": "Soʻrovlar",
+    "lastActivity": "Oxirgi faollik",
+    "newsletter": "Yangiliklar",
+    "subscribed": "Obuna boʻlgan",
+    "profile": "Mijoz profili",
+    "history": "Tarix",
+    "booking": "Bron",
+    "request": "Soʻrov",
+    "total": "{count} ta mijoz",
+    "firstSeen": "Birinchi murojaat",
+    "languages": "Tillar",
+    "notFound": "Bu email bilan bron yoki soʻrov yoʻq.",
+    "quoted": "Taklif summasi"
+  },
+  "content": {
+    "title": "Kontent",
+    "kinds": {
+      "guide": "Qoʻllanmalar",
+      "experience": "Tajribalar",
+      "service": "Xizmatlar"
+    },
+    "new": "Yangi material",
+    "edit": "Kontentni tahrirlash",
+    "slug": "URL nomi (slug)",
+    "category": "Turkum",
+    "titleField": "Sarlavha",
+    "excerpt": "Qisqa tavsif",
+    "body": "Maqola matni (Markdown)",
+    "image": "Rasm",
+    "imageHelp": "Media kutubxonadan yoʻlni qoʻying, masalan /images/destinations/khiva/hero.jpg yoki /media/rasm.jpg",
+    "destination": "Manzil",
+    "icon": "Belgi nomi",
+    "requestType": "Soʻrov shakli",
+    "duration": "Davomiyligi (soat)",
+    "price": "Narxi (USD, dan)",
+    "reading": "Oʻqish vaqti (daqiqa)",
+    "sortOrder": "Tartib",
+    "updated": "Yangilangan",
+    "view": "Saytda koʻrish",
+    "search": "Sarlavha yoki slug",
+    "slugTaken": "Bu URL nomi band.",
+    "created": "Yaratildi",
+    "deleted": "Oʻchirildi",
+    "preview": "Koʻrinishi"
+  },
+  "media": {
+    "title": "Media kutubxona",
+    "upload": "Rasm yuklash",
+    "uploading": "Yuklanmoqda…",
+    "uploaded": "Rasm yuklandi",
+    "help": "JPG, PNG yoki WebP, 6 MB gacha. Yoʻlni nusxalab tur, manzil yoki maqolaga qoʻying.",
+    "copy": "Yoʻlni nusxalash",
+    "copied": "Yoʻl nusxalandi",
+    "uploads": "Yuklanganlar",
+    "shipped": "Sayt rasmlari",
+    "filter": "Papka",
+    "count": "{count} ta rasm",
+    "deleteConfirm": "Rasm oʻchirilsinmi? Undan foydalangan sahifalarda oʻrinbosar rasm chiqadi.",
+    "tooLarge": "Fayl 6 MB dan katta.",
+    "unsupported": "Faqat JPG, PNG yoki WebP rasm yuklash mumkin."
+  },
+  "newsletter": {
+    "title": "Yangiliklar obunachilari",
+    "email": "Email",
+    "locale": "Til",
+    "source": "Manba",
+    "date": "Obuna sanasi",
+    "export": "CSV yuklab olish",
+    "search": "Email",
+    "removeConfirm": "Obunachi oʻchirilsinmi?"
   }
 }

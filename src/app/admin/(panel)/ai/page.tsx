@@ -4,6 +4,7 @@ import { AiSettingsForm } from "@/components/admin/ai-settings-form";
 import { HBars, PageHeader, Panel, StatTile } from "@/components/admin/ui";
 import { getDb } from "@/db/client";
 import { aiStats, knowledgeStats, providerStatus, recentConversations } from "@/lib/ai/admin";
+import { contentCounts } from "@/db/queries/content";
 import { AI_ADMIN } from "@/lib/ai/admin-strings";
 import { getAiSettings } from "@/lib/ai/agent";
 import { adminLocale, requireAdminPage } from "@/lib/server/admin";
@@ -21,7 +22,7 @@ export default async function AdminAi() {
   const locale = await adminLocale();
   const t = AI_ADMIN[locale];
   const db = getDb();
-  const [stats, kb, settings, convs] = await Promise.all([aiStats(db), knowledgeStats(db), getAiSettings(db), recentConversations(db, 50)]);
+  const [stats, kb, settings, convs, articles] = await Promise.all([aiStats(db), knowledgeStats(db), getAiSettings(db), recentConversations(db, 50), contentCounts(db)]);
   const prov = providerStatus();
   const fmt = (n: number) => n.toLocaleString(locale === "uz" ? "uz-UZ" : "en-US");
   return (
@@ -51,15 +52,20 @@ export default async function AdminAi() {
           )}
           <p className="mt-4 text-sm font-semibold text-ink-muted">{t.keys}</p>
           <ul className="mt-1 space-y-1 text-sm">
-            <li>GEMINI_API_KEY: <code>{prov.keys.gemini ?? t.notSet}</code></li>
-            <li>GROQ_API_KEY: <code>{prov.keys.groq ?? t.notSet}</code></li>
+            {prov.keys.map((k) => (
+              <li key={k.name} className="flex flex-wrap justify-between gap-2">
+                <span>{k.name}</span>
+                <code className={k.value ? "" : "text-ink-muted"}>{k.value ?? t.notSet}</code>
+              </li>
+            ))}
           </ul>
         </Panel>
         <Panel title={t.knowledge}>
           <dl className="space-y-2 text-sm">
             <div className="flex justify-between border-b border-line pb-2"><dt>{t.tours}</dt><dd className="font-bold">{kb.toursPublished} / {kb.tours}</dd></div>
             <div className="flex justify-between border-b border-line pb-2"><dt>{t.destinations}</dt><dd className="font-bold">{kb.destinations}</dd></div>
-            <div className="flex justify-between"><dt>{t.faq}</dt><dd className="font-bold">{kb.faq}</dd></div>
+            <div className="flex justify-between border-b border-line pb-2"><dt>{t.faq}</dt><dd className="font-bold">{kb.faq}</dd></div>
+            <div className="flex justify-between gap-3"><dt>{t.articles}</dt><dd className="font-bold">{articles.guide + articles.experience + articles.service}</dd></div>
           </dl>
         </Panel>
         <Panel title={t.tools}>

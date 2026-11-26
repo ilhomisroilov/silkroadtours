@@ -85,6 +85,7 @@ const SERVICE_LABEL: Record<ServiceType, string> = {
   custom_tour: "🧭 Tailor-made tour",
   accommodation: "🏕 Hotel / yurt camp",
   guide: "🗣 Guide hire",
+  inquiry: "💬 Inquiry",
 };
 
 export interface ServiceRequestNotification {

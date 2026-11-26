@@ -13,7 +13,7 @@ export const FALLBACK_RATES: ExchangeRates = {
 };
 
 export const FALLBACK_CONTACT: ContactSettings = {
-  agencyName: "Silk Road Tours",
+  agencyName: "National Tours",
   phone: "",
   email: "",
   whatsapp: "",

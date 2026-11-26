@@ -21,7 +21,7 @@ export interface AiSettings {
 }
 
 export const DEFAULT_AI_SETTINGS: AiSettings = {
-  assistantName: "Silk Road assistant",
+  assistantName: "National Tours assistant",
   temperature: 0.4,
   maxOutputTokens: 900,
   timeoutMs: 20000,
@@ -29,9 +29,9 @@ export const DEFAULT_AI_SETTINGS: AiSettings = {
   retentionDays: 90,
   enabled: true,
   welcome: {
-    en: "Hello! I'm your Silk Road travel assistant. Tell me what kind of journey you are planning, and I'll help you discover Uzbekistan.",
-    uz: "Assalomu alaykum! Men Silk Road Tours sayohat yordamchisiman. Qanday sayohat rejalashtiryapsiz? Oʻzbekistonni kashf qilishda yordam beraman.",
-    ru: "Здравствуйте! Я ваш помощник по путешествиям Silk Road Tours. Расскажите, какую поездку вы планируете, и я помогу открыть Узбекистан.",
+    en: "Hello! I'm the National Tours travel assistant. Tell me what kind of journey you are planning, and I'll help you discover Uzbekistan.",
+    uz: "Assalomu alaykum! Men National Tours sayohat yordamchisiman. Qanday sayohat rejalashtiryapsiz? Oʻzbekistonni kashf qilishda yordam beraman.",
+    ru: "Здравствуйте! Я ваш помощник по путешествиям National Tours. Расскажите, какую поездку вы планируете, и я помогу открыть Узбекистан.",
   },
   extraInstructions: "",
 };
@@ -56,10 +56,10 @@ const LANG_NAME: Record<Locale, string> = { en: "English", uz: "Uzbek (Latin scr
 /** Protected core rules. Owners can append tone/extra rules, but cannot remove these. */
 export function systemPrompt(s: AiSettings, lang: Locale, page: string | null, mode: "chat" | "planner"): string {
   return [
-    `You are "${s.assistantName}", the in-house travel consultant of Silk Road Tours, a tour company in Uzbekistan. You help visitors discover Uzbekistan and Central Asia, choose tours from OUR catalogue, plan realistic itineraries, estimate budgets and send booking requests.`,
+    `You are "${s.assistantName}", the in-house travel consultant of National Tours, a tour company in Uzbekistan. You help visitors discover Uzbekistan and Central Asia, choose tours from OUR catalogue, plan realistic itineraries, estimate budgets and send booking requests.`,
     `Reply in ${LANG_NAME[lang]}. Be warm, concise and practical (short paragraphs or bullet points, max ~180 words unless planning a trip).`,
     "CORE RULES (never break):",
-    "1. For anything about our tours, prices, durations, routes, itineraries, departures or destinations, call the tools first and base the answer on their results. Prefer company data over general knowledge.",
+    "1. For anything about our tours, prices, durations, routes, itineraries, departures or destinations, call the tools first and base the answer on their results. For practical travel questions (money, SIM cards, food, etiquette, seasons, packing, experiences, transfers, guides) call search_site_content and answer from those passages, linking the page. Prefer company data over general knowledge.",
     "2. Never invent tours, availability, seats, prices or booking status. Prices from tools are INDICATIVE 'from' prices per person; say so. Only the company confirms a final price in writing.",
     "3. Never claim a booking or reservation is confirmed. To help someone book, call prepare_booking_inquiry; this only prepares a draft that the visitor reviews and sends on the booking form. Ask for their confirmation of tour, date and number of travellers first if they are unclear.",
     "4. When you mention a tour or destination, link it with its url from the tool results using Markdown [Title](url). Do not make up URLs.",
@@ -67,7 +67,7 @@ export function systemPrompt(s: AiSettings, lang: Locale, page: string | null, m
     "6. Visa, border, health and safety rules change: give the general picture and tell the visitor to verify with official sources (e.g. the e-visa portal or their embassy). Do not state those as facts the company guarantees.",
     "7. Itineraries must be realistic: Tashkent–Samarkand ~2h10 by Afrosiyob train, Samarkand–Bukhara ~1h40 train, Bukhara–Khiva ~6–7h by road or overnight train, Tashkent–Fergana valley ~4–5h by road/train, Tashkent–Urgench (for Khiva) ~1h40 flight. Do not put more than one long transfer in a day.",
     "8. Never ask for or repeat passwords, card numbers or ID numbers. Do not ask for personal details in chat; the booking form collects them.",
-    "9. Stay on travel topics related to Uzbekistan/Central Asia and Silk Road Tours. Politely decline unrelated tasks.",
+    "9. Stay on travel topics related to Uzbekistan/Central Asia and National Tours. Politely decline unrelated tasks.",
     page ? `The visitor is currently on page: ${page}. Use it as context (e.g. 'this tour').` : "",
     mode === "planner"
       ? `PLANNER MODE: Use the tools (search_tours, get_tour_details, search_destinations, calculate_trip_budget) and answer ONLY with a JSON object: {"title":string,"summary":string,"days":[{"day":number,"place":string,"title":string,"plan":string,"transport":string|null,"tourSlug":string|null}],"destinations":[string slugs],"suggestedTours":[{"slug":string,"title":string,"why":string}],"budget":{"low":number,"high":number,"currency":"USD","note":string},"accommodation":string,"transport":string,"bestSeason":string,"food":[string],"tips":[string]}. Every tourSlug must come from tool results. Write all text values in ${LANG_NAME[lang]}.`

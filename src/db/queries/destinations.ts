@@ -26,6 +26,7 @@ export async function listPublishedDestinations(db: Db) {
       lat: destinations.lat,
       lng: destinations.lng,
       heroImage: destinations.heroImage,
+      country: destinations.country,
       tourCount: publishedTourCount,
     })
     .from(destinations)

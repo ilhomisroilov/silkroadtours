@@ -1,95 +1,104 @@
+import { ArrowRight, HelpCircle } from "lucide-react";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Breadcrumbs } from "@/components/common/breadcrumbs";
-import { ClientMessages } from "@/components/common/client-messages";
-import { SectionHeading } from "@/components/common/section";
-import { GirihRosette } from "@/components/ornament";
-import { FaqJsonLd } from "@/components/seo/json-ld";
-import { buttonVariants } from "@/components/ui/button";
+import { PageHero } from "@/components/common/page-hero";
+import { SmartImage } from "@/components/common/smart-image";
 import { EmptyState } from "@/components/ui/misc";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/primitives";
-import { listFaq } from "@/db/queries/faq";
-import { FAQ_CATEGORIES, type Locale } from "@/db/types";
+import { listContent } from "@/db/queries/content";
+import type { Locale } from "@/db/types";
 import { Link } from "@/i18n/navigation";
 import { localize } from "@/lib/localize";
-import { db, pageMetadata, siteUrl } from "@/lib/server/site";
+import { db, pageMetadata } from "@/lib/server/site";
 
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "guide" });
-  return pageMetadata({ locale, href: "/travel-guide", title: t("metaTitle"), description: t("intro") });
+  const t = await getTranslations({ locale });
+  return pageMetadata({ locale, href: "/travel-guide", title: t("nt.guide.title"), description: t("nt.guide.lead") });
 }
 
-export default async function TravelGuidePage({ params }: { params: Promise<{ locale: Locale }> }) {
+export default async function TravelGuidePage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ locale: Locale }>;
+  searchParams: Promise<{ category?: string }>;
+}) {
   const { locale } = await params;
+  const { category } = await searchParams;
   setRequestLocale(locale);
   const t = await getTranslations({ locale });
-  const items = await listFaq(db());
-  const groups = FAQ_CATEGORIES.map((c) => ({ category: c, items: items.filter((i) => i.category === c) })).filter((g) => g.items.length > 0);
+  const all = await listContent(db(), "guide");
+  const categories = [...new Set(all.map((g) => g.category).filter((c): c is string => !!c))];
+  const items = category ? all.filter((g) => g.category === category) : all;
+  const chip = "inline-flex min-h-10 items-center rounded-full px-4 text-sm font-semibold transition";
+  const catLabel = (c: string) => (t.has(`nt.guide.cat.${c}` as never) ? t(`nt.guide.cat.${c}` as never) : c);
 
   return (
-    <div className="container-page py-10">
-      <Breadcrumbs
-        label={t("nav.breadcrumb")}
-        base={`${siteUrl()}/${locale}`}
-        items={[
+    <>
+      <PageHero
+        locale={locale}
+        crumbLabel={t("nav.breadcrumb")}
+        crumbs={[
           { name: t("nav.home"), href: "/" },
-          { name: t("guide.title"), href: "/travel-guide" },
+          { name: t("nt.guide.title"), href: "/travel-guide" },
         ]}
-      />
-      <div className="mt-6">
-        <SectionHeading as="h1" title={t("guide.title")} text={t("guide.intro")} />
-      </div>
-      {groups.length === 0 ? (
-        <div className="mt-10"><EmptyState title={t("guide.title")}>{t("guide.empty")}</EmptyState></div>
-      ) : (
-        <div className="mt-12 grid gap-12 lg:grid-cols-[16rem_1fr]">
-          <nav aria-label={t("guide.onThisPage")} className="lg:sticky lg:top-6 lg:self-start">
-            <p className="mb-2 text-sm font-bold uppercase tracking-wide text-ink-muted">{t("guide.onThisPage")}</p>
-            <ul className="flex flex-wrap gap-2 lg:flex-col lg:gap-0">
-              {groups.map((g) => (
-                <li key={g.category}>
-                  <a href={`#${g.category}`} className="inline-flex min-h-11 items-center rounded-full px-3 font-semibold text-lapis hover:bg-sand-soft lg:rounded-sm">
-                    {t(`guide.categories.${g.category}`)}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-          <ClientMessages namespaces={[]}>
-            <div className="space-y-12">
-              {groups.map((g) => (
-                <section key={g.category} id={g.category} aria-labelledby={`${g.category}-title`} className="scroll-mt-24">
-                  <h2 id={`${g.category}-title`} className="flex items-center gap-3 text-3xl text-lapis-deep">
-                    <GirihRosette size={28} tone="saffron" strokeWidth={2.4} />
-                    {t(`guide.categories.${g.category}`)}
-                  </h2>
-                  <Accordion type="multiple" className="mt-4">
-                    {g.items.map((f) => (
-                      <AccordionItem key={f.id} value={`q-${f.id}`}>
-                        <AccordionTrigger>{localize(f.question, locale)}</AccordionTrigger>
-                        <AccordionContent className="prose-silk text-ink">
-                          {localize(f.answer, locale).split(/\n{2,}/).map((p, i) => (
-                            <p key={i}>{p}</p>
-                          ))}
-                        </AccordionContent>
-                      </AccordionItem>
-                    ))}
-                  </Accordion>
-                </section>
-              ))}
-              <div className="rounded-[var(--radius-card)] bg-sand-soft p-6">
-                <h2 className="text-2xl text-lapis-deep">{t("guide.stillQuestions")}</h2>
-                <p className="mt-1 text-ink-muted">{t("guide.stillQuestionsText")}</p>
-                <Link href="/contact" className={buttonVariants({ variant: "secondary", className: "mt-4" })}>{t("nav.contact")}</Link>
-              </div>
+        eyebrow={t("nt.guides.eyebrow")}
+        title={t("nt.guide.title")}
+        lead={t("nt.guide.lead")}
+      >
+        <nav aria-label={t("nt.guide.filter")} className="mt-8 flex flex-wrap gap-2">
+          <Link href="/travel-guide" aria-current={!category ? "page" : undefined} className={`${chip} ${!category ? "bg-lapis text-white" : "bg-white text-ink hover:bg-sky"}`}>
+            {t("nt.guide.all")}
+          </Link>
+          {categories.map((c) => (
+            <Link key={c} href={{ pathname: "/travel-guide", query: { category: c } }} aria-current={category === c ? "page" : undefined} className={`${chip} ${category === c ? "bg-lapis text-white" : "bg-white text-ink hover:bg-sky"}`}>
+              {catLabel(c)}
+            </Link>
+          ))}
+        </nav>
+      </PageHero>
+      <div className="container-page py-12">
+        {items.length === 0 ? (
+          <EmptyState title={t("nt.guide.title")}>{t("nt.guide.empty")}</EmptyState>
+        ) : (
+          <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {items.map((g) => (
+              <li key={g.slug}>
+                <Link href={`/travel-guide/${g.slug}`} className="group flex h-full flex-col overflow-hidden rounded-[1.25rem] bg-white shadow-card transition hover:-translate-y-1 hover:shadow-lift">
+                  <div className="aspect-[16/9] overflow-hidden">
+                    <SmartImage src={g.image} alt="" label={localize(g.title, locale)} compact sizes="(min-width: 1024px) 33vw, 50vw" imgClassName="transition-transform duration-700 group-hover:scale-105" />
+                  </div>
+                  <div className="flex flex-1 flex-col p-5">
+                    <p className="flex items-center gap-2 text-sm text-ink-muted">
+                      {g.category && <span className="rounded-full bg-sky px-2.5 py-0.5 font-semibold text-cobalt">{catLabel(g.category)}</span>}
+                      {g.readingMinutes != null && <span>{t("nt.guides.minutes", { count: g.readingMinutes })}</span>}
+                    </p>
+                    <h2 className="mt-3 text-xl leading-snug text-lapis group-hover:text-cobalt">{localize(g.title, locale)}</h2>
+                    <p className="mt-2 line-clamp-3 text-ink-muted">{localize(g.excerpt, locale)}</p>
+                    <span className="mt-auto inline-flex items-center gap-1.5 pt-4 text-sm font-bold text-cobalt">
+                      {t("nt.guides.read")} <ArrowRight aria-hidden="true" className="size-4 transition-transform group-hover:translate-x-1" />
+                    </span>
+                  </div>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
+        <div className="mt-12 flex flex-col items-start gap-4 rounded-[1.5rem] bg-white p-6 shadow-card sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center gap-4">
+            <span className="inline-flex size-12 items-center justify-center rounded-full bg-sky"><HelpCircle aria-hidden="true" className="size-6 text-cobalt" /></span>
+            <div>
+              <h2 className="text-xl text-lapis">{t("nt.guide.faqTitle")}</h2>
+              <p className="text-ink-muted">{t("nt.guide.faqText")}</p>
             </div>
-          </ClientMessages>
+          </div>
+          <Link href="/faq" className="inline-flex min-h-11 items-center gap-2 rounded-full bg-lapis px-5 text-sm font-bold text-white hover:bg-cobalt">
+            {t("nt.footer.faq")} <ArrowRight aria-hidden="true" className="size-4" />
+          </Link>
         </div>
-      )}
-      <FaqJsonLd items={items.map((f) => ({ question: localize(f.question, locale), answer: localize(f.answer, locale) }))} />
-    </div>
+      </div>
+    </>
   );
 }

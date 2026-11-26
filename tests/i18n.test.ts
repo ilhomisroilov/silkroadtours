@@ -19,6 +19,8 @@ const admin = { en: flatten(load("messages/admin/en.json")), uz: flatten(load("m
 function sampleArgs(msg: string): Record<string, unknown> {
   const args: Record<string, unknown> = {};
   for (const m of msg.matchAll(/\{\s*([a-zA-Z0-9_]+)\s*(,\s*(plural|select|number|date))?/g)) args[m[1]!] = m[3] === "select" ? "other" : 2;
+  // Rich-text tags such as <b>…</b> (rendered with t.rich) get a pass-through handler.
+  for (const m of msg.matchAll(/<([a-zA-Z][a-zA-Z0-9]*)>/g)) args[m[1]!] = (chunks: unknown[]) => chunks.join("");
   return args;
 }
 

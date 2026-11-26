@@ -8,7 +8,7 @@ export default function GlobalNotFound() {
         <div>
           <h1 className="text-3xl font-semibold text-lapis-deep">Page not found</h1>
           <p className="mt-3">
-            <a className="text-cobalt underline" href="/en">Silk Road Tours — home</a>
+            <a className="text-cobalt underline" href="/en">National Tours — home</a>
           </p>
         </div>
       </body>

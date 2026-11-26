@@ -17,8 +17,8 @@ type S = {
 };
 
 const L = {
-  uz: { name: "Nomi", enabled: "Yordamchi yoqilgan", temp: "Temperature", tokens: "Maks. token", timeout: "Timeout (ms)", rate: "Soʻrov/daqiqa (IP)", retention: "Saqlash muddati (kun)", welcome: "Salomlashish", extra: "Qoʻshimcha koʻrsatmalar (ohang, tavsiya qoidalari)", save: "Saqlash", saved: "Saqlandi", owner: "Faqat egasi (owner) oʻzgartira oladi." },
-  en: { name: "Name", enabled: "Assistant enabled", temp: "Temperature", tokens: "Max tokens", timeout: "Timeout (ms)", rate: "Requests/minute (IP)", retention: "Retention (days)", welcome: "Welcome message", extra: "Extra instructions (tone, recommendation rules)", save: "Save", saved: "Saved", owner: "Only owners can change these." },
+  uz: { name: "Nomi", enabled: "Yordamchi yoqilgan", temp: "Ijodkorlik darajasi (0–1)", tokens: "Javob uzunligi chegarasi", timeout: "Javob kutish vaqti (ms)", rate: "Bir tashrifchidan daqiqasiga soʻrovlar", retention: "Saqlash muddati (kun)", welcome: "Salomlashish", extra: "Qoʻshimcha koʻrsatmalar (ohang, tavsiya qoidalari)", save: "Saqlash", saved: "Saqlandi", owner: "Bu sozlamalarni faqat sayt egasi oʻzgartira oladi." },
+  en: { name: "Name", enabled: "Assistant enabled", temp: "Creativity (0–1)", tokens: "Maximum reply length", timeout: "Reply time limit (ms)", rate: "Requests per visitor per minute", retention: "Retention (days)", welcome: "Welcome message", extra: "Extra instructions (tone, recommendation rules)", save: "Save", saved: "Saved", owner: "Only owners can change these." },
 };
 
 export function AiSettingsForm({ initial, locale, canEdit }: { initial: S; locale: "uz" | "en"; canEdit: boolean }) {

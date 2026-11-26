@@ -1,5 +1,6 @@
 import { inArray } from "drizzle-orm";
 import { getDb, getEnv } from "@/db/client";
+import { getPublishedContent } from "@/db/queries/content";
 import { getPublishedDestinationBySlug } from "@/db/queries/destinations";
 import { insertServiceRequest } from "@/db/queries/service-requests";
 import { getContact } from "@/db/queries/settings";
@@ -29,6 +30,10 @@ export const POST = route(async (req) => {
 
   if (input.type === "accommodation" || input.type === "guide") {
     if (!(await getPublishedDestinationBySlug(db, input.destinationSlug))) throw notFound("destination_not_found");
+  }
+  if (input.type === "inquiry" && input.refSlug && input.topic !== "general") {
+    const kind = input.topic === "experience" ? "experience" : "service";
+    if (!(await getPublishedContent(db, kind, input.refSlug))) throw notFound("not_found");
   }
   if (input.type === "custom_tour") {
     const found = await db

@@ -7,11 +7,13 @@ import { ReviewList } from "@/components/common/reviews";
 import { SectionHeading } from "@/components/common/section";
 import { SmartImage } from "@/components/common/smart-image";
 import { LazyMap } from "@/components/maps/lazy-map";
-import { ArchFrame, GirihPattern, IkatDivider } from "@/components/ornament";
+import { AskAssistantButton } from "@/components/ai/ask-button";
+import { ExperienceCard } from "@/components/content/experience-card";
 import { JsonLd } from "@/components/seo/json-ld";
 import nextDynamic from "next/dynamic";
 import { TourCard } from "@/components/tours/tour-card";
 import { buttonVariants } from "@/components/ui/button";
+import { listContent } from "@/db/queries/content";
 import { getPublishedDestinationBySlug } from "@/db/queries/destinations";
 import { listPublishedReviews } from "@/db/queries/reviews";
 import { listPublishedTours } from "@/db/queries/tours";
@@ -20,6 +22,7 @@ import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/cn";
 import { imageExists } from "@/lib/images";
 import { localize } from "@/lib/localize";
+import { formatUsdIn } from "@/lib/pricing";
 import { absoluteUrl, db, exchangeRates, pageMetadata, requestCurrency, siteUrl } from "@/lib/server/site";
 
 export const dynamic = "force-dynamic";
@@ -49,9 +52,11 @@ export default async function DestinationPage({ params }: Props) {
   if (!d) notFound();
   const t = await getTranslations({ locale });
   const currency = await requestCurrency(locale);
-  const [tours, reviews] = await Promise.all([
-    listPublishedTours(db(), { destination: slug, sort: "featured", currency, page: 1, pageSize: 48 }, await exchangeRates()),
+  const rates = await exchangeRates();
+  const [tours, reviews, experiences] = await Promise.all([
+    listPublishedTours(db(), { destination: slug, sort: "featured", currency, page: 1, pageSize: 48 }, rates),
     listPublishedReviews(db(), { destinationSlug: slug, limit: 6 }),
+    listContent(db(), "experience", { destination: slug, limit: 4 }),
   ]);
   const name = localize(d.name, locale);
   const gallery = d.gallery.filter((g) => g.type === "image" && imageExists(g.url)).map((g) => ({ src: g.url, alt: localize(g.alt, locale) }));
@@ -59,38 +64,39 @@ export default async function DestinationPage({ params }: Props) {
 
   return (
     <ClientMessages namespaces={[]}>
-      <section className="on-dark relative overflow-hidden bg-lapis-deep text-ivory">
-        <GirihPattern className="absolute inset-0" tone="saffron" opacity={0.25} />
-        <div className="container-page relative grid items-center gap-10 py-10 lg:grid-cols-12 lg:py-16">
-          <div className="lg:col-span-7">
-            <Breadcrumbs
-              tone="dark"
-              label={t("nav.breadcrumb")}
-              base={`${siteUrl()}/${locale}`}
-              items={[
-                { name: t("nav.home"), href: "/" },
-                { name: t("destinations.title"), href: "/destinations" },
-                { name, href: `/destinations/${slug}` },
-              ]}
-            />
-            <h1 className="mt-6 text-5xl text-ivory">{name}</h1>
-            <p className="mt-4 max-w-xl text-xl text-sand">{localize(d.tagline, locale)}</p>
-            <p className="mt-6 font-semibold text-saffron">{t("destinations.toursCount", { count: tours.total })}</p>
-          </div>
-          <div className="relative mx-auto w-full max-w-xs lg:col-span-5">
-            <div className="relative aspect-[5/7]">
-              <div className="arch-mask absolute inset-0">
-                <SmartImage src={d.heroImage} alt={name} label={name} priority sizes="(min-width: 1024px) 20rem, 80vw" />
-              </div>
-              <ArchFrame className="-inset-2.5 h-[calc(100%+1.25rem)] w-[calc(100%+1.25rem)]" />
+      <section className="relative isolate overflow-hidden bg-lapis-deep text-white">
+        <div className="absolute inset-0 -z-10">
+          <SmartImage src={d.heroImage} alt="" label={name} priority sizes="100vw" />
+          <div className="absolute inset-0 bg-gradient-to-r from-lapis-deep/90 via-lapis-deep/55 to-lapis-deep/10" />
+          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-lapis-deep/70 to-transparent" />
+        </div>
+        <div className="container-page flex min-h-[26rem] flex-col py-10 lg:min-h-[32rem] lg:py-14">
+          <Breadcrumbs
+            tone="dark"
+            label={t("nav.breadcrumb")}
+            base={`${siteUrl()}/${locale}`}
+            items={[
+              { name: t("nav.home"), href: "/" },
+              { name: t("destinations.title"), href: "/destinations" },
+              { name, href: `/destinations/${slug}` },
+            ]}
+          />
+          <div className="mt-auto pt-12">
+            <p className="text-sm font-bold uppercase tracking-[0.12em] text-saffron">{d.country ? localize(d.country, locale) : t("nt.dest.country")}</p>
+            <h1 className="mt-2 text-[clamp(2.4rem,1.6rem+3vw,4rem)] leading-[1.05] text-white">{name}</h1>
+            <p className="mt-3 max-w-2xl text-xl text-white/85">{localize(d.tagline, locale)}</p>
+            <div className="mt-6 flex flex-wrap gap-2">
+              <a href="#destination-tours" className="inline-flex min-h-11 items-center gap-2 rounded-full bg-saffron px-5 text-sm font-bold text-lapis-deep hover:bg-[#e6b55a]">
+                {t("destinations.toursCount", { count: tours.total })}
+              </a>
+              <AskAssistantButton label={t("nt.destPage.ask")} question={t("nt.destPage.askQuestion", { name })} className="bg-white/15 backdrop-blur hover:bg-white/25" />
             </div>
           </div>
         </div>
-        <IkatDivider height={12} />
       </section>
 
       <div className="container-page space-y-20 py-14">
-        <section aria-labelledby="about-destination" className="grid gap-10 lg:grid-cols-12">
+        <section aria-labelledby="about-destination" className="grid grid-cols-1 gap-10 lg:grid-cols-12">
           <div className="lg:col-span-7">
             <SectionHeading id="about-destination" title={t("destinations.overview", { name })} />
             <div className="prose-silk mt-6 text-lg">
@@ -129,7 +135,7 @@ export default async function DestinationPage({ params }: Props) {
         {d.attractions.length > 0 && (
           <section aria-labelledby="attractions">
             <SectionHeading id="attractions" title={t("destinations.attractions")} />
-            <div className="mt-8 grid gap-8 lg:grid-cols-2">
+            <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-2">
               <ol className="space-y-5">
                 {d.attractions.map((a, i) => (
                   <li key={i} className="flex gap-4">
@@ -166,7 +172,7 @@ export default async function DestinationPage({ params }: Props) {
           {tours.items.length === 0 ? (
             <p className="mt-6 text-ink-muted">
               {t("destinations.noTours")}{" "}
-              <Link href="/services/tailor-made" className="text-cobalt underline">{t("tours.emptyCta")}</Link>
+              <Link href="/custom-tour" className="text-cobalt underline">{t("tours.emptyCta")}</Link>
             </p>
           ) : (
             <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -178,6 +184,24 @@ export default async function DestinationPage({ params }: Props) {
             </ul>
           )}
         </section>
+
+        {experiences.length > 0 && (
+          <section aria-labelledby="destination-experiences">
+            <SectionHeading id="destination-experiences" eyebrow={t("nt.exp.eyebrow")} title={t("nt.destPage.experiences", { name })} />
+            <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              {experiences.map((e) => (
+                <li key={e.slug}>
+                  <ExperienceCard
+                    item={e}
+                    locale={locale}
+                    hours={e.durationHours != null ? t("nt.exp.hours", { count: e.durationHours }) : undefined}
+                    price={e.priceFromUsd != null ? t("nt.exp.from", { price: formatUsdIn(e.priceFromUsd, currency, rates, locale) }) : undefined}
+                  />
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
 
         {reviews.total > 0 && (
           <section aria-labelledby="destination-reviews">
@@ -194,7 +218,7 @@ export default async function DestinationPage({ params }: Props) {
           description: localize(d.tagline, locale),
           url: absoluteUrl(locale, `/destinations/${slug}`),
           geo: { "@type": "GeoCoordinates", latitude: d.lat, longitude: d.lng },
-          containedInPlace: { "@type": "Country", name: "Uzbekistan" },
+          containedInPlace: { "@type": "Country", name: d.country ? localize(d.country, "en") : "Uzbekistan" },
           includesAttraction: d.attractions.map((a) => ({ "@type": "TouristAttraction", name: localize(a.name, locale) })),
         }}
       />

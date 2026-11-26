@@ -1,7 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { ArrowDown, ArrowUp, Minus, Plus, RotateCcw, Sparkles, Trash2 } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { ServiceRequestForm } from "@/components/services/service-request-form";
 import type { Locale } from "@/db/types";
+import { todayInTashkent } from "@/validators/common";
 import { openAssistant } from "./assistant-widget";
 import { PLANNER_STRINGS } from "./planner-strings";
 
@@ -22,7 +25,10 @@ type Plan = {
 
 const STYLE_KEYS = ["history", "food2", "nature", "crafts", "family", "adventure"] as const;
 
-export function PlannerClient({ locale, initialId }: { locale: Locale; initialId?: string }) {
+type Day = Plan["days"][number];
+export type PlannerPlace = { slug: string; names: string[] };
+
+export function PlannerClient({ locale, initialId, places = [] }: { locale: Locale; initialId?: string; places?: PlannerPlace[] }) {
   const t = PLANNER_STRINGS[locale];
   const [request, setRequest] = useState("");
   const [days, setDays] = useState<string>("");
@@ -33,6 +39,64 @@ export function PlannerClient({ locale, initialId }: { locale: Locale; initialId
   const [plan, setPlan] = useState<Plan | null>(null);
   const [planId, setPlanId] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const [itinerary, setItinerary] = useState<Day[]>([]);
+  const [removed, setRemoved] = useState<Day[]>([]);
+  const [startDate, setStartDate] = useState("");
+  const [adults, setAdults] = useState(2);
+  const [kids, setKids] = useState(0);
+  const [changes, setChanges] = useState("");
+
+  useEffect(() => {
+    setItinerary(plan?.days ?? []);
+    setRemoved([]);
+  }, [plan]);
+
+  const move = (i: number, d: -1 | 1) =>
+    setItinerary((list) => {
+      const j = i + d;
+      if (j < 0 || j >= list.length) return list;
+      const n = [...list];
+      [n[i], n[j]] = [n[j]!, n[i]!];
+      return n;
+    });
+  const removeDay = (i: number) => {
+    setRemoved((r) => [...r, itinerary[i]!]);
+    setItinerary((list) => list.filter((_, k) => k !== i));
+  };
+  const restore = (d: Day) => {
+    setRemoved((r) => r.filter((x) => x !== d));
+    setItinerary((list) => [...list, d].sort((a, b) => a.day - b.day));
+  };
+
+  /** Destination slugs mentioned by the plan (matched on names in any language). */
+  const slugs = useMemo(() => {
+    const text = [...(plan?.destinations ?? []), ...itinerary.map((d) => d.place)].join(" | ").toLowerCase();
+    return places.filter((p) => p.names.some((n) => n && text.includes(n.toLowerCase()))).map((p) => p.slug).slice(0, 9);
+  }, [plan, itinerary, places]);
+
+  const preset = useMemo(() => {
+    if (!plan || !startDate || itinerary.length === 0) return null;
+    const end = new Date(`${startDate}T00:00:00Z`);
+    end.setUTCDate(end.getUTCDate() + Math.max(0, itinerary.length - 1));
+    const lines = itinerary.map((d, i) => `${t.day} ${i + 1}: ${d.place} — ${d.title}`);
+    const notes = [
+      `${plan.title}${planId ? ` (${planId})` : ""}`,
+      ...lines,
+      removed.length ? `${t.removed}: ${removed.map((d) => `${d.place} — ${d.title}`).join("; ")}` : "",
+      changes.trim() ? `${t.changes} ${changes.trim()}` : "",
+    ].filter(Boolean);
+    return {
+      startDate,
+      endDate: end.toISOString().slice(0, 10),
+      adults,
+      children: kids,
+      destinationSlugs: slugs.length ? slugs : places.slice(0, 1).map((p) => p.slug),
+      interests: [],
+      accommodationLevel: "comfort",
+      budgetPerPersonUsd: Math.round((plan.budget.low + plan.budget.high) / 2) || undefined,
+      notes: notes.join("\n").slice(0, 3000),
+    };
+  }, [plan, planId, itinerary, removed, changes, startDate, adults, kids, slugs, places, t]);
 
   useEffect(() => {
     if (!initialId) return;
@@ -96,7 +160,7 @@ export function PlannerClient({ locale, initialId }: { locale: Locale; initialId
 
   return (
     <div className="grid gap-10 lg:grid-cols-12">
-      <form onSubmit={submit} className="space-y-5 border border-lapis-deep/10 bg-white p-6 lg:col-span-4 lg:self-start print:hidden">
+      <form onSubmit={submit} className="space-y-5 rounded-[1.5rem] bg-white p-6 shadow-card lg:col-span-4 lg:self-start print:hidden">
         <label className="block">
           <span className="text-sm font-bold">{t.request}</span>
           <textarea
@@ -149,7 +213,7 @@ export function PlannerClient({ locale, initialId }: { locale: Locale; initialId
             })}
           </div>
         </fieldset>
-        <button type="submit" disabled={busy} className="inline-flex min-h-12 w-full items-center justify-center rounded-[2px] bg-terracotta px-5 font-bold text-white hover:bg-terracotta-deep disabled:opacity-60">
+        <button type="submit" disabled={busy} className="inline-flex min-h-12 w-full items-center justify-center rounded-xl bg-terracotta px-5 font-bold text-white hover:bg-terracotta-deep disabled:opacity-60">
           {busy ? t.working : t.submit}
         </button>
         {error && <p role="alert" className="text-sm font-semibold text-terracotta-deep">{error}</p>}
@@ -157,10 +221,38 @@ export function PlannerClient({ locale, initialId }: { locale: Locale; initialId
       </form>
 
       <div id="plan-result" className="lg:col-span-8" aria-live="polite">
+        {!busy && !plan && (
+          <div className="bg-ai-soft rounded-[1.5rem] p-6 shadow-card sm:p-8">
+            <h2 className="text-2xl text-lapis">{t.emptyTitle}</h2>
+            <p className="mt-2 text-ink/75">{t.emptyText}</p>
+            <ol className="mt-6 grid gap-3 sm:grid-cols-3">
+              {t.steps.map((step, i) => (
+                <li key={step} className="rounded-2xl bg-white/80 p-4">
+                  <span className="inline-flex size-8 items-center justify-center rounded-full bg-lapis text-sm font-extrabold text-white">{i + 1}</span>
+                  <p className="mt-2 text-sm font-semibold text-lapis">{step}</p>
+                </li>
+              ))}
+            </ol>
+            <ul className="mt-6 flex flex-col gap-2">
+              {t.examples.map((ex) => (
+                <li key={ex}>
+                  <button
+                    type="button"
+                    onClick={() => setRequest(ex)}
+                    className="inline-flex min-h-11 w-full items-center gap-2 rounded-2xl bg-white px-4 py-2 text-left text-sm font-semibold text-lapis shadow-sm transition hover:bg-sky"
+                  >
+                    <Sparkles aria-hidden="true" className="size-4 shrink-0 text-cobalt" /> {ex}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
         {busy && !plan && (
-          <div className="space-y-3" aria-label={t.working}>
+          <div className="space-y-3" role="status" aria-label={t.working}>
+            <p className="text-sm font-semibold text-cobalt">{t.working}</p>
             {[0, 1, 2].map((i) => (
-              <div key={i} className="h-24 animate-pulse bg-sand-soft" />
+              <div key={i} className="h-24 animate-pulse rounded-2xl bg-sky" />
             ))}
           </div>
         )}
@@ -173,14 +265,19 @@ export function PlannerClient({ locale, initialId }: { locale: Locale; initialId
               {plan.generatedBy === "catalogue" && <p className="mt-3 border-l-2 border-terracotta pl-3 text-sm">{t.catalogue}</p>}
             </header>
 
-            <ol className="relative space-y-4 border-l border-dashed border-lapis-deep/40 pl-6">
-              {plan.days.map((d) => {
+            <ol className="relative space-y-4 border-l border-dashed border-cobalt/40 pl-6">
+              {itinerary.map((d, i) => {
                 const tour = d.tourSlug ? plan.suggestedTours.find((s) => s.slug === d.tourSlug && s.url) : null;
                 return (
-                  <li key={d.day} className="relative bg-white p-5">
-                    <span className="absolute -left-[33px] top-5 grid size-4 place-items-center rounded-full border-2 border-lapis-deep bg-ivory" aria-hidden />
-                    <p className="eyebrow text-turquoise-ink">{t.day} {d.day} · {d.place}</p>
-                    <h3 className="mt-1 text-2xl text-lapis-deep">{d.title}</h3>
+                  <li key={`${d.day}-${d.title}`} className="relative rounded-2xl bg-white p-5 shadow-card">
+                    <span className="absolute -left-[33px] top-5 grid size-4 place-items-center rounded-full border-2 border-cobalt bg-white" aria-hidden />
+                    <div className="float-right flex gap-1 print:hidden">
+                      <button type="button" onClick={() => move(i, -1)} disabled={i === 0} aria-label={`${t.moveUp}: ${t.day} ${i + 1}`} className="inline-flex size-9 items-center justify-center rounded-full text-ink-muted hover:bg-sky hover:text-cobalt disabled:opacity-30"><ArrowUp aria-hidden="true" className="size-4" /></button>
+                      <button type="button" onClick={() => move(i, 1)} disabled={i === itinerary.length - 1} aria-label={`${t.moveDown}: ${t.day} ${i + 1}`} className="inline-flex size-9 items-center justify-center rounded-full text-ink-muted hover:bg-sky hover:text-cobalt disabled:opacity-30"><ArrowDown aria-hidden="true" className="size-4" /></button>
+                      <button type="button" onClick={() => removeDay(i)} disabled={itinerary.length === 1} aria-label={`${t.removeDay}: ${t.day} ${i + 1}`} className="inline-flex size-9 items-center justify-center rounded-full text-ink-muted hover:bg-danger/10 hover:text-danger disabled:opacity-30"><Trash2 aria-hidden="true" className="size-4" /></button>
+                    </div>
+                    <p className="eyebrow text-cobalt">{t.day} {i + 1} · {d.place}</p>
+                    <h3 className="mt-1 text-xl text-lapis">{d.title}</h3>
                     <p className="mt-2 whitespace-pre-line text-ink">{d.plan}</p>
                     {d.transport && <p className="mt-2 text-sm text-ink-muted">→ {d.transport}</p>}
                     {tour && (
@@ -191,16 +288,31 @@ export function PlannerClient({ locale, initialId }: { locale: Locale; initialId
               })}
             </ol>
 
+            {removed.length > 0 && (
+              <div className="rounded-2xl bg-sky/60 p-4 text-sm print:hidden">
+                <p className="font-semibold text-lapis">{t.removed}</p>
+                <ul className="mt-2 flex flex-wrap gap-2">
+                  {removed.map((d) => (
+                    <li key={`${d.day}-${d.title}`}>
+                      <button type="button" onClick={() => restore(d)} className="inline-flex min-h-9 items-center gap-1.5 rounded-full bg-white px-3 font-semibold text-cobalt hover:bg-cobalt hover:text-white">
+                        <RotateCcw aria-hidden="true" className="size-3.5" /> {t.restore}: {d.place}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
             <div className="grid gap-4 md:grid-cols-2">
-              <section className="bg-lapis-deep p-5 text-ivory">
+              <section className="rounded-2xl bg-lapis p-5 text-white">
                 <p className="eyebrow text-saffron">{t.budgetTitle}</p>
                 <p className="mt-2 font-display text-4xl">${plan.budget.low.toLocaleString()}–{plan.budget.high.toLocaleString()}</p>
-                <p className="mt-1 text-sm text-sand">{t.perPerson}</p>
-                {plan.budget.note && <p className="mt-2 text-sm text-sand">{plan.budget.note}</p>}
+                <p className="mt-1 text-sm text-white/75">{t.perPerson}</p>
+                {plan.budget.note && <p className="mt-2 text-sm text-white/75">{plan.budget.note}</p>}
               </section>
               {!!plan.suggestedTours.length && (
-                <section className="bg-white p-5">
-                  <p className="eyebrow text-terracotta">{t.suggested}</p>
+                <section className="rounded-2xl bg-white p-5 shadow-card">
+                  <p className="eyebrow text-cobalt">{t.suggested}</p>
                   <ul className="mt-2 space-y-2">
                     {plan.suggestedTours.filter((s) => s.url).map((s) => (
                       <li key={s.slug}>
@@ -244,12 +356,45 @@ export function PlannerClient({ locale, initialId }: { locale: Locale; initialId
             )}
 
             <div className="flex flex-wrap gap-3 print:hidden">
-              <a href={bookHref} className="inline-flex min-h-12 items-center rounded-[2px] bg-terracotta px-5 font-bold text-white hover:bg-terracotta-deep">{t.book}</a>
-              <button type="button" onClick={share} className="inline-flex min-h-12 items-center rounded-[2px] border border-lapis-deep px-5 font-bold hover:bg-lapis-deep hover:text-ivory">{copied ? t.copied : t.share}</button>
-              <button type="button" onClick={() => window.print()} className="inline-flex min-h-12 items-center rounded-[2px] border border-lapis-deep px-5 font-bold hover:bg-lapis-deep hover:text-ivory">{t.print}</button>
-              <button type="button" onClick={() => openAssistant()} className="inline-flex min-h-12 items-center rounded-[2px] border border-lapis-deep px-5 font-bold hover:bg-lapis-deep hover:text-ivory">{t.ask}</button>
+              <a href="#send-plan" className="inline-flex min-h-12 items-center rounded-full bg-saffron px-5 font-bold text-lapis-deep hover:bg-[#e6b55a]">{t.sendCta}</a>
+              {firstTour && <a href={bookHref} className="inline-flex min-h-12 items-center rounded-full border border-lapis/30 px-5 font-bold text-lapis hover:bg-lapis hover:text-white">{t.book}</a>}
+              <button type="button" onClick={share} className="inline-flex min-h-12 items-center rounded-full border border-lapis/30 px-5 font-bold text-lapis hover:bg-lapis hover:text-white">{copied ? t.copied : t.share}</button>
+              <button type="button" onClick={() => window.print()} className="inline-flex min-h-12 items-center rounded-full border border-lapis/30 px-5 font-bold text-lapis hover:bg-lapis hover:text-white">{t.print}</button>
+              <button type="button" onClick={() => openAssistant()} className="inline-flex min-h-12 items-center rounded-full border border-lapis/30 px-5 font-bold text-lapis hover:bg-lapis hover:text-white">{t.ask}</button>
             </div>
             <p className="text-xs text-ink-muted">{t.disclaimer}</p>
+
+            <section id="send-plan" className="scroll-mt-24 rounded-[1.5rem] bg-white p-6 shadow-card print:hidden" aria-labelledby="send-plan-title">
+              <h2 id="send-plan-title" className="text-2xl text-lapis">{t.sendTitle}</h2>
+              <p className="mt-2 text-ink-muted">{t.sendText}</p>
+              <div className="mt-5 grid gap-5 sm:grid-cols-3">
+                <label className="flex flex-col gap-1.5 text-sm font-semibold">
+                  {t.startDate}
+                  <input type="date" min={todayInTashkent(new Date(Date.now() + 86400_000))} value={startDate} onChange={(e) => setStartDate(e.target.value)} className="h-11 rounded-xl border border-field bg-white px-3 font-normal focus:border-cobalt focus:outline-none focus:ring-2 focus:ring-cobalt/30" />
+                </label>
+                {([[t.adults, adults, setAdults, 1, 20], [t.children, kids, setKids, 0, 10]] as const).map(([label, value, set, min, max]) => (
+                  <div key={label} className="flex flex-col gap-1.5 text-sm font-semibold">
+                    {label}
+                    <div className="inline-flex items-center gap-2" role="group" aria-label={label}>
+                      <button type="button" onClick={() => set(Math.max(min, value - 1))} disabled={value <= min} aria-label={`${label} −`} className="inline-flex size-10 items-center justify-center rounded-full bg-sky text-cobalt disabled:opacity-40"><Minus aria-hidden="true" className="size-4" /></button>
+                      <span className="min-w-6 text-center text-lg font-extrabold text-lapis">{value}</span>
+                      <button type="button" onClick={() => set(Math.min(max, value + 1))} disabled={value >= max} aria-label={`${label} +`} className="inline-flex size-10 items-center justify-center rounded-full bg-sky text-cobalt disabled:opacity-40"><Plus aria-hidden="true" className="size-4" /></button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <label className="mt-5 flex flex-col gap-1.5 text-sm font-semibold">
+                {t.changes}
+                <textarea value={changes} onChange={(e) => setChanges(e.target.value)} rows={3} maxLength={1500} placeholder={t.changesPh} className="rounded-xl border border-field bg-white p-3 font-normal focus:border-cobalt focus:outline-none focus:ring-2 focus:ring-cobalt/30" />
+              </label>
+              <div className="mt-6">
+                {preset ? (
+                  <ServiceRequestForm kind="tailor-made" destinations={[]} preset={preset} hideDetails title={t.contactTitle} submitLabel={t.sendCta} />
+                ) : (
+                  <p role="status" className="rounded-2xl bg-sky/60 p-4 text-ink/80">{t.needDate}</p>
+                )}
+              </div>
+            </section>
           </article>
         )}
       </div>

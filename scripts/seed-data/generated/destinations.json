@@ -1,0 +1,893 @@
+[
+ {
+  "slug": "aydarkul",
+  "lat": 40.9,
+  "lng": 66.85,
+  "country": null,
+  "name": {
+   "en": "Aydarkul Lake",
+   "uz": "Aydarkoʻl",
+   "ru": "Озеро Айдаркуль"
+  },
+  "tagline": {
+   "en": "Yurt camps, camel rides and a lake in the Kyzylkum desert",
+   "uz": "Qizilqum choʻlidagi koʻl, oʻtov lagerlari va tuya sayri",
+   "ru": "Юрточные лагеря, верблюды и озеро в пустыне Кызылкум"
+  },
+  "overview": {
+   "en": "Aydarkul is a large lake in the Kyzylkum desert, part of the Aydar–Arnasay system between the Jizzakh and Navoi regions. Yurt camps on the nearby dunes offer camel rides, campfire evenings and swimming in summer. It is about 4 hours by road from Samarkand and is often combined with the Nuratau mountains.",
+   "uz": "Aydarkoʻl Qizilqum choʻlidagi katta koʻl boʻlib, Jizzax va Navoiy viloyatlari oraligʻidagi Aydar–Arnasoy tizimiga kiradi. Yaqindagi barxanlarda joylashgan oʻtov lagerlari tuya sayri, gulxan kechalari va yozda choʻmilishni taklif qiladi. Samarqanddan avtomobilda taxminan 4 soat, koʻpincha Nurota togʻlari bilan birga koʻriladi.",
+   "ru": "Айдаркуль — большое озеро в пустыне Кызылкум, часть системы Айдар–Арнасай между Джизакской и Навоийской областями. Юрточные лагеря на соседних барханах предлагают прогулки на верблюдах, вечера у костра и летом купание. Из Самарканда около 4 часов по дороге, часто совмещают с горами Нуратау."
+  },
+  "attractions": [
+   {
+    "name": {
+     "en": "Yurt camps",
+     "uz": "Oʻtov lagerlari",
+     "ru": "Юрточные лагеря"
+    },
+    "description": {
+     "en": "Felt yurts among the dunes with dinner, music and a starry sky.",
+     "uz": "Barxanlar orasidagi kigiz oʻtovlar: kechki ovqat, musiqa va yulduzli osmon.",
+     "ru": "Войлочные юрты среди барханов с ужином, музыкой и звёздным небом."
+    },
+    "lat": 40.82,
+    "lng": 66.6
+   },
+   {
+    "name": {
+     "en": "Lake shore",
+     "uz": "Koʻl qirgʻogʻi",
+     "ru": "Берег озера"
+    },
+    "description": {
+     "en": "Sandy beaches for swimming from late May to September and good birdwatching in spring and autumn.",
+     "uz": "May oxiridan sentabrgacha choʻmilish uchun qumli sohil, bahor va kuzda qushlarni kuzatish.",
+     "ru": "Песчаные пляжи для купания с конца мая по сентябрь, весной и осенью наблюдение за птицами."
+    },
+    "lat": 40.9,
+    "lng": 66.85
+   },
+   {
+    "name": {
+     "en": "Camel ride",
+     "uz": "Tuya sayri",
+     "ru": "Прогулка на верблюде"
+    },
+    "description": {
+     "en": "A short ride across the dunes, best before sunset.",
+     "uz": "Barxanlar boʻylab qisqa sayr, kun botishidan oldin eng yaxshi payt.",
+     "ru": "Короткая прогулка по барханам, лучше всего перед закатом."
+    },
+    "lat": 40.83,
+    "lng": 66.62
+   }
+  ],
+  "bestTime": {
+   "en": "April to June and September to October; swimming is best from June to August.",
+   "uz": "Aprel–iyun va sentabr–oktabr; choʻmilish uchun iyun–avgust eng yaxshi.",
+   "ru": "Апрель–июнь и сентябрь–октябрь; купаться лучше с июня по август."
+  },
+  "bestMonths": [
+   4,
+   5,
+   6,
+   9,
+   10
+  ]
+ },
+ {
+  "slug": "nuratau",
+  "lat": 40.56,
+  "lng": 65.69,
+  "country": null,
+  "name": {
+   "en": "Nuratau Mountains",
+   "uz": "Nurota togʻlari",
+   "ru": "Горы Нуратау"
+  },
+  "tagline": {
+   "en": "Walnut-shaded villages, a holy spring and quiet mountain trails",
+   "uz": "Yongʻoqzor qishloqlar, muqaddas buloq va sokin togʻ soʻqmoqlari",
+   "ru": "Ореховые сёла, священный родник и тихие горные тропы"
+  },
+  "overview": {
+   "en": "The Nuratau range rises between the Kyzylkum desert and Lake Aydarkul. Nurata town is known for its spring-fed fish pool and the ruins of a fortress linked to Alexander the Great. In the villages of Sentob and Hayat, families host travellers in simple guesthouses. It is about 3 to 4 hours by road from Samarkand.",
+   "uz": "Nurota tizmasi Qizilqum choʻli va Aydarkoʻl oraligʻida joylashgan. Nurota shahri buloq suvi bilan toʻladigan baliqli hovuzi va Iskandar Zulqarnayn nomi bilan bogʻliq qalʼa xarobalari bilan mashhur. Sentob va Hayot qishloqlarida oilalar sayohatchilarni oddiy mehmon uylarida kutib oladi. Samarqanddan avtomobilda taxminan 3–4 soat.",
+   "ru": "Хребет Нуратау поднимается между пустыней Кызылкум и озером Айдаркуль. Город Нурата известен родником с прудом, полным рыб, и руинами крепости, связанной с Александром Македонским. В сёлах Сентоб и Хаят семьи принимают путешественников в простых гостевых домах. Дорога из Самарканда занимает 3–4 часа."
+  },
+  "attractions": [
+   {
+    "name": {
+     "en": "Chashma spring and fish pool",
+     "uz": "Chashma buloq va baliqli hovuz",
+     "ru": "Родник Чашма и рыбный пруд"
+    },
+    "description": {
+     "en": "A pilgrimage site with a mosque and a pool of sacred fish fed by a warm spring.",
+     "uz": "Masjid va iliq buloq suvi bilan toʻladigan muqaddas baliqli hovuzi bor ziyoratgoh.",
+     "ru": "Место паломничества с мечетью и прудом священных рыб, питаемым тёплым родником."
+    },
+    "lat": 40.5617,
+    "lng": 65.6889
+   },
+   {
+    "name": {
+     "en": "Nur fortress ruins",
+     "uz": "Nur qalʼasi xarobalari",
+     "ru": "Руины крепости Нур"
+    },
+    "description": {
+     "en": "Earthen walls above the spring, traditionally linked to Alexander's campaign of the 4th century BC.",
+     "uz": "Buloq tepasidagi tuproq devorlar, anʼanaga koʻra miloddan avvalgi IV asrdagi Iskandar yurishi bilan bogʻlanadi.",
+     "ru": "Глиняные стены над родником, по преданию связанные с походом Александра в IV веке до н. э."
+    },
+    "lat": 40.5633,
+    "lng": 65.6861
+   },
+   {
+    "name": {
+     "en": "Sentob village",
+     "uz": "Sentob qishlogʻi",
+     "ru": "Село Сентоб"
+    },
+    "description": {
+     "en": "A stone-built mountain village with guesthouses, orchards and walking trails.",
+     "uz": "Toshdan qurilgan togʻ qishlogʻi: mehmon uylari, bogʻlar va piyoda yoʻllar.",
+     "ru": "Горное село из камня с гостевыми домами, садами и пешими тропами."
+    },
+    "lat": 40.6131,
+    "lng": 66.1036
+   },
+   {
+    "name": {
+     "en": "Hayat village",
+     "uz": "Hayot qishlogʻi",
+     "ru": "Село Хаят"
+    },
+    "description": {
+     "en": "Known for petroglyphs nearby and home-cooked meals in family guesthouses.",
+     "uz": "Yaqinidagi petrogliflar va oilaviy mehmon uylaridagi uy taomlari bilan tanilgan.",
+     "ru": "Известно петроглифами поблизости и домашней кухней в семейных гостевых домах."
+    },
+    "lat": 40.6306,
+    "lng": 66.0469
+   }
+  ],
+  "bestTime": {
+   "en": "April to June and September to October, with days of 20–30 °C. Summers are hot, winters cold and quiet.",
+   "uz": "Aprel–iyun va sentabr–oktabr, kunduzi 20–30 °C. Yozi issiq, qishi sovuq va sokin.",
+   "ru": "С апреля по июнь и в сентябре–октябре, днём 20–30 °C. Лето жаркое, зима холодная и тихая."
+  },
+  "bestMonths": [
+   4,
+   5,
+   6,
+   9,
+   10
+  ]
+ },
+ {
+  "slug": "termez",
+  "lat": 37.224,
+  "lng": 67.278,
+  "country": null,
+  "name": {
+   "en": "Termez",
+   "uz": "Termiz",
+   "ru": "Термез"
+  },
+  "tagline": {
+   "en": "Buddhist monasteries and Islamic shrines on the Amu Darya",
+   "uz": "Amudaryo boʻyidagi buddaviylik monastirlari va islom ziyoratgohlari",
+   "ru": "Буддийские монастыри и исламские святыни на Амударье"
+  },
+  "overview": {
+   "en": "Uzbekistan's southernmost city stands on the Amu Darya opposite Afghanistan. Termez was a centre of Buddhism under the Kushans, and monasteries such as Fayaz Tepe and Kara Tepe can still be explored. Later it became a revered place of Islamic scholarship. A flight from Tashkent takes about 1 hour 30 minutes.",
+   "uz": "Oʻzbekistonning eng janubiy shahri Amudaryo boʻyida, Afgʻoniston roʻparasida joylashgan. Termiz Kushonlar davrida buddaviylik markazi boʻlgan, Fayoztepa va Qoratepa kabi monastirlarni hozir ham koʻrish mumkin. Keyinchalik u islom ilmi markaziga aylangan. Toshkentdan samolyotda taxminan 1 soat 30 daqiqa.",
+   "ru": "Самый южный город Узбекистана стоит на Амударье напротив Афганистана. При Кушанах Термез был центром буддизма, и монастыри Фаяз-Тепе и Кара-Тепе можно осмотреть и сегодня. Позже город стал почитаемым центром исламской учёности. Перелёт из Ташкента занимает около 1 часа 30 минут."
+  },
+  "attractions": [
+   {
+    "name": {
+     "en": "Fayaz Tepe",
+     "uz": "Fayoztepa",
+     "ru": "Фаяз-Тепе"
+    },
+    "description": {
+     "en": "A 1st–3rd century Buddhist monastery with a restored stupa.",
+     "uz": "Milodiy I–III asrlarga oid, stupasi tiklangan buddaviylik monastiri.",
+     "ru": "Буддийский монастырь I–III веков с восстановленной ступой."
+    },
+    "lat": 37.2717,
+    "lng": 67.2,
+    "_": 0
+   },
+   {
+    "name": {
+     "en": "Sultan Saodat complex",
+     "uz": "Sulton Saodat majmuasi",
+     "ru": "Комплекс Султан Саодат"
+    },
+    "description": {
+     "en": "A row of domed mausoleums of the Termez sayyids built from the 10th to 17th centuries.",
+     "uz": "X–XVII asrlarda qurilgan Termiz sayyidlarining gumbazli maqbaralari.",
+     "ru": "Ряд купольных мавзолеев термезских сейидов X–XVII веков."
+    },
+    "lat": 37.2522,
+    "lng": 67.2397
+   },
+   {
+    "name": {
+     "en": "Al-Hakim at-Termizi mausoleum",
+     "uz": "Al-Hakim at-Termiziy maqbarasi",
+     "ru": "Мавзолей аль-Хакима ат-Термези"
+    },
+    "description": {
+     "en": "The shrine of a 9th-century Sufi scholar near the old citadel and the river.",
+     "uz": "Qadimiy qalʼa va daryo yaqinidagi IX asr soʻfiy olimining maqbarasi.",
+     "ru": "Мавзолей суфийского учёного IX века у древней цитадели и реки."
+    },
+    "lat": 37.2667,
+    "lng": 67.1917
+   },
+   {
+    "name": {
+     "en": "Termez Archaeological Museum",
+     "uz": "Termiz arxeologiya muzeyi",
+     "ru": "Археологический музей Термеза"
+    },
+    "description": {
+     "en": "Finds from Buddhist, Greek-Bactrian and Islamic sites of the region.",
+     "uz": "Viloyatdagi buddaviylik, yunon-baqtriya va islom davri yodgorliklaridan topilmalar.",
+     "ru": "Находки буддийской, греко-бактрийской и исламской эпох региона."
+    },
+    "lat": 37.2286,
+    "lng": 67.2783
+   }
+  ],
+  "bestTime": {
+   "en": "March to May and October to November. Summer temperatures often exceed 40 °C.",
+   "uz": "Mart–may va oktabr–noyabr. Yozda harorat koʻpincha 40 °C dan oshadi.",
+   "ru": "С марта по май и в октябре–ноябре. Летом жара часто выше 40 °C."
+  },
+  "bestMonths": [
+   3,
+   4,
+   5,
+   10,
+   11
+  ]
+ },
+ {
+  "slug": "kokand",
+  "lat": 40.5286,
+  "lng": 70.9425,
+  "country": null,
+  "name": {
+   "en": "Kokand",
+   "uz": "Qoʻqon",
+   "ru": "Коканд"
+  },
+  "tagline": {
+   "en": "The khan's palace, wooden mosques and famous halva",
+   "uz": "Xon saroyi, yogʻoch ustunli masjidlar va mashhur holva",
+   "ru": "Ханский дворец, деревянные мечети и знаменитая халва"
+  },
+  "overview": {
+   "en": "Kokand was the capital of a powerful khanate in the 18th and 19th centuries and is the western gateway to the Fergana Valley. The tiled palace of Khudayar Khan and the Jami Mosque with its carved wooden columns are the highlights. From Tashkent it is about 4 hours by road over the Kamchik Pass or by train.",
+   "uz": "Qoʻqon XVIII–XIX asrlarda qudratli xonlik poytaxti boʻlgan va Fargʻona vodiysining gʻarbiy darvozasi hisoblanadi. Koshinli Xudoyorxon saroyi va naqshinkor yogʻoch ustunli Jome masjidi asosiy diqqatga sazovor joylardir. Toshkentdan Qamchiq dovoni orqali avtomobilda yoki poyezdda taxminan 4 soat.",
+   "ru": "Коканд был столицей сильного ханства в XVIII–XIX веках и служит западными воротами Ферганской долины. Главные достопримечательности — изразцовый дворец Худояр-хана и Джума-мечеть с резными деревянными колоннами. Из Ташкента около 4 часов по дороге через перевал Камчик или поездом."
+  },
+  "attractions": [
+   {
+    "name": {
+     "en": "Khudayar Khan palace",
+     "uz": "Xudoyorxon saroyi",
+     "ru": "Дворец Худояр-хана"
+    },
+    "description": {
+     "en": "A 19th-century palace with a richly tiled facade, now a museum.",
+     "uz": "Koshinlar bilan bezatilgan XIX asr saroyi, hozir muzey.",
+     "ru": "Дворец XIX века с богато украшенным изразцами фасадом, ныне музей."
+    },
+    "lat": 40.5361,
+    "lng": 70.9422
+   },
+   {
+    "name": {
+     "en": "Jami Mosque",
+     "uz": "Jome masjidi",
+     "ru": "Джума-мечеть"
+    },
+    "description": {
+     "en": "A Friday mosque whose veranda rests on 98 carved wooden columns.",
+     "uz": "Ayvoni 98 ta oʻymakor yogʻoch ustunga tayangan juma masjidi.",
+     "ru": "Пятничная мечеть, айван которой опирается на 98 резных деревянных колонн."
+    },
+    "lat": 40.5294,
+    "lng": 70.9375
+   },
+   {
+    "name": {
+     "en": "Dakhma-i-Shakhon",
+     "uz": "Dahmai shohon",
+     "ru": "Дахмаи-Шахон"
+    },
+    "description": {
+     "en": "The burial complex of the Kokand khans with a painted wooden portal.",
+     "uz": "Qoʻqon xonlarining naqshinkor yogʻoch peshtoqli maqbaralar majmuasi.",
+     "ru": "Усыпальница кокандских ханов с расписным деревянным порталом."
+    },
+    "lat": 40.5269,
+    "lng": 70.9461
+   },
+   {
+    "name": {
+     "en": "Norbuta-biy madrasah",
+     "uz": "Norboʻtabiy madrasasi",
+     "ru": "Медресе Нарбута-бия"
+    },
+    "description": {
+     "en": "A working madrasah from the late 18th century.",
+     "uz": "XVIII asr oxirida qurilgan, hozir ham faoliyat yuritayotgan madrasa.",
+     "ru": "Действующее медресе конца XVIII века."
+    },
+    "lat": 40.5247,
+    "lng": 70.9433
+   }
+  ],
+  "bestTime": {
+   "en": "April to June and September to October; the valley is green in spring and full of fruit in autumn.",
+   "uz": "Aprel–iyun va sentabr–oktabr: bahorda vodiy yam-yashil, kuzda mevaga toʻla.",
+   "ru": "С апреля по июнь и в сентябре–октябре: весной долина зелёная, осенью полна фруктов."
+  },
+  "bestMonths": [
+   4,
+   5,
+   6,
+   9,
+   10
+  ]
+ },
+ {
+  "slug": "margilan",
+  "lat": 40.4717,
+  "lng": 71.7247,
+  "country": null,
+  "name": {
+   "en": "Margilan",
+   "uz": "Margʻilon",
+   "ru": "Маргилан"
+  },
+  "tagline": {
+   "en": "Hand-woven ikat silk and the valley's liveliest bazaar",
+   "uz": "Qoʻlda toʻqilgan atlas-adras va vodiyning eng gavjum bozori",
+   "ru": "Шёлк икат ручной работы и самый оживлённый базар долины"
+  },
+  "overview": {
+   "en": "Margilan has produced silk for centuries and is the place to see atlas and adras ikat made by hand, from cocoon to loom. The Yodgorlik workshop welcomes visitors, and the Kumtepa bazaar on Thursdays and Sundays is a feast of fabric and food. Rishtan's ceramic workshops are 45 minutes away.",
+   "uz": "Margʻilon asrlar davomida ipak ishlab chiqarib keladi; bu yerda atlas va adrasning pilladan dastgohgacha qoʻlda tayyorlanishini koʻrish mumkin. «Yodgorlik» ustaxonasi mehmonlarni kutib oladi, payshanba va yakshanba kunlari Kumtepa bozori mato va taomlarga boy. Rishton kulolchilik ustaxonalarigacha 45 daqiqa.",
+   "ru": "Маргилан веками производит шёлк, и здесь можно увидеть, как атлас и адрас создают вручную, от кокона до станка. Мастерская «Ёдгорлик» открыта для гостей, а базар Кумтепа по четвергам и воскресеньям полон тканей и еды. До керамических мастерских Риштана 45 минут."
+  },
+  "attractions": [
+   {
+    "name": {
+     "en": "Yodgorlik silk workshop",
+     "uz": "«Yodgorlik» ipak ustaxonasi",
+     "ru": "Шёлковая мастерская «Ёдгорлик»"
+    },
+    "description": {
+     "en": "See silk reeled, dyed and woven into ikat on traditional looms.",
+     "uz": "Ipakning pilladan chuvilishi, boʻyalishi va anʼanaviy dastgohda toʻqilishini koʻring.",
+     "ru": "Как шёлк разматывают, красят и ткут икат на традиционных станках."
+    },
+    "lat": 40.4597,
+    "lng": 71.7211
+   },
+   {
+    "name": {
+     "en": "Kumtepa bazaar",
+     "uz": "Kumtepa bozori",
+     "ru": "Базар Кумтепа"
+    },
+    "description": {
+     "en": "A large market of silk, cotton and household goods, busiest on Thursdays and Sundays.",
+     "uz": "Ipak, paxta matolari va roʻzgʻor buyumlari bozori, payshanba va yakshanba eng gavjum.",
+     "ru": "Большой рынок шёлка, хлопка и товаров для дома, самый людный по четвергам и воскресеньям."
+    },
+    "lat": 40.4447,
+    "lng": 71.7408
+   },
+   {
+    "name": {
+     "en": "Said Ahmad Khoja madrasah",
+     "uz": "Said Ahmadxoʻja madrasasi",
+     "ru": "Медресе Саид Ахмад-ходжи"
+    },
+    "description": {
+     "en": "A 19th-century madrasah with a wooden veranda in the old town.",
+     "uz": "Eski shahardagi yogʻoch ayvonli XIX asr madrasasi.",
+     "ru": "Медресе XIX века с деревянным айваном в старом городе."
+    },
+    "lat": 40.4706,
+    "lng": 71.7253
+   },
+   {
+    "name": {
+     "en": "Rishtan ceramics",
+     "uz": "Rishton kulolchiligi",
+     "ru": "Риштанская керамика"
+    },
+    "description": {
+     "en": "Family workshops making blue-glazed pottery with local clay and ishkor glaze.",
+     "uz": "Mahalliy loy va ishqor sirli koʻk sopol buyumlar yasaydigan oilaviy ustaxonalar.",
+     "ru": "Семейные мастерские голубой керамики из местной глины с глазурью ишкор."
+    },
+    "lat": 40.3567,
+    "lng": 71.2847
+   }
+  ],
+  "bestTime": {
+   "en": "April to June and September to October. Spring is silk-worm season in the valley.",
+   "uz": "Aprel–iyun va sentabr–oktabr. Bahorda vodiyda pilla mavsumi boʻladi.",
+   "ru": "С апреля по июнь и в сентябре–октябре. Весной в долине сезон шелкопряда."
+  },
+  "bestMonths": [
+   4,
+   5,
+   6,
+   9,
+   10
+  ]
+ },
+ {
+  "slug": "nukus",
+  "lat": 42.46,
+  "lng": 59.61,
+  "country": null,
+  "name": {
+   "en": "Nukus",
+   "uz": "Nukus",
+   "ru": "Нукус"
+  },
+  "tagline": {
+   "en": "The Savitsky Museum and the road to the Aral Sea",
+   "uz": "Savitskiy muzeyi va Orol dengiziga yoʻl",
+   "ru": "Музей Савицкого и дорога к Аральскому морю"
+  },
+  "overview": {
+   "en": "The capital of Karakalpakstan is home to the Savitsky Museum, which holds one of the largest collections of Russian avant-garde art along with Karakalpak crafts. Nukus is also the base for Mizdakhan, Chilpik and trips to Moynaq and the Aral Sea. Flights from Tashkent take about 2 hours.",
+   "uz": "Qoraqalpogʻiston poytaxtida rus avangard sanʼatining eng yirik toʻplamlaridan biri va qoraqalpoq hunarmandchiligi saqlanadigan Savitskiy muzeyi joylashgan. Nukus Mizdahkon, Chilpiq hamda Moʻynoq va Orol dengiziga safarlar uchun tayanch nuqta. Toshkentdan samolyotda taxminan 2 soat.",
+   "ru": "В столице Каракалпакстана находится музей Савицкого с одной из крупнейших коллекций русского авангарда и каракалпакским прикладным искусством. Нукус — база для поездок в Миздакхан, Чилпык, Муйнак и к Аральскому морю. Перелёт из Ташкента около 2 часов."
+  },
+  "attractions": [
+   {
+    "name": {
+     "en": "Savitsky Museum",
+     "uz": "Savitskiy muzeyi",
+     "ru": "Музей Савицкого"
+    },
+    "description": {
+     "en": "Avant-garde paintings saved by Igor Savitsky, plus archaeology and Karakalpak jewellery.",
+     "uz": "Igor Savitskiy saqlab qolgan avangard rasmlar, arxeologiya va qoraqalpoq zargarlik buyumlari.",
+     "ru": "Авангардная живопись, спасённая Игорем Савицким, археология и каракалпакские украшения."
+    },
+    "lat": 42.4636,
+    "lng": 59.6125
+   },
+   {
+    "name": {
+     "en": "Mizdakhan necropolis",
+     "uz": "Mizdahkon qabristoni",
+     "ru": "Некрополь Миздакхан"
+    },
+    "description": {
+     "en": "A vast hilltop cemetery used for over two thousand years, near Khojeli.",
+     "uz": "Xoʻjayli yaqinidagi, ikki ming yildan ortiq foydalanilgan tepalikdagi ulkan qabriston.",
+     "ru": "Огромный некрополь на холме у Ходжейли, используемый более двух тысяч лет."
+    },
+    "lat": 42.4,
+    "lng": 59.5167
+   },
+   {
+    "name": {
+     "en": "Chilpik",
+     "uz": "Chilpiq",
+     "ru": "Чилпык"
+    },
+    "description": {
+     "en": "A Zoroastrian tower of silence on a hill above the Amu Darya.",
+     "uz": "Amudaryo tepasidagi tepalikda joylashgan zardushtiylik «sukunat minorasi».",
+     "ru": "Зороастрийская «башня молчания» на холме над Амударьёй."
+    },
+    "lat": 42.0333,
+    "lng": 60.2833
+   },
+   {
+    "name": {
+     "en": "Moynaq ship cemetery",
+     "uz": "Moʻynoqdagi kemalar qabristoni",
+     "ru": "Кладбище кораблей в Муйнаке"
+    },
+    "description": {
+     "en": "Rusting fishing boats in the sand where the sea shore once was.",
+     "uz": "Bir paytlar dengiz qirgʻogʻi boʻlgan qumlikda qolgan zanglagan baliqchi kemalari.",
+     "ru": "Ржавые рыболовецкие суда в песках на месте бывшего берега."
+    },
+    "lat": 43.7683,
+    "lng": 58.9886
+   }
+  ],
+  "bestTime": {
+   "en": "April to May and September to October. Summers are very hot and winters harsh.",
+   "uz": "Aprel–may va sentabr–oktabr. Yozi juda issiq, qishi qattiq.",
+   "ru": "Апрель–май и сентябрь–октябрь. Лето очень жаркое, зима суровая."
+  },
+  "bestMonths": [
+   4,
+   5,
+   9,
+   10
+  ]
+ },
+ {
+  "slug": "boysun",
+  "lat": 38.206,
+  "lng": 67.2,
+  "country": null,
+  "name": {
+   "en": "Boysun",
+   "uz": "Boysun",
+   "ru": "Байсун"
+  },
+  "tagline": {
+   "en": "Mountain villages and a living folk culture recognised by UNESCO",
+   "uz": "Togʻ qishloqlari va UNESCO eʼtirof etgan jonli xalq madaniyati",
+   "ru": "Горные сёла и живая народная культура, признанная ЮНЕСКО"
+  },
+  "overview": {
+   "en": "Boysun is a mountain district of Surkhandarya whose cultural space is inscribed on UNESCO's list of intangible heritage. Travellers come for village life, folk music and crafts, the Darband canyon and the Teshik-Tash cave where Neanderthal remains were found. It is about 3 hours by road from Termez.",
+   "uz": "Boysun Surxondaryoning togʻli tumani boʻlib, uning madaniy makoni UNESCOning nomoddiy meros roʻyxatiga kiritilgan. Sayohatchilar bu yerga qishloq hayoti, xalq musiqasi va hunarmandchiligi, Darband darasi hamda neandertal qoldiqlari topilgan Teshiktosh gʻori uchun keladi. Termizdan avtomobilda taxminan 3 soat.",
+   "ru": "Байсун — горный район Сурхандарьи, культурное пространство которого внесено в список нематериального наследия ЮНЕСКО. Сюда едут ради сельской жизни, народной музыки и ремёсел, каньона Дарбанд и пещеры Тешик-Таш, где нашли останки неандертальца. Из Термеза около 3 часов по дороге."
+  },
+  "attractions": [
+   {
+    "name": {
+     "en": "Darband canyon",
+     "uz": "Darband darasi",
+     "ru": "Каньон Дарбанд"
+    },
+    "description": {
+     "en": "A narrow gorge on the old road between Samarkand and Termez.",
+     "uz": "Samarqand va Termiz oraligʻidagi qadimiy yoʻldagi tor dara.",
+     "ru": "Узкое ущелье на старой дороге между Самаркандом и Термезом."
+    },
+    "lat": 38.36,
+    "lng": 67.08
+   },
+   {
+    "name": {
+     "en": "Teshik-Tash cave",
+     "uz": "Teshiktosh gʻori",
+     "ru": "Пещера Тешик-Таш"
+    },
+    "description": {
+     "en": "A mountain cave where the remains of a Neanderthal child were found in 1938.",
+     "uz": "1938 yilda neandertal bola qoldiqlari topilgan togʻ gʻori.",
+     "ru": "Горная пещера, где в 1938 году нашли останки ребёнка-неандертальца."
+    },
+    "lat": 38.3,
+    "lng": 67.04
+   },
+   {
+    "name": {
+     "en": "Boysun villages",
+     "uz": "Boysun qishloqlari",
+     "ru": "Сёла Байсуна"
+    },
+    "description": {
+     "en": "Stone houses, orchards and family hosts who keep old songs and embroidery alive.",
+     "uz": "Tosh uylar, bogʻlar va qadimiy qoʻshiq hamda kashtachilikni saqlab kelayotgan oilalar.",
+     "ru": "Каменные дома, сады и семьи, хранящие старинные песни и вышивку."
+    },
+    "lat": 38.206,
+    "lng": 67.2
+   },
+   {
+    "name": {
+     "en": "Boysun Bahori festival",
+     "uz": "«Boysun bahori» festivali",
+     "ru": "Фестиваль «Байсун бахори»"
+    },
+    "description": {
+     "en": "A spring folk festival with music, costume and games, held in some years.",
+     "uz": "Ayrim yillari oʻtkaziladigan musiqa, libos va oʻyinlar bilan bahorgi xalq festivali.",
+     "ru": "Весенний фольклорный фестиваль с музыкой, костюмами и играми, проводится не каждый год."
+    },
+    "lat": 38.21,
+    "lng": 67.19
+   }
+  ],
+  "bestTime": {
+   "en": "April to June and September to October, when mountain roads are open and days are mild.",
+   "uz": "Aprel–iyun va sentabr–oktabr: togʻ yoʻllari ochiq, havo moʻtadil.",
+   "ru": "С апреля по июнь и в сентябре–октябре, когда горные дороги открыты, а погода мягкая."
+  },
+  "bestMonths": [
+   4,
+   5,
+   6,
+   9,
+   10
+  ]
+ },
+ {
+  "slug": "sarmishsay",
+  "lat": 40.25,
+  "lng": 65.6,
+  "country": null,
+  "name": {
+   "en": "Sarmishsay Gorge",
+   "uz": "Sarmishsoy darasi",
+   "ru": "Ущелье Сармышсай"
+  },
+  "tagline": {
+   "en": "Thousands of rock carvings in a quiet steppe gorge",
+   "uz": "Sokin dashtdagi darada minglab qoya rasmlari",
+   "ru": "Тысячи наскальных рисунков в тихом степном ущелье"
+  },
+  "overview": {
+   "en": "Sarmishsay, in the Karatau hills of Navoi region, holds thousands of petroglyphs from the Bronze Age to the Middle Ages: hunters, bulls, goats and mysterious figures. A walk along the stream takes two to three hours. It is about 45 minutes from Navoi and combines well with Nurata.",
+   "uz": "Navoiy viloyatining Qoratogʻ tepaliklaridagi Sarmishsoyda bronza davridan oʻrta asrlargacha boʻlgan minglab petrogliflar bor: ovchilar, buqalar, echkilar va sirli siymolar. Soy boʻylab sayr 2–3 soat davom etadi. Navoiydan taxminan 45 daqiqa, Nurota bilan birga koʻrish qulay.",
+   "ru": "В Сармышсае, в холмах Каратау Навоийской области, тысячи петроглифов от бронзового века до Средневековья: охотники, быки, козлы и загадочные фигуры. Прогулка вдоль ручья занимает 2–3 часа. Около 45 минут от Навои, удобно совмещать с Нуратой."
+  },
+  "attractions": [
+   {
+    "name": {
+     "en": "Petroglyph trail",
+     "uz": "Petrogliflar soʻqmogʻi",
+     "ru": "Тропа петроглифов"
+    },
+    "description": {
+     "en": "An easy walk along the stream past carved rock panels.",
+     "uz": "Soy boʻylab oʻyib ishlangan qoya tasvirlari yonidan oʻtuvchi oson yoʻl.",
+     "ru": "Лёгкая прогулка вдоль ручья мимо скал с рисунками."
+    },
+    "lat": 40.25,
+    "lng": 65.6
+   },
+   {
+    "name": {
+     "en": "Bronze Age burial mounds",
+     "uz": "Bronza davri qoʻrgʻonlari",
+     "ru": "Курганы бронзового века"
+    },
+    "description": {
+     "en": "Low stone mounds on the plateau above the gorge.",
+     "uz": "Dara tepasidagi platodagi past tosh qoʻrgʻonlar.",
+     "ru": "Невысокие каменные курганы на плато над ущельем."
+    },
+    "lat": 40.255,
+    "lng": 65.59
+   },
+   {
+    "name": {
+     "en": "Navoi city",
+     "uz": "Navoiy shahri",
+     "ru": "Город Навои"
+    },
+    "description": {
+     "en": "The nearest city, with hotels and the Raboti Malik caravanserai ruins on the road to Bukhara.",
+     "uz": "Eng yaqin shahar: mehmonxonalar va Buxoro yoʻlidagi Rabotimalik karvonsaroyi xarobalari.",
+     "ru": "Ближайший город с отелями; по дороге в Бухару руины караван-сарая Работи-Малик."
+    },
+    "lat": 40.1039,
+    "lng": 65.3739
+   }
+  ],
+  "bestTime": {
+   "en": "March to May and October to November; avoid the midday heat in summer.",
+   "uz": "Mart–may va oktabr–noyabr; yozda tush paytidagi issiqdan saqlaning.",
+   "ru": "С марта по май и в октябре–ноябре; летом избегайте полуденной жары."
+  },
+  "bestMonths": [
+   3,
+   4,
+   5,
+   10,
+   11
+  ]
+ },
+ {
+  "slug": "dubai",
+  "lat": 25.2048,
+  "lng": 55.2708,
+  "country": {
+   "en": "UAE",
+   "uz": "BAA",
+   "ru": "ОАЭ"
+  },
+  "name": {
+   "en": "Dubai",
+   "uz": "Dubay",
+   "ru": "Дубай"
+  },
+  "tagline": {
+   "en": "Skyscrapers, souks and desert dunes a short flight away",
+   "uz": "Osmonoʻpar binolar, sharq bozorlari va choʻl barxanlari, yaqin parvozda",
+   "ru": "Небоскрёбы, рынки и барханы в коротком перелёте"
+  },
+  "overview": {
+   "en": "Dubai is one of the most popular trips for travellers from Uzbekistan, with direct flights from Tashkent of about 3 hours 30 minutes. Combine the observation deck of Burj Khalifa with an abra ride across Dubai Creek to the gold and spice souks, a desert safari and time on the beach. Visa rules depend on your passport, so check them before booking.",
+   "uz": "Dubay Oʻzbekistondan eng koʻp boriladigan yoʻnalishlardan biri: Toshkentdan toʻgʻridan-toʻgʻri parvoz taxminan 3 soat 30 daqiqa. Burj Xalifa kuzatuv maydonchasi, Dubay Krik boʻylab abra qayigʻida oltin va ziravorlar bozoriga sayr, choʻl safari va plyajda dam olishni birlashtiring. Viza qoidalari pasportingizga bogʻliq, bron qilishdan oldin tekshiring.",
+   "ru": "Дубай — одно из самых популярных направлений из Узбекистана, прямой рейс из Ташкента длится около 3 часов 30 минут. Совместите смотровую площадку Бурдж-Халифы, переправу на абре через Дубай-Крик к золотому и пряному рынкам, сафари по пустыне и отдых на пляже. Визовые правила зависят от паспорта, проверьте их до бронирования."
+  },
+  "attractions": [
+   {
+    "name": {
+     "en": "Burj Khalifa",
+     "uz": "Burj Xalifa",
+     "ru": "Бурдж-Халифа"
+    },
+    "description": {
+     "en": "The world's tallest building, with observation decks on levels 124–125 and higher.",
+     "uz": "Dunyodagi eng baland bino, 124–125-qavatlarda va undan yuqorida kuzatuv maydonchalari bor.",
+     "ru": "Самое высокое здание в мире со смотровыми площадками на 124–125 этажах и выше."
+    },
+    "lat": 25.1972,
+    "lng": 55.2744
+   },
+   {
+    "name": {
+     "en": "Al Fahidi and Dubai Creek",
+     "uz": "Al Fahidi va Dubay Krik",
+     "ru": "Аль-Фахиди и Дубай-Крик"
+    },
+    "description": {
+     "en": "The historic quarter of wind towers and the creek crossed by traditional abra boats.",
+     "uz": "Shamol minoralari bilan tarixiy mahalla va anʼanaviy abra qayiqlari suzadigan koʻrfaz.",
+     "ru": "Исторический квартал с ветряными башнями и залив, через который ходят лодки-абры."
+    },
+    "lat": 25.2637,
+    "lng": 55.2972
+   },
+   {
+    "name": {
+     "en": "Gold and spice souks",
+     "uz": "Oltin va ziravorlar bozori",
+     "ru": "Золотой и пряный рынки"
+    },
+    "description": {
+     "en": "Covered markets in Deira, best visited in the evening.",
+     "uz": "Deyradagi yopiq bozorlar, kechqurun borish qulay.",
+     "ru": "Крытые рынки в Дейре, лучше всего вечером."
+    },
+    "lat": 25.2697,
+    "lng": 55.2961
+   },
+   {
+    "name": {
+     "en": "Desert safari",
+     "uz": "Choʻl safari",
+     "ru": "Сафари по пустыне"
+    },
+    "description": {
+     "en": "Dune driving, camel rides and dinner in a desert camp outside the city.",
+     "uz": "Shahar tashqarisida barxanlarda sayr, tuyada yurish va choʻl lagerida kechki ovqat.",
+     "ru": "Поездка по дюнам, катание на верблюде и ужин в лагере за городом."
+    },
+    "lat": 24.9,
+    "lng": 55.6
+   }
+  ],
+  "bestTime": {
+   "en": "November to March, with days of 24–30 °C. From June to September it is very hot and humid.",
+   "uz": "Noyabr–mart, kunduzi 24–30 °C. Iyundan sentabrgacha juda issiq va nam.",
+   "ru": "С ноября по март, днём 24–30 °C. С июня по сентябрь очень жарко и влажно."
+  },
+  "bestMonths": [
+   11,
+   12,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "slug": "istanbul",
+  "lat": 41.0082,
+  "lng": 28.9784,
+  "country": {
+   "en": "Türkiye",
+   "uz": "Turkiya",
+   "ru": "Турция"
+  },
+  "name": {
+   "en": "Istanbul",
+   "uz": "Istanbul",
+   "ru": "Стамбул"
+  },
+  "tagline": {
+   "en": "Two continents, Ottoman mosques and the Bosphorus",
+   "uz": "Ikki qitʼa, Usmonli masjidlari va Bosfor",
+   "ru": "Два континента, османские мечети и Босфор"
+  },
+  "overview": {
+   "en": "Istanbul is a favourite city break from Uzbekistan, with direct flights from Tashkent of about 4 hours 30 minutes. Sultanahmet holds Hagia Sophia, the Blue Mosque and Topkapi Palace within walking distance, while a Bosphorus cruise shows the city on both sides of the strait. Citizens of Uzbekistan can usually visit Türkiye visa-free for short stays; check the current rules before travel.",
+   "uz": "Istanbul Oʻzbekistondan qisqa sayohat uchun sevimli shahar: Toshkentdan toʻgʻridan-toʻgʻri parvoz taxminan 4 soat 30 daqiqa. Sultonahmadda Ayasofya, Koʻk masjid va Toʻpqopi saroyi yonma-yon joylashgan, Bosfor boʻylab sayr esa shaharni boʻgʻozning ikki tomonidan koʻrsatadi. Oʻzbekiston fuqarolari odatda Turkiyaga qisqa muddatga vizasiz borishi mumkin; safardan oldin amaldagi qoidalarni tekshiring.",
+   "ru": "Стамбул — любимое направление для короткой поездки из Узбекистана, прямой рейс из Ташкента длится около 4 часов 30 минут. В Султанахмете рядом стоят Айя-София, Голубая мечеть и дворец Топкапы, а круиз по Босфору показывает город с обеих сторон пролива. Граждане Узбекистана обычно могут посещать Турцию без визы на короткий срок; проверьте актуальные правила перед поездкой."
+  },
+  "attractions": [
+   {
+    "name": {
+     "en": "Hagia Sophia",
+     "uz": "Ayasofya",
+     "ru": "Айя-София"
+    },
+    "description": {
+     "en": "A 6th-century masterpiece, later a mosque, with a vast dome.",
+     "uz": "VI asrda qurilgan, keyinchalik masjidga aylantirilgan ulkan gumbazli shoh asar.",
+     "ru": "Шедевр VI века с огромным куполом, позже ставший мечетью."
+    },
+    "lat": 41.0086,
+    "lng": 28.9802
+   },
+   {
+    "name": {
+     "en": "Blue Mosque",
+     "uz": "Koʻk masjid",
+     "ru": "Голубая мечеть"
+    },
+    "description": {
+     "en": "The Sultan Ahmed Mosque with six minarets and blue Iznik tiles inside.",
+     "uz": "Olti minorali, ichi koʻk Iznik koshinlari bilan bezatilgan Sulton Ahmad masjidi.",
+     "ru": "Мечеть Султанахмет с шестью минаретами и голубыми изникскими изразцами."
+    },
+    "lat": 41.0054,
+    "lng": 28.9768
+   },
+   {
+    "name": {
+     "en": "Topkapi Palace",
+     "uz": "Toʻpqopi saroyi",
+     "ru": "Дворец Топкапы"
+    },
+    "description": {
+     "en": "The Ottoman sultans' palace with courtyards, treasury and harem.",
+     "uz": "Hovlilari, xazinasi va haramxonasi bor Usmonli sultonlari saroyi.",
+     "ru": "Дворец османских султанов с дворами, сокровищницей и гаремом."
+    },
+    "lat": 41.0115,
+    "lng": 28.9834
+   },
+   {
+    "name": {
+     "en": "Grand Bazaar",
+     "uz": "Katta bozor",
+     "ru": "Гранд-базар"
+    },
+    "description": {
+     "en": "One of the oldest covered markets in the world, with thousands of shops.",
+     "uz": "Minglab doʻkonlari bor dunyodagi eng qadimiy yopiq bozorlardan biri.",
+     "ru": "Один из старейших крытых рынков мира с тысячами лавок."
+    },
+    "lat": 41.0107,
+    "lng": 28.968
+   }
+  ],
+  "bestTime": {
+   "en": "April to June and September to November, with mild days of 18–26 °C.",
+   "uz": "Aprel–iyun va sentabr–noyabr, kunduzi 18–26 °C moʻtadil havo.",
+   "ru": "С апреля по июнь и с сентября по ноябрь, днём мягкие 18–26 °C."
+  },
+  "bestMonths": [
+   4,
+   5,
+   6,
+   9,
+   10,
+   11
+  ]
+ }
+]

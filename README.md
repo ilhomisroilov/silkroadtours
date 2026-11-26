@@ -1,4 +1,4 @@
-# Silk Road Tours — AI-assisted travel platform
+# National Tours — AI-assisted travel platform
 
 Website, AI travel assistant, AI trip planner and admin panel for a tour agency in Jizzakh, Uzbekistan.
 Next.js 15 + SQLite (libSQL) in Docker behind nginx. The site is in English, Uzbek and Russian and shows
@@ -11,7 +11,7 @@ contacts) when the AI is unavailable.
 
 ## Start here
 ```bash
-cp .env.example .env.local   # fill SESSION_SECRET, ADMIN_SECRET; GEMINI_API_KEY optional
+cp .env.example .env.local   # fill SESSION_SECRET, ADMIN_SECRET; AI keys optional
 npm install
 npm run db:migrate && npm run db:seed
 npm run dev                  # http://localhost:3000  (/en, /uz, /ru, /en/planner; admin at /admin)
@@ -22,6 +22,15 @@ npm run ai:eval              # AI evaluation set (UZ/EN/RU) against the running 
 docker compose up -d --build # production container on 127.0.0.1:3000
 ```
 Going live: `docs/DEPLOYMENT.md` (Oracle Cloud Always Free, nginx, HTTPS, backups).
+
+AI: every provider is optional and used in order Mistral → Cerebras → Gemini → OpenRouter (any OpenAI-compatible
+endpoint also works). Keys live only in the server's `.env`; install them with `sudo bash deploy/set-ai-key.sh`.
+With no key the assistant answers from the site's own database. The assistant searches tours, destinations,
+FAQ and the travel-guide, experience and service articles (`search_site_content`) before it answers.
+
+Admin panel (`/admin`): dashboard, bookings, leads and requests, customers (built from bookings and requests),
+tours with departures and prices, destinations, articles (guides, experiences, services), media library with
+uploads, reviews, newsletter subscribers with CSV export, AI conversations and usage, settings and users.
 
 Photos: real, open-licensed images from Wikimedia Commons; author, licence and source for every file are in
 `public/images/credits.json` and shown on the page where a photo is used as the hero.

@@ -1,8 +1,8 @@
 {
   "meta": {
-    "siteName": "Silk Road Tours",
-    "titleTemplate": "%s · Silk Road Tours",
-    "defaultTitle": "Silk Road Tours — Jizzaxdan Oʻzbekiston boʻylab sayohatlar",
+    "siteName": "National Tours",
+    "titleTemplate": "%s · National Tours",
+    "defaultTitle": "National Tours — Jizzaxdan Oʻzbekiston boʻylab sayohatlar",
     "defaultDescription": "Oʻzbekiston boʻylab shaxsiy va guruh turlari: Samarqand, Buxoro, Xiva, oʻtovli lagerlar, Nurota va Zomin togʻlari. Narxlar soʻm, dollar yoki yevroda. Jizzaxdagi mahalliy jamoa."
   },
   "nav": {
@@ -25,9 +25,9 @@
     "chooseLanguage": "Tilni tanlang",
     "chooseCurrency": "Valyutani tanlang",
     "breadcrumb": "Sahifa yoʻli",
-    "bookTour": "Tur tanlash",
+    "bookTour": "Tur band qilish",
     "admin": "Xodimlar uchun kirish",
-    "planner": "Sayohat rejasi"
+    "planner": "AI rejalashtiruvchi"
   },
   "audience": {
     "label": "Kim sayohat qiladi?",
@@ -238,7 +238,7 @@
       },
       {
         "q": "“AI xato qilsa-chi?”",
-        "a": "Yordamchi faqat oʻz katalogimizdan maʼlumot beradi va har bir turga havola qoʻyadi. U ishlamasa ham sayt bazadan qidiradi va aloqa maʼlumotlarini koʻrsatadi."
+        "a": "Yordamchi faqat oʻz turlar katalogimizdan foydalanadi va tilga olgan har bir turga havola beradi. U vaqtincha ishlamasa ham, turlarni qidirib, jamoamiz bilan bevosita bogʻlanishingiz mumkin."
       }
     ]
   },
@@ -364,7 +364,7 @@
   "destinations": {
     "metaTitle": "Oʻzbekistondagi yoʻnalishlar",
     "title": "Yoʻnalishlar",
-    "intro": "Orol dengizidan Fargʻona vodiysigacha toʻqqiz hudud. Joyni tanlang: diqqatga sazovor joylar, eng yaxshi mavsum va u yerga boradigan turlar.",
+    "intro": "Orol dengizidan Fargʻona vodiysigacha va sevimli xorijiy yoʻnalishlar. Diqqatga sazovor joylar, borishga eng qulay vaqt va u yerga boradigan turlarni koʻrish uchun joyni tanlang.",
     "toursCount": "{count, plural, =0 {Hozircha tur yoʻq} other {# ta tur}}",
     "overview": "{name} haqida",
     "attractions": "Diqqatga sazovor joylar",
@@ -558,7 +558,11 @@
     "doneTitle": "Soʻrov qabul qilindi",
     "doneText": "Soʻrovingiz raqami: {reference}. Tez orada siz tanlagan kanal orqali bogʻlanamiz.",
     "another": "Yana soʻrov yuborish",
-    "chooseAtLeastOne": "Kamida bitta joyni tanlang."
+    "chooseAtLeastOne": "Kamida bitta joyni tanlang.",
+    "subject": "Mavzu",
+    "preferredDate": "Qulay sana",
+    "travellers": "Sayohatchilar soni",
+    "message": "Xabaringiz"
   },
   "guide": {
     "metaTitle": "Oʻzbekiston boʻyicha sayohat qoʻllanmasi: viza, pul, transport, xavfsizlik",
@@ -600,18 +604,36 @@
   "about": {
     "metaTitle": "Biz haqimizda",
     "title": "Jizzaxlik mahalliy agentlik",
-    "lead": "Silk Road Tours — Samarqand, Nurota togʻlari va Zomin milliy bogʻi oraligʻidagi darvoza — Jizzaxda joylashgan turagentlik.",
+    "lead": "National Tours — Samarqand, Nurota togʻlari va Zomin milliy bogʻi oraligʻidagi darvoza — Jizzaxda joylashgan turagentlik.",
     "p1": "Biz ikki turdagi sayohatchilar uchun safarlar tashkil qilamiz: Ipak yoʻlini ilk bor kashf etayotgan chet ellik mehmonlar hamda togʻlarda dam olish kunlarini yoki uyga yaqin taʼtilni izlayotgan oʻzbekistonlik oilalar va kompaniyalar.",
     "p2": "Biz oʻzimiz yaxshi biladigan yoʻnalishlarni tuzamiz, mahalliy gidlar, haydovchilar, mehmon uylari va oʻtovli lagerlar bilan ishlaymiz hamda bron qilishdan oldin haqiqiy narxni koʻrsatamiz.",
     "valuesTitle": "Qanday ishlaymiz",
     "value1Title": "Aniq narxlar",
     "value1Text": "Siz koʻrgan narx guruhingiz va sanangiz uchun haqiqiy tariflarimizdan hisoblanadi.",
-    "value2Title": "Tezkor javob",
-    "value2Text": "Har bir soʻrov yuborilgan zahoti Telegram orqali jamoamizga yetib boradi.",
+    "value2Title": "Javobni inson beradi",
+    "value2Text": "Soʻrovingiz toʻgʻridan-toʻgʻri jamoamizga keladi, biz tasdiqlangan reja va narx bilan javob beramiz.",
     "value3Title": "Mahalliy hamkorlar",
     "value3Text": "Biz boradigan hududlardagi oilaviy mehmon uylari, hunarmandlar va gidlar bilan ishlaymiz.",
     "licence": "Litsenziya raqami: {number}",
-    "cta": "Turlarimizni koʻring"
+    "cta": "Turlarimizni koʻring",
+    "eyebrow": "National Tours haqida",
+    "factsTitle": "Bugungi katalogimiz",
+    "factDestinations": "{count} ta manzil",
+    "factTours": "{count} ta tayyor tur",
+    "factGuides": "{count} ta qoʻllanma",
+    "factLanguages": "3 til",
+    "factLanguagesText": "English, Oʻzbekcha, Русский",
+    "factDestinationsText": "Oʻzbekiston boʻylab va xorijda",
+    "factToursText": "Shaxsiy va kichik guruhli",
+    "factGuidesText": "Viza, pul, taomlar va mavsumlar",
+    "audienceTitle": "Kimlar bilan sayohat qilamiz",
+    "inboundText": "Ipak yoʻliga ilk safar: Samarqand, Buxoro, Xiva, oʻtovli lagerlar va togʻ qishloqlari.",
+    "domesticText": "Dam olish kunlari safarlari, oilaviy taʼtil va jamoaviy sayohatlar, yaqin joyda yoki xorijda.",
+    "ctaTitle": "Safaringiz haqida aytib bering",
+    "ctaText": "AI rejalashtiruvchi bilan reja tuzing, oʻz yoʻnalishingizni yarating yoki shunchaki bizga yozing.",
+    "ctaPlanner": "AI bilan rejalash",
+    "ctaBuilder": "Tur yaratish",
+    "ctaContact": "Bizga yozing"
   },
   "contact": {
     "metaTitle": "Aloqa",
@@ -622,7 +644,7 @@
     "whatsapp": "WhatsApp",
     "telegram": "Telegram",
     "address": "Manzil",
-    "hours": "Har kuni 9:00–21:00 (Toshkent vaqti, UTC+5) javob beramiz.",
+    "hours": "Jamoamiz Toshkent vaqti (UTC+5) boʻyicha ishlaydi va siz tanlagan kanal orqali javob beradi.",
     "noChannels": "Aloqa maʼlumotlarimiz yangilanmoqda. Soʻrov shakllaridan foydalaning — ular darhol jamoamizga yetib boradi.",
     "formsTitle": "Yoki soʻrov yuboring",
     "floating": "Biz bilan bogʻlaning"
@@ -663,7 +685,7 @@
     "base_price_required": "Turning asosiy valyutasidagi narx talab qilinadi.",
     "booking_not_completed": "Sayohat yakunlangandan soʻng sharh qoldirishingiz mumkin.",
     "booking_not_found": "Ushbu raqam va email bilan bron topilmadi.",
-    "bootstrap_disabled": "Dastlabki sozlash oʻchirilgan: avval ADMIN_SECRET ni oʻrnating.",
+    "bootstrap_disabled": "Dastlabki sozlash mavjud emas.",
     "cannot_deactivate_self": "Oʻz hisobingizni oʻchira olmaysiz.",
     "captcha_failed": "Xavfsizlik tekshiruvi muvaffaqiyatsiz. Qayta urinib koʻring.",
     "captcha_required": "Xavfsizlik tekshiruvidan oʻting.",
@@ -685,7 +707,7 @@
     "forbidden": "Bu amal uchun ruxsatingiz yoʻq.",
     "insufficient_seats": "Bu sanada yetarli joy qolmagan.",
     "internal_error": "Bizning tomonda xatolik yuz berdi. Qayta urinib koʻring yoki WhatsApp/Telegram orqali bogʻlaning.",
-    "invalid_admin_secret": "Sozlash kaliti notoʻgʻri.",
+    "invalid_admin_secret": "Kirish kodi notoʻgʻri.",
     "invalid_credentials": "Email yoki parol notoʻgʻri.",
     "invalid_date": "Toʻgʻri sanani tanlang.",
     "invalid_email": "Toʻgʻri elektron pochta manzilini kiriting.",
@@ -725,13 +747,350 @@
     "seats_below_booked": "Umumiy joylar band qilingan joylardan kam boʻlolmaydi.",
     "slug_taken": "Bu URL nomi allaqachon band.",
     "source_url_required": "Asl sharhga havola qoʻshing.",
-    "telegram_failed": "Telegram xabarini yuborib boʻlmadi. TELEGRAM_BOT_TOKEN va TELEGRAM_CHAT_ID ni tekshiring.",
+    "telegram_failed": "Telegram bildirishnomasini yetkazib boʻlmadi. Telegram sozlamalarini tekshiring.",
     "tier_overlap": "Guruh hajmi oraliqlari bir-biriga toʻgʻri keladi.",
     "tiers_missing_new_base_price": "Avval har bir tarifga yangi asosiy valyutadagi narxni kiriting.",
     "tour_has_bookings": "Bu turda bronlar bor. Oʻchirish oʻrniga nashrdan olib tashlang.",
     "tour_not_found": "Bu tur endi mavjud emas.",
     "tour_or_destination_required": "Tur yoki yoʻnalishni tanlang.",
     "unauthorized": "Iltimos, tizimga kiring.",
-    "validation_failed": "Belgilangan maydonlarni tekshiring."
+    "validation_failed": "Belgilangan maydonlarni tekshiring.",
+    "message_too_short": "Iltimos, qisqa xabar yozing (kamida 5 ta belgi)."
+  },
+  "nt": {
+    "menu": {
+      "allTours": "Barcha turlar",
+      "inbound": "Xorijiy mehmonlar uchun turlar",
+      "domestic": "Oʻzbekiston aholisi uchun sayohatlar",
+      "experiences": "Taassurotlar",
+      "builder": "Tur konstruktori",
+      "compare": "Turlarni solishtirish",
+      "services": "Sayohat xizmatlari",
+      "allDestinations": "Barcha yoʻnalishlar",
+      "uzbekistan": "Oʻzbekiston",
+      "abroad": "Xorij",
+      "wishlist": "Saralanganlar",
+      "account": "Shaxsiy kabinet",
+      "guide": "Qoʻllanma",
+      "assistant": "AI yordamchi"
+    },
+    "hero": {
+      "chip": "Dunyoni kashf eting",
+      "title": "Oʻzbekistonning <b>goʻzalligini</b> kashf eting",
+      "text": "National Tours bilan unutilmas sayohatlar, haqiqiy taassurotlar va qulay narxlar.",
+      "destination": "Yoʻnalish",
+      "anyDestination": "Istalgan yoʻnalish",
+      "when": "Qachon?",
+      "anyDate": "Istalgan vaqt",
+      "travelers": "Sayohatchilar",
+      "people": "{count} kishi",
+      "submit": "Turlarni qidirish"
+    },
+    "trust": {
+      "t1": "Qulay narxlar",
+      "s1": "Ochiq va raqobatbardosh",
+      "t2": "Xavfsiz va ishonchli",
+      "s2": "Xavfsizligingiz birinchi oʻrinda",
+      "t3": "24/7 AI yordamchi",
+      "s3": "Istalgan vaqtda javob beradi",
+      "t4": "{count} ta yoʻnalish",
+      "s4": "Oʻzbekiston va xorij",
+      "t5": "Mahalliy mutaxassislar",
+      "s5": "Jamoamiz Oʻzbekistonda",
+      "t5r": "Sayohatchilar ishonchi",
+      "s5r": "{count} ta sharh asosida {avg}/5"
+    },
+    "dest": {
+      "eyebrow": "Mashhur yoʻnalishlar",
+      "title": "Eng yaxshi yoʻnalishlarni kashf eting",
+      "viewAll": "Barcha yoʻnalishlar",
+      "country": "Oʻzbekiston",
+      "open": "{name} sahifasini ochish"
+    },
+    "ai": {
+      "title": "Sizning AI sayohat yordamchingiz",
+      "text": "Shaxsiy tavsiyalar oling va ideal sayohatingizni rejalashtiring!",
+      "c1": "5 kunlik sayohat rejasi",
+      "q1": "Ikki kishi uchun oʻrtacha byudjetda Oʻzbekiston boʻylab 5 kunlik sayohat rejasini tuzing",
+      "c2": "Arzon turlarni topish",
+      "q2": "Qaysi turlaringiz eng arzon?",
+      "c3": "Yoʻnalishlarni solishtirish",
+      "q3": "Birinchi safar uchun Samarqand va Buxoroni solishtiring",
+      "placeholder": "Sayohat haqida istalgan savolni bering…",
+      "send": "Yuborish",
+      "eyebrow": "AI yordamchi"
+    },
+    "planner": {
+      "chip": "Sayohatingizni rejalashtiring",
+      "title": "AI bilan ideal sayohatingizni yarating",
+      "text": "Istaklaringizni ayting, AI siz uchun unutilmas sayohat rejasini tuzib beradi.",
+      "b1": "Shaxsiy marshrut",
+      "b2": "Eng qulay yoʻnalishlar",
+      "b3": "Byudjetni tejash",
+      "cta": "AI rejalashtiruvchini sinash"
+    },
+    "why": {
+      "eyebrow": "Nega aynan National Tours",
+      "title": "Ishonchli sayohat hamkoringiz",
+      "t1": "Oʻzbekiston va xorij",
+      "s1": "{count} ta yoʻnalish",
+      "t2": "Ochiq narxlar",
+      "s2": "Yozma tasdiqlanadi",
+      "t3": "24/7 AI yordam",
+      "s3": "Doim siz bilan",
+      "t4": "Unutilmas taassurotlar",
+      "s4": "Hunarmandchilik, taom va tabiat"
+    },
+    "reviews": {
+      "title": "Sayohatchilar fikri",
+      "emptyTitle": "Biz bilan sayohat qildingizmi?",
+      "emptyText": "Taassurotlaringiz bilan boʻlishing. Sharhlarni qisqa tekshiruvdan soʻng eʼlon qilamiz.",
+      "emptyCta": "Sharh yozish",
+      "prev": "Oldingi sharh",
+      "next": "Keyingi sharh",
+      "from": "Sayohatchi · {country}"
+    },
+    "featured": {
+      "eyebrow": "Mashhur turlar",
+      "title": "Tanlangan sayohatlar",
+      "viewAll": "Barcha turlar"
+    },
+    "exp": {
+      "eyebrow": "Taassurotlar",
+      "title": "Mahalliy ustalar bilan taassurotlar",
+      "viewAll": "Barcha taassurotlar",
+      "hours": "{count} soat",
+      "from": "{price} dan"
+    },
+    "guides": {
+      "eyebrow": "Sayohat qoʻllanmasi",
+      "title": "Ishonch bilan rejalashtiring",
+      "viewAll": "Barcha qoʻllanmalar",
+      "read": "Oʻqish",
+      "minutes": "{count} daqiqa"
+    },
+    "builder": {
+      "title": "Oʻz turingizni yarating",
+      "text": "Yoʻnalishlar, kunlar va mehmonxona darajasini tanlang, taxminiy byudjetni darhol koʻring va jamoamizga yuboring.",
+      "cta": "Konstruktorni ochish"
+    },
+    "footer": {
+      "tagline": "Oʻzbekiston boʻylab turlar va xorijga sayohatlar, mahalliy jamoa tomonidan rejalashtiriladi.",
+      "tours": "Turlar",
+      "company": "Kompaniya",
+      "support": "Yordam",
+      "newsletterTitle": "Sayohat gʻoyalari emailingizga",
+      "newsletterText": "Yangi turlar va mavsumiy maslahatlar, oyiga taxminan bir marta. Obunani istalgan vaqtda bekor qilish mumkin.",
+      "email": "Emailingiz",
+      "subscribe": "Obuna boʻlish",
+      "subscribed": "Rahmat! Obuna boʻldingiz.",
+      "subscribeError": "Toʻgʻri email manzilini kiriting.",
+      "privacy": "Maxfiylik siyosati",
+      "terms": "Bron shartlari",
+      "faq": "Savol-javoblar",
+      "follow": "Bizni kuzating"
+    },
+    "wishlist": {
+      "title": "Saralanganlar",
+      "lead": "Shu qurilmada saqlagan turlaringiz.",
+      "empty": "Saralanganlar roʻyxati boʻsh. Istalgan turdagi yurakcha belgisini bosing va u shu yerda saqlanadi.",
+      "browse": "Turlarni koʻrish",
+      "add": "Saralanganlarga qoʻshish",
+      "remove": "Saralanganlardan olib tashlash",
+      "compare": "Saqlangan turlarni solishtirish"
+    },
+    "guide": {
+      "title": "Sayohat qoʻllanmasi",
+      "lead": "Jamoamizdan amaliy maslahatlar: viza, pul, transport, taomlar va har bir shaharda nimalarni kutish mumkin.",
+      "filter": "Mavzu boʻyicha saralash",
+      "all": "Barcha mavzular",
+      "empty": "Bu mavzuda hozircha maqola yoʻq. Boshqa mavzuni tanlang.",
+      "faqTitle": "Qisqa savolingiz bormi?",
+      "faqText": "Viza, toʻlov, xavfsizlik va band qilish haqida qisqa javoblar.",
+      "back": "Barcha maqolalar",
+      "askTitle": "Batafsilroq bilmoqchimisiz?",
+      "askText": "Sayohat yordamchimiz ushbu mavzu boʻyicha qoʻshimcha savollaringizga javob beradi.",
+      "askCta": "Yordamchidan soʻrash",
+      "askQuestion": "“{title}” mavzusi boʻyicha savolim bor",
+      "more": "Boshqa maqolalar",
+      "minRead": "{n} daqiqa oʻqish",
+      "cat": {
+        "practical": "Amaliy",
+        "transport": "Transport",
+        "food": "Taomlar",
+        "city": "Shaharlar",
+        "experience": "Tajribalar",
+        "culture": "Madaniyat",
+        "family": "Oila",
+        "nature": "Tabiat"
+      }
+    },
+    "expPage": {
+      "title": "Taassurotlar",
+      "lead": "Oshpazlik darslari, hunarmandchilik ustaxonalari, fotosayrlar va mahalliy oilalar bilan oqshomlar: hammasini oʻsha joyda yashovchi insonlar oʻtkazadi.",
+      "filter": "Turi boʻyicha saralash",
+      "all": "Barcha taassurotlar",
+      "inPlace": "{place} boʻyicha taassurotlar.",
+      "anyPlace": "Barcha joylarni koʻrsatish",
+      "emptyTitle": "Hozircha boʻsh",
+      "empty": "Tanlangan joyda bu turdagi taassurot hozircha yoʻq.",
+      "priceNote": "Narxlar bir kishi uchun va guruh hajmi hamda sanaga bogʻliq. Yakuniy narxni toʻlovdan oldin tasdiqlaymiz.",
+      "back": "Barcha taassurotlar",
+      "perPerson": "Bir kishi uchun narx",
+      "requestTitle": "Ushbu taassurotga soʻrov",
+      "requestText": "Sana va guruh hajmini yozing. Odatda bir kun ichida boʻsh joylar va yakuniy narx bilan javob beramiz.",
+      "submit": "Soʻrov yuborish",
+      "more": "Sizga yoqishi mumkin",
+      "cat": {
+        "food": "Taomlar",
+        "craft": "Hunarmandchilik",
+        "photo": "Fotosurat",
+        "culture": "Madaniyat",
+        "nature": "Tabiat",
+        "adventure": "Faol dam olish"
+      }
+    },
+    "servicesPage": {
+      "eyebrow": "Sayohat xizmatlari",
+      "lead": "Transferlar, mehmonxonalar, gidlar, poyezd va aviachiptalar, vizaga koʻmak va boshqalar. Xizmatni tanlang va soʻrov yuboring: variantlar va narx bilan javob beramiz.",
+      "request": "Soʻrov yuborish",
+      "requestText": "Shaklni toʻldiring, odatda bir kun ichida variantlar va narx bilan javob beramiz.",
+      "more": "Boshqa xizmatlar"
+    },
+    "builderPage": {
+      "eyebrow": "Safaringizni oʻzingiz tuzing",
+      "title": "Tur konstruktori",
+      "lead": "Joylar, tunlar soni, mehmonxona darajasi va taassurotlarni tanlang. Taxminiy byudjet darhol yangilanadi, marshrutni esa batafsil dastur uchun jamoamizga yuborishingiz mumkin.",
+      "step1": "Joylarni tanlang",
+      "step1Hint": "Marshrutga qoʻshish uchun joyni bosing ({max} tagacha). Olib tashlash uchun yana bosing.",
+      "suggestions": "Tayyor variant",
+      "suggestion": {
+        "classic": "Klassik Ipak yoʻli",
+        "short": "Samarqand va Buxoro",
+        "nature": "Togʻlar, koʻl va Samarqand"
+      },
+      "uzbekistan": "Oʻzbekiston",
+      "abroad": "Xorij",
+      "step2": "Marshrutingiz",
+      "routeEmpty": "Marshrut hozircha boʻsh. Yuqoridan joy qoʻshing yoki tayyor variantdan boshlang.",
+      "nights": "Tunlar",
+      "moveUp": "{place}ni yuqoriga surish",
+      "moveDown": "{place}ni pastga surish",
+      "remove": "{place}ni olib tashlash",
+      "approxRate": "Oʻxshash joylar asosida hisoblangan",
+      "daysNights": "{days} kun, {nights} tun",
+      "estimateShort": "bir kishi uchun taxminan {range}",
+      "step3": "Sayohatchilar va uslub",
+      "startDate": "Boshlanish sanasi",
+      "level": "Mehmonxona darajasi",
+      "levelHint": {
+        "budget": "Oddiy, toza mehmon uylari",
+        "comfort": "Yaxshi 3–4★ mehmonxonalar",
+        "boutique": "Oʻziga xos butik mehmonxonalar",
+        "luxury": "Eng yaxshi mehmonxonalar"
+      },
+      "step4": "Taassurotlar qoʻshing",
+      "step4Hint": "Taassurotlarni koʻrish uchun marshrutga joy qoʻshing.",
+      "step4Empty": "Bu joylarda hozircha band qilinadigan taassurot yoʻq. Baribir taklif qilib bera olamiz.",
+      "wishes": "Yana nimalarni bilishimiz kerak?",
+      "wishesPlaceholder": "Masalan: guruhda vegetarian bor, tugʻilgan kun, sekin surʼat",
+      "step5": "Jamoamizga yuboring",
+      "sendText": "Boʻsh joylarni tekshirib, odatda bir kun ichida yakuniy narx bilan batafsil dastur yuboramiz. Soʻrov yuborish bepul va hech qanday majburiyat yuklamaydi.",
+      "contactTitle": "Aloqa maʼlumotlaringiz",
+      "needRoute": "Jamoamizga yuborish uchun marshrutga kamida bitta joy qoʻshing va boshlanish sanasini tanlang.",
+      "estimateTitle": "Taxminiy byudjet",
+      "estimateEmpty": "Taxminiy byudjetni koʻrish uchun marshrutga joy qoʻshing.",
+      "forGroup": "{count} kishi uchun jami",
+      "estimateNote": "Hisob shu joylar boʻyicha joriy tur narxlarimiz va guruh hajmiga asoslangan: mehmonxona, transport va gid xizmati bilan. Xalqaro aviachiptalar kirmaydi. Yakuniy narxni jamoamiz tasdiqlaydi.",
+      "childrenNote": "Bolalar uchun narx kattalar narxining 70% deb hisoblangan.",
+      "sendCta": "Marshrutni jamoaga yuborish",
+      "askAi": "AI rejalashtirib bersin",
+      "notesRoute": "Marshrut",
+      "notesExtras": "Taassurotlar",
+      "notesEstimate": "Bir kishi uchun taxminiy byudjet",
+      "notesWishes": "Istaklar"
+    },
+    "compare": {
+      "title": "Turlarni taqqoslash",
+      "lead": "Uchtagacha turni yonma-yon qoʻying: narx, davomiylik, joylar, qiyinlik va narxga nimalar kirishi.",
+      "slot": "{n}-tur",
+      "choose": "Turni tanlang",
+      "remove": "Olib tashlash",
+      "emptyTitle": "Taqqoslash uchun turlarni tanlang",
+      "empty": "Yuqoridan uchtagacha tur tanlang yoki turlarni saralanganlarga saqlab, oʻsha yerdan taqqoslang.",
+      "price": "Narx (bir kishi uchun)",
+      "type": "Turi",
+      "places": "Joylar",
+      "nextDeparture": "Keyingi joʻnash",
+      "onRequest": "Soʻrov boʻyicha",
+      "allYear": "Yil boʻyi",
+      "rating": "Reyting",
+      "noRating": "Hozircha sharh yoʻq"
+    },
+    "legal": {
+      "privacy": {
+        "title": "Maxfiylik siyosati",
+        "lead": "Saytdan foydalanganingizda qanday maʼlumotlarni toʻplaymiz, ular nima uchun kerak va ularni qanday boshqarishingiz mumkin.",
+        "updated": "Oxirgi yangilanish: 2026-yil noyabr",
+        "body": "## Biz kimmiz\nUshbu sayt Oʻzbekistonda faoliyat yurituvchi [[agency]] sayohat kompaniyasi tomonidan yuritiladi. Maʼlumotlaringiz boʻyicha har qanday savol bilan [aloqa sahifasidagi](/contact) manzillar orqali bizga yozing.\n\n## Nimalarni toʻplaymiz\n- **Bron va soʻrov maʼlumotlari**: ism, email, telefon raqami, qulay messenjer, sayohat sanalari, guruh hajmi va qoʻshimcha izohlar.\n- **Sayohat yordamchisi va AI rejalashtiruvchiga yozilgan xabarlar.** Qoʻshimcha savollarga javob berish va xizmatni yaxshilash uchun suhbatlarni saqlaymiz. Iltimos, chatda pasport raqami, karta maʼlumotlari yoki boshqa maxfiy maʼlumotlarni yozmang.\n- **Obuna boʻlsangiz, email manzilingiz.**\n- **Saytni xavfsiz ishlatish uchun zarur texnik maʼlumotlar**: spam va suiisteʼmolning oldini olish uchun IP manzilingizning qisqartirilgan, qayta tiklab boʻlmaydigan izi hamda server jurnallari.\n\n## Qanday foydalanamiz\n- Soʻrovingizga javob berish, dasturingizni tayyorlash va broningizni boshqarish uchun.\n- Siz tanlagan kanal orqali bogʻlanish uchun.\n- Obuna boʻlgan boʻlsangiz, xabarnoma yuborish uchun. Har bir xatda obunani bekor qilish imkoniyati bor.\n- Saytni spam va suiisteʼmoldan himoya qilish uchun.\n\nShaxsiy maʼlumotlaringizni sotmaymiz va reklama kuzatuvchilaridan foydalanmaymiz.\n\n## AI yordamchi\nYordamchi yoki rejalashtiruvchiga yozgan savollaringiz javob tayyorlash uchun AI xizmatiga yuboriladi. Faqat suhbatning oʻzi va turlarimiz hamda yoʻnalishlarimiz haqidagi maʼlumotlar yuboriladi. Bron maʼlumotlari, parollar yoki toʻlov maʼlumotlari yuborilmaydi. AI javoblari boshlangʻich maslahat boʻlib, narx va boʻsh joylarni jamoamiz tasdiqlaydi.\n\n## Cookie va brauzer xotirasi\nFaqat zarur cookie fayllardan foydalanamiz: til va valyuta tanlovi hamda xodimlar uchun xavfsiz kirish cookie fayli. Saralanganlarga saqlangan turlar faqat oʻz brauzeringizda saqlanadi. Xaritalar ochilganda OpenStreetMap xizmatidan yuklanadi.\n\n## Maʼlumotlarni qancha saqlaymiz\nBron va soʻrov yozuvlari xizmat koʻrsatish va buxgalteriya talablari uchun zarur muddat davomida saqlanadi. Yordamchi bilan suhbatlar jamoamiz belgilagan muddatdan keyin (odatda 90 kun) avtomatik oʻchiriladi.\n\n## Huquqlaringiz\nBiz saqlayotgan shaxsiy maʼlumotlaringizni koʻrsatish, tuzatish yoki oʻchirishni, shuningdek, xat yuborishni toʻxtatishni soʻrashingiz mumkin. Bizga yozing, maqbul muddatda javob beramiz."
+      },
+      "terms": {
+        "title": "Bron shartlari",
+        "lead": "Biz bilan bron qilganingizda soʻrovlar, tasdiqlash, narxlar va oʻzgarishlar qanday ishlaydi.",
+        "updated": "Oxirgi yangilanish: 2026-yil noyabr",
+        "body": "## Soʻrov va tasdiqlash\nBron shakli, tur konstruktori marshruti yoki xizmat soʻrovini yuborish bepul va hech qanday majburiyat yuklamaydi. Jamoamiz boʻsh joylar va yakuniy narxni sizga yozma ravishda (email yoki messenjer orqali) tasdiqlab, siz uni qabul qilganingizdan keyingina bron tasdiqlangan hisoblanadi.\n\n## Narxlar\n- Saytdagi narxlar, agar boshqacha koʻrsatilmagan boʻlsa, bir kishi uchun va guruh hajmi hamda sanalarga bogʻliq.\n- Turning asosiy valyutasidan boshqa valyutada koʻrsatilgan narxlar joriy kurs boʻyicha hisoblanadi va biroz oʻzgarishi mumkin.\n- Tur konstruktori va AI rejalashtiruvchi hisob-kitoblari taxminiy. Yakuniy narx yozma tasdiqnomada koʻrsatiladi.\n\n## Toʻlov\nToʻlov summasi, usuli va muddati tasdiqnomada koʻrsatiladi. Saytda yoki chatda hech qachon karta maʼlumotlarini soʻramaymiz.\n\n## Oʻzgartirish va bekor qilish\nBekor qilish va oʻzgartirish shartlari tur, mavsum va band qilingan xizmatlarga (mehmonxona, poyezd, aviareys) bogʻliq va toʻlovdan oldin tasdiqnomada koʻrsatiladi. Bizga bogʻliq boʻlmagan sabablarga koʻra dasturni oʻzgartirishga toʻgʻri kelsa, teng qiymatli muqobil variant yoki koʻrsatilmagan xizmatlar uchun pulni qaytarishni taklif qilamiz.\n\n## Hujjatlar va salomatlik\nAmaldagi pasport, viza va zarur roʻyxatdan oʻtish uchun sayohatchining oʻzi javobgar; imkon qadar maʼlumot va taklifnoma bilan yordam beramiz. Tibbiy xarajatlar va bekor qilishni qoplaydigan sugʻurta olishni tavsiya qilamiz. Salomatlik holati, ovqatlanish talablari yoki harakatlanishdagi cheklovlar haqida oldindan xabar bering.\n\n## Sayohat davomida\nGid va haydovchi koʻrsatmalariga amal qiling, muqaddas joylarda mahalliy odatlarni hurmat qiling va shaxsiy buyumlaringizga ehtiyot boʻling. Dasturdagi vaqtlar taxminiy va tirbandlik, ob-havo yoki ish vaqtiga qarab oʻzgarishi mumkin.\n\n## Sharhlar\nSharhlar faqat moderatsiyadan soʻng eʼlon qilinadi. Sharh mazmunini oʻzgartirmaymiz.\n\n## Aloqa\nShartlar boʻyicha savollar boʻlsa, [aloqa sahifasidagi](/contact) maʼlumotlar orqali [[agency]] bilan bogʻlaning."
+      }
+    },
+    "toursPage": {
+      "eyebrow": "Safaringizni toping"
+    },
+    "tourPage": {
+      "ask": "Tur haqida soʻrash",
+      "askQuestion": "“{title}” turi haqida savolim bor"
+    },
+    "destPage": {
+      "ask": "Bu joy haqida soʻrash",
+      "askQuestion": "{name}ga borishdan oldin nimalarni bilishim kerak?",
+      "experiences": "{name}da nimalar qilish mumkin"
+    },
+    "assistantPage": {
+      "title": "AI sayohat yordamchisi",
+      "lead": "Oʻzbekiston boʻylab sayohat haqida istalgan savolni bering: marshrutlar, narxlar, mavsumlar, viza yoki qaysi turimiz sizga mos kelishi. Javoblar katalogimiz va sayohat qoʻllanmalarimiz asosida beriladi.",
+      "start": "Suhbatni boshlash",
+      "examples": [
+        "Aprel oyida birinchi safar uchun qaysi tur yaxshi?",
+        "Ikki kishi uchun Oʻzbekistonda bir hafta qancha turadi?",
+        "Oʻzbekistonga kelish uchun viza kerakmi?",
+        "Bolalar bilan Buxoroda nimalarni koʻrish mumkin?"
+      ],
+      "canTitle": "Yordamchi nimalarda yordam beradi",
+      "can": {
+        "tours": {
+          "title": "Mos turni topish",
+          "text": "Turlarimizni davomiylik, uslub va narx boʻyicha solishtirib, eng mosiga havola beradi."
+        },
+        "plan": {
+          "title": "Kunlarni rejalash",
+          "text": "Har bir shaharda necha kun boʻlish va ular orasida qanday yurishni taklif qiladi."
+        },
+        "budget": {
+          "title": "Byudjetni hisoblash",
+          "text": "Joriy turlarimiz asosida taxminiy narxlarni beradi. Yakuniy narxni jamoamiz tasdiqlaydi."
+        },
+        "languages": {
+          "title": "Uch tilda",
+          "text": "Oʻzbek, ingliz yoki rus tilida yozing, javob ham shu tilda boʻladi."
+        }
+      },
+      "privacyTitle": "Maxfiyligingiz",
+      "privacyText": "Iltimos, chatda pasport raqami yoki karta maʼlumotlarini yozmang. Xizmatni yaxshilash uchun suhbatlar cheklangan muddat saqlanadi.",
+      "plannerTitle": "Toʻliq kunma-kun reja kerakmi?",
+      "plannerText": "AI rejalashtiruvchi mos turlar va byudjet bilan toʻliq marshrut tuzadi, uni oʻzgartirib jamoamizga yuborishingiz mumkin."
+    },
+    "contactPage": {
+      "eyebrow": "Biz bilan bogʻlaning",
+      "formTitle": "Bizga xabar yuboring",
+      "formText": "Tur, guruh sayohati yoki boshqa savollaringiz bormi? Yozing, siz tanlagan kanal orqali javob beramiz."
+    }
   }
 }

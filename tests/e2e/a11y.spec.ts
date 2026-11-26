@@ -51,7 +51,7 @@ test("no serious or critical axe violations: booking confirmation and admin pane
   const detail = await (await request.get("/api/tours/samarkand-bukhara-express")).json();
   const ip = `10.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.77`;
   const res = await request.post("/api/bookings", {
-    headers: { "cf-connecting-ip": ip },
+    headers: { "cf-connecting-ip": ip, "x-real-ip": ip },
     data: {
       tourSlug: "samarkand-bukhara-express", bookingType: detail.data.pricing[0].bookingType, fullName: "Axe Guest", email: "axe@example.com",
       phone: "+998901234567", contactChannel: "email", preferredDate: new Date(Date.now() + 40 * 86400_000).toISOString().slice(0, 10),

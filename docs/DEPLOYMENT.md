@@ -1,4 +1,4 @@
-# Deploying Silk Road Tours (Docker + nginx on Oracle Cloud Always Free)
+# Deploying National Tours (Docker + nginx on Oracle Cloud Always Free)
 
 The site runs as one Docker container (Next.js + SQLite on a persistent volume) behind **nginx** on the host,
 with free Let's Encrypt certificates. Everything fits the Oracle Cloud **Always Free** tier (Ampere A1 ARM or
@@ -26,7 +26,7 @@ file (`VACUUM INTO`), and WAL mode handles concurrent reads. If traffic ever nee
 3. DNS at the domain registrar (only these two records; leave everything else unchanged):
    | Type | Name | Value |
    |---|---|---|
-   | A | `@` (silkroadtours.uz) | server public IP |
+   | A | `@` (nationaltours.uz) | server public IP |
    | A | `www` | server public IP |
 
 ## 2. Deploy
@@ -39,7 +39,7 @@ sudo DOMAIN=nationaltours.uz EMAIL=you@example.com bash deploy/setup-server.sh  
 ```
 `deploy/setup-server.sh` installs Docker, nginx and certbot, opens ports 80/443 in the host firewall (Oracle
 Ubuntu images block them by default), builds and starts the container, waits for `/api/health`, obtains the
-certificate for `silkroadtours.uz` + `www.silkroadtours.uz`, installs `deploy/nginx/silkroadtours.conf`
+certificate for `nationaltours.uz` + `www.nationaltours.uz`, installs `deploy/nginx/silkroadtours.conf`
 (HTTP→HTTPS, www→apex, HSTS, gzip, static caching, `/api/` rate limit) and a daily backup cron job.
 It is safe to run again. `DOMAIN` sets the site address everywhere (nginx, certificate, canonical links,
 sitemap); www is added to the certificate only when `www.DOMAIN` already points to the server, so re-run
@@ -53,9 +53,9 @@ uses a free local port (`APP_PORT`, default 3100). If port 80 belongs to somethi
 
 ## 3. First administrator (no default password exists)
 ```bash
-curl -X POST https://silkroadtours.uz/api/admin/auth/bootstrap \
+curl -X POST https://nationaltours.uz/api/admin/auth/bootstrap \
   -H "x-admin-secret: $(grep ^ADMIN_SECRET= .env | cut -d= -f2-)" \
-  -H "origin: https://silkroadtours.uz" -H "content-type: application/json" \
+  -H "origin: https://nationaltours.uz" -H "content-type: application/json" \
   -d '{"email":"owner@your-domain","name":"Owner","password":"a long unique password"}'
 ```
 This works only while no admin exists; afterwards it is permanently disabled. Sign in at `/admin`,
@@ -84,6 +84,6 @@ last 4 characters). Chain: `AI_PROVIDER`/`AI_MODEL` → `AI_SECONDARY_MODEL` (sa
 the assistant and planner still work from the catalogue. Tone, welcome texts, limits and retention are
 edited in **Admin → AI**; the protected safety rules are in code (`src/lib/ai/agent.ts`, `src/lib/ai/guard.ts`).
 
-Evaluate after changes: `BASE_URL=https://silkroadtours.uz npm run ai:eval` (UZ/EN/RU questions; fails if
+Evaluate after changes: `BASE_URL=https://nationaltours.uz npm run ai:eval` (UZ/EN/RU questions; fails if
 the assistant confirms a booking, claims availability, asks for payment, links a non-existent tour or shows
 a price without "indicative").

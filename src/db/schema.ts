@@ -68,6 +68,8 @@ export const destinations = sqliteTable(
     gallery: text("gallery", { mode: "json" }).$type<MediaItem[]>().notNull().default(sql`'[]'`),
     seoTitle: localized("seo_title"),
     seoDescription: localized("seo_description"),
+    /** NULL means Uzbekistan; set for outbound destinations such as Dubai or Istanbul. */
+    country: localized("country"),
     sortOrder: integer("sort_order").notNull().default(0),
     isPublished: integer("is_published", { mode: "boolean" }).notNull().default(true),
     createdAt: createdAt(),
@@ -625,4 +627,51 @@ export const adminAuditLogs = sqliteTable(
     createdAt: createdAt(),
   },
   (t) => [index("admin_audit_logs_created_idx").on(t.createdAt)],
+);
+
+// ── CMS content: travel guides, experiences, services ──────────────────────
+
+export const CONTENT_KINDS = ["guide", "experience", "service"] as const;
+export type ContentKind = (typeof CONTENT_KINDS)[number];
+
+export const contentItems = sqliteTable(
+  "content_items",
+  {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    kind: text("kind", { enum: CONTENT_KINDS }).notNull(),
+    slug: text("slug").notNull(),
+    category: text("category"),
+    title: localized("title").notNull(),
+    excerpt: localized("excerpt").notNull(),
+    /** Markdown per language. */
+    body: localized("body").notNull(),
+    image: text("image"),
+    destinationSlug: text("destination_slug"),
+    icon: text("icon"),
+    requestType: text("request_type"),
+    durationHours: real("duration_hours"),
+    priceFromUsd: integer("price_from_usd"),
+    readingMinutes: integer("reading_minutes"),
+    isPublished: integer("is_published", { mode: "boolean" }).notNull().default(true),
+    sortOrder: integer("sort_order").notNull().default(0),
+    createdAt: createdAt(),
+    updatedAt: updatedAt(),
+  },
+  (t) => [
+    uniqueIndex("content_items_kind_slug_uq").on(t.kind, t.slug),
+    index("content_items_published_idx").on(t.kind, t.isPublished, t.sortOrder),
+    check("content_items_kind_ck", sql`${t.kind} IN ('guide', 'experience', 'service')`),
+  ],
+);
+
+export const newsletterSubscribers = sqliteTable(
+  "newsletter_subscribers",
+  {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    email: text("email").notNull(),
+    locale: text("locale").notNull().default("en"),
+    source: text("source"),
+    createdAt: createdAt(),
+  },
+  (t) => [uniqueIndex("newsletter_subscribers_email_uq").on(t.email)],
 );

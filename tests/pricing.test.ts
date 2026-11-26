@@ -59,7 +59,7 @@ describe("pricing engine", () => {
     assert.equal(convertMinor(10000, "USD", "UZS", rates), 1197344); // $100 → 1,197,344 so'm
     assert.equal(convertMinor(8600, "EUR", "USD", rates), 10000); // €86 → $100
     assert.equal(formatMoney(154400, "USD", "en"), "$1,544");
-    assert.match(formatMoney(3808000, "UZS", "uz"), /^3\s808\s000 so'm$/);
+    assert.match(formatMoney(3808000, "UZS", "uz"), /^3\s808\s000 soʻm$/);
     assert.match(formatMoney(3808000, "UZS", "ru"), /^3\s808\s000 сум$/);
   });
 });

@@ -1,4 +1,4 @@
-# Silk Road Tours — production stack.
+# National Tours — production stack.
 #   cp .env.example .env   (fill in secrets; never commit .env)
 #   docker compose up -d --build
 # The app listens only on 127.0.0.1:${APP_PORT:-3100}; nginx on the host terminates HTTPS (see deploy/nginx).
@@ -8,7 +8,7 @@ services:
     build:
       context: .
       args:
-        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-https://silkroadtours.uz}
+        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-https://nationaltours.uz}
         NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${NEXT_PUBLIC_TURNSTILE_SITE_KEY:-}
     image: silkroadtours:latest
     container_name: silkroadtours

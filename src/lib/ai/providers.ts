@@ -2,7 +2,8 @@ import "server-only";
 
 /**
  * Provider-independent AI layer: Website UI → /api/ai/chat → runAgent() → ProviderAdapter → model.
- * Each adapter owns its wire format (Gemini contents/parts, OpenAI-style messages for Groq) and runs
+ * Each adapter owns its wire format (Gemini contents/parts, OpenAI-style messages for Mistral, OpenRouter,
+ * Cerebras, Groq or any compatible endpoint) and runs
  * the tool-calling loop itself, so switching providers never touches the rest of the app.
  * API keys are read from process.env on the server only.
  */
@@ -88,7 +89,7 @@ async function postJson(provider: string, url: string, headers: Record<string, s
 
 type GeminiPart = { text?: string; functionCall?: { name: string; args?: Record<string, unknown> }; functionResponse?: unknown; thoughtSignature?: string; thought?: boolean };
 
-export function geminiAdapter(model = process.env.AI_MODEL || "gemini-flash-lite-latest"): ProviderAdapter {
+export function geminiAdapter(model = env("GEMINI_MODEL") || "gemini-flash-lite-latest"): ProviderAdapter {
   return {
     id: "gemini",
     model,
@@ -151,16 +152,67 @@ export function geminiAdapter(model = process.env.AI_MODEL || "gemini-flash-lite
   };
 }
 
-// ── Groq (OpenAI-compatible chat completions) ──────────────────────────────
+// ── OpenAI-compatible chat completions (Mistral, OpenRouter, Cerebras, Groq, any custom endpoint) ──
 
-export function groqAdapter(model = process.env.AI_FALLBACK_MODEL || "llama-3.3-70b-versatile"): ProviderAdapter {
-  return {
+interface CompatSpec {
+  id: string;
+  /** Base URL up to and including /v1 (".../chat/completions" is appended). */
+  baseUrl: () => string | undefined;
+  apiKey: () => string | undefined;
+  defaultModel: () => string | undefined;
+  headers?: () => Record<string, string>;
+  /** Mistral expects the function name on tool-result messages. */
+  toolResultName?: boolean;
+}
+
+const env = (k: string) => process.env[k]?.trim() || undefined;
+
+export const COMPAT_PROVIDERS = {
+  mistral: {
+    id: "mistral",
+    baseUrl: () => "https://api.mistral.ai/v1",
+    apiKey: () => env("MISTRAL_API_KEY"),
+    defaultModel: () => env("MISTRAL_MODEL") || "mistral-small-latest",
+    toolResultName: true,
+  },
+  openrouter: {
+    id: "openrouter",
+    baseUrl: () => "https://openrouter.ai/api/v1",
+    apiKey: () => env("OPENROUTER_API_KEY"),
+    defaultModel: () => env("OPENROUTER_MODEL") || "openrouter/free",
+    headers: () => ({ "HTTP-Referer": env("SITE_URL") || "https://nationaltours.uz", "X-Title": "National Tours" }),
+  },
+  cerebras: {
+    id: "cerebras",
+    baseUrl: () => "https://api.cerebras.ai/v1",
+    apiKey: () => env("CEREBRAS_API_KEY"),
+    defaultModel: () => env("CEREBRAS_MODEL") || "gpt-oss-120b",
+  },
+  groq: {
     id: "groq",
+    baseUrl: () => "https://api.groq.com/openai/v1",
+    apiKey: () => env("GROQ_API_KEY"),
+    defaultModel: () => env("GROQ_MODEL") || "llama-3.3-70b-versatile",
+  },
+  /** Any other OpenAI-compatible service: set AI_COMPAT_BASE_URL, AI_COMPAT_API_KEY and AI_COMPAT_MODEL. */
+  custom: {
+    id: "custom",
+    baseUrl: () => env("AI_COMPAT_BASE_URL")?.replace(/\/+$/, "").replace(/\/chat\/completions$/, ""),
+    apiKey: () => env("AI_COMPAT_API_KEY"),
+    defaultModel: () => env("AI_COMPAT_MODEL"),
+  },
+} satisfies Record<string, CompatSpec>;
+
+export function openAiCompatAdapter(spec: CompatSpec, modelOverride?: string): ProviderAdapter {
+  const model = modelOverride || spec.defaultModel() || "";
+  return {
+    id: spec.id,
     model,
-    configured: () => Boolean(process.env.GROQ_API_KEY),
+    configured: () => Boolean(spec.apiKey() && spec.baseUrl() && model),
     async run(input) {
-      const key = process.env.GROQ_API_KEY;
-      if (!key) throw new ProviderError("groq", "not_configured", "GROQ_API_KEY is not set");
+      const key = spec.apiKey();
+      const base = spec.baseUrl();
+      if (!key || !base || !model) throw new ProviderError(spec.id, "not_configured", `${spec.id} is not configured`);
       type Msg = { role: string; content: string | null; tool_calls?: unknown[]; tool_call_id?: string; name?: string };
       const messages: Msg[] = [{ role: "system", content: input.system }, ...input.history.map((t) => ({ role: t.role, content: t.content }))];
       let tokensIn = 0;
@@ -177,30 +229,46 @@ export function groqAdapter(model = process.env.AI_FALLBACK_MODEL || "llama-3.3-
         };
         if (input.tools.length && round < rounds) {
           body.tools = input.tools.map((t) => ({ type: "function", function: { name: t.name, description: t.description, parameters: t.parameters } }));
+          body.tool_choice = "auto";
         }
-        const data = await postJson("groq", "https://api.groq.com/openai/v1/chat/completions", { authorization: `Bearer ${key}` }, body, input.timeoutMs);
+        const data = await postJson(spec.id, `${base}/chat/completions`, { authorization: `Bearer ${key}`, ...(spec.headers?.() ?? {}) }, body, input.timeoutMs);
+        if (data.error) throw new ProviderError(spec.id, "bad_response", JSON.stringify(data.error).slice(0, 300));
         tokensIn += data.usage?.prompt_tokens ?? 0;
         tokensOut += data.usage?.completion_tokens ?? 0;
         const msg = data.choices?.[0]?.message;
-        if (!msg) throw new ProviderError("groq", "bad_response", "no choices");
-        const calls = (msg.tool_calls ?? []) as { id: string; function: { name: string; arguments: string } }[];
-        if (calls.length === 0) return { text: (msg.content ?? "").trim(), provider: "groq", model: data.model || model, tokensIn, tokensOut, toolCalls };
-        messages.push({ role: "assistant", content: msg.content ?? null, tool_calls: calls });
+        if (!msg) throw new ProviderError(spec.id, "bad_response", "no choices");
+        const calls = (msg.tool_calls ?? []) as { id: string; function: { name: string; arguments: string | Record<string, unknown> } }[];
+        if (calls.length === 0) {
+          const text = (typeof msg.content === "string" ? msg.content : "").trim();
+          if (!text) throw new ProviderError(spec.id, "bad_response", "empty answer");
+          return { text, provider: spec.id, model: data.model || model, tokensIn, tokensOut, toolCalls };
+        }
+        messages.push({ role: "assistant", content: msg.content ?? "", tool_calls: calls });
         for (const c of calls) {
           let args: Record<string, unknown> = {};
           try {
-            args = JSON.parse(c.function.arguments || "{}");
+            args = typeof c.function.arguments === "string" ? JSON.parse(c.function.arguments || "{}") : (c.function.arguments ?? {});
           } catch {
             args = {};
           }
           toolCalls.push({ name: c.function.name, args });
           const result = await input.execute(c.function.name, args);
-          messages.push({ role: "tool", tool_call_id: c.id, content: JSON.stringify(result).slice(0, 12000) });
+          messages.push({
+            role: "tool",
+            tool_call_id: c.id,
+            ...(spec.toolResultName ? { name: c.function.name } : {}),
+            content: JSON.stringify(result).slice(0, 12000),
+          });
         }
       }
-      throw new ProviderError("groq", "bad_response", "too many tool rounds");
+      throw new ProviderError(spec.id, "bad_response", "too many tool rounds");
     },
   };
+}
+
+/** Kept for callers that still ask for Groq by name. */
+export function groqAdapter(model?: string): ProviderAdapter {
+  return openAiCompatAdapter(COMPAT_PROVIDERS.groq, model);
 }
 
 /** Deterministic test double, selected with AI_PROVIDER=mock (unit tests, offline demos). */
@@ -219,25 +287,31 @@ export function mockAdapter(): ProviderAdapter {
 }
 
 export function adapterFor(id: string | undefined, model?: string): ProviderAdapter | null {
-  switch ((id || "").toLowerCase()) {
-    case "gemini":
-      return geminiAdapter(model || undefined);
-    case "groq":
-      return groqAdapter(model || undefined);
-    case "mock":
-      return mockAdapter();
-    default:
-      return null;
-  }
+  const key = (id || "").toLowerCase().trim();
+  if (key === "gemini") return geminiAdapter(model || undefined);
+  if (key === "mock") return mockAdapter();
+  const name = key === "openai" || key === "openai-compatible" ? "custom" : key;
+  const spec = (COMPAT_PROVIDERS as Record<string, CompatSpec>)[name];
+  return spec ? openAiCompatAdapter(spec, model || undefined) : null;
 }
 
-/** Primary provider, then the configured fallback; quota/timeouts/outages fall through to the next one. */
+/** Order in which any other provider with a key is tried after the ones named in the env. */
+const AUTO_FALLBACK = ["mistral", "gemini", "openrouter", "cerebras", "groq", "custom"];
+
+/**
+ * Primary provider, an optional second model on it, then fallbacks; quota/timeouts/outages fall through
+ * to the next one. Every provider that has a key is in the chain, so adding a key is all it takes.
+ */
 export function providerChain(): ProviderAdapter[] {
-  const primary = adapterFor(process.env.AI_PROVIDER || "gemini", process.env.AI_MODEL);
+  const primaryId = env("AI_PROVIDER") || "gemini";
+  const primary = adapterFor(primaryId, env("AI_MODEL"));
   // A second model on the same provider absorbs "high demand" (503) and timeouts on the first.
-  const secondary = process.env.AI_SECONDARY_MODEL === "none" ? null : adapterFor(process.env.AI_PROVIDER || "gemini", process.env.AI_SECONDARY_MODEL || "gemini-flash-latest");
-  const fallback = adapterFor(process.env.AI_FALLBACK_PROVIDER || "groq", process.env.AI_FALLBACK_MODEL);
-  return [primary, secondary, fallback].filter(
+  const secondModel = env("AI_SECONDARY_MODEL") || (primaryId === "gemini" ? "gemini-flash-latest" : undefined);
+  const secondary = secondModel && secondModel !== "none" ? adapterFor(primaryId, secondModel) : null;
+  const named = (env("AI_FALLBACK_PROVIDER") || "").split(",").map((x) => x.trim()).filter(Boolean);
+  const fallbacks = named.map((id, i) => adapterFor(id, i === 0 ? env("AI_FALLBACK_MODEL") : undefined));
+  const auto = primaryId === "mock" ? [] : AUTO_FALLBACK.map((id) => adapterFor(id));
+  return [primary, secondary, ...fallbacks, ...auto].filter(
     (a, i, arr): a is ProviderAdapter => !!a && a.configured() && arr.findIndex((b) => b?.id === a.id && b?.model === a.model) === i,
   );
 }

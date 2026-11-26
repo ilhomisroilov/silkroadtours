@@ -6,32 +6,38 @@
  * (contrast ratios are listed in the design doc).
  */
 @theme {
-  /* National palette */
-  --color-lapis: #26458f;
-  --color-lapis-deep: #0e1830;
-  --color-lapis-night: #0a1224;
-  --color-lapis-mist: #d3dbee;
-  --color-cobalt: #26458f;
-  --color-turquoise: #2f8f8b; /* UI accents, icons, ornament (3.1:1 — not for body text) */
-  --color-turquoise-ink: #1f6f6b; /* turquoise text on light backgrounds (4.8:1) */
-  --color-terracotta: #a8492a; /* primary CTA background (white text 4.95:1) */
-  --color-terracotta-deep: #8e3c21; /* CTA hover */
-  --color-saffron: #e2be82; /* ornament lines; text only on lapis-deep/night */
-  --color-saffron-ink: #7a5c1f; /* saffron-toned text on light backgrounds (5.8:1) */
-  --color-saffron-soft: #f1e4c8;
-  --color-pomegranate: #9e2a3a;
-  --color-sand: #eadfcb;
-  --color-sand-soft: #f2ebdd;
-  --color-ivory: #f8f3ea;
-  --color-ink: #1a1814;
-  --color-ink-muted: #5f574d; /* secondary text (6.8:1 on ivory, 5.2:1 on sand) */
-  --color-line: #ddd2bf; /* decorative dividers only */
-  --color-field: #8c7e6b; /* form-control borders (3.8:1 — WCAG 1.4.11) */
-  --color-danger: #a12a2a;
-  --color-success: #1f6b45;
+  /* National Tours palette (token names kept from the first design so every component re-themes at once).
+     Contrast: ink on ivory 13.5:1, ink-muted on ivory 4.8:1, white on lapis 11:1, white on cobalt 6.7:1,
+     saffron-ink on white 5.5:1, lapis on saffron 4.9:1. */
+  --color-lapis: #173d66; /* primary navy */
+  --color-lapis-deep: #0f2a47;
+  --color-lapis-night: #0b1f36;
+  --color-lapis-mist: #dce6f3;
+  --color-cobalt: #245ba8; /* secondary blue */
+  --color-turquoise: #245ba8; /* icons and accents */
+  --color-turquoise-ink: #245ba8;
+  --color-terracotta: #173d66; /* primary CTA background (white text 11:1) */
+  --color-terracotta-deep: #245ba8; /* CTA hover */
+  --color-saffron: #d9a441; /* gold accent */
+  --color-saffron-ink: #8a6212; /* gold-toned text on light backgrounds */
+  --color-saffron-soft: #fbf1dd;
+  --color-pomegranate: #b42318;
+  --color-sand: #e9eff7;
+  --color-sand-soft: #f1f5fa;
+  --color-ivory: #f8fafd; /* page background */
+  --color-ink: #172b4d;
+  --color-ink-muted: #667085;
+  --color-line: #e4e9f1;
+  --color-field: #848fa2; /* form-control borders (3.1:1) */
+  --color-danger: #b42318;
+  --color-success: #1e7b4f;
+  --color-sky: #eaf1fb;
+
+  --radius-sm: 0.75rem;
+  --radius-card: 1.25rem;
 
   /* Type */
-  --font-display: "Noto Serif Display", Georgia, "Times New Roman", serif;
+  --font-display: "Manrope Variable", "Manrope", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-sans: "Manrope Variable", "Manrope", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 
   /* Modular scale (1.25) with fluid display sizes */
@@ -54,13 +60,20 @@
   --text-5xl: clamp(2.75rem, 1.8rem + 4.2vw, 5.25rem);
   --text-5xl--line-height: 1;
 
-  --radius-card: 2px;
-  --shadow-card: 0 1px 0 rgb(14 24 48 / 0.06);
-  --shadow-lift: 0 20px 40px -18px rgb(14 24 48 / 0.28);
+  --shadow-card: 0 8px 28px -12px rgb(23 61 102 / 0.16);
+  --shadow-lift: 0 24px 48px -20px rgb(23 61 102 / 0.32);
 
   --ease-silk: cubic-bezier(0.22, 1, 0.36, 1);
 
   --animate-spin-slow: spin 6s linear infinite;
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
   --animate-shimmer: shimmer 1.6s ease-in-out infinite;
   @keyframes shimmer {
     0% { opacity: 0.55; }
@@ -83,9 +96,10 @@
   }
   h1, h2, h3, .font-display {
     font-family: var(--font-display);
-    font-weight: 400;
-    letter-spacing: -0.012em;
+    font-weight: 800;
+    letter-spacing: -0.025em;
     text-wrap: balance;
+    overflow-wrap: break-word;
   }
   p { text-wrap: pretty; }
   a { text-underline-offset: 0.18em; }
@@ -129,17 +143,26 @@
   .bg-girih-dark {
     background-color: var(--color-lapis-deep);
     background-image:
-      repeating-linear-gradient(45deg, rgb(234 223 203 / 0.07) 0 1px, transparent 1px 34px),
-      repeating-linear-gradient(-45deg, rgb(234 223 203 / 0.07) 0 1px, transparent 1px 34px);
+      radial-gradient(120% 90% at 100% 0%, rgb(36 91 168 / 0.45), transparent 60%),
+      radial-gradient(80% 80% at 0% 100%, rgb(217 164 65 / 0.12), transparent 60%);
+  }
+  .bg-ai-soft {
+    background-color: #eef4fd;
+    background-image:
+      radial-gradient(90% 80% at 100% 0%, rgb(36 91 168 / 0.18), transparent 60%),
+      radial-gradient(70% 70% at 0% 100%, rgb(122 162 230 / 0.22), transparent 60%);
+  }
+  .card {
+    border-radius: var(--radius-card);
+    background: #fff;
+    box-shadow: var(--shadow-card);
   }
   .bg-girih-light {
-    background-image:
-      repeating-linear-gradient(45deg, rgb(14 24 48 / 0.05) 0 1px, transparent 1px 34px),
-      repeating-linear-gradient(-45deg, rgb(14 24 48 / 0.05) 0 1px, transparent 1px 34px);
+    background-image: radial-gradient(100% 80% at 100% 0%, rgb(36 91 168 / 0.06), transparent 60%);
   }
   .eyebrow {
     font: 800 0.75rem/1 var(--font-sans);
-    letter-spacing: 0.2em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
   }
   /* The dotted Silk Road route line (decorative). */
@@ -191,6 +214,8 @@
   .prose-silk p + p { margin-top: 0.9em; }
   .prose-silk a { color: var(--color-cobalt); text-decoration: underline; }
 }
+
+.animate-fade-up { animation: fade-up 0.7s var(--ease-silk) both; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

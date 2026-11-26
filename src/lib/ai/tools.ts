@@ -2,7 +2,7 @@ import "server-only";
 import { and, asc, eq, gte } from "drizzle-orm";
 import { z } from "zod";
 import type { Db } from "@/db/client";
-import { aiToolLogs, destinations, faqItems, tourDepartures, tourDestinations, tourItineraryDays, tours } from "@/db/schema";
+import { aiToolLogs, contentItems, destinations, faqItems, tourDepartures, tourDestinations, tourItineraryDays, tours } from "@/db/schema";
 import { getContact, getRates } from "@/db/queries/settings";
 import type { Locale, LocalizedText } from "@/db/types";
 import { todayTashkent } from "@/db/batch";
@@ -41,6 +41,22 @@ function aliasHits(text: string): string[] {
   return Object.entries(ALIASES)
     .filter(([, names]) => names.some((a) => n.includes(norm(a))))
     .map(([slug]) => slug);
+}
+
+/** Splits a Markdown article into ~700-character passages on paragraph boundaries (for retrieval). */
+function passages(md: string, max = 700): string[] {
+  const paras = md.replace(/\r/g, "").split(/\n{2,}/).map((p) => p.trim()).filter(Boolean);
+  const out: string[] = [];
+  let cur = "";
+  for (const p of paras) {
+    if (cur && cur.length + p.length > max) {
+      out.push(cur);
+      cur = "";
+    }
+    cur = cur ? `${cur}\n\n${p}` : p;
+  }
+  if (cur) out.push(cur);
+  return out.map((x) => x.slice(0, 1200));
 }
 
 function textScore(hay: string, query: string): number {
@@ -85,6 +101,19 @@ export const TOOL_SPECS: ToolSpec[] = [
     name: "get_faq_answer",
     description: "Search the company's approved FAQ (visas, payments, booking policy, safety, transport, etc.).",
     parameters: { type: "object", properties: { query: { type: "string" } }, required: ["query"] },
+  },
+  {
+    name: "search_site_content",
+    description:
+      "Retrieve passages from the company's own published travel guides (visas, money, SIM cards, food, etiquette, seasons, packing), experiences (cooking classes, crafts, camel rides…) and services (transfers, guides, hotels). Use for practical travel questions and anything not answered by tours or FAQ. Answer only from the returned passages and link the url.",
+    parameters: {
+      type: "object",
+      properties: {
+        query: { type: "string", description: "What the visitor wants to know, in any language." },
+        kind: { type: "string", enum: ["guide", "experience", "service"], description: "Optional: limit to one kind of content." },
+      },
+      required: ["query"],
+    },
   },
   {
     name: "get_contact_information",
@@ -137,6 +166,7 @@ const schemas = {
   get_destination_details: z.object({ slug: z.string().regex(/^[a-z0-9-]{1,120}$/) }),
   get_faq_answer: z.object({ query: z.string().min(1).max(300) }),
   get_contact_information: z.object({}).passthrough(),
+  search_site_content: z.object({ query: z.string().min(1).max(300), kind: z.enum(["guide", "experience", "service"]).optional() }),
   calculate_trip_budget: z.object({
     days: z.coerce.number().int().min(1).max(30),
     style: z.enum(["budget", "comfort", "premium"]).default("comfort"),
@@ -363,6 +393,28 @@ async function run(ctx: ToolContext, name: ToolName, args: never): Promise<unkno
           return { category: f.category, question: L(f.question, locale), answer: L(f.answer, locale) };
         });
       return { items, note: items.length ? "Company-approved answers." : "No approved FAQ entry. For visas and border rules, tell the visitor to verify on official sources." };
+    }
+    case "search_site_content": {
+      const a = args as z.infer<typeof schemas.search_site_content>;
+      const conds = [eq(contentItems.isPublished, true)];
+      if (a.kind) conds.push(eq(contentItems.kind, a.kind));
+      const rows = await db.select().from(contentItems).where(and(...conds));
+      const pathFor = { guide: "travel-guide", experience: "experiences", service: "services" } as const;
+      const hits = rows
+        .flatMap((c) => passages(L(c.body, locale) || c.body.en).map((text, i) => ({ c, text, i, s: textScore(`${L(c.title, locale)} ${c.title.en} ${c.category ?? ""} ${text}`, a.query) + (i === 0 ? textScore(L(c.excerpt, locale), a.query) * 0.5 : 0) })))
+        .filter((x) => x.s > 0)
+        .sort((x, y) => y.s - x.s);
+      const seen = new Map<number, number>();
+      const items = [];
+      for (const h of hits) {
+        const n = seen.get(h.c.id) ?? 0;
+        if (n >= 2) continue;
+        seen.set(h.c.id, n + 1);
+        ctx.sources.add(`${h.c.kind}:${h.c.slug}`);
+        items.push({ kind: h.c.kind, title: L(h.c.title, locale), url: `/${locale}/${pathFor[h.c.kind]}/${h.c.slug}`, passage: h.text });
+        if (items.length >= 4) break;
+      }
+      return { items, note: items.length ? "Passages from the company's own published pages." : "Nothing relevant on the site. Say so and offer the contact page or the custom tour builder." };
     }
     case "get_contact_information": {
       const c = await getContact(db);

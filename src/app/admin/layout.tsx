@@ -9,7 +9,7 @@ import { adminLocale } from "@/lib/server/admin";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: { default: "Admin · Silk Road Tours", template: "%s · Admin · Silk Road Tours" },
+  title: { default: "Admin · National Tours", template: "%s · Admin · National Tours" },
   robots: { index: false, follow: false },
   icons: { icon: "/icon.svg" },
 };

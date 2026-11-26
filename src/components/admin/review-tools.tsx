@@ -65,7 +65,7 @@ export function ImportReviewForm({ tours, destinations }: { tours: { id: number;
         <label className="block text-sm font-semibold">{t("author")} *<input name="authorName" required minLength={2} className={field} /></label>
         <label className="block text-sm font-semibold">{t("country")}<input name="authorCountry" className={field} /></label>
         <label className="block text-sm font-semibold">{t("rating")} *<select name="rating" defaultValue="5" className={field}>{[5, 4, 3, 2, 1].map((n) => <option key={n} value={n}>{n}</option>)}</select></label>
-        <label className="block text-sm font-semibold">{t("source")} *<select name="source" defaultValue="google" className={field}>{REVIEW_SOURCES.map((s) => <option key={s} value={s}>{s}</option>)}</select></label>
+        <label className="block text-sm font-semibold">{t("source")} *<select name="source" defaultValue="google" className={field}>{REVIEW_SOURCES.filter((s) => s !== "sample").map((s) => <option key={s} value={s}>{s}</option>)}</select></label>
         <label className="block text-sm font-semibold sm:col-span-2">{t("sourceUrl")} *<input name="sourceUrl" type="url" required placeholder="https://" className={field} /></label>
         <label className="block text-sm font-semibold">{t("tour")}<select name="tourId" className={field}><option value="">—</option>{tours.map((x) => <option key={x.id} value={x.id}>{x.name}</option>)}</select></label>
         <label className="block text-sm font-semibold">{t("destination")}<select name="destinationId" className={field}><option value="">—</option>{destinations.map((x) => <option key={x.id} value={x.id}>{x.name}</option>)}</select></label>

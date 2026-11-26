@@ -1,6 +1,6 @@
 "use client";
 
-import { BarChart3, BookOpenCheck, CalendarCheck2, Cog, HelpCircle, LogOut, Map, MessageSquareQuote, PanelLeft, Route, Bot } from "lucide-react";
+import { BarChart3, BookOpenCheck, CalendarCheck2, Cog, FileText, HelpCircle, Images, LogOut, Mail, Map, MessageSquareQuote, PanelLeft, Route, Bot, Users } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
@@ -14,11 +14,15 @@ const NAV = [
   { href: "/admin", key: "overview", icon: BarChart3 },
   { href: "/admin/bookings", key: "bookings", icon: CalendarCheck2 },
   { href: "/admin/requests", key: "requests", icon: BookOpenCheck },
+  { href: "/admin/customers", key: "customers", icon: Users },
   { href: "/admin/tours", key: "tours", icon: Route },
   { href: "/admin/destinations", key: "destinations", icon: Map },
   { href: "/admin/ai", key: "ai", icon: Bot },
+  { href: "/admin/content", key: "content", icon: FileText },
+  { href: "/admin/media", key: "media", icon: Images },
   { href: "/admin/faq", key: "faq", icon: HelpCircle },
   { href: "/admin/reviews", key: "reviews", icon: MessageSquareQuote },
+  { href: "/admin/newsletter", key: "newsletter", icon: Mail },
   { href: "/admin/settings", key: "settings", icon: Cog },
 ] as const;
 
@@ -60,10 +64,10 @@ export function AdminShell({ user, locale, children }: { user: { name: string; r
   );
   return (
     <div className="lg:grid lg:min-h-dvh lg:grid-cols-[16rem_1fr]">
-      <aside className={cn("on-dark bg-girih-dark fixed inset-y-0 left-0 z-50 flex w-64 flex-col gap-6 p-4 transition-transform lg:static lg:translate-x-0", open ? "translate-x-0" : "-translate-x-full")}>
+      <aside className={cn("on-dark bg-girih-dark fixed inset-y-0 left-0 z-50 flex w-64 flex-col gap-6 overflow-y-auto overscroll-contain p-4 transition-transform lg:static lg:overflow-visible lg:translate-x-0", open ? "translate-x-0" : "-translate-x-full")}>
         <Link href="/admin" className="flex items-center gap-2 px-2 pt-2">
           <GirihRosette size={32} tone="saffron" strokeWidth={2.2} />
-          <span className="font-display text-xl font-bold text-ivory">Silk Road Tours</span>
+          <span className="font-display text-xl font-bold text-ivory">National Tours</span>
         </Link>
         {nav}
         <div className="mt-auto space-y-3 border-t border-white/15 pt-4 text-sm text-sand">

@@ -1,8 +1,8 @@
 import type { Locale } from "@/db/types";
 
 const en = {
-    open: "Ask the Silk Road",
-    title: "Silk Road assistant",
+    open: "Ask National Tours",
+    title: "National Tours assistant",
     subtitle: "Answers from our tours & travel guides",
     close: "Close assistant",
     placeholder: "Ask about tours, cities, budgets…",
@@ -17,7 +17,7 @@ const en = {
     bookTitle: "Review your booking request",
     bookBody: "{title} · {adults} adults{children}. Our team replies within 24 hours. This is not a confirmed booking yet.",
     bookCta: "Review & send request",
-    fallback: "AI is unavailable — showing catalogue results",
+    fallback: "Showing results from our catalogue",
     s1: "Plan 5 days for history and food",
     s2: "Compare Samarkand and Bukhara",
     s3: "Which tour suits a family with children?",
@@ -32,8 +32,8 @@ export type AiStrings = typeof en;
 export const AI_STRINGS: Record<Locale, AiStrings> = {
   en,
   uz: {
-    open: "Ipak yoʻli yordamchisi",
-    title: "Silk Road yordamchisi",
+    open: "National Tours yordamchisi",
+    title: "National Tours yordamchisi",
     subtitle: "Javoblar turlarimiz va qoʻllanmalarimizdan",
     close: "Yordamchini yopish",
     placeholder: "Turlar, shaharlar, byudjet haqida soʻrang…",
@@ -48,7 +48,7 @@ export const AI_STRINGS: Record<Locale, AiStrings> = {
     bookTitle: "Bron soʻrovini tekshiring",
     bookBody: "{title} · {adults} kattalar{children}. Jamoamiz 24 soat ichida javob beradi. Bu hali tasdiqlangan bron emas.",
     bookCta: "Tekshirib yuborish",
-    fallback: "AI ishlamayapti — katalog natijalari",
+    fallback: "Katalogimizdan natijalar",
     s1: "Tarix va taomlar uchun 5 kunlik reja",
     s2: "Samarqand va Buxoroni solishtir",
     s3: "Bolali oila uchun qaysi tur mos?",
@@ -58,8 +58,8 @@ export const AI_STRINGS: Record<Locale, AiStrings> = {
     notHelpful: "Foydali emas",
   },
   ru: {
-    open: "Спросить о Шёлковом пути",
-    title: "Помощник Silk Road",
+    open: "Спросить National Tours",
+    title: "Помощник National Tours",
     subtitle: "Ответы на основе наших туров и гидов",
     close: "Закрыть помощника",
     placeholder: "Спросите о турах, городах, бюджете…",
@@ -74,7 +74,7 @@ export const AI_STRINGS: Record<Locale, AiStrings> = {
     bookTitle: "Проверьте заявку на бронирование",
     bookBody: "{title} · взрослых: {adults}{children}. Мы ответим в течение 24 часов. Это ещё не подтверждённое бронирование.",
     bookCta: "Проверить и отправить",
-    fallback: "ИИ недоступен — результаты каталога",
+    fallback: "Результаты из нашего каталога",
     s1: "План на 5 дней: история и кухня",
     s2: "Сравни Самарканд и Бухару",
     s3: "Какой тур подойдёт семье с детьми?",

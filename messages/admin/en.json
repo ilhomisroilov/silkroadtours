@@ -1,11 +1,11 @@
 {
   "title": "Admin panel",
-  "brand": "Silk Road Tours · Admin",
+  "brand": "National Tours · Admin",
   "language": "Language",
   "nav": {
     "overview": "Overview",
     "bookings": "Bookings",
-    "requests": "Service requests",
+    "requests": "Leads & requests",
     "tours": "Tours",
     "destinations": "Destinations",
     "faq": "FAQ",
@@ -15,14 +15,18 @@
     "logout": "Sign out",
     "menu": "Admin menu",
     "signedInAs": "Signed in as {name}",
-    "ai": "AI assistant"
+    "ai": "AI assistant",
+    "customers": "Customers",
+    "content": "Content",
+    "media": "Media library",
+    "newsletter": "Newsletter"
   },
   "login": {
     "title": "Staff sign-in",
     "email": "Email",
     "password": "Password",
     "submit": "Sign in",
-    "noAccount": "No admin account yet? The first owner is created once with the setup call described in docs/DEPLOYMENT.md."
+    "noAccount": "Don't have an account yet? Ask the site owner to add you as a team member."
   },
   "common": {
     "save": "Save",
@@ -130,7 +134,8 @@
       "airport_transfer": "Airport transfer",
       "custom_tour": "Tailor-made tour",
       "accommodation": "Accommodation",
-      "guide": "Guide"
+      "guide": "Guide",
+      "inquiry": "Inquiry"
     },
     "details": "Request details",
     "internalNotes": "Internal notes",
@@ -209,7 +214,7 @@
     },
     "heroImage": "Main image",
     "gallery": "Gallery (one image path or https URL per line)",
-    "imageHint": "Use /images/... for files in the project or an https:// link (e.g. Cloudflare R2).",
+    "imageHint": "Upload the image under Media, then paste its link here.",
     "imageMissing": "Not uploaded yet — the site shows a branded placeholder.",
     "routePoints": "Route stops",
     "addPoint": "Add stop",
@@ -306,5 +311,82 @@
     "currentPassword": "Current password",
     "changePassword": "Change password",
     "ownerOnly": "Only owners can change these settings."
+  },
+  "customers": {
+    "title": "Customers",
+    "search": "Name, email or phone",
+    "name": "Customer",
+    "contact": "Contact",
+    "bookings": "Bookings",
+    "requests": "Requests",
+    "lastActivity": "Last activity",
+    "newsletter": "Newsletter",
+    "subscribed": "Subscribed",
+    "profile": "Customer profile",
+    "history": "History",
+    "booking": "Booking",
+    "request": "Request",
+    "total": "{count} customers",
+    "firstSeen": "First contact",
+    "languages": "Languages",
+    "notFound": "No bookings or requests with this email.",
+    "quoted": "Quoted total"
+  },
+  "content": {
+    "title": "Content",
+    "kinds": {
+      "guide": "Travel guides",
+      "experience": "Experiences",
+      "service": "Services"
+    },
+    "new": "New item",
+    "edit": "Edit content",
+    "slug": "URL slug",
+    "category": "Category",
+    "titleField": "Title",
+    "excerpt": "Short description",
+    "body": "Article text (Markdown)",
+    "image": "Image",
+    "imageHelp": "Paste a path from the Media library, e.g. /images/destinations/khiva/hero.jpg or /media/your-photo.jpg",
+    "destination": "Destination",
+    "icon": "Icon name",
+    "requestType": "Request form",
+    "duration": "Duration (hours)",
+    "price": "From price (USD)",
+    "reading": "Reading time (minutes)",
+    "sortOrder": "Order",
+    "updated": "Updated",
+    "view": "View on site",
+    "search": "Title or slug",
+    "slugTaken": "This URL slug is already used.",
+    "created": "Created",
+    "deleted": "Deleted",
+    "preview": "Preview"
+  },
+  "media": {
+    "title": "Media library",
+    "upload": "Upload image",
+    "uploading": "Uploading…",
+    "uploaded": "Image uploaded",
+    "help": "JPG, PNG or WebP, up to 6 MB. Copy the path into a tour, destination or article.",
+    "copy": "Copy path",
+    "copied": "Path copied",
+    "uploads": "Uploaded",
+    "shipped": "Site photos",
+    "filter": "Folder",
+    "count": "{count} images",
+    "deleteConfirm": "Delete this image? Pages that use it will show a placeholder.",
+    "tooLarge": "The file is larger than 6 MB.",
+    "unsupported": "Only JPG, PNG or WebP images can be uploaded."
+  },
+  "newsletter": {
+    "title": "Newsletter subscribers",
+    "email": "Email",
+    "locale": "Language",
+    "source": "Source",
+    "date": "Subscribed",
+    "export": "Download CSV",
+    "search": "Email",
+    "removeConfirm": "Remove this subscriber?"
   }
 }

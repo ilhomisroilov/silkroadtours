@@ -12,7 +12,7 @@ test("admin: sign in, see a new booking, confirm it (seats go down), sign out", 
   const departure = detail.data.tour.departures.filter((d: { seatsTotal: number; seatsBooked: number; status: string }) => d.status !== "sold_out" && d.seatsTotal - d.seatsBooked >= 2)[isMobileProject ? 3 : 2];
   const ip = `10.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.9`;
   const res = await request.post("/api/bookings", {
-    headers: { "cf-connecting-ip": ip },
+    headers: { "cf-connecting-ip": ip, "x-real-ip": ip },
     data: {
       tourSlug: slug, departureId: departure.id, bookingType: "group", fullName: "Admin Flow Guest", email: "adminflow@example.com",
       phone: "+998901234567", contactChannel: "telegram", messengerHandle: "@adminflow", preferredDate: departure.startDate,

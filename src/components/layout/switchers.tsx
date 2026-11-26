@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, Globe, Menu } from "lucide-react";
+import { Check, ChevronDown, Globe, Menu } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useState, useTransition, type ReactNode } from "react";
@@ -11,7 +11,7 @@ import { cn } from "@/lib/cn";
 import { Dialog, DialogTitle, DialogTrigger, SheetContent } from "@/components/ui/dialog";
 import { Popover, PopoverContent, PopoverTrigger, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/primitives";
 
-const CURRENCY_SYMBOL: Record<Currency, string> = { USD: "$", UZS: "so'm", EUR: "€" };
+const CURRENCY_SYMBOL: Record<Currency, string> = { USD: "$", UZS: "soʻm", EUR: "€" };
 
 function useQueryObject(): Record<string, string> {
   const params = useSearchParams();
@@ -56,29 +56,57 @@ function LocaleLinksWithQuery(props: { onNavigate?: () => void }) {
   return <LocaleLinks {...props} query={query} />;
 }
 
-/** Keeps the visitor on the same page (and filters) when changing language. */
-export function LanguageSwitcher({ className, tone = "light" }: { className?: string; tone?: "light" | "dark" }) {
+/** Keeps the visitor on the same page (and filters) when changing language; also holds the currency choice. */
+export function LanguageSwitcher({ className, tone = "light", currency }: { className?: string; tone?: "light" | "dark"; currency?: Currency }) {
   const t = useTranslations("nav");
   const locale = useLocale() as Locale;
   const [open, setOpen] = useState(false);
+  const router = useRouter();
+  const [cur, setCur] = useState<Currency | undefined>(currency);
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger
         className={cn(
           "inline-flex min-h-11 items-center gap-1.5 rounded-full px-3 text-sm font-semibold uppercase",
-          tone === "dark" ? "text-ivory hover:bg-white/10" : "text-lapis-deep hover:bg-sand-soft",
+          tone === "dark" ? "text-ivory hover:bg-white/10" : "text-ink hover:bg-white/70",
           className,
         )}
         aria-label={`${t("chooseLanguage")}: ${locale.toUpperCase()}`}
       >
-        <Globe aria-hidden="true" className="size-4" />
+        <Globe aria-hidden="true" className="size-[1.15rem]" />
         {locale}
+        {cur && <span className="hidden text-ink-muted 2xl:inline">· {cur}</span>}
+        <ChevronDown aria-hidden="true" className="size-4 opacity-70" />
       </PopoverTrigger>
-      <PopoverContent align="end" className="w-48 p-2">
+      <PopoverContent align="end" className="w-56 p-2">
         <p className="px-3 pb-1 pt-1 text-xs font-semibold uppercase tracking-wide text-ink-muted">{t("language")}</p>
         <Suspense fallback={<LocaleLinks query={{}} />}>
           <LocaleLinksWithQuery onNavigate={() => setOpen(false)} />
         </Suspense>
+        {cur && (
+          <div className="mt-1 border-t border-line px-1 pt-2">
+            <p className="px-2 pb-1.5 text-xs font-semibold uppercase tracking-wide text-ink-muted">{t("currency")}</p>
+            <div className="grid grid-cols-3 gap-1" role="group" aria-label={t("chooseCurrency")}>
+              {CURRENCIES.map((c) => (
+                <button
+                  key={c}
+                  type="button"
+                  aria-pressed={c === cur}
+                  data-testid={`currency-option-${c}`}
+                  onClick={() => {
+                    setCur(c);
+                    document.cookie = currencyCookie(c, location.protocol === "https:");
+                    router.refresh();
+                    setOpen(false);
+                  }}
+                  className={cn("min-h-10 rounded-lg text-sm font-semibold", c === cur ? "bg-lapis text-white" : "text-ink hover:bg-sand-soft")}
+                >
+                  {c}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
       </PopoverContent>
     </Popover>
   );
@@ -144,7 +172,7 @@ export function MainNavLinks({
               href={item.href}
               aria-current={active ? "page" : undefined}
               onClick={onNavigate}
-              className={cn(itemClassName, active && "text-terracotta-deep after:scale-x-100")}
+              className={cn(itemClassName, active && "text-cobalt after:scale-x-100")}
             >
               {item.label}
             </Link>
@@ -200,7 +228,7 @@ export function MobileMenu({
   currency,
   footer,
 }: {
-  items: { href: string; label: string }[];
+  items: { href: string; label: string; children?: { href: string; label: string }[] }[];
   currency: Currency;
   footer?: ReactNode;
 }) {
@@ -217,13 +245,27 @@ export function MobileMenu({
           <DialogTitle className="text-ivory">{t("menu")}</DialogTitle>
           <AudienceToggle className="mt-4" onNavigate={close} />
         </div>
-        <nav aria-label={t("mainNav")} className="px-3 py-4">
-          <MainNavLinks
-            items={items}
-            onNavigate={close}
-            className="flex flex-col"
-            itemClassName="flex min-h-12 items-center rounded-sm px-3 text-lg font-semibold text-ink hover:bg-sand-soft"
-          />
+        <nav aria-label={t("mainNav")} className="overflow-y-auto px-3 py-4">
+          <ul className="flex flex-col">
+            {items.map((item) => (
+              <li key={item.href}>
+                <MainNavLinks
+                  items={[item]}
+                  onNavigate={close}
+                  className="flex flex-col"
+                  itemClassName="flex min-h-12 items-center rounded-xl px-3 text-lg font-semibold text-ink hover:bg-sand-soft"
+                />
+                {item.children && item.children.length > 0 && (
+                  <MainNavLinks
+                    items={item.children}
+                    onNavigate={close}
+                    className="mb-2 ml-3 flex flex-col border-l border-line pl-2"
+                    itemClassName="flex min-h-11 items-center rounded-xl px-3 text-[0.95rem] font-medium text-ink-muted hover:bg-sand-soft hover:text-ink"
+                  />
+                )}
+              </li>
+            ))}
+          </ul>
         </nav>
         <div className="mt-auto flex flex-wrap items-center gap-3 border-t border-line px-5 py-4">
           <span className="text-sm font-semibold text-ink-muted">{t("currency")}</span>

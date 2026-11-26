@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1.7
-# Silk Road Tours — production image (works on amd64 and arm64, e.g. Oracle Cloud Ampere A1).
+# National Tours — production image (works on amd64 and arm64, e.g. Oracle Cloud Ampere A1).
 #   docker compose build && docker compose up -d
 
 ARG NODE_IMAGE=node:22-bookworm-slim
@@ -14,7 +14,7 @@ RUN npm ci --no-audit --no-fund
 FROM ${NODE_IMAGE} AS build
 WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
-ARG NEXT_PUBLIC_SITE_URL=https://silkroadtours.uz
+ARG NEXT_PUBLIC_SITE_URL=https://nationaltours.uz
 ARG NEXT_PUBLIC_TURNSTILE_SITE_KEY=
 ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL \
     NEXT_PUBLIC_TURNSTILE_SITE_KEY=$NEXT_PUBLIC_TURNSTILE_SITE_KEY
@@ -44,7 +44,7 @@ COPY --from=build --chown=app:app /app/.next/static ./.next/static
 COPY --from=build --chown=app:app /app/public ./public
 COPY --from=dbdriver --chown=app:app /drv/node_modules ./node_modules
 COPY --from=build --chown=app:app /app/drizzle/migrations ./drizzle/migrations
-COPY --from=build --chown=app:app /app/drizzle/seed.sql ./drizzle/seed.sql
+COPY --from=build --chown=app:app /app/drizzle/seed.sql /app/drizzle/seed-reset.sql ./drizzle/
 COPY --chown=app:app scripts/db.mjs ./scripts/db.mjs
 COPY --chown=app:app docker/entrypoint.sh /entrypoint.sh
 USER app

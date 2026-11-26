@@ -25,12 +25,14 @@ export function SectionHeading({
     <div className={cn("flex flex-col gap-3", align === "center" && "items-center text-center", action && "sm:flex-row sm:items-end sm:justify-between")}>
       <div className={cn("flex flex-col gap-3", align === "center" && "items-center")}>
         {eyebrow && (
-          <p className={cn("text-sm font-bold uppercase tracking-[0.18em]", dark ? "text-saffron" : "text-saffron-ink")}>{eyebrow}</p>
+          <p className={cn("flex items-center gap-3 text-sm font-bold uppercase tracking-[0.1em]", dark ? "text-saffron" : "text-cobalt")}>
+            {eyebrow}
+            <span aria-hidden="true" className={cn("h-px w-10", dark ? "bg-saffron/50" : "bg-cobalt/40")} />
+          </p>
         )}
-        <As id={id} className={cn(As === "h1" ? "text-4xl" : "text-3xl", dark ? "text-ivory" : "text-lapis-deep")}>
+        <As id={id} className={cn(As === "h1" ? "text-4xl" : "text-3xl", dark ? "text-white" : "text-lapis")}>
           {title}
         </As>
-        <DrawnRule tone={dark ? "var(--color-saffron)" : "var(--color-terracotta)"} />
         {text && <div className={cn("max-w-2xl text-lg", dark ? "text-sand" : "text-ink-muted")}>{text}</div>}
       </div>
       {action}

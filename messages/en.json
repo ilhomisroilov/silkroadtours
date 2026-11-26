@@ -1,8 +1,8 @@
 {
   "meta": {
-    "siteName": "Silk Road Tours",
-    "titleTemplate": "%s · Silk Road Tours",
-    "defaultTitle": "Silk Road Tours — tours across Uzbekistan from Jizzakh",
+    "siteName": "National Tours",
+    "titleTemplate": "%s · National Tours",
+    "defaultTitle": "National Tours — tours across Uzbekistan from Jizzakh",
     "defaultDescription": "Private and group tours across Uzbekistan: Samarkand, Bukhara, Khiva, yurt camps, the Nuratau and Zaamin mountains. Live prices in dollars, so'm or euros, run by a local team in Jizzakh."
   },
   "nav": {
@@ -25,9 +25,9 @@
     "chooseLanguage": "Choose language",
     "chooseCurrency": "Choose currency",
     "breadcrumb": "Breadcrumb",
-    "bookTour": "Find a tour",
+    "bookTour": "Book a Tour",
     "admin": "Staff sign-in",
-    "planner": "Trip planner"
+    "planner": "AI Planner"
   },
   "audience": {
     "label": "Who is travelling?",
@@ -238,7 +238,7 @@
       },
       {
         "q": "“What if the AI is wrong?”",
-        "a": "The assistant only quotes our own catalogue and links every tour it mentions. If it is unavailable, the site still searches our database and shows contacts."
+        "a": "The assistant only uses our own tour catalogue and links every tour it mentions. If it is ever unavailable, you can still search tours and reach our team directly."
       }
     ]
   },
@@ -250,7 +250,7 @@
     "inboundToursTitle": "Tours for international guests",
     "inboundServicesTitle": "Need something else?",
     "domesticMetaTitle": "Trips across Uzbekistan for residents",
-    "domesticEyebrow": "Oʻzbekiston aholisi uchun",
+    "domesticEyebrow": "For residents of Uzbekistan",
     "domesticTitle": "Travel around Uzbekistan",
     "domesticText": "Weekend trips to the mountains, family holidays and corporate outings. Prices in so'm, departures from Tashkent and Jizzakh.",
     "domesticWeekendTitle": "Weekend and family trips",
@@ -364,7 +364,7 @@
   "destinations": {
     "metaTitle": "Destinations in Uzbekistan",
     "title": "Destinations",
-    "intro": "Nine regions, from the Aral Sea to the Fergana Valley. Choose a place to see its sights, the best time to go and the tours that visit it.",
+    "intro": "From the Aral Sea to the Fergana Valley, plus favourite trips abroad. Choose a place to see its sights, the best time to go and the tours that visit it.",
     "toursCount": "{count, plural, =0 {No tours yet} one {# tour} other {# tours}}",
     "overview": "About {name}",
     "attractions": "Top sights",
@@ -558,7 +558,11 @@
     "doneTitle": "Request received",
     "doneText": "Your request reference is {reference}. We will contact you shortly on the channel you chose.",
     "another": "Send another request",
-    "chooseAtLeastOne": "Choose at least one place."
+    "chooseAtLeastOne": "Choose at least one place.",
+    "subject": "Subject",
+    "preferredDate": "Preferred date",
+    "travellers": "Number of travellers",
+    "message": "Your message"
   },
   "guide": {
     "metaTitle": "Uzbekistan travel guide: visas, money, transport, safety",
@@ -600,18 +604,36 @@
   "about": {
     "metaTitle": "About us",
     "title": "A local agency from Jizzakh",
-    "lead": "Silk Road Tours is a tour agency based in Jizzakh, the gateway between Samarkand, the Nuratau mountains and Zaamin National Park.",
+    "lead": "National Tours is a tour agency based in Jizzakh, the gateway between Samarkand, the Nuratau mountains and Zaamin National Park.",
     "p1": "We organise trips for two kinds of travellers: guests from abroad discovering the Silk Road for the first time, and families and companies from Uzbekistan looking for a weekend in the mountains or a holiday close to home.",
     "p2": "We design routes we know first-hand, work with local guides, drivers, guesthouses and yurt camps, and show real prices before you book.",
     "valuesTitle": "How we work",
     "value1Title": "Clear prices",
     "value1Text": "The price you see is calculated from our real rates for your group size and date.",
-    "value2Title": "Fast replies",
-    "value2Text": "Every request reaches our team on Telegram the moment you send it.",
+    "value2Title": "A real person replies",
+    "value2Text": "Your request goes straight to our team, and we reply with a confirmed plan and price.",
     "value3Title": "Local partners",
     "value3Text": "We work with family guesthouses, craftspeople and guides from the regions we visit.",
     "licence": "Licence number: {number}",
-    "cta": "See our tours"
+    "cta": "See our tours",
+    "eyebrow": "About National Tours",
+    "factsTitle": "Our catalogue today",
+    "factDestinations": "{count} destinations",
+    "factTours": "{count} ready-made tours",
+    "factGuides": "{count} travel guides",
+    "factLanguages": "3 languages",
+    "factLanguagesText": "English, Oʻzbekcha, Русский",
+    "factDestinationsText": "Across Uzbekistan and abroad",
+    "factToursText": "Private and small-group",
+    "factGuidesText": "Visas, money, food and seasons",
+    "audienceTitle": "Who we travel with",
+    "inboundText": "First trip to the Silk Road: Samarkand, Bukhara, Khiva, yurt camps and mountain villages.",
+    "domesticText": "Weekend trips, family holidays and company outings, close to home or abroad.",
+    "ctaTitle": "Tell us about your trip",
+    "ctaText": "Plan it with the AI planner, build your own route, or simply write to us.",
+    "ctaPlanner": "Plan with AI",
+    "ctaBuilder": "Build your tour",
+    "ctaContact": "Write to us"
   },
   "contact": {
     "metaTitle": "Contact us",
@@ -622,7 +644,7 @@
     "whatsapp": "WhatsApp",
     "telegram": "Telegram",
     "address": "Address",
-    "hours": "We reply every day, 9:00–21:00 Tashkent time (UTC+5).",
+    "hours": "Our team works on Tashkent time (UTC+5) and replies on the channel you choose.",
     "noChannels": "Our contact details are being updated. Please use the request forms — they reach our team instantly.",
     "formsTitle": "Or send a request",
     "floating": "Contact us"
@@ -663,7 +685,7 @@
     "base_price_required": "A price in the tour's base currency is required.",
     "booking_not_completed": "You can review a trip once it has been completed.",
     "booking_not_found": "We couldn't find a booking with this reference and email.",
-    "bootstrap_disabled": "Initial setup is disabled: set ADMIN_SECRET first.",
+    "bootstrap_disabled": "Initial setup is not available.",
     "cannot_deactivate_self": "You can't deactivate your own account.",
     "captcha_failed": "The security check failed. Please try again.",
     "captcha_required": "Please complete the security check.",
@@ -685,7 +707,7 @@
     "forbidden": "You don't have access to this action.",
     "insufficient_seats": "Not enough seats left on this date.",
     "internal_error": "Something went wrong on our side. Please try again or contact us on WhatsApp/Telegram.",
-    "invalid_admin_secret": "The setup secret is incorrect.",
+    "invalid_admin_secret": "The access code is incorrect.",
     "invalid_credentials": "Incorrect email or password.",
     "invalid_date": "Please choose a valid date.",
     "invalid_email": "Please enter a valid email address.",
@@ -725,13 +747,350 @@
     "seats_below_booked": "Total seats can't be lower than seats already booked.",
     "slug_taken": "This URL slug is already used.",
     "source_url_required": "Add a link to the original review.",
-    "telegram_failed": "Telegram message could not be sent. Check TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID.",
+    "telegram_failed": "The Telegram notification could not be delivered. Please check the Telegram settings.",
     "tier_overlap": "Group-size ranges overlap.",
     "tiers_missing_new_base_price": "Add prices in the new base currency to every tier first.",
     "tour_has_bookings": "This tour has bookings. Unpublish it instead of deleting.",
     "tour_not_found": "This tour is no longer available.",
     "tour_or_destination_required": "Please choose a tour or destination.",
     "unauthorized": "Please sign in.",
-    "validation_failed": "Please check the highlighted fields."
+    "validation_failed": "Please check the highlighted fields.",
+    "message_too_short": "Please write a short message (at least 5 characters)."
+  },
+  "nt": {
+    "menu": {
+      "allTours": "All tours",
+      "inbound": "Tours for international guests",
+      "domestic": "Trips for Uzbekistan residents",
+      "experiences": "Experiences",
+      "builder": "Custom tour builder",
+      "compare": "Compare tours",
+      "services": "Travel services",
+      "allDestinations": "All destinations",
+      "uzbekistan": "Uzbekistan",
+      "abroad": "Abroad",
+      "wishlist": "Wishlist",
+      "account": "My account",
+      "guide": "Travel guide",
+      "assistant": "AI assistant"
+    },
+    "hero": {
+      "chip": "Discover the world",
+      "title": "Explore the <b>Beauty</b> of Uzbekistan",
+      "text": "Unforgettable journeys, authentic experiences and great-value trips with National Tours.",
+      "destination": "Destination",
+      "anyDestination": "Any destination",
+      "when": "When?",
+      "anyDate": "Any date",
+      "travelers": "Travelers",
+      "people": "{count, plural, one {# person} other {# people}}",
+      "submit": "Search Tours"
+    },
+    "trust": {
+      "t1": "Great-value trips",
+      "s1": "Clear, competitive prices",
+      "t2": "Safe & reliable",
+      "s2": "Your safety first",
+      "t3": "24/7 AI assistant",
+      "s3": "Answers any time",
+      "t4": "{count} destinations",
+      "s4": "Uzbekistan and abroad",
+      "t5": "Local experts",
+      "s5": "Team based in Uzbekistan",
+      "t5r": "Trusted by travellers",
+      "s5r": "{avg}/5 from {count, plural, one {# review} other {# reviews}}"
+    },
+    "dest": {
+      "eyebrow": "Popular destinations",
+      "title": "Discover Top Destinations",
+      "viewAll": "View all destinations",
+      "country": "Uzbekistan",
+      "open": "Open {name}"
+    },
+    "ai": {
+      "title": "Your AI Travel Assistant",
+      "text": "Get personalised travel recommendations and plan your perfect trip!",
+      "c1": "Plan a 5-day trip",
+      "q1": "Plan a 5-day trip in Uzbekistan for two people with a mid-range budget",
+      "c2": "Find budget tours",
+      "q2": "Which of your tours are the most affordable?",
+      "c3": "Compare destinations",
+      "q3": "Compare Samarkand and Bukhara for a first visit",
+      "placeholder": "Ask me anything about travel…",
+      "send": "Send",
+      "eyebrow": "AI assistant"
+    },
+    "planner": {
+      "chip": "Plan your journey",
+      "title": "Create Your Perfect Trip with AI",
+      "text": "Tell us your preferences and let our AI plan an unforgettable journey for you.",
+      "b1": "Personalised itinerary",
+      "b2": "Best routes",
+      "b3": "Budget optimisation",
+      "cta": "Try AI Planner"
+    },
+    "why": {
+      "eyebrow": "Why choose National Tours",
+      "title": "Your Trusted Travel Partner",
+      "t1": "Uzbekistan & beyond",
+      "s1": "{count} destinations",
+      "t2": "Transparent prices",
+      "s2": "Confirmed in writing",
+      "t3": "24/7 AI support",
+      "s3": "Always here for you",
+      "t4": "Unforgettable experiences",
+      "s4": "Crafts, food and nature"
+    },
+    "reviews": {
+      "title": "What travellers say",
+      "emptyTitle": "Travelled with us?",
+      "emptyText": "Share your experience. We publish reviews after a quick check.",
+      "emptyCta": "Write a review",
+      "prev": "Previous review",
+      "next": "Next review",
+      "from": "Traveller · {country}"
+    },
+    "featured": {
+      "eyebrow": "Popular tours",
+      "title": "Handpicked journeys",
+      "viewAll": "View all tours"
+    },
+    "exp": {
+      "eyebrow": "Experiences",
+      "title": "Things to do with local hosts",
+      "viewAll": "All experiences",
+      "hours": "{count, plural, one {# hour} other {# hours}}",
+      "from": "from {price}"
+    },
+    "guides": {
+      "eyebrow": "Travel guide",
+      "title": "Plan with confidence",
+      "viewAll": "All guides",
+      "read": "Read guide",
+      "minutes": "{count} min read"
+    },
+    "builder": {
+      "title": "Build your own tour",
+      "text": "Choose destinations, days and hotel level, see an estimated budget instantly and send it to our team.",
+      "cta": "Open tour builder"
+    },
+    "footer": {
+      "tagline": "Tours across Uzbekistan and trips abroad, planned by a local team.",
+      "tours": "Tours",
+      "company": "Company",
+      "support": "Support",
+      "newsletterTitle": "Travel ideas by email",
+      "newsletterText": "New tours and seasonal tips about once a month. Unsubscribe any time.",
+      "email": "Your email",
+      "subscribe": "Subscribe",
+      "subscribed": "Thank you! You are subscribed.",
+      "subscribeError": "Please enter a valid email address.",
+      "privacy": "Privacy policy",
+      "terms": "Booking terms",
+      "faq": "FAQ",
+      "follow": "Follow us"
+    },
+    "wishlist": {
+      "title": "Wishlist",
+      "lead": "Tours you saved on this device.",
+      "empty": "Your wishlist is empty. Tap the heart on any tour to save it here.",
+      "browse": "Browse tours",
+      "add": "Save to wishlist",
+      "remove": "Remove from wishlist",
+      "compare": "Compare saved tours"
+    },
+    "guide": {
+      "title": "Travel guide",
+      "lead": "Practical advice from our team: visas, money, transport, food and what to expect in each city.",
+      "filter": "Filter by topic",
+      "all": "All topics",
+      "empty": "No articles in this topic yet. Try another topic.",
+      "faqTitle": "Have a quick question?",
+      "faqText": "Short answers about visas, payments, safety and booking.",
+      "back": "All articles",
+      "askTitle": "Need more detail?",
+      "askText": "Our travel assistant can answer follow-up questions about this topic.",
+      "askCta": "Ask the assistant",
+      "askQuestion": "I have a question about \"{title}\"",
+      "more": "More articles",
+      "minRead": "{n} min read",
+      "cat": {
+        "practical": "Practical",
+        "transport": "Transport",
+        "food": "Food",
+        "city": "Cities",
+        "experience": "Experiences",
+        "culture": "Culture",
+        "family": "Family",
+        "nature": "Nature"
+      }
+    },
+    "expPage": {
+      "title": "Experiences",
+      "lead": "Cooking classes, craft workshops, photo walks and evenings with local families, hosted by people who live there.",
+      "filter": "Filter by type",
+      "all": "All experiences",
+      "inPlace": "Showing experiences in {place}.",
+      "anyPlace": "Show all places",
+      "emptyTitle": "Nothing here yet",
+      "empty": "There are no experiences of this type in the selected place yet.",
+      "priceNote": "Prices are per person and depend on group size and date. We confirm the final price before you pay.",
+      "back": "All experiences",
+      "perPerson": "Price per person",
+      "requestTitle": "Request this experience",
+      "requestText": "Tell us your date and group size. We reply with availability and the final price, usually within a day.",
+      "submit": "Send request",
+      "more": "You may also like",
+      "cat": {
+        "food": "Food",
+        "craft": "Crafts",
+        "photo": "Photography",
+        "culture": "Culture",
+        "nature": "Nature",
+        "adventure": "Active"
+      }
+    },
+    "servicesPage": {
+      "eyebrow": "Travel services",
+      "lead": "Transfers, hotels, guides, train and flight tickets, visa help and more. Choose a service and send a request; we reply with options and a price.",
+      "request": "Request",
+      "requestText": "Fill in the form and we will reply with options and a price, usually within a day.",
+      "more": "Other services"
+    },
+    "builderPage": {
+      "eyebrow": "Plan your own trip",
+      "title": "Custom tour builder",
+      "lead": "Pick the places, nights, hotel level and experiences. The estimated budget updates as you go, and you can send the route to our team for a detailed programme.",
+      "step1": "Choose places",
+      "step1Hint": "Tap a place to add it to your route (up to {max}). Tap again to remove it.",
+      "suggestions": "Start from",
+      "suggestion": {
+        "classic": "Classic Silk Road",
+        "short": "Samarkand and Bukhara",
+        "nature": "Mountains, lake and Samarkand"
+      },
+      "uzbekistan": "Uzbekistan",
+      "abroad": "Abroad",
+      "step2": "Your route",
+      "routeEmpty": "Your route is empty. Add places above or start from one of the suggestions.",
+      "nights": "Nights",
+      "moveUp": "Move {place} up",
+      "moveDown": "Move {place} down",
+      "remove": "Remove {place}",
+      "approxRate": "Estimated from similar places",
+      "daysNights": "{days, plural, one {# day} other {# days}}, {nights, plural, one {# night} other {# nights}}",
+      "estimateShort": "about {range} per person",
+      "step3": "Travellers and style",
+      "startDate": "Start date",
+      "level": "Hotel level",
+      "levelHint": {
+        "budget": "Simple, clean guesthouses",
+        "comfort": "Good 3–4★ hotels",
+        "boutique": "Characterful boutique hotels",
+        "luxury": "Best hotels available"
+      },
+      "step4": "Add experiences",
+      "step4Hint": "Add places to your route to see experiences available there.",
+      "step4Empty": "No bookable experiences in these places yet. We can still suggest some.",
+      "wishes": "Anything else we should know?",
+      "wishesPlaceholder": "For example: a vegetarian in the group, a birthday, slow pace",
+      "step5": "Send to our team",
+      "sendText": "We check availability and send you a detailed programme with the final price, usually within a day. Sending a request is free and does not commit you to anything.",
+      "contactTitle": "Your contact details",
+      "needRoute": "Add at least one place to your route and choose a start date to send it to our team.",
+      "estimateTitle": "Estimated budget",
+      "estimateEmpty": "Add places to your route to see an estimated budget.",
+      "forGroup": "Total for {count, plural, one {# traveller} other {# travellers}}",
+      "estimateNote": "Estimate based on our current tour prices for these places and your group size, with hotels, transport and guiding. International flights are not included. Our team confirms the final price.",
+      "childrenNote": "Children are estimated at 70% of the adult price.",
+      "sendCta": "Send route to our team",
+      "askAi": "Let AI plan it for me",
+      "notesRoute": "Route",
+      "notesExtras": "Experiences",
+      "notesEstimate": "Estimated budget per person",
+      "notesWishes": "Wishes"
+    },
+    "compare": {
+      "title": "Compare tours",
+      "lead": "Put up to three tours side by side: price, length, places, difficulty and what is included.",
+      "slot": "Tour {n}",
+      "choose": "Choose a tour",
+      "remove": "Remove",
+      "emptyTitle": "Choose tours to compare",
+      "empty": "Pick up to three tours above, or save tours to your wishlist and compare them from there.",
+      "price": "Price from (per person)",
+      "type": "Type",
+      "places": "Places",
+      "nextDeparture": "Next departure",
+      "onRequest": "On request",
+      "allYear": "All year",
+      "rating": "Rating",
+      "noRating": "No reviews yet"
+    },
+    "legal": {
+      "privacy": {
+        "title": "Privacy policy",
+        "lead": "What information we collect when you use this website, why we need it and how you can control it.",
+        "updated": "Last updated: November 2026",
+        "body": "## Who we are\nThis website is run by [[agency]], a travel company based in Uzbekistan. For any question about your data, write to us using the details on the [contact page](/contact).\n\n## What we collect\n- **Booking and request details** you send through our forms: your name, email, phone number, preferred messenger, travel dates, group size and any notes you add.\n- **Messages to our travel assistant and AI planner.** We store conversations so that we can answer follow-up questions and improve the service. Please do not share passport numbers, card details or other sensitive information in the chat.\n- **Newsletter email**, if you subscribe.\n- **Technical data** needed to run the site safely: a shortened, non-reversible fingerprint of your IP address used to stop spam and abuse, and basic server logs.\n\n## How we use it\n- To answer your request, prepare your programme and manage your booking.\n- To contact you on the channel you chose.\n- To send the newsletter you subscribed to. Every email has an unsubscribe option.\n- To protect the website from spam and misuse.\n\nWe do not sell your personal data and we do not use advertising trackers.\n\n## AI assistant\nQuestions you type into the assistant or the planner are sent to an AI service to generate the answer. We send only the conversation itself, together with information about our tours and destinations. We do not send your booking details, passwords or payment information. AI answers are a starting point; our team confirms prices and availability.\n\n## Cookies and local storage\nWe use a small number of strictly necessary cookies: your language and currency choice, and a secure sign-in cookie for staff. Tours you save to your wishlist are kept only in your own browser. Maps are loaded from OpenStreetMap when you open them.\n\n## How long we keep data\nBooking and request records are kept for as long as needed to provide the service and meet accounting obligations. Assistant conversations are deleted automatically after a retention period set by our team (90 days by default).\n\n## Your rights\nYou can ask us to show, correct or delete the personal data we hold about you, or to stop sending you emails. Write to us and we will reply within a reasonable time."
+      },
+      "terms": {
+        "title": "Booking terms",
+        "lead": "How requests, confirmations, prices and changes work when you book with us.",
+        "updated": "Last updated: November 2026",
+        "body": "## Requests and confirmation\nSending a booking form, a tour builder route or a service request is free and does not oblige you to anything. It becomes a confirmed booking only after our team confirms availability and the final price to you in writing (by email or messenger) and you accept it.\n\n## Prices\n- Prices on the website are per person unless stated otherwise and depend on the group size and the dates.\n- Prices shown in currencies other than the tour's own currency are converted at the current rate and may change slightly.\n- Estimates from the tour builder and the AI planner are indicative only. The binding price is the one in your written confirmation.\n\n## Payment\nThe payment amount, method and deadline are stated in your confirmation. We never ask for card details on this website or in the chat.\n\n## Changes and cancellations\nCancellation and change conditions depend on the tour, the season and the services booked (hotels, trains, flights). They are listed in your confirmation before you pay. If we have to change a programme because of circumstances outside our control, we offer an equivalent alternative or a refund for the services not provided.\n\n## Travel documents and health\nTravellers are responsible for valid passports, visas and any required registrations; we are happy to help with information and invitation letters where possible. We strongly recommend travel insurance that covers medical costs and cancellation. Please tell us in advance about any health conditions, dietary needs or mobility limitations.\n\n## During the trip\nPlease follow the instructions of your guide and driver, respect local customs at religious sites, and take care of your personal belongings. Times in the programme are approximate and may shift because of traffic, weather or opening hours.\n\n## Reviews\nReviews are published only after moderation. We do not change the meaning of a review.\n\n## Contact\nQuestions about these terms? Contact [[agency]] using the details on the [contact page](/contact)."
+      }
+    },
+    "toursPage": {
+      "eyebrow": "Find your trip"
+    },
+    "tourPage": {
+      "ask": "Ask about this tour",
+      "askQuestion": "I have a question about the tour \"{title}\""
+    },
+    "destPage": {
+      "ask": "Ask about this place",
+      "askQuestion": "What should I know before visiting {name}?",
+      "experiences": "Things to do in {name}"
+    },
+    "assistantPage": {
+      "title": "AI travel assistant",
+      "lead": "Ask anything about travelling in Uzbekistan: routes, prices, seasons, visas or which of our tours fits you. Answers come from our own catalogue and travel guides.",
+      "start": "Start a conversation",
+      "examples": [
+        "Which tour is best for a first visit in April?",
+        "How much does a week in Uzbekistan cost for two?",
+        "Do I need a visa to visit Uzbekistan?",
+        "What should we see in Bukhara with children?"
+      ],
+      "canTitle": "What the assistant can help with",
+      "can": {
+        "tours": {
+          "title": "Find the right tour",
+          "text": "Compares our tours by length, style and price and links you to the best match."
+        },
+        "plan": {
+          "title": "Plan days",
+          "text": "Suggests how many days to spend in each city and how to travel between them."
+        },
+        "budget": {
+          "title": "Estimate a budget",
+          "text": "Gives indicative prices from our current tours. Our team confirms the final price."
+        },
+        "languages": {
+          "title": "Three languages",
+          "text": "Write in English, Uzbek or Russian and get the answer in the same language."
+        }
+      },
+      "privacyTitle": "Your privacy",
+      "privacyText": "Please do not share passport numbers or card details in the chat. Conversations are kept for a limited time to improve the service.",
+      "plannerTitle": "Want a full day-by-day plan?",
+      "plannerText": "The AI planner builds a complete route with matching tours and a budget that you can adjust and send to our team."
+    },
+    "contactPage": {
+      "eyebrow": "Get in touch",
+      "formTitle": "Send us a message",
+      "formText": "Questions about a tour, a group trip or anything else? Write to us and we reply on the channel you choose."
+    }
   }
 }

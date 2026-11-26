@@ -10,7 +10,7 @@ export const test = base.extend<{ isMobileProject: boolean }>({
   isMobileProject: async ({}, use, info) => use(info.project.name === "mobile"),
   page: async ({ page, baseURL }, use) => {
     const ip = `10.${rand(255)}.${rand(255)}.${rand(255)}`;
-    await page.route(`${baseURL}/api/**`, (route) => route.continue({ headers: { ...route.request().headers(), "cf-connecting-ip": ip } }));
+    await page.route(`${baseURL}/api/**`, (route) => route.continue({ headers: { ...route.request().headers(), "cf-connecting-ip": ip, "x-real-ip": ip } }));
     await use(page);
   },
 });
@@ -22,7 +22,8 @@ export async function switchCurrency(page: Page, currency: "USD" | "UZS" | "EUR"
     await page.getByRole("button", { name: /open menu|menyuni ochish|открыть меню/i }).click();
     await page.getByRole("dialog").getByTestId("currency-switcher").click();
   } else {
-    await page.locator("header").getByTestId("currency-switcher").click();
+    // On desktop the currency choice sits in the header's language menu.
+    await page.locator("header").getByRole("button", { name: /Choose language/ }).click();
   }
   await page.getByTestId(`currency-option-${currency}`).click();
 }
@@ -39,4 +40,9 @@ export async function settledText(page: Page, selector: string) {
     await page.waitForTimeout(300);
   }
   return last;
+}
+
+/** Waits until the booking form is hydrated, so a choice made right after load is not lost. */
+export async function bookingReady(page: Page) {
+  await expect(page.locator("[data-testid=booking-form][data-ready]")).toBeAttached();
 }

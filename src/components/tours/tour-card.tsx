@@ -1,4 +1,4 @@
-import { CalendarDays, MapPin, Star, Users } from "lucide-react";
+import { ArrowRight, CalendarDays, MapPin, Star, Users } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import type { TourCard as TourCardData } from "@/db/queries/tours";
 import type { Locale } from "@/db/types";
@@ -7,6 +7,7 @@ import { localize } from "@/lib/localize";
 import { formatMoney } from "@/lib/pricing";
 import { SmartImage } from "@/components/common/smart-image";
 import { Badge } from "@/components/ui/misc";
+import { WishlistButton } from "@/components/common/wishlist";
 
 const BADGE_TONE: Record<string, "saffron" | "turquoise" | "terracotta" | "pomegranate" | "lapis" | "sand"> = {
   best_seller: "saffron",
@@ -23,9 +24,9 @@ export async function TourCard({ tour, locale, priority = false }: { tour: TourC
   const title = localize(tour.title, locale);
   const destination = localize(tour.destination.name, locale);
   return (
-    <article className="group relative flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] bg-white shadow-card transition-shadow duration-300 hover:shadow-lift">
-      <div className="relative aspect-[4/3] overflow-hidden px-3 pt-3">
-        <div className="arch-mask-wide h-full w-full overflow-hidden">
+    <article className="group relative flex h-full flex-col overflow-hidden [contain:inline-size] rounded-[var(--radius-card)] bg-white shadow-card transition-shadow duration-300 hover:shadow-lift">
+      <div className="relative aspect-[4/3] overflow-hidden">
+        <div className="h-full w-full overflow-hidden">
           <SmartImage
             src={tour.heroImage}
             alt=""
@@ -36,7 +37,7 @@ export async function TourCard({ tour, locale, priority = false }: { tour: TourC
           />
         </div>
         {tour.badges.length > 0 && (
-          <ul className="absolute left-5 top-14 flex flex-wrap gap-1.5" aria-label={t("tour.highlights")}>
+          <ul className="absolute left-3 top-3 flex flex-wrap gap-1.5" aria-label={t("tour.highlights")}>
             {tour.badges.slice(0, 2).map((b) => (
               <li key={b}>
                 <Badge tone={BADGE_TONE[b] ?? "sand"}>{t(`badges.${b}` as never)}</Badge>
@@ -44,15 +45,16 @@ export async function TourCard({ tour, locale, priority = false }: { tour: TourC
             ))}
           </ul>
         )}
+        <WishlistButton slug={tour.slug} addLabel={t("nt.wishlist.add")} removeLabel={t("nt.wishlist.remove")} className="absolute right-3 top-3" />
       </div>
       <div className="flex flex-1 flex-col gap-3 p-5 pt-4">
-        <p className="flex items-center gap-1.5 text-sm font-semibold text-turquoise-ink">
-          <MapPin aria-hidden="true" className="size-4" />
-          {destination}
+        <p className="flex min-w-0 items-center gap-1.5 whitespace-nowrap text-sm font-semibold text-cobalt">
+          <MapPin aria-hidden="true" className="size-4 shrink-0" />
+          <span className="max-w-[70%] shrink-0 truncate">{destination}</span>
           <span aria-hidden="true" className="text-line">•</span>
-          <span className="text-ink-muted">{t(`categories.${tour.category}` as never)}</span>
+          <span className="min-w-0 truncate font-medium text-ink-muted">{t(`categories.${tour.category}` as never)}</span>
         </p>
-        <h3 className="text-2xl leading-tight text-lapis-deep">
+        <h3 className="text-lg leading-snug text-lapis">
           <Link href={`/tours/${tour.slug}`} className="after:absolute after:inset-0 after:content-[''] focus-visible:outline-none group-focus-within:underline">
             {title}
           </Link>
@@ -76,21 +78,21 @@ export async function TourCard({ tour, locale, priority = false }: { tour: TourC
             </li>
           )}
         </ul>
-        <div className="flex items-end justify-between gap-3 border-t border-line pt-3">
+        <div className="flex flex-wrap items-end justify-between gap-3 border-t border-line pt-3">
           {tour.fromPrice ? (
             <p className="leading-tight" data-testid="tour-card-price">
               <span className="block text-xs uppercase tracking-wide text-ink-muted">{t("common.from")}</span>
               {tour.compareAtPrice && tour.compareAtPrice.amountMinor > tour.fromPrice.amountMinor && (
                 <s className="mr-2 text-sm text-ink-muted">{formatMoney(tour.compareAtPrice.amountMinor, tour.compareAtPrice.currency, locale)}</s>
               )}
-              <span className="text-xl font-bold text-ink">{formatMoney(tour.fromPrice.amountMinor, tour.fromPrice.currency, locale)}</span>
-              <span className="ml-1 text-sm text-ink-muted">{t("common.perPerson")}</span>
+              <span className="text-xl font-extrabold text-lapis">{formatMoney(tour.fromPrice.amountMinor, tour.fromPrice.currency, locale)}</span>
+              <span className="block text-xs text-ink-muted">{t("common.perPerson")}</span>
             </p>
           ) : (
             <p className="text-sm text-ink-muted">{t("tours.noPrice")}</p>
           )}
-          <span aria-hidden="true" className="text-sm font-semibold text-terracotta-deep group-hover:underline">
-            {t("common.viewTour")} →
+          <span aria-hidden="true" className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full bg-sky px-3.5 py-2 text-sm font-bold text-cobalt transition-colors group-hover:bg-cobalt group-hover:text-white">
+            {t("common.viewTour")} <ArrowRight className="size-4" />
           </span>
         </div>
       </div>

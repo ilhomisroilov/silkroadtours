@@ -51,7 +51,7 @@ export type DepartureStatus = (typeof DEPARTURE_STATUSES)[number];
 export const CONTACT_CHANNELS = ["whatsapp", "telegram", "phone", "email"] as const;
 export type ContactChannel = (typeof CONTACT_CHANNELS)[number];
 
-export const SERVICE_TYPES = ["airport_transfer", "custom_tour", "accommodation", "guide"] as const;
+export const SERVICE_TYPES = ["airport_transfer", "custom_tour", "accommodation", "guide", "inquiry"] as const;
 export type ServiceType = (typeof SERVICE_TYPES)[number];
 
 export const MEALS = ["B", "L", "D"] as const;
@@ -82,7 +82,8 @@ export const TRANSPORT_MODES = [
 ] as const;
 export type TransportMode = (typeof TRANSPORT_MODES)[number];
 
-export const REVIEW_SOURCES = ["site", "google", "tripadvisor"] as const;
+/** "sample" marks seeded example reviews: admin-only, never shown on the public site. */
+export const REVIEW_SOURCES = ["site", "google", "tripadvisor", "sample"] as const;
 export type ReviewSource = (typeof REVIEW_SOURCES)[number];
 
 export const FAQ_CATEGORIES = [

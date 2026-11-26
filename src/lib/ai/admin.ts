@@ -4,12 +4,14 @@ import type { Db } from "@/db/client";
 import { aiConversations, aiFeedback, aiMessages, aiToolLogs, destinations, faqItems, tours } from "@/db/schema";
 import { providerChain } from "./providers";
 
+export const AI_KEY_ENVS = ["GEMINI_API_KEY", "MISTRAL_API_KEY", "OPENROUTER_API_KEY", "CEREBRAS_API_KEY", "GROQ_API_KEY", "AI_COMPAT_API_KEY"] as const;
+
 /** Provider status for the admin: never returns key material, only whether a key is set and its last 4 characters. */
 export function providerStatus() {
   const mask = (v: string | undefined) => (v ? `••••${v.slice(-4)}` : null);
   return {
     chain: providerChain().map((p) => ({ id: p.id, model: p.model })),
-    keys: { gemini: mask(process.env.GEMINI_API_KEY), groq: mask(process.env.GROQ_API_KEY) },
+    keys: AI_KEY_ENVS.map((name) => ({ name, value: mask(process.env[name]?.trim() || undefined) })),
     primary: process.env.AI_PROVIDER || "gemini",
   };
 }

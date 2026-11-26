@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Server setup for Silk Road Tours on a Linux server that may ALREADY host other sites
+# Server setup for National Tours on a Linux server that may ALREADY host other sites
 # (e.g. yoshlikedu.uz, bilimjon.uz). Ubuntu/Debian, amd64 or arm64 (Oracle Cloud Ampere A1 OK).
 #
 #   cd silkroadtours && sudo DOMAIN=nationaltours.uz EMAIL=you@example.com bash deploy/setup-server.sh

@@ -62,14 +62,17 @@ export function roundToDisplayStep(amountMinor: number, currency: Currency): num
 
 // ── Formatting ─────────────────────────────────────────────────────────────
 
-const INTL_LOCALE: Record<Locale, string> = { en: "en-US", uz: "uz-Latn-UZ", ru: "ru-RU" };
-const UZS_SUFFIX: Record<Locale, string> = { en: "UZS", uz: "so'm", ru: "сум" };
+// Uzbek locale data differs between Node and browsers (some ship without it), which breaks hydration;
+// Uzbek pages therefore use English number shapes with a space as the thousands separator.
+const INTL_LOCALE: Record<Locale, string> = { en: "en-US", uz: "en-US", ru: "ru-RU" };
+const UZS_SUFFIX: Record<Locale, string> = { en: "UZS", uz: "soʻm", ru: "сум" };
 
 export function formatMoney(amountMinor: number, currency: Currency, locale: Locale): string {
   const major = toMajor(amountMinor, currency);
   const fractionDigits = Number.isInteger(major) ? 0 : CURRENCY_EXPONENT[currency];
   if (currency === "UZS") {
-    const n = new Intl.NumberFormat(INTL_LOCALE[locale], { maximumFractionDigits: 0 }).format(major);
+    let n = new Intl.NumberFormat(INTL_LOCALE[locale], { maximumFractionDigits: 0 }).format(major);
+    if (locale === "uz") n = n.replace(/,/g, "\u00a0");
     return `${n} ${UZS_SUFFIX[locale]}`;
   }
   return new Intl.NumberFormat(INTL_LOCALE[locale], {
@@ -241,4 +244,13 @@ export function quote(input: QuoteInput): QuoteResult {
     priceModifierPercent: modifier,
     isConverted,
   };
+}
+
+/** A whole-dollar amount shown in the visitor's currency, rounded to the display step. Falls back to USD without a rate. */
+export function formatUsdIn(usd: number, currency: Currency, rates: ExchangeRates, locale: Locale): string {
+  try {
+    return formatMoney(roundToDisplayStep(convertMinor(usd * 100, "USD", currency, rates), currency), currency, locale);
+  } catch {
+    return formatMoney(usd * 100, "USD", locale);
+  }
 }

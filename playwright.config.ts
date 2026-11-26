@@ -1,7 +1,7 @@
 import { defineConfig, devices } from "@playwright/test";
 
 /**
- * End-to-end tests run against the Cloudflare Workers build:
+ * End-to-end tests run against the production build:
  *   npm run build && npm start   (terminal 1, http://localhost:3000)
  *   npm run test:e2e           (terminal 2)
  * Set E2E_BASE_URL to test another address.

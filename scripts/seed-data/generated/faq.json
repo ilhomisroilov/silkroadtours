@@ -1,0 +1,275 @@
+[
+ {
+  "category": "visa",
+  "question": {
+   "en": "How do I apply for an E-visa to Uzbekistan and what is the processing time?",
+   "uz": "Oʻzbekiston uchun elektron vizani qanday rasmiylashtirish mumkin va uni koʻrib chiqish muddati qancha?",
+   "ru": "Как оформить электронную визу в Узбекистан и каков срок ее рассмотрения?"
+  },
+  "answer": {
+   "en": "Eligible travellers can apply for a single or double-entry tourist e-visa through the official government portal. The process typically takes 3 to 5 working days, and the visa is sent directly to your email as a PDF document to print out.",
+   "uz": "Bunga haqli sayohatchilar rasmiy davlat portali orqali bir martalik yoki ikki martalik turistik elektron vizaga ariza topshirishlari mumkin. Odatda jarayon 3 dan 5 ish kunigacha davom etadi va viza chop etish uchun PDF hujjat sifatida toʻgʻridan-toʻgʻri elektron pochtangizga yuboriladi.",
+   "ru": "Путешественники, имеющие на это право, могут подать заявку на однократную или двукратную туристическую электронную визу через официальный государственный портал. Процесс обычно занимает от 3 до 5 рабочих дней, и виза отправляется прямо на вашу электронную почту в виде PDF-документа для печати."
+  }
+ },
+ {
+  "category": "visa",
+  "question": {
+   "en": "Are passport validity requirements strictly enforced upon arrival?",
+   "uz": "Kelganda pasportning amal qilish muddati talablari qatʼiy nazorat qilinadimi?",
+   "ru": "Строго ли соблюдаются требования к сроку действия паспорта по прибытии?"
+  },
+  "answer": {
+   "en": "Yes, your passport must be valid for at least six months beyond your planned departure date from Uzbekistan. Border control officers strictly check this requirement, and airlines may deny boarding if your passport expires sooner.",
+   "uz": "Ha, pasportingiz Oʻzbekistondan rejalashtirilgan chiqib ketish sanasidan keyin kamida olti oy davomida amal qilishi shart. Chegara nazorati xodimlari ushbu talabni qatʼiy tekshiradilar va agar pasportingiz erta tugasa, aviakompaniyalar samolyotga chiqishni rad etishi mumkin.",
+   "ru": "Да, ваш паспорт должен быть действителен не менее шести месяцев после планируемой даты выезда из Узбекистана. Сотрудники пограничного контроля строго проверяют это требование, а авиакомпании могут отказать в посадке, если срок действия паспорта истекает раньше."
+  }
+ },
+ {
+  "category": "visa",
+  "question": {
+   "en": "Do children need their own passport and separate visa for Uzbekistan?",
+   "uz": "Bolalar uchun Oʻzbekistonga kirishda alohida pasport va viza kerakmi?",
+   "ru": "Нужны ли детям собственный паспорт и отдельная виза для Узбекистана?"
+  },
+  "answer": {
+   "en": "Yes, every minor travelling to Uzbekistan must possess an individual passport. If they require a visa based on their nationality, a separate e-visa must be obtained for them prior to departure.",
+   "uz": "Ha, Oʻzbekistonga sayohat qilayotgan har bir voyaga yetmagan shaxs shaxsiy pasportga ega boʻlishi shart. Agar ularning fuqaroligiga koʻra viza talab etilsa, joʻnab ketishdan oldin ular uchun alohida elektron viza olinishi kerak.",
+   "ru": "Да, каждый несовершеннолетний путешественник в Узбекистан должен иметь индивидуальный паспорт. Если в зависимости от гражданства им требуется виза, до отъезда на них необходимо оформить отдельную электронную визу."
+  }
+ },
+ {
+  "category": "currency",
+  "question": {
+   "en": "What is the best way to exchange foreign currency into Uzbek Sum?",
+   "uz": "Xorijiy valyutani oʻzbek soʻmiga almashtirishning eng yaxshi usuli qanday?",
+   "ru": "Какой лучший способ обменять иностранную валюту на узбекские сумы?"
+  },
+  "answer": {
+   "en": "US dollars and Euros in pristine, undamaged condition printed after 2013 get the best exchange rates at official banks and authorized exchange booths. Major cities also have numerous 24-hour automated exchange terminals where you can insert cash notes to receive Uzbek Sum.",
+   "uz": "2013-yildan keyin chiqarilgan, shikastlanmagan va mukammal holatdagi AQSh dollari va evrolar rasmiy banklar va ruxsat etilgan ayirboshlash shoxobchalarida eng yaxshi kursga ega. Yirik shaharlarda shuningdek naqd pul kiritib oʻzbek soʻmini olish mumkin boʻlgan koʻplab 24 soatlik avtomatlashtirilgan ayirboshlash terminallari mavjud.",
+   "ru": "Доллары США и евро в идеальном, неповрежденном состоянии, выпущенные после 2013 года, принимаются по лучшим курсам в официальных банках и обменных пунктах. В крупных городах также есть множество круглосуточных автоматизированных обменных терминалов, куда можно внести наличные купюры для получения узбекских сумов."
+  }
+ },
+ {
+  "category": "currency",
+  "question": {
+   "en": "Can I use international credit and debit cards widely across Uzbekistan?",
+   "uz": "Oʻzbekistonda xalqaro kredit va debet kartalaridan keng foydalana olamanmi?",
+   "ru": "Могу ли я широко использовать международные кредитные и дебетовые карты по всему Узбекистану?"
+  },
+  "answer": {
+   "en": "Visa and Mastercard are accepted in major hotels, upscale restaurants, and supermarkets in Tashkent, Samarkand, and Bukhara. However, cash remains essential for smaller shops, traditional bazaars, teahouses, and regional areas.",
+   "uz": "Visa va Mastercard Toshkent, Samarqand va Buxorodagi yirik mehmonxonalar, qimmatbaho restoranlar va supermarketlarda qabul qilinadi. Shunga qaramay, kichik doʻkonlar, anʼanaviy bozorlar, choyxonalar va viloyatlar uchun naqd pul muhimligicha qoladi.",
+   "ru": "Visa и Mastercard принимаются в крупных отелях, элитных ресторанах и супермаркетах Ташкента, Самарканда и Бухары. Тем не менее, наличные деньги остаются необходимыми для небольших магазинов, традиционных базаров, чайханок и региональных поездок."
+  }
+ },
+ {
+  "category": "currency",
+  "question": {
+   "en": "Are ATMs easily accessible for withdrawing cash in Uzbek Sum?",
+   "uz": "Oʻzbek soʻmini naqd pulga yechib olish uchun bankomatlar oson topiladimi?",
+   "ru": "Легко ли найти банкоматы для снятия наличных в узбекских сумах?"
+  },
+  "answer": {
+   "en": "ATMs dispensing both Uzbek Sum and US dollars are common in Tashkent and major tourist centers, usually located inside banks and hotel lobbies. Note that withdrawal limits per transaction apply, and international transaction fees may be charged by your home bank.",
+   "uz": "Ham oʻzbek soʻmi, ham AQSh dollarini beruvchi bankomatlar Toshkent va yirik sayyohlik markazlarida, odatda banklar va mehmonxonalar vestibyurlarida keng tarqalgan. Shuni yodda tutingki, bir tranzaksiya uchun yechib olish limitlari mavjud va uyingizdagi bank tomonidan xalqaro komissiya olinishi mumkin.",
+   "ru": "Банкоматы, выдающие как узбекские сумы, так и доллары США, распространены в Ташкенте и крупных туристических центрах, обычно они расположены внутри банков и вестибюлей отелей. Обратите внимание, что действуют лимиты на снятие средств за одну транзакцию, а ваш домашний банк может взимать комиссию за международные операции."
+  }
+ },
+ {
+  "category": "transport",
+  "question": {
+   "en": "How do private car transfers between Bukhara and Khiva work?",
+   "uz": "Buxora va Xiva oʻrtasidagi shaxsiy avtomobil transferlari qanday ishlaydi?",
+   "ru": "Как работают частные автомобильные трансферы между Бухарой и Хивой?"
+  },
+  "answer": {
+   "en": "The road journey between Bukhara and Khiva takes about 6 to 7 hours crossing the Kyzylkum Desert. National Tours provides comfortable air-conditioned vehicles with experienced drivers, stopping at roadside cafes for lunch and scenic viewpoints along the Amu Darya River.",
+   "uz": "Buxora va Xiva oʻrtasidagi avtomobil yoʻli Qizilqum choʻlini kesib oʻtgan holda taxminan 6-7 soat davom etadi. National Tours tajribali haydovchilar boshqaruvidagi qulay konditsionerli avtomobillarni taqdim etadi, shuningdek tushlik uchun yoʻl boʻyi kafelarida va Amudaryo boʻyidagi goʻzal manzarali joylarda toʻxtalishlar amalga oshiriladi.",
+   "ru": "Автомобильная поездка между Бухарой и Хивой занимает около 6-7 часов через пустыню Кызылкум. National Tours предоставляет комфортабельные автомобили с кондиционерами и опытными водителями, с остановками у придорожных кафе на обед и у живописных мест вдоль реки Амударья."
+  }
+ },
+ {
+  "category": "transport",
+  "question": {
+   "en": "What domestic flight options are available for reaching remote regions like Nukus or Termez?",
+   "uz": " Nukus yoki Termiz kabi olis hududlarga borish uchun qanday ichki reyslar mavjud?",
+   "ru": "Какие варианты внутренних авиарейсов доступны для поездки в отдаленные регионы, такие как Нукус или Термез?"
+  },
+  "answer": {
+   "en": "Uzbekistan Airways operates regular domestic flights from Tashkent. Flight duration to Nukus is approximately 2 hours, and to Termez about 1 hour and 30 minutes, offering a time-saving alternative to long overland trips.",
+   "uz": "Uzbekistan Airways Toshkentdan muntazam ichki reyslarni amalga oshiradi. Nukusga parvoz davomiyati taxminan 2 soatni, Termizga esa 1 soat 30 daqiqani tashkil etib, uzoq masofali avtomobil safarlariga vaqtni tejaydigan muqobil variantni taqdim etadi.",
+   "ru": "Uzbekistan Airways выполняет регулярные внутренние рейсы из Ташкента. Продолжительность полета в Нукус составляет примерно 2 часа, а в Термез — около 1 часа 30 минут, что является экономящей время альтернативой долгим наземным поездкам."
+  }
+ },
+ {
+  "category": "transport",
+  "question": {
+   "en": "What is the recommended way to use taxis within cities like Tashkent and Samarkand?",
+   "uz": "Toshkent va Samarqand kabi shaharlar ichida taksilardan foydalanishning tavsiya etilgan usuli qanday?",
+   "ru": "Какой способ использования такси внутри таких городов, как Ташкент и Самарканд, рекомендуется?"
+  },
+  "answer": {
+   "en": "Using ride-hailing apps like Yandex Go is the safest and most convenient method, as prices are fixed digitally and you do not need to negotiate. Alternatively, arranged hotel taxis or official street cabs are available, but ensure the price is agreed upon before departure if the meter is not used.",
+   "uz": "Yandex Go kabi taksi buyurtma qilish ilovalaridan foydalanish eng xavfsiz va qulay usul ҳisoblanadi, chunki narxlar raqamli tarzda belgilanadi va savdolashish shart emas. Shuningdek, mehmonxona tomonidan tashkil etilgan taksilar yoki rasmiy koʻcha taksilaridan ham foydalanish mumkin, ammo taksimetr ishlatilmasa, joʻnab ketishdan oldin narxni kelishib oling.",
+   "ru": "Использование приложений для заказа такси, таких как Yandex Go, является самым безопасным и удобным способом, так как цены фиксируются в цифровом виде и не требуют торга. Кроме того, доступны заказные отельные такси или официальные уличные машины, но убедитесь, что цена согласована до отправления, если счетчик не используется."
+  }
+ },
+ {
+  "category": "dress_code",
+  "question": {
+   "en": "What should travellers wear when visiting religious sites and mosques?",
+   "uz": "Diniy maskanlar va masjidlarga tashrif buyurganda sayohatchilar qanday kiyinishlari kerak?",
+   "ru": "Что следует надевать путешественникам при посещении религиозных мест и мечетей?"
+  },
+  "answer": {
+   "en": "Both men and women should wear modest clothing that covers shoulders and knees. Women are advised to carry a light scarf to cover their head when entering active prayer halls or mausoleums.",
+   "uz": "Erkaklar ham, ayollar ham yelka va tizzalarni yopadigan odobli kiyimlarni kiyishlari kerak. Ayollarga faol ibodatxonalar yoki maqbaralarga kirganda boshini yopish uchun yengil roʻmol olib yurish tavsiya etiladi.",
+   "ru": "И мужчины, и женщины должны носить скромную одежду, закрывающую плечи и колени. Женщинам рекомендуется взять с собой легкий шарф, чтобы покрыть голову при входе в действующие молельные залы или мавзолеи."
+  }
+ },
+ {
+  "category": "dress_code",
+  "question": {
+   "en": "Is specific footwear required for sightseeing around Uzbekistan?",
+   "uz": "Oʻzbekiston boʻylab sayohat qilish uchun maxsus poyabzal kerakmi?",
+   "ru": "Требуется ли специальная обувь для осмотра достопримечательностей по всему Узбекистану?"
+  },
+  "answer": {
+   "en": "Historic sites often feature uneven cobblestones, ancient tile steps, and dusty desert paths. Comfortable walking shoes or sneakers with good grip are essential for daily excursions and walking tours.",
+   "uz": "Tarixiy yodgorliklar koʻpincha tekis boʻlmagan Toshkent toshlari, qadimiy koshinli zinapoyalar va chang choʻl yoʻllariga ega. Kundalik ekskursiyalar va piyoda sayr qilish uchun yaxshi tutashuvchi qulay yurish poyabzallari yoki krossovkalar zarur.",
+   "ru": "Исторические места часто имеют неровную брусчатку, древние изразцовые ступени и пыльные пустынные тропы. Удобная обувь для ходьбы или кроссовки с хорошей подошвой необходимы для ежедневных экскурсий и пеших прогулок."
+  }
+ },
+ {
+  "category": "safety",
+  "question": {
+   "en": "How safe is it to walk around Uzbek cities at night?",
+   "uz": "Kechasi oʻzbek shaharlarida sayr qilish qanchalik xavfsiz?",
+   "ru": "Насколько безопасно гулять по узбекским городам в ночное время?"
+  },
+  "answer": {
+   "en": "Uzbekistan is generally considered one of the safest countries in Central Asia for travellers. Major tourist areas, illuminated monuments, and central streets are secure and well-patrolled, allowing for pleasant evening strolls.",
+   "uz": "Oʻzbekiston umumiy jihatdan sayohatchilar uchun Markaziy Osiyodagi eng xavfsiz mamlakatlardan biri deb ҳisoblanadi. Asosiy sayyohlik hududlari, yoritilgan yodgorliklar va markaziy koʻchalar xavfsiz hamda yaxshi qoʻriqlanadi, bu esa kechki payt yoqimli sayr qilish imkonini beradi.",
+   "ru": "Узбекистан в целом считается одной из самых безопасных стран в Центральной Азии для путешественников. Основные туристические зоны, подсвеченные памятники и центральные улицы безопасны и хорошо патрулируются, что позволяет совершать приятные вечерние прогулки."
+  }
+ },
+ {
+  "category": "safety",
+  "question": {
+   "en": "What precautions should I take regarding local police and document checks?",
+   "uz": "Mahalliy politsiya va hujjatlarni tekshirish boʻyicha qanday ehtiyot choralarini koʻrishim kerak?",
+   "ru": "Какие меры предосторожности мне следует соблюдать в отношении местной полиции и проверки документов?"
+  },
+  "answer": {
+   "en": "Police officers occasionally conduct random ID checks in public spaces and transit hubs. Always carry your original passport and hotel registration slips with you, and cooperate politely if requested to show them.",
+   "uz": "Politsiya xodimlari vaqti-vaqti bilan jamoat joylarida va transport markazlarida tasodifiy shaxsni tasdiqlovchi hujjatlarni tekshirib turadi. Doimo oʻzingiz bilan asl pasportingiz va mehmonxona roʻyxatdan oʻtganlik qogʻozlarini olib yuring hamda ularni koʻrsatishni soʻrashganda muloyimlik bilan hamkorlik qiling.",
+   "ru": "Сотрудники полиции время от времени проводят выборочные проверки документов в общественных местах и транспортных узлах. Всегда носите с собой оригинал паспорта и квитанции о регистрации в отеле, и вежливо сотрудничайте, если вас попросят их предъявить."
+  }
+ },
+ {
+  "category": "health",
+  "question": {
+   "en": "Is it safe to drink tap water in Uzbekistan?",
+   "uz": "Oʻzbekistonda kran suvini ichish xavfsizmi?",
+   "ru": "Безопасно ли пить водопроводную воду в Узбекистане?"
+  },
+  "answer": {
+   "en": "Tap water is not recommended for drinking directly due to mineral content and old pipe systems. Always drink bottled, boiled, or filtered water, which is widely available at supermarkets and hotels.",
+   "uz": "Mineral tarkibi va eski quvur tizimlari tufayli kran suvini toʻgʻridan-toʻgʻri ichish tavsiya etilmaydi. Doimo supermarketlar va mehmonxonalarda keng tarqalgan idishdagi, qaynatingan yoki filtrlangan suvni iching.",
+   "ru": "Водопроводную воду не рекомендуется пить напрямую из-за минерального состава и старых систем труб. Всегда пейте бутилированную, кипяченую или фильтрованную воду, которая широко доступна в супермаркетах и отелях."
+  }
+ },
+ {
+  "category": "health",
+  "question": {
+   "en": "What medical facilities are available if I fall ill during my tour?",
+   "uz": "Agar safar davomida kasal boʻlib qolsam, qanday tibbiy muassasalar mavjud?",
+   "ru": "Какие медицинские учреждения доступны, если я заболею во время поездки?"
+  },
+  "answer": {
+   "en": "Major cities like Tashkent, Samarkand, and Bukhara feature modern private clinics with English-speaking medical staff. National Tours assists travellers in contacting travel insurance providers and arranging transport to the nearest qualified hospital.",
+   "uz": "Toshkent, Samarqand va Buxoro kabi yirik shaharlarda ingliz tilida soʻzlashuvchi tibbiy xodimga ega zamonaviy xususiy klinikalar mavjud. National Tours sayohatchilarga sayohat sugʻurtasi kompaniyalari bilan bogʻlanishda va eng yaqin malakali shifoxonaga transport tashkil etishda yordam beradi.",
+   "ru": "В крупных городах, таких как Ташкент, Самарканд и Бухара, есть современные частные клиники с англоговорящим медицинским персоналом. National Tours помогает путешественникам связаться со страховыми компаниями и организовать транспорт до ближайшей квалифицированной больницы."
+  }
+ },
+ {
+  "category": "general",
+  "question": {
+   "en": "What electrical plug type and voltage are used in Uzbekistan?",
+   "uz": "Oʻzbekistonda qanday turdagi elektr rozetkasi va kuchlanish ishlatiladi?",
+   "ru": "Какой тип электрической розетки и напряжение используются в Узбекистане?"
+  },
+  "answer": {
+   "en": "Uzbekistan uses standard European Type C and Type F plugs with two round prongs. The electrical voltage is 220V at 50Hz, matching standard continental European appliances.",
+   "uz": "Oʻzbekistonda ikkita dumaloq tishli standart Yevropa C va F turdagi rozetkalar ishlatiladi. Elektr kuchlanishi 50 Gts chastotada 220V ni tashkil etadi, bu qitʼaviy Yevropa jihozlariga mos keladi.",
+   "ru": "В Узбекистане используются стандартные европейские вилки типа C и F с двумя круглыми штырями. Электрическое напряжение составляет 220В при частоте 50Гц, что соответствует стандартным приборам континентальной Европы."
+  }
+ },
+ {
+  "category": "general",
+  "question": {
+   "en": "What is the local custom regarding tipping service staff and guides?",
+   "uz": "Xizmat koʻrsatuvchi xodimlar va gidlar uchun choychaqa berish boʻyicha mahalliy odat qanday?",
+   "ru": "Каковы местные обычаи в отношении чаевых для обслуживающего персонала и гидов?"
+  },
+  "answer": {
+   "en": "Tipping is not strictly mandatory, but it is increasingly appreciated in tourism for good service. Leaving around 10% in restaurants or a modest tip for local guides and drivers is customary and welcomed.",
+   "uz": "Choychaqa berish qatʼiy majburiy emas, lekin yaxshi xizmat uchun turizmda bu tobora qadrlanmoqda. Restoranlarda taxminan 10% qoldirish yoki mahalliy gidlar va haydovchilarga oʻrtacha choychaqa berish odat tusiga kirgan va mamnuniyat bilan qabul qilinadi.",
+   "ru": "Чаевые не являются строго обязательными, но в туризме их все больше ценят за хорошее обслуживание. Оставлять около 10% в ресторанах или умеренные чаевые для местных гидов и водителей принято и приветствуется."
+  }
+ },
+ {
+  "category": "booking",
+  "question": {
+   "en": "How do I request a custom tour itinerary with National Tours?",
+   "uz": "National Tours bilan shaxsiy sayohat dasturini qanday buyurtma qilish mumkin?",
+   "ru": "Как запросить индивидуальный маршрут тура в National Tours?"
+  },
+  "answer": {
+   "en": "You can request a custom itinerary by submitting the inquiry form on our website with your travel dates, group size, and preferred destinations. Our local team will review your preferences and design a tailored proposal.",
+   "uz": "Siz sayohat sanalari, guruh hajmi va afzal koʻrgan yoʻnalishlaringizni veb-saytimizdagi soʻrov shakli orqali yuborish orqali shaxsiy dastur soʻrashingiz mumkin. Bizning mahalliy jamoamiz sizning afzalliklaringizni koʻrib chiqadi va moslashtirilgan taklif tayyorlaydi.",
+   "ru": "Вы можете запросить индивидуальный маршрут, отправив форму заявки на нашем сайте с указанием дат поездки, размера группы и предпочитаемых направлений. Наша местная команда рассмотрит ваши пожелания и разработает индивидуальное предложение."
+  }
+ },
+ {
+  "category": "booking",
+  "question": {
+   "en": "How are tour prices confirmed and what payment methods do you accept?",
+   "uz": "Sayohat narxlari qanday tasdiqlanadi va qanday toʻlov usullarini qabul qilasiz?",
+   "ru": "Как подтверждаются цены на туры и какие способы оплаты вы принимаете?"
+  },
+  "answer": {
+   "en": "Tour prices are confirmed in writing by our team based on your final selected hotels, transport, and guide services. There is no online prepayment required on the website; our team confirms exact terms and payment methods directly in writing.",
+   "uz": "Sayohat narxlari jamoamiz tomonidan yakuniy tanlangan mehmonxonalar, transport va gid xizmatlari asosida yozma ravishda tasdiqlanadi. Veb-saytda onlayn oldindan toʻlov talab qilinmaydi; bizning jamoamiz aniq shartlar va toʻlov usullarini toʻgʻridan-toʻgʻri yozma ravishda tasdiqlaydi.",
+   "ru": "Цены на туры подтверждаются нашей командой в письменной форме на основе выбранных вами отелей, транспорта и услуг гида. На сайте не требуется онлайн-предоплата; наша команда подтверждает точные условия и способы оплаты непосредственно в письменной форме."
+  }
+ },
+ {
+  "category": "booking",
+  "question": {
+   "en": "Are there any discounts available for children travelling with National Tours?",
+   "uz": "National Tours bilan sayohat qilayotgan bolalar uchun chegirmalar mavjudmi?",
+   "ru": "Предоставляются ли скидки для детей, путешествующих с National Tours?"
+  },
+  "answer": {
+   "en": "Yes, age-based discounts for children sharing a room with parents are evaluated per itinerary. Our team will detail all applicable child reductions when confirming your customized tour package in writing.",
+   "uz": "Ha, ota-onasi bilan bir xonada yashovchi bolalar uchun yoshga qarab chegirmalar har bir dastur boʻyicha alohida koʻrib chiqiladi. Bizning jamoamiz buyurtma qilingan tur paketini yozma ravishda tasdiqlash jarayonida barcha tegishli bolalar chegirmalarini batafsil koʻrsatib beradi.",
+   "ru": "Да, возрастные скидки для детей, проживающих в одном номере с родителями, оцениваются для каждого маршрута индивидуально. Наша команда подробно укажет все применимые детские скидки при письменном подтверждении вашего индивидуального турпакета."
+  }
+ },
+ {
+  "category": "booking",
+  "question": {
+   "en": "What is the policy for cancelling or modifying a confirmed tour?",
+   "uz": "Tasdiqlangan turni bekor qilish yoki oʻzgartirish siyosati qanday?",
+   "ru": "Какова политика отмены или изменения подтвержденного тура?"
+  },
+  "answer": {
+   "en": "Modification and cancellation terms depend on the season and booked services such as domestic trains or hotels. Our team confirms all cancellation conditions clearly in writing prior to finalizing your booking.",
+   "uz": "Oʻzgartirish va bekor qilish shartlari mavsumga hamda ichki poezdlar yoki mehmonxonalar kabi band qilingan xizmatlarga bogʻliq. Bizning jamoamiz buyurtmani yakunlashdan oldin barcha bekor qilish shartlarini yozma ravishda aniq tasdiqlaydi.",
+   "ru": "Условия изменения и отмены зависят от сезона и забронированных услуг, таких как внутренние поезда или отели. Наша команда четко подтверждает все условия отмены в письменной форме до завершения бронирования."
+  }
+ }
+]

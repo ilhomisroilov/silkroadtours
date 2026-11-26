@@ -1,12 +1,12 @@
-import { expect, settledText, switchCurrency, test } from "./helpers";
+import { bookingReady, expect, settledText, switchCurrency, test } from "./helpers";
 
 const RAW_KEY = /\b(nav|home|common|tours|tour|booking|services|guide|footer|meta|hubs|destinations|errors)\.[a-z][a-zA-Z]+\b/;
 
 test.describe("languages", () => {
   for (const [locale, heading] of [
-    ["en", /Silk Road/],
-    ["uz", /Ipak yoʻli/],
-    ["ru", /Шёлковый путь/],
+    ["en", /Explore the Beauty of Uzbekistan/],
+    ["uz", /Oʻzbekistonning goʻzalligini kashf eting/],
+    ["ru", /Откройте красоту Узбекистана/],
   ] as const) {
     test(`home renders in ${locale} with lang="${locale}" and no missing translations`, async ({ page }) => {
       const missing: string[] = [];
@@ -40,7 +40,9 @@ test("currency switch re-prices the listing and the tour page", async ({ page, i
 
 test("filters update the URL and the results", async ({ page, isMobileProject }) => {
   await page.goto("/en/tours");
-  await expect(page.getByTestId("results-count")).toHaveText("18 tours");
+  const count = page.getByTestId("results-count");
+  await expect(count).toHaveText(/^\d+ tours$/);
+  const all = (await count.textContent())!.trim();
   if (isMobileProject) {
     await page.getByRole("button", { name: /Filters/ }).click();
     await page.locator("#m-audience").selectOption("domestic");
@@ -49,7 +51,10 @@ test("filters update the URL and the results", async ({ page, isMobileProject })
     await page.locator("#f-audience").selectOption("domestic");
   }
   await expect(page).toHaveURL(/audience=domestic/);
-  await expect(page.getByTestId("results-count")).toHaveText("7 tours");
+  await expect(count).not.toHaveText(all);
+  const domestic = Number.parseInt((await count.textContent())!, 10);
+  expect(domestic).toBeGreaterThan(0);
+  expect(domestic).toBeLessThan(Number.parseInt(all, 10));
   if (isMobileProject) {
     await page.getByRole("button", { name: /Filters/ }).click();
     await page.locator("#m-month").selectOption("7");
@@ -61,13 +66,14 @@ test("filters update the URL and the results", async ({ page, isMobileProject })
   await expect(page.getByTestId("tour-results").locator("li").first()).toBeVisible();
   // The URL alone restores the same filtered view.
   await page.reload();
-  await expect(page.getByTestId("results-count")).not.toHaveText("18 tours");
+  await expect(count).not.toHaveText(all);
 });
 
 test("tour page: live price, departure choice and a complete booking", async ({ page, isMobileProject }) => {
   await page.goto("/en/tours/classic-silk-road-8-days");
   const p = isMobileProject ? "sheet" : "card";
   if (isMobileProject) await page.getByTestId("bar-book").click();
+  await expect(page.locator(`[data-testid=${p}-booking-card][data-ready]`)).toBeAttached();
   const total = `[data-testid=${p}-total]`;
   const t0 = await settledText(page, total);
 
@@ -97,14 +103,16 @@ test("tour page: live price, departure choice and a complete booking", async ({ 
   await page.getByTestId(`${p}-book`).click();
 
   await expect(page).toHaveURL(/\/en\/book\/classic-silk-road-8-days\?.*departureId=\d+/);
+  await bookingReady(page);
   await expect(page.getByTestId("book-total")).toContainText("$");
   await page.getByTestId("book-next").click();
   await page.getByLabel("Full name").fill("E2E Traveller");
-  await page.getByRole("textbox", { name: "Email" }).fill("e2e@example.com");
+  await page.getByRole("textbox", { name: "Email", exact: true }).fill("e2e@example.com");
   await page.getByLabel("Phone with country code").fill("+998 90 765 43 21");
   await page.getByTestId("book-next").click();
   await expect(page.getByTestId("review-total")).toContainText("$");
-  await expect(page.locator("input[name=cf-turnstile-response]")).toHaveValue(/.+/, { timeout: 30_000 });
+  // The bot check is only rendered with a real Turnstile key; with test keys the page sends a fixed token.
+  if (await page.getByTestId("turnstile").count()) await expect(page.locator("input[name=cf-turnstile-response]")).toHaveValue(/.+/, { timeout: 30_000 });
   await page.getByTestId("book-submit").click();
 
   await expect(page).toHaveURL(/\/en\/booking\/UZ-\d{4}-\d{5}$/);
@@ -120,15 +128,17 @@ test("airport transfer request gets an SR reference", async ({ page }) => {
   await page.getByLabel("Flight number").fill("HY 602");
   await page.getByLabel("Hotel or address").fill("Hotel in central Tashkent");
   await page.getByLabel("Full name").fill("E2E Transfer");
-  await page.getByRole("textbox", { name: "Email" }).fill("transfer@example.com");
+  await page.getByRole("textbox", { name: "Email", exact: true }).fill("transfer@example.com");
   await page.getByLabel("Phone with country code").fill("+998901112233");
-  await expect(page.locator("input[name=cf-turnstile-response]")).toHaveValue(/.+/, { timeout: 30_000 });
+  // The bot check is only rendered with a real Turnstile key; with test keys the page sends a fixed token.
+  if (await page.getByTestId("turnstile").count()) await expect(page.locator("input[name=cf-turnstile-response]")).toHaveValue(/.+/, { timeout: 30_000 });
   await page.getByTestId("service-submit").click();
   await expect(page.getByTestId("service-reference")).toHaveText(/^SR-\d{4}-\d{5}$/);
 });
 
 test("validation errors are shown inline in the visitor's language and keep their input", async ({ page }) => {
   await page.goto("/ru/book/zomin-weekend-mountain-getaway");
+  await bookingReady(page);
   await expect(page.getByTestId("book-departure")).toBeVisible();
   await page.getByTestId("book-departure").selectOption({ index: 1 });
   await page.getByTestId("book-next").click();

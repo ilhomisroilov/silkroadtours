@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckCircle2, Loader2 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm, type FieldValues, type Path } from "react-hook-form";
 import type { ZodType } from "zod";
 import type { ContactChannel, Locale } from "@/db/types";
@@ -21,17 +21,43 @@ import { Turnstile, type TurnstileHandle } from "@/components/forms/turnstile";
 import { Button } from "@/components/ui/button";
 import { Field, fieldAria, Input, NativeSelect, Textarea } from "@/components/ui/form";
 
-export type ServiceKind = "airport-transfer" | "tailor-made" | "accommodation" | "guides";
+export type ServiceKind = "airport-transfer" | "tailor-made" | "accommodation" | "guides" | "inquiry";
+export type InquiryContext = { topic: "experience" | "service" | "general"; subject?: string; refSlug?: string };
 
 const CONFIG: Record<ServiceKind, { type: string; schema: ZodType<FieldValues, FieldValues> }> = {
   "airport-transfer": { type: "airport_transfer", schema: serviceRequestSchemas.airportTransfer as never },
   "tailor-made": { type: "custom_tour", schema: serviceRequestSchemas.customTour as never },
   accommodation: { type: "accommodation", schema: serviceRequestSchemas.accommodation as never },
   guides: { type: "guide", schema: serviceRequestSchemas.guide as never },
+  inquiry: { type: "inquiry", schema: serviceRequestSchemas.inquiry as never },
 };
+const optionalNumber = { setValueAs: (v: unknown) => (v === "" || v == null || Number.isNaN(Number(v)) ? undefined : Number(v)) } as const;
+const optionalText = { setValueAs: (v: unknown) => (v === "" || v == null ? undefined : v) } as const;
 const CHANNELS: ContactChannel[] = ["whatsapp", "telegram", "phone", "email"];
 
-export function ServiceRequestForm({ kind, destinations }: { kind: ServiceKind; destinations: { slug: string; name: string }[] }) {
+export function ServiceRequestForm({
+  kind,
+  destinations,
+  inquiry,
+  preset,
+  hideDetails = false,
+  title,
+  submitLabel,
+  compact = false,
+}: {
+  kind: ServiceKind;
+  destinations: { slug: string; name: string }[];
+  /** For kind "inquiry": what the question is about. A given subject is sent as is and not shown as a field. */
+  inquiry?: InquiryContext;
+  /** Values filled in by the page (for example by the tour builder); kept in sync while the form is open. */
+  preset?: Record<string, unknown>;
+  /** Hide the request details and send only the contact step (details come from `preset`). */
+  hideDetails?: boolean;
+  title?: string;
+  submitLabel?: string;
+  /** Narrow layout for sidebars: one column, smaller headings. */
+  compact?: boolean;
+}) {
   const t = useTranslations("services");
   const tb = useTranslations("booking");
   const te = useTranslations("errors");
@@ -49,6 +75,7 @@ export function ServiceRequestForm({ kind, destinations }: { kind: ServiceKind; 
     "tailor-made": { startDate: "", endDate: "", adults: 2, children: 0, destinationSlugs: [], interests: [], accommodationLevel: "comfort", notes: "" },
     accommodation: { kind: "hotel", destinationSlug: destinations[0]?.slug ?? "", checkIn: "", checkOut: "", rooms: 1, guests: 2, level: "comfort", notes: "" },
     guides: { language: locale === "ru" ? "ru" : "en", destinationSlug: destinations[0]?.slug ?? "", date: "", days: 1, groupSize: 2, notes: "" },
+    inquiry: { topic: inquiry?.topic ?? "general", subject: inquiry?.subject ?? "", refSlug: inquiry?.refSlug, date: undefined, groupSize: undefined, notes: "" },
   };
 
   const form = useForm<FieldValues>({
@@ -64,9 +91,14 @@ export function ServiceRequestForm({ kind, destinations }: { kind: ServiceKind; 
       locale,
       turnstileToken: "",
       ...defaults[kind],
+      ...preset,
     },
   });
   const { register, handleSubmit, formState, setValue, setError, reset } = form;
+  const presetKey = JSON.stringify(preset ?? {});
+  useEffect(() => {
+    for (const [k, v] of Object.entries(JSON.parse(presetKey) as Record<string, unknown>)) setValue(k, v);
+  }, [presetKey, setValue]);
   const err = (name: string) => {
     const m = (formState.errors as Record<string, { message?: unknown } | undefined>)[name]?.message;
     return m ? translateCode(String(m), te as never) : undefined;
@@ -76,12 +108,13 @@ export function ServiceRequestForm({ kind, destinations }: { kind: ServiceKind; 
   const onSubmit = handleSubmit(async (values) => {
     setFormError(null);
     const body = { ...values };
-    for (const k of ["flightNumber", "notes", "messengerHandle"]) if (body[k] === "") delete body[k];
+    for (const k of ["flightNumber", "notes", "messengerHandle", "date", "refSlug"]) if (body[k] === "" || body[k] === undefined) delete body[k];
+    if (body.groupSize === undefined || Number.isNaN(body.groupSize)) delete body.groupSize;
     if (body.budgetPerPersonUsd === "" || Number.isNaN(body.budgetPerPersonUsd)) delete body.budgetPerPersonUsd;
     const r = await apiFetch<{ reference: string }>("/api/service-requests", { method: "POST", json: body });
     if (r.ok) {
       setDone(r.data.reference);
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      if (!compact && !hideDetails) window.scrollTo({ top: 0, behavior: "smooth" });
       return;
     }
     turnstile.current?.reset();
@@ -94,23 +127,44 @@ export function ServiceRequestForm({ kind, destinations }: { kind: ServiceKind; 
     return (
       <div role="status" className="flex flex-col items-start gap-4 rounded-[var(--radius-card)] border border-success/30 bg-success/5 p-8" data-testid="service-done">
         <CheckCircle2 aria-hidden="true" className="size-10 text-success" />
-        <h2 className="text-3xl text-lapis-deep">{t("doneTitle")}</h2>
+        <h2 className={compact ? "text-2xl text-lapis" : "text-3xl text-lapis-deep"}>{t("doneTitle")}</h2>
         <p className="text-lg">
           {t("doneText", { reference: done })}
         </p>
-        <p className="font-display text-4xl font-bold text-lapis-deep" data-testid="service-reference">{done}</p>
+        <p className={compact ? "text-2xl font-extrabold text-lapis" : "font-display text-4xl font-bold text-lapis-deep"} data-testid="service-reference">{done}</p>
         <Button variant="outline" onClick={() => { reset(); setDone(null); }}>{t("another")}</Button>
       </div>
     );
   }
 
+  const legendCls = compact || hideDetails ? "mb-2 text-xl font-bold text-lapis" : "mb-2 font-display text-3xl font-semibold text-lapis-deep";
+  const pair = compact ? "grid gap-4" : "grid gap-5 sm:grid-cols-2";
   const dest = destinations.map((d) => <option key={d.slug} value={d.slug}>{d.name}</option>);
 
   return (
-    <form onSubmit={onSubmit} noValidate className="flex flex-col gap-8" data-testid={`service-form-${kind}`}>
+    <form onSubmit={onSubmit} noValidate className={compact ? "flex flex-col gap-6" : "flex flex-col gap-8"} data-testid={`service-form-${kind}`}>
       {formError && <div role="alert" className="rounded-sm border-l-4 border-danger bg-danger/5 p-4 font-semibold text-danger">{formError}</div>}
+      {!hideDetails && (
       <fieldset className="flex flex-col gap-5">
-        <legend className="mb-2 font-display text-3xl font-semibold text-lapis-deep">{t("requestTitle")}</legend>
+        <legend className={legendCls}>{title ?? t("requestTitle")}</legend>
+
+        {kind === "inquiry" && (
+          <>
+            {!inquiry?.subject && (
+              <Field id="subject" label={t("subject")} error={err("subject")} required>
+                <Input {...fieldAria("subject", err("subject"))} {...register("subject")} />
+              </Field>
+            )}
+            <div className={pair}>
+              <Field id="date" label={t("preferredDate")} error={err("date")}>
+                <Input type="date" min={tomorrow} {...fieldAria("date", err("date"))} {...register("date", optionalText)} />
+              </Field>
+              <Field id="groupSize" label={t("travellers")} error={err("groupSize")}>
+                <Input type="number" min={1} max={100} {...fieldAria("groupSize", err("groupSize"))} {...register("groupSize", optionalNumber)} />
+              </Field>
+            </div>
+          </>
+        )}
 
         {kind === "airport-transfer" && (
           <>
@@ -256,17 +310,18 @@ export function ServiceRequestForm({ kind, destinations }: { kind: ServiceKind; 
           </div>
         )}
 
-        <Field id="notes" label={t("notes")} error={err("notes")}>
+        <Field id="notes" label={kind === "inquiry" ? t("message") : t("notes")} error={err("notes")} required={kind === "inquiry"}>
           <Textarea {...fieldAria("notes", err("notes"))} {...register("notes")} />
         </Field>
       </fieldset>
+      )}
 
       <fieldset className="flex flex-col gap-5">
-        <legend className="mb-2 font-display text-3xl font-semibold text-lapis-deep">{t("contactTitle")}</legend>
+        <legend className={legendCls}>{hideDetails && title ? title : t("contactTitle")}</legend>
         <Field id="fullName" label={tb("fullName")} error={err("fullName")} required>
           <Input autoComplete="name" {...fieldAria("fullName", err("fullName"))} {...register("fullName")} />
         </Field>
-        <div className="grid gap-5 sm:grid-cols-2">
+        <div className={pair}>
           <Field id="email" label={tb("email")} error={err("email")} required>
             <Input type="email" autoComplete="email" {...fieldAria("email", err("email"))} {...register("email")} />
           </Field>
@@ -276,7 +331,7 @@ export function ServiceRequestForm({ kind, destinations }: { kind: ServiceKind; 
         </div>
         <fieldset>
           <legend className="mb-2 text-sm font-semibold">{tb("contactChannel")}</legend>
-          <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+          <div className={compact ? "grid grid-cols-2 gap-2" : "grid grid-cols-2 gap-2 sm:grid-cols-4"}>
             {CHANNELS.map((c) => (
               <label key={c} className="flex min-h-11 cursor-pointer items-center gap-2 rounded-sm border border-field bg-white px-3 has-[:checked]:border-lapis has-[:checked]:ring-2 has-[:checked]:ring-lapis">
                 <input type="radio" value={c} {...register("contactChannel")} className="size-4 accent-[var(--color-lapis)]" />
@@ -292,13 +347,13 @@ export function ServiceRequestForm({ kind, destinations }: { kind: ServiceKind; 
         <p className="text-sm text-ink-muted">{tb("consent")}</p>
       </fieldset>
 
-      <Button type="submit" size="lg" className="self-start" disabled={formState.isSubmitting} data-testid="service-submit">
+      <Button type="submit" size="lg" className={compact ? "w-full" : "self-start"} disabled={formState.isSubmitting} data-testid="service-submit">
         {formState.isSubmitting ? (
           <>
             <Loader2 aria-hidden="true" className="animate-spin" /> {tb("submitting")}
           </>
         ) : (
-          t("submit")
+          submitLabel ?? t("submit")
         )}
       </Button>
     </form>
