@@ -545,7 +545,7 @@ function DeparturesTab({ tourId, durationDays, departures }: { tourId: number; d
             selected={draft.startDate ? new Date(`${draft.startDate}T00:00:00`) : undefined}
             onSelect={(d) => d && setDraft({ ...draft, startDate: iso(d) })}
             modifiers={{ departure: (d) => dates.has(iso(d)) }}
-            modifiersClassNames={{ departure: "[&>button]:bg-saffron-soft [&>button]:font-bold [&>button]:text-lapis-deep" }}
+            modifiersClassNames={{ departure: "[&>button]:bg-saffron-soft [&>button]:font-bold [&>button]:text-white" }}
           />
         </div>
         <form

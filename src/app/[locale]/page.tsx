@@ -111,7 +111,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
         />
         <div
           aria-hidden="true"
-          className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(6,17,38,0.78)_0%,rgba(6,17,38,0.45)_45%,rgba(8,21,48,0.92)_100%)] lg:bg-[linear-gradient(90deg,rgba(6,17,38,0.9)_0%,rgba(6,17,38,0.62)_32%,rgba(6,17,38,0.12)_62%,rgba(6,17,38,0)_80%)]"
+          className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(8,36,61,0.78)_0%,rgba(8,36,61,0.45)_45%,rgba(8,36,61,0.92)_100%)] lg:bg-[linear-gradient(90deg,rgba(8,36,61,0.9)_0%,rgba(8,36,61,0.62)_32%,rgba(8,36,61,0.12)_62%,rgba(8,36,61,0)_80%)]"
         />
         <div aria-hidden="true" className="absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-b from-transparent to-ivory" />
         <div className="container-page flex min-h-[640px] flex-col justify-center pb-28 pt-[calc(72px+2.5rem)] lg:min-h-[700px]">
@@ -121,7 +121,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
               {t("nt.hero.chip")}
             </p>
             <h1 id="hero-title" className="mt-5 font-[Georgia,'Times_New_Roman',serif] text-[clamp(2.8rem,1.7rem+4.6vw,5.2rem)] font-normal leading-[1.02] tracking-[-0.01em] text-white [text-shadow:0_2px_24px_rgb(0_0_0/0.35)]">
-              {t.rich("nt.hero.title", { b: (c) => <span className="bg-gradient-to-r from-[#f6d98b] to-[#e0a93f] bg-clip-text text-transparent">{c}</span> })}
+              {t.rich("nt.hero.title", { b: (c) => <span className="bg-gradient-to-r from-white to-[#9fdcff] bg-clip-text text-transparent">{c}</span> })}
             </h1>
             <p className="mt-5 max-w-xl text-lg text-white/85 sm:text-xl">{t("nt.hero.text")}</p>
           </div>

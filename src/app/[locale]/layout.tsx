@@ -9,6 +9,7 @@ import { MotionProvider } from "@/components/common/motion";
 import { FloatingContact, SiteFooter, SiteHeader } from "@/components/layout/site-chrome";
 import { OrganizationJsonLd } from "@/components/seo/json-ld";
 import { AssistantWidget } from "@/components/ai/assistant-widget";
+import { KeepExploring } from "@/components/common/keep-exploring";
 import { getDb } from "@/db/client";
 import { getAiSettings } from "@/lib/ai/agent";
 import type { Locale } from "@/db/types";
@@ -60,6 +61,7 @@ export default async function LocaleLayout({ children, params }: { children: Rea
             </main>
             <SiteFooter locale={locale} />
             <FloatingContact locale={locale} />
+            <KeepExploring locale={locale} />
             {ai && <AssistantWidget locale={locale} welcome={locale === "uz" && ai.welcome.uz ? uzText(ai.welcome.uz) : (ai.welcome[locale] ?? ai.welcome.en)} enabled={ai.enabled} />}
           </MotionProvider>
         </ClientMessages>

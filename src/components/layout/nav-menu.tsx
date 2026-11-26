@@ -152,7 +152,7 @@ export function HeaderFrame({ children }: { children: ReactNode }) {
       data-solid={solid ? "" : undefined}
       className={cn(
         "sticky top-0 z-40 transition-[background-color,box-shadow,backdrop-filter] duration-300",
-        solid ? "bg-[rgb(6_17_38/0.82)] shadow-[0_1px_0_rgb(255_255_255/0.06),0_10px_30px_-20px_rgb(0_0_0/0.6)] backdrop-blur-md" : "bg-transparent",
+        solid ? "border-b border-white/10 bg-[rgb(8_36_61/0.78)] shadow-[0_10px_30px_-20px_rgb(0_0_0/0.6)] backdrop-blur-xl" : "bg-transparent",
       )}
     >
       {children}
