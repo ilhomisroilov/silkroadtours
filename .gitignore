@@ -19,7 +19,7 @@ drizzle/seed-reset.sql
 test-results/
 playwright-report/
 .lighthouseci/
-data/
+/data/
 *.db
 *.db-*
 backups/
