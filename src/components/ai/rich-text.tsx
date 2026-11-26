@@ -1,6 +1,6 @@
 import { Fragment, type ReactNode } from "react";
 
-/** Minimal, safe Markdown subset for assistant replies: paragraphs, bullets, **bold**, [links](/internal). No HTML is ever injected. */
+/** Minimal, safe Markdown subset for assistant replies: paragraphs, bullets, simple tables, **bold**, [links](/internal). No HTML is ever injected. */
 function inline(text: string, key: string): ReactNode[] {
   const out: ReactNode[] = [];
   const re = /\[([^\]]{1,120})\]\(([^)\s]{1,300})\)|\*\*([^*]{1,200})\*\*/g;
@@ -34,6 +34,28 @@ export function RichText({ text }: { text: string }) {
     <>
       {blocks.map((b, bi) => {
         const lines = b.split("\n").filter((l) => l.trim());
+        const isTable = lines.length >= 2 && lines.every((l) => /^\s*\|.*\|\s*$/.test(l));
+        if (isTable) {
+          const cells = (l: string) => l.trim().replace(/^\||\|$/g, "").split("|").map((c) => c.trim());
+          const rows = lines.filter((l) => !/^\s*\|?[\s:|-]+\|?\s*$/.test(l)).map(cells);
+          const [head, ...body] = rows;
+          return (
+            <div key={bi} className="my-2 max-w-full overflow-x-auto">
+              <table className="w-full border-collapse text-left text-[0.85rem]">
+                {head && (
+                  <thead>
+                    <tr>{head.map((c, ci) => <th key={ci} className="border-b border-line px-2 py-1 font-semibold">{inline(c, `${bi}-h${ci}`)}</th>)}</tr>
+                  </thead>
+                )}
+                <tbody>
+                  {body.map((r, ri) => (
+                    <tr key={ri}>{r.map((c, ci) => <td key={ci} className="border-b border-line/60 px-2 py-1 align-top">{inline(c, `${bi}-${ri}-${ci}`)}</td>)}</tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          );
+        }
         const isList = lines.length > 0 && lines.every((l) => /^\s*([-*•]|\d+[.)])\s+/.test(l));
         if (isList)
           return (

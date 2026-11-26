@@ -43,5 +43,8 @@ const OUR_HOSTS = String.raw`(?:localhost|127\.0\.0\.1|0\.0\.0\.0|\[::1\]|(?:www
 const OWN_LINK = new RegExp(String.raw`https?://${OUR_HOSTS}(${SITE_PATH})`, "gi");
 
 export function relativizeSiteLinks(text: string): string {
-  return text.replace(OWN_LINK, "$1");
+  return text
+    .replace(OWN_LINK, "$1")
+    // "[Title]( /uz/tours/x )" or "[Title] (/uz/tours/x)" → "[Title](/uz/tours/x)", so the link stays clickable.
+    .replace(/\]\s?\(\s+([^\s)]+)\s*\)|\]\s\(([^\s)]+)\)|\]\(([^\s)]+)\s+\)/g, (_m, a, b, c) => `](${a ?? b ?? c})`);
 }

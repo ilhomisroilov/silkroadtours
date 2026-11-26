@@ -53,5 +53,7 @@ describe("AI output guard", () => {
     const external = "Visa: [e-visa](https://e-visa.gov.uz/ru/main) and [map](https://example.net/en/x)";
     assert.equal(relativizeSiteLinks(external), external);
     assert.equal(relativizeSiteLinks("[a](/ru/tours/x)"), "[a](/ru/tours/x)");
+    assert.equal(relativizeSiteLinks("[a]( /uz/tours/x ) and [b] (/uz/tours/y) and [c](/uz/tours/z )"), "[a](/uz/tours/x) and [b](/uz/tours/y) and [c](/uz/tours/z)");
+    assert.equal(relativizeSiteLinks("[a]( http://localhost:8080/uz/tours/x )"), "[a](/uz/tours/x)");
   });
 });
