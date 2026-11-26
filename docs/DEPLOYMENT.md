@@ -53,6 +53,10 @@ uses a free local port (`APP_PORT`, default 3100). If port 80 belongs to somethi
 
 ## 3. First administrator (no default password exists)
 ```bash
+sudo bash deploy/create-admin.sh   # asks email, name and a hidden password (12+ characters)
+```
+Or by hand:
+```bash
 curl -X POST https://nationaltours.uz/api/admin/auth/bootstrap \
   -H "x-admin-secret: $(grep ^ADMIN_SECRET= .env | cut -d= -f2-)" \
   -H "origin: https://nationaltours.uz" -H "content-type: application/json" \
