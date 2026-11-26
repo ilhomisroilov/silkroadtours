@@ -1,0 +1,22 @@
+node_modules/
+.next/
+.open-next/
+.wrangler/
+out/
+.env
+.env.local
+.dev.vars
+*.tsbuildinfo
+next-env.d.ts
+drizzle/seed.sql
+.DS_Store
+.smoke-admin.json
+
+# test output
+test-results/
+playwright-report/
+.lighthouseci/
+data/
+*.db
+*.db-*
+backups/

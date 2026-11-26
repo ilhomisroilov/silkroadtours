@@ -1,0 +1,202 @@
+@import "tailwindcss";
+
+/*
+ * "Modern Silk Road" design tokens. See docs/design/DESIGN_SYSTEM.md.
+ * Every text/background pair used in components was checked for WCAG 2.2 AA
+ * (contrast ratios are listed in the design doc).
+ */
+@theme {
+  /* National palette */
+  --color-lapis: #26458f;
+  --color-lapis-deep: #0e1830;
+  --color-lapis-night: #0a1224;
+  --color-lapis-mist: #d3dbee;
+  --color-cobalt: #26458f;
+  --color-turquoise: #2f8f8b; /* UI accents, icons, ornament (3.1:1 — not for body text) */
+  --color-turquoise-ink: #1f6f6b; /* turquoise text on light backgrounds (4.8:1) */
+  --color-terracotta: #a8492a; /* primary CTA background (white text 4.95:1) */
+  --color-terracotta-deep: #8e3c21; /* CTA hover */
+  --color-saffron: #e2be82; /* ornament lines; text only on lapis-deep/night */
+  --color-saffron-ink: #7a5c1f; /* saffron-toned text on light backgrounds (5.8:1) */
+  --color-saffron-soft: #f1e4c8;
+  --color-pomegranate: #9e2a3a;
+  --color-sand: #eadfcb;
+  --color-sand-soft: #f2ebdd;
+  --color-ivory: #f8f3ea;
+  --color-ink: #1a1814;
+  --color-ink-muted: #5f574d; /* secondary text (6.8:1 on ivory, 5.2:1 on sand) */
+  --color-line: #ddd2bf; /* decorative dividers only */
+  --color-field: #8c7e6b; /* form-control borders (3.8:1 — WCAG 1.4.11) */
+  --color-danger: #a12a2a;
+  --color-success: #1f6b45;
+
+  /* Type */
+  --font-display: "Noto Serif Display", Georgia, "Times New Roman", serif;
+  --font-sans: "Manrope Variable", "Manrope", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Modular scale (1.25) with fluid display sizes */
+  --text-xs: 0.8125rem;
+  --text-xs--line-height: 1.4;
+  --text-sm: 0.9375rem;
+  --text-sm--line-height: 1.5;
+  --text-base: 1rem;
+  --text-base--line-height: 1.6;
+  --text-lg: clamp(1.125rem, 1.06rem + 0.3vw, 1.25rem);
+  --text-lg--line-height: 1.55;
+  --text-xl: clamp(1.25rem, 1.14rem + 0.5vw, 1.5rem);
+  --text-xl--line-height: 1.35;
+  --text-2xl: clamp(1.5rem, 1.3rem + 0.9vw, 2rem);
+  --text-2xl--line-height: 1.2;
+  --text-3xl: clamp(1.875rem, 1.5rem + 1.6vw, 2.75rem);
+  --text-3xl--line-height: 1.12;
+  --text-4xl: clamp(2.25rem, 1.65rem + 2.6vw, 3.75rem);
+  --text-4xl--line-height: 1.05;
+  --text-5xl: clamp(2.75rem, 1.8rem + 4.2vw, 5.25rem);
+  --text-5xl--line-height: 1;
+
+  --radius-card: 2px;
+  --shadow-card: 0 1px 0 rgb(14 24 48 / 0.06);
+  --shadow-lift: 0 20px 40px -18px rgb(14 24 48 / 0.28);
+
+  --ease-silk: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-spin-slow: spin 6s linear infinite;
+  --animate-shimmer: shimmer 1.6s ease-in-out infinite;
+  @keyframes shimmer {
+    0% { opacity: 0.55; }
+    50% { opacity: 1; }
+    100% { opacity: 0.55; }
+  }
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    background-color: var(--color-ivory);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: 1.6;
+  }
+  h1, h2, h3, .font-display {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.012em;
+    text-wrap: balance;
+  }
+  p { text-wrap: pretty; }
+  a { text-underline-offset: 0.18em; }
+
+  /* Visible, high-contrast focus ring everywhere (WCAG 2.4.7 / 2.4.11) */
+  :focus-visible {
+    outline: 3px solid var(--color-cobalt);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+  .on-dark :focus-visible,
+  .on-dark:focus-visible {
+    outline-color: var(--color-saffron);
+  }
+
+  ::selection {
+    background: var(--color-saffron-soft);
+    color: var(--color-ink);
+  }
+
+  /* Native inputs inherit the brand type */
+  input, select, textarea, button { font: inherit; }
+
+  [hidden] { display: none !important; }
+}
+
+@layer components {
+  .container-page {
+    width: 100%;
+    max-width: 80rem;
+    margin-inline: auto;
+    padding-inline: 1rem;
+  }
+  @media (min-width: 640px) { .container-page { padding-inline: 1.5rem; } }
+  @media (min-width: 1024px) { .container-page { padding-inline: 2rem; } }
+
+  .arch-mask, .arch-mask-wide { }
+
+  /* Repeating girih lattice as a background (thin saffron lines) */
+  /* Caravan Atlas lattice: girih-derived diagonal hairlines at 7% on night bands. */
+  .bg-girih-dark {
+    background-color: var(--color-lapis-deep);
+    background-image:
+      repeating-linear-gradient(45deg, rgb(234 223 203 / 0.07) 0 1px, transparent 1px 34px),
+      repeating-linear-gradient(-45deg, rgb(234 223 203 / 0.07) 0 1px, transparent 1px 34px);
+  }
+  .bg-girih-light {
+    background-image:
+      repeating-linear-gradient(45deg, rgb(14 24 48 / 0.05) 0 1px, transparent 1px 34px),
+      repeating-linear-gradient(-45deg, rgb(14 24 48 / 0.05) 0 1px, transparent 1px 34px);
+  }
+  .eyebrow {
+    font: 800 0.75rem/1 var(--font-sans);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  /* The dotted Silk Road route line (decorative). */
+  .route-line { stroke: var(--color-turquoise); stroke-width: 1.6; stroke-dasharray: 2 8; stroke-linecap: round; fill: none; }
+
+  /* Section-title ornament: draws in on scroll where scroll-driven animations exist; static otherwise. */
+  @supports (animation-timeline: view()) {
+    .drawn-rule path {
+      stroke-dasharray: 1;
+      animation: draw-rule linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 35%;
+    }
+  }
+  @keyframes draw-rule {
+    from { stroke-dashoffset: 1; opacity: 0.4; }
+    to { stroke-dashoffset: 0; opacity: 1; }
+  }
+
+  /* Included / not-included checklists (CSS markers instead of one SVG per line). */
+  .check-list > li,
+  .cross-list > li {
+    position: relative;
+    padding-left: 2rem;
+  }
+  .check-list > li::before,
+  .cross-list > li::before {
+    position: absolute;
+    left: 0;
+    top: 0.1rem;
+    display: inline-flex;
+    width: 1.35rem;
+    height: 1.35rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+  .check-list > li::before { content: "✓"; color: var(--color-success); background: color-mix(in srgb, var(--color-success) 12%, transparent); }
+  .cross-list > li::before { content: "✕"; color: var(--color-danger); background: color-mix(in srgb, var(--color-danger) 10%, transparent); }
+
+  .skeleton {
+    background: linear-gradient(90deg, var(--color-sand-soft), var(--color-sand), var(--color-sand-soft));
+    animation: var(--animate-shimmer);
+    border-radius: 0.75rem;
+  }
+
+  .prose-silk p + p { margin-top: 0.9em; }
+  .prose-silk a { color: var(--color-cobalt); text-decoration: underline; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

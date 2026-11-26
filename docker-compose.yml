@@ -1,0 +1,33 @@
+# Silk Road Tours — production stack.
+#   cp .env.example .env   (fill in secrets; never commit .env)
+#   docker compose up -d --build
+# The app listens only on 127.0.0.1:${APP_PORT:-3100}; nginx on the host terminates HTTPS (see deploy/nginx).
+# Other sites on the same server are not touched (see deploy/setup-server.sh).
+services:
+  app:
+    build:
+      context: .
+      args:
+        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-https://silkroadtours.uz}
+        NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${NEXT_PUBLIC_TURNSTILE_SITE_KEY:-}
+    image: silkroadtours:latest
+    container_name: silkroadtours
+    env_file: .env
+    environment:
+      DATABASE_URL: file:/data/silkroad.db
+    volumes:
+      - app-data:/data
+    ports:
+      - "127.0.0.1:${APP_PORT:-3100}:3000"
+    init: true
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+volumes:
+  app-data:

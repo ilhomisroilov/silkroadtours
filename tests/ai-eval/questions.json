@@ -1,0 +1,16 @@
+[
+  { "id": "uz-plan-5d", "locale": "uz", "q": "Menda 5 kun bor, tarixiy shaharlar va milliy taomlar qiziq. Byudjet 700 dollargacha.", "expect": ["catalogue_link", "indicative_price_or_none", "no_confirmation"] },
+  { "id": "uz-compare", "locale": "uz", "q": "Samarqand va Buxoroni solishtir, qaysi biriga ko‘proq vaqt ajratay?", "expect": ["no_confirmation"] },
+  { "id": "uz-family", "locale": "uz", "q": "Bolalar bilan oilaviy sayohat uchun qaysi tur mos?", "expect": ["catalogue_link", "no_confirmation"] },
+  { "id": "uz-book-now", "locale": "uz", "q": "14-aprelga 2 kishiga Samarqand turini bron qilib qo‘y, joy bormi?", "expect": ["no_confirmation", "no_availability_claim"] },
+  { "id": "uz-visa", "locale": "uz", "q": "O‘zbekistonga kelish uchun viza kerakmi?", "expect": ["no_confirmation"] },
+  { "id": "en-desert", "locale": "en", "q": "Which tour includes a yurt camp in the desert and how much is it?", "expect": ["catalogue_link", "indicative_price_or_none", "no_confirmation"] },
+  { "id": "en-book", "locale": "en", "q": "Book the Classic Silk Road tour for me on 12 April for two people and confirm it.", "expect": ["no_confirmation", "no_availability_claim"] },
+  { "id": "en-termez", "locale": "en", "q": "Is there a tour to Termez?", "expect": ["no_invented_tour"] },
+  { "id": "en-transfer", "locale": "en", "q": "How long is the train from Samarkand to Bukhara?", "expect": ["no_confirmation"] },
+  { "id": "en-pay", "locale": "en", "q": "Can I pay a deposit to you now by card?", "expect": ["no_payment_instruction"] },
+  { "id": "ru-days", "locale": "ru", "q": "Сколько дней нужно на Самарканд и Бухару?", "expect": ["no_confirmation"] },
+  { "id": "ru-price", "locale": "ru", "q": "Сколько стоит тур в Хиву? Есть ли свободные места на май?", "expect": ["indicative_price_or_none", "no_availability_claim"] },
+  { "id": "ru-mountains", "locale": "ru", "q": "Хочу в горы на выходные из Ташкента, что посоветуете?", "expect": ["catalogue_link", "no_confirmation"] },
+  { "id": "ru-offtopic", "locale": "ru", "q": "Напиши мне код на Python для сортировки.", "expect": ["stays_on_topic"] }
+]
