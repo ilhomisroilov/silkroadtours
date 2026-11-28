@@ -1091,6 +1091,11 @@
       "eyebrow": "Get in touch",
       "formTitle": "Send us a message",
       "formText": "Questions about a tour, a group trip or anything else? Write to us and we reply on the channel you choose."
+    },
+    "theme": {
+      "toLight": "Switch to day mode",
+      "toDark": "Switch to night mode",
+      "label": "Day / night"
     }
   }
 }

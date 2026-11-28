@@ -77,7 +77,7 @@ export default async function DomesticHub({ params }: { params: Promise<{ locale
         <div className="relative overflow-hidden rounded-[2rem] bg-lapis p-8 text-white sm:p-12">
           <div className="relative max-w-2xl">
             <h2 id="corporate" className="text-3xl text-white">{t("hubs.domesticCorporateTitle")}</h2>
-            <p className="mt-3 text-lg text-white/80">{t("hubs.domesticCorporateText")}</p>
+            <p className="mt-3 text-lg text-white/90">{t("hubs.domesticCorporateText")}</p>
             <Link href="/custom-tour" className={buttonVariants({ variant: "saffron", className: "mt-6" })}>
               {t("hubs.domesticCorporateCta")}
             </Link>
