@@ -1,0 +1,15 @@
+# Pinned runtime dependencies (installed in the Docker image). Update together with pyproject.toml.
+fastapi==0.165.0
+uvicorn[standard]==0.54.0
+sqlalchemy[asyncio]==2.1.9
+asyncpg==0.32.0
+alembic==1.20.1
+pydantic==2.14.4
+pydantic-settings==2.16.3
+python-multipart==0.0.34
+email-validator==2.4.0
+argon2-cffi==25.1.0
+cryptography==50.0.1
+redis==8.2.0
+structlog==26.1.0
+httpx==0.29.0

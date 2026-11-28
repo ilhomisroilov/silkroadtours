@@ -1,0 +1,80 @@
+# Backend stack for one brand (API, worker, PostgreSQL with pgvector, Redis).
+# Separate from the root docker-compose.yml: starting it never touches the live site container.
+#   cd backend && cp .env.example .env   (fill in on the server only; never commit .env)
+#   docker compose up -d --build
+# Only the API is published, and only on 127.0.0.1, so the host nginx is its sole client.
+# Every service has a memory and CPU cap so the other sites on a shared server are never starved.
+
+# One stack per brand, each from its own checkout with its own .env. COMPOSE_PROJECT_NAME in .env keeps their
+# containers, volumes (database) and image apart, e.g. gulistantravel-backend on 3101, nationaltours-backend on 3103.
+name: ${COMPOSE_PROJECT_NAME:-gulistantravel-backend}
+
+x-app: &app
+  build: .
+  image: ${COMPOSE_PROJECT_NAME:-gulistantravel-backend}-api:latest
+  env_file: .env
+  environment:
+    NT_DATABASE_URL: postgresql+asyncpg://nt:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}@db:5432/nt
+    NT_REDIS_URL: redis://redis:6379/0
+  read_only: true
+  tmpfs: [/tmp]
+  security_opt: [no-new-privileges:true]
+  cap_drop: [ALL]
+  restart: unless-stopped
+  depends_on:
+    db: { condition: service_healthy }
+    redis: { condition: service_healthy }
+  logging: { driver: json-file, options: { max-size: "10m", max-file: "5" } }
+
+services:
+  migrate:
+    <<: *app
+    command: ["alembic", "upgrade", "head"]
+    restart: "no"
+
+  api:
+    <<: *app
+    depends_on:
+      migrate: { condition: service_completed_successfully }
+    ports: ["127.0.0.1:${API_PORT:-3101}:8000"]
+    deploy: { resources: { limits: { memory: 512m, cpus: "1.0" } } }
+
+  worker:
+    <<: *app
+    command: ["python", "-m", "app.worker"]
+    depends_on:
+      migrate: { condition: service_completed_successfully }
+    healthcheck: { disable: true }
+    deploy: { resources: { limits: { memory: 256m, cpus: "0.5" } } }
+
+  db:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_DB: nt
+      POSTGRES_USER: nt
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+    command: ["postgres", "-c", "shared_buffers=256MB", "-c", "max_connections=60", "-c", "log_min_duration_statement=500"]
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U nt -d nt"]
+      interval: 5s
+      retries: 20
+    security_opt: [no-new-privileges:true]
+    restart: unless-stopped
+    deploy: { resources: { limits: { memory: 1536m, cpus: "1.5" } } }
+    logging: { driver: json-file, options: { max-size: "10m", max-file: "5" } }
+
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--save", "", "--appendonly", "no", "--maxmemory", "200mb", "--maxmemory-policy", "allkeys-lru"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      retries: 20
+    read_only: true
+    security_opt: [no-new-privileges:true]
+    restart: unless-stopped
+    deploy: { resources: { limits: { memory: 256m, cpus: "0.5" } } }
+
+volumes:
+  pgdata:
