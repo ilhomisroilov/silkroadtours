@@ -13,6 +13,7 @@ from sqlalchemy.dialects.postgresql import insert
 from app.db import SessionLocal
 from app.models import FxRate, IdempotencyKey
 from app.services.booking import expire_holds
+from app.services.mailer import send_pending
 
 log = logging.getLogger("nt.worker")
 CBU_URL = "https://cbu.uz/uz/arkhiv-kursov-valyut/json/"
@@ -46,6 +47,14 @@ async def refresh_rates() -> None:
     log.info("exchange rates updated: %s", ", ".join(r["currency"] for r in rows))
 
 
+async def send_emails() -> None:
+    async with SessionLocal() as s:
+        n = await send_pending(s)
+        await s.commit()
+    if n:
+        log.info("sent %d emails", n)
+
+
 async def purge_idempotency() -> None:
     async with SessionLocal() as s:
         await s.execute(delete(IdempotencyKey).where(IdempotencyKey.created_at < datetime.now(UTC) - timedelta(hours=24)))
@@ -63,7 +72,8 @@ async def every(seconds: int, job) -> None:
 
 async def main() -> None:
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s %(message)s")
-    await asyncio.gather(every(60, release_holds), every(6 * 3600, refresh_rates), every(3600, purge_idempotency))
+    await asyncio.gather(every(60, release_holds), every(6 * 3600, refresh_rates), every(3600, purge_idempotency),
+                         every(15, send_emails))
 
 
 if __name__ == "__main__":

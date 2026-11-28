@@ -1,7 +1,7 @@
 [project]
-name = "nationaltours-api"
+name = "gulistantravel-api"
 version = "0.1.0"
-description = "National Tours backend: bookings, payments, accounts, admin and AI API"
+description = "Gulistan Travel backend: bookings, payments, accounts, admin and AI API"
 requires-python = ">=3.12"
 dependencies = [
   "fastapi>=0.115",
@@ -36,5 +36,6 @@ select = ["E", "F", "I", "B", "S", "UP", "ASYNC"]
 ignore = ["S101", "B008"]
 
 [tool.ruff.lint.per-file-ignores]
-"tests/*" = ["S105", "S106", "S311"]
+"tests/*" = ["S105", "S106", "S107", "S311"]
 "migrations/*" = ["E501"]
+"app/services/mailer.py" = ["E501"]  # inline HTML email template

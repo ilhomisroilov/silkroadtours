@@ -6,7 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from sqlalchemy import text
 
-from app.api import bookings, payments
+from app.api import auth, bookings, payments
 from app.config import get_settings
 from app.db import SessionLocal
 from app.services.booking import BookingError
@@ -23,7 +23,7 @@ SECURITY_HEADERS = {
 def create_app() -> FastAPI:
     s = get_settings()
     app = FastAPI(
-        title="National Tours API",
+        title="Gulistan Travel API",
         version="0.1.0",
         docs_url="/docs" if s.docs_enabled else None,
         redoc_url=None,
@@ -65,6 +65,7 @@ def create_app() -> FastAPI:
             await session.execute(text("SELECT 1"))
         return {"status": "ready"}
 
+    app.include_router(auth.router)
     app.include_router(bookings.router)
     app.include_router(payments.router)
     return app
