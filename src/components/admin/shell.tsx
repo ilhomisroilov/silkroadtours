@@ -1,6 +1,6 @@
 "use client";
 
-import { DownOutlined, ExportOutlined, LogoutOutlined, MenuOutlined, MoonOutlined, SunOutlined } from "@ant-design/icons";
+import { DownOutlined, ExportOutlined, LogoutOutlined, MenuOutlined, MoonOutlined, SunOutlined, UserOutlined } from "@ant-design/icons";
 import { BarChart3, BookOpenCheck, Bot, Building2, CalendarCheck2, Cog, FileText, Handshake, HelpCircle, Images, KanbanSquare, Mail, Map as MapIcon, MessageSquareQuote, NotebookPen, Route, Users } from "lucide-react";
 import { Avatar, Button, Drawer, Flex, Grid, Layout, Popover, Segmented, Typography } from "antd";
 import Link from "next/link";
@@ -132,6 +132,7 @@ function UserMenu({ user, locale, compact = false }: { user: { name: string; rol
           <Typography.Text type="secondary" style={{ fontSize: 13 }}>{role}</Typography.Text>
         </Flex>
       </Flex>
+      <Button block icon={<UserOutlined />} onClick={() => { setOpen(false); router.push("/admin/profile"); }} data-testid="admin-my-profile">{t("panel.myProfile")}</Button>
       <Flex vertical gap={6}>
         <Typography.Text type="secondary" style={{ fontSize: 13 }}>{t("panel.theme")}</Typography.Text>
         <Segmented<AdminTheme>
@@ -175,7 +176,6 @@ function UserMenu({ user, locale, compact = false }: { user: { name: string; rol
           <Avatar aria-hidden size={30} style={{ background: ADMIN_COLORS.primary }}>{initial}</Avatar>
           <span className="sr-only">{t("panel.profile")}{compact ? `: ${user.name}` : ""}</span>
           {!compact && <span style={{ maxWidth: 160, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{user.name}</span>}
-          {mode === "dark" ? <MoonOutlined aria-hidden /> : <SunOutlined aria-hidden />}
           <DownOutlined aria-hidden style={{ fontSize: 11 }} />
         </Flex>
       </Button>
