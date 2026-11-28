@@ -1,4 +1,4 @@
-# Gulistan Travel API (backend)
+# Guliston Travel API (backend)
 
 Python 3.12, FastAPI, SQLAlchemy 2 (async), PostgreSQL 16, Redis. This is phase 0–1 of the production
 rebuild: bookings and payments, accounts, the public catalogue, service requests and the staff admin API. The Next.js site keeps running unchanged until its pages are
@@ -46,21 +46,21 @@ This compose file is separate from the root one, so it never restarts the live s
 
 ## Two brands, one codebase
 
-Gulistan Travel and National Tours run the same code as two separate stacks, each from its own checkout of the
+Guliston Travel and National Tours run the same code as two separate stacks, each from its own checkout of the
 repository with its own `backend/.env`. They share nothing at run time: separate database, customers, staff,
 payment merchant accounts and sign-in apps.
 
-| | Gulistan Travel | National Tours |
+| | Guliston Travel | National Tours |
 | --- | --- | --- |
 | Checkout | `~/gulistantravel` | `~/silkroadtours` |
 | `COMPOSE_PROJECT_NAME` | `gulistantravel-backend` | `nationaltours-backend` |
 | `API_PORT` (127.0.0.1) | 3101 | 3103 |
 | API host for nginx | `api.gulistantravel.uz` | `api.nationaltours.uz` |
-| `NT_BRAND_NAME` | Gulistan Travel | National Tours |
+| `NT_BRAND_NAME` | Guliston Travel | National Tours |
 | `NT_BOOKING_PREFIX` / `NT_REQUEST_PREFIX` | GT / GS | NT / NS |
 | `NT_SITE_URL`, `NT_API_URL`, `NT_COOKIE_DOMAIN`, `NT_ALLOWED_ORIGINS`, mail addresses | gulistantravel.uz | nationaltours.uz |
 
-Site containers use 3100 (National Tours) and 3102 (Gulistan Travel), so the four ports never clash. Each brand
+Site containers use 3100 (National Tours) and 3102 (Guliston Travel), so the four ports never clash. Each brand
 also needs its own Google/Facebook sign-in app, Telegram bot and Payme/Click cashbox (or one cashbox per legal
 entity, if both brands belong to the same company the owner decides).
 
