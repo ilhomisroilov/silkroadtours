@@ -6,7 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from sqlalchemy import text
 
-from app.api import bookings, payments
+from app.api import auth, bookings, payments
 from app.config import get_settings
 from app.db import SessionLocal
 from app.services.booking import BookingError
@@ -65,6 +65,7 @@ def create_app() -> FastAPI:
             await session.execute(text("SELECT 1"))
         return {"status": "ready"}
 
+    app.include_router(auth.router)
     app.include_router(bookings.router)
     app.include_router(payments.router)
     return app

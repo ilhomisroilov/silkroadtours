@@ -22,6 +22,18 @@ class Settings(BaseSettings):
     booking_hold_minutes: int = 30
     deposit_percent: int = Field(30, ge=0, le=100)
 
+    # Accounts
+    api_url: str = "https://api.nationaltours.uz"  # public address of this API (OAuth redirect URIs)
+    session_cookie: str = "nt_session"
+    session_days: int = 30
+    cookie_domain: str | None = None  # ".nationaltours.uz" so the site and the API share the sign-in
+    google_client_id: str = ""
+    google_client_secret: SecretStr = SecretStr("")
+    facebook_app_id: str = ""
+    facebook_app_secret: SecretStr = SecretStr("")
+    telegram_bot_token: SecretStr = SecretStr("")
+    telegram_bot_username: str = ""
+
     # Payme (Merchant API). The key is the cashbox key from the Payme business cabinet.
     payme_merchant_id: str = ""
     payme_key: SecretStr = SecretStr("")

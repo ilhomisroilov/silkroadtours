@@ -17,7 +17,7 @@ class Booking(Timestamps, Base):
     id: Mapped[uuid.UUID] = uuid_pk()
     reference: Mapped[str] = mapped_column(String(16), unique=True)
     access_token_hash: Mapped[str] = mapped_column(String(64))
-    user_id: Mapped[uuid.UUID | None] = mapped_column(index=True)  # linked once accounts land
+    user_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("users.id", ondelete="SET NULL"), index=True)
 
     status: Mapped[str] = mapped_column(String(20), default="awaiting_payment")
     payment_state: Mapped[str] = mapped_column(String(16), default="unpaid")
