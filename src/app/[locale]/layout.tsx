@@ -16,6 +16,7 @@ import type { Locale } from "@/db/types";
 import { routing } from "@/i18n/routing";
 import { requestCurrency, siteUrl } from "@/lib/server/site";
 import { uzText } from "@/lib/uz-alphabet";
+import { BRAND } from "@/lib/brand";
 
 export const viewport: Viewport = {
   themeColor: "#0e1830",
@@ -31,7 +32,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     title: { default: t("defaultTitle"), template: t("titleTemplate") },
     description: t("defaultDescription"),
     applicationName: t("siteName"),
-    icons: { icon: "/icon.png", apple: "/apple-icon.png" },
+    icons: { icon: BRAND.icon, apple: BRAND.appleIcon },
     formatDetection: { telephone: false },
   };
 }

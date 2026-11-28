@@ -51,6 +51,50 @@ before every reload and rolls back its own file if the test fails, asks certbot 
 uses a free local port (`APP_PORT`, default 3100). If port 80 belongs to something other than host nginx
 (Apache, Caddy, a Docker proxy), it stops and tells you instead of installing a second web server.
 
+### Go live: Guliston Travel from the National Tours data (2026-11-28)
+Guliston Travel is the production site; National Tours is stopped (kept, not deleted). One command, run
+from a separate clone:
+```bash
+git clone https://github.com/ilhomisroilov/silkroadtours.git ~/gulistantravel   # first time only
+cd ~/gulistantravel && git pull && sudo bash deploy/go-live.sh
+```
+`deploy/go-live.sh` creates `.env` from the National Tours one (keys carry over, new session secret,
+`SEARCH_INDEXING=off`), copies the National Tours database and media into the new site while its database is
+empty, and serves Guliston Travel on nationaltours.uz until gulistantravel.uz points to the server. Run it
+again after the gulistantravel.uz A records are set: it issues that certificate, moves the site there and
+turns nationaltours.uz into a 301 redirect. It then stops the `silkroadtours` container (restart policy off,
+cron job parked in `/etc/silkroadtours.cron.disabled`). `sudo bash deploy/restore-national.sh` undoes it.
+
+### Two brands on one server (National Tours + Guliston Travel)
+The same code runs as separate sites; each brand is its own deployment with its own clone, `.env`, container,
+database volume, local port, nginx file, certificate, cron job and backups. Nothing is shared but the code.
+
+| | National Tours | Guliston Travel |
+|---|---|---|
+| `BRAND` / `NEXT_PUBLIC_BRAND` | `national` (default) | `gulistan` |
+| Domain | nationaltours.uz | gulistantravel.uz |
+| Directory | `~/silkroadtours` | `~/gulistantravel` |
+| Container / nginx file / backups | `silkroadtours` | `gulistantravel` |
+| Local port (`APP_PORT`) | 3100 | 3102 (3101 is the backend API) |
+
+Add Guliston Travel next to the running National Tours site:
+1. DNS: `A @` and `A www` for gulistantravel.uz → the server IP.
+2. On the server:
+   ```bash
+   git clone https://github.com/ilhomisroilov/silkroadtours.git ~/gulistantravel
+   cd ~/gulistantravel && sudo BRAND=gulistan bash deploy/setup-server.sh
+   sudo bash deploy/create-admin.sh          # its own administrators
+   sudo bash deploy/set-ai-key.sh            # its own AI keys (or copy the AI_* lines from ~/silkroadtours/.env)
+   ```
+   The new site starts with the starter catalogue and `SEARCH_INDEXING=off`; set it to `on` in its `.env` at launch.
+3. Update National Tours as before: `cd ~/silkroadtours && git pull && sudo bash deploy/setup-server.sh`.
+
+The script refuses to switch a directory to another brand, refuses a domain another nginx site already serves,
+and gives every site its own rate-limit zone, so the brands, yoshlikedu.uz and bilimjon.uz never collide.
+Each container is capped at `APP_MEM_LIMIT` (default 768m). Texts are written with the canonical name
+"Guliston Travel" and swapped for the deployment's brand at load time (`src/lib/brand.ts`, `scripts/brand.mjs`);
+migration `0004_brand.sql` aligns names already stored in a database with its brand.
+
 ## 3. First administrator (no default password exists)
 ```bash
 sudo bash deploy/create-admin.sh   # asks email, name and a hidden password (12+ characters)

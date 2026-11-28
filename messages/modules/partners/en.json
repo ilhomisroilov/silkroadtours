@@ -1,11 +1,11 @@
 {
   "partnersPage": {
     "metaTitle": "Partner network for travel businesses",
-    "metaDescription": "Hotels, restaurants, transport companies, guides, museums and experience hosts across Uzbekistan join National Tours to meet travellers who are planning their trip.",
+    "metaDescription": "Hotels, restaurants, transport companies, guides, museums and experience hosts across Uzbekistan join Guliston Travel to meet travellers who are planning their trip.",
     "crumb": "Partners",
     "eyebrow": "Partner network",
     "title": "Grow your business with travellers planning Uzbekistan",
-    "lead": "National Tours connects local hotels, restaurants, drivers, guides and hosts with travellers at every step of their journey — from the first idea to the last dinner in Bukhara.",
+    "lead": "Guliston Travel connects local hotels, restaurants, drivers, guides and hosts with travellers at every step of their journey — from the first idea to the last dinner in Bukhara.",
     "ctaApply": "Become a partner",
     "ctaDirectory": "Meet our partners",
     "stats": {
@@ -48,7 +48,7 @@
     "typeCount": "{count, plural, =0 {Be the first in this category} one {# partner} other {# partners}}",
     "ecoEyebrow": "One connected journey",
     "ecoTitle": "Where your business meets the traveller",
-    "ecoText": "Travellers use National Tours at every stage of the trip. Partner profiles, services and prices appear exactly where decisions are made.",
+    "ecoText": "Travellers use Guliston Travel at every stage of the trip. Partner profiles, services and prices appear exactly where decisions are made.",
     "eco": {
       "discover": "Discover",
       "discoverText": "Destination pages, travel guides and the AI guide inspire the trip.",
@@ -63,7 +63,7 @@
       "experience": "Experience",
       "experienceText": "Guests arrive at your door, enjoy the visit and share their reviews."
     },
-    "benefitsTitle": "Why partner with National Tours",
+    "benefitsTitle": "Why partner with Guliston Travel",
     "benefits": {
       "b1": "Travellers who are ready to go",
       "b1Text": "Inquiries come from people who are planning dates, routes and budgets — not just browsing.",
@@ -148,7 +148,7 @@
       "about": "About",
       "services": "Services and indicative prices",
       "servicesEmpty": "Services are confirmed on request.",
-      "listings": "Listings on National Tours",
+      "listings": "Listings on Guliston Travel",
       "listingsText": "Hotels, restaurants and transport options run by this partner.",
       "website": "Website",
       "inquire": "Send an inquiry",
@@ -163,7 +163,7 @@
     },
     "apply": {
       "metaTitle": "Become a partner",
-      "title": "Become a National Tours partner",
+      "title": "Become a Guliston Travel partner",
       "lead": "Tell us about your business. After a short review your profile appears in the partner directory and our travel managers start sending you guests.",
       "sideTitle": "What happens next",
       "side1": "You receive a reference number and a private dashboard link right away.",
@@ -194,7 +194,7 @@
       "addService": "Add a service",
       "removeService": "Remove service {n}",
       "serviceN": "Service {n}",
-      "consent": "I confirm that I represent this business and agree that National Tours may store these details to review the application and contact me.",
+      "consent": "I confirm that I represent this business and agree that Guliston Travel may store these details to review the application and contact me.",
       "submit": "Send application",
       "submitting": "Sending…",
       "doneTitle": "Thank you — your application is in",

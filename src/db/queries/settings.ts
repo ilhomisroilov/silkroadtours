@@ -3,6 +3,7 @@ import { eq } from "drizzle-orm";
 import type { Db } from "../client";
 import { settings } from "../schema";
 import type { ContactSettings, ExchangeRates, SettingKey, SettingsMap } from "../types";
+import { BRAND } from "@/lib/brand";
 
 /** Used only if the settings row is missing (the seed inserts real values). */
 export const FALLBACK_RATES: ExchangeRates = {
@@ -13,9 +14,9 @@ export const FALLBACK_RATES: ExchangeRates = {
 };
 
 export const FALLBACK_CONTACT: ContactSettings = {
-  agencyName: "National Tours",
+  agencyName: BRAND.name,
   phone: "",
-  email: "",
+  email: BRAND.email,
   whatsapp: "",
   telegram: "",
   address: { en: "Jizzakh, Uzbekistan", uz: "Jizzax, Oʻzbekiston", ru: "Джизак, Узбекистан" },

@@ -16,6 +16,7 @@ import { createClient } from "@libsql/client";
 import { existsSync, mkdirSync, readFileSync, readdirSync, unlinkSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { brand } from "./brand.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const url = process.env.DATABASE_URL || "file:./data/silkroad.db";
@@ -37,7 +38,8 @@ async function migrate() {
   let n = 0;
   for (const f of files) {
     if (done.has(f)) continue;
-    const sql = readFileSync(join(dir, f), "utf8");
+    // __BRAND_NAME__ / __BRAND_EMAIL__ let a migration write the deployment's brand (scripts/brand.mjs).
+    const sql = readFileSync(join(dir, f), "utf8").replaceAll("__BRAND_NAME__", brand.name).replaceAll("__BRAND_EMAIL__", brand.email);
     await db.executeMultiple(`BEGIN;\n${sql}\nINSERT INTO _migrations (name) VALUES ('${f}');\nCOMMIT;`);
     console.log(`applied ${f}`);
     n++;

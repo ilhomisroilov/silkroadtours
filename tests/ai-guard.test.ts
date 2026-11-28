@@ -48,7 +48,7 @@ describe("AI output guard", () => {
   });
 
   it("makes links to our own pages relative when the model adds an invented host", () => {
-    const t = "See [Samarkand weekend](http://localhost:8080/uz/tours/samarkand-weekend) or https://nationaltours.uz/en/destinations/khiva.";
+    const t = "See [Samarkand weekend](http://localhost:8080/uz/tours/samarkand-weekend) or https://gulistantravel.uz/en/destinations/khiva.";
     assert.equal(relativizeSiteLinks(t), "See [Samarkand weekend](/uz/tours/samarkand-weekend) or /en/destinations/khiva.");
     const external = "Visa: [e-visa](https://e-visa.gov.uz/ru/main) and [map](https://example.net/en/x)";
     assert.equal(relativizeSiteLinks(external), external);

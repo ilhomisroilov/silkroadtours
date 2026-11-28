@@ -5,13 +5,14 @@ import type { ReactNode } from "react";
 import { bodyFont, displayFont } from "@/app/fonts";
 import { Toaster } from "@/components/ui/toast";
 import { adminLocale } from "@/lib/server/admin";
+import { BRAND } from "@/lib/brand";
 
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: { default: "Admin · National Tours", template: "%s · Admin · National Tours" },
+  title: { default: `Admin · ${BRAND.name}`, template: `%s · Admin · ${BRAND.name}` },
   robots: { index: false, follow: false },
-  icons: { icon: "/icon.png", apple: "/apple-icon.png" },
+  icons: { icon: BRAND.icon, apple: BRAND.appleIcon },
 };
 export const viewport: Viewport = { themeColor: "#14235c", width: "device-width", initialScale: 1 };
 

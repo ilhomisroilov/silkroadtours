@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Restore a backup made by deploy/backup.sh:  sudo bash deploy/restore.sh /var/backups/silkroadtours/silkroad-XXXX.db.gz
+# Restore a backup made by deploy/backup.sh (run it in the clone of the same brand):
+#   sudo bash deploy/restore.sh /var/backups/<instance>/silkroad-XXXX.db.gz
 set -euo pipefail
 SRC="${1:?usage: restore.sh <backup.db[.gz]>}"
 TMP=$(mktemp)

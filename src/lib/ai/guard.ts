@@ -39,7 +39,7 @@ export function enforceSafeReply(text: string, lang: "en" | "uz" | "ru"): { text
  * again; links to other sites are left alone.
  */
 const SITE_PATH = String.raw`/(?:en|uz|ru)(?:/[^\s)\]]*)?`;
-const OUR_HOSTS = String.raw`(?:localhost|127\.0\.0\.1|0\.0\.0\.0|\[::1\]|(?:www\.)?example\.(?:com|org)|(?:www\.)?nationaltours\.uz|(?:www\.)?silkroadtours\.uz)(?::\d+)?`;
+const OUR_HOSTS = String.raw`(?:localhost|127\.0\.0\.1|0\.0\.0\.0|\[::1\]|(?:www\.)?example\.(?:com|org)|(?:www\.)?gulistantravel\.uz|(?:www\.)?nationaltours\.uz|(?:www\.)?silkroadtours\.uz)(?::\d+)?`;
 const OWN_LINK = new RegExp(String.raw`https?://${OUR_HOSTS}(${SITE_PATH})`, "gi");
 
 export function relativizeSiteLinks(text: string): string {
