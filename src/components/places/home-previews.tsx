@@ -1,3 +1,4 @@
+import { GlassSelect } from "@/components/ui/glass-select";
 import { ArrowRight, BedDouble, CalendarDays, Clock, MapPin, Plane, Search, TrainFront, Users, UtensilsCrossed } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { SectionHeading } from "@/components/common/section";
@@ -131,25 +132,25 @@ export async function TransportPreview({ locale, className = "container-page pt-
               <span className={label}>
                 <MapPin aria-hidden="true" className="size-3.5" /> {t("from")}
               </span>
-              <select name="from" defaultValue="tashkent" className={field}>
+              <GlassSelect name="from" defaultValue="tashkent" className={field}>
                 {cities.map((c) => (
                   <option key={c} value={c}>
                     {t(`cities.${c}` as never)}
                   </option>
                 ))}
-              </select>
+              </GlassSelect>
             </label>
             <label className="block">
               <span className={label}>
                 <MapPin aria-hidden="true" className="size-3.5" /> {t("to")}
               </span>
-              <select name="to" defaultValue="samarkand" className={field}>
+              <GlassSelect name="to" defaultValue="samarkand" className={field}>
                 {cities.map((c) => (
                   <option key={c} value={c}>
                     {t(`cities.${c}` as never)}
                   </option>
                 ))}
-              </select>
+              </GlassSelect>
             </label>
             <label className="block">
               <span className={label}>
@@ -161,13 +162,13 @@ export async function TransportPreview({ locale, className = "container-page pt-
               <span className={label}>
                 <Users aria-hidden="true" className="size-3.5" /> {t("passengers")}
               </span>
-              <select name="pax" defaultValue="2" className={field}>
+              <GlassSelect name="pax" defaultValue="2" className={field}>
                 {Array.from({ length: 9 }, (_, i) => i + 1).map((n) => (
                   <option key={n} value={n}>
                     {n}
                   </option>
                 ))}
-              </select>
+              </GlassSelect>
             </label>
             <button type="submit" className="col-span-2 inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-saffron px-6 font-bold text-lapis-deep hover:bg-saffron-soft">
               <Search aria-hidden="true" className="size-5" /> {t("search")}
