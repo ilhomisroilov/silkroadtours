@@ -43,6 +43,14 @@
       "completed": "Yakunlangan",
       "cancelled": "Bekor qilingan"
     },
-    "travellersLabel": "Sayohatchilar"
+    "travellersLabel": "Sayohatchilar",
+    "nav": {
+      "myProfile": "Mening profilim",
+      "view": "Koʻrinish",
+      "day": "Kun",
+      "night": "Tun",
+      "language": "Til",
+      "menu": "Profil menyusi"
+    }
   }
 }

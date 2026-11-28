@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, CalendarDays, LogOut, Save, Send, UserRound, Users } from "lucide-react";
+import { ArrowRight, CalendarDays, LogOut, Save, Send, Users } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
@@ -89,6 +89,10 @@ export function AccountClient() {
   }, []);
   useEffect(() => {
     void load();
+    // Signing in or out from the header menu updates this page too.
+    const again = () => void load();
+    window.addEventListener("account-changed", again);
+    return () => window.removeEventListener("account-changed", again);
   }, [load]);
 
   if (me === undefined) return <div className="flex justify-center py-16"><Spinner label={t("title")} /></div>;
@@ -104,6 +108,10 @@ function SignInPanel({ onDone }: { onDone: () => Promise<void> }) {
   const locale = useLocale() as Locale;
   const errorText = useErrorText();
   const [tab, setTab] = useState<"in" | "up">("in");
+  // The header menu's "Sign up" opens this page with ?tab=up.
+  useEffect(() => {
+    if (new URLSearchParams(location.search).get("tab") === "up") setTab("up");
+  }, []);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [telegramBot, setTelegramBot] = useState<string | null>(null);
@@ -242,7 +250,7 @@ function SignedIn({ me, onChange, onSignOut }: { me: Me; onChange: (m: Me) => vo
 
   return (
     <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,22rem)_minmax(0,1fr)]" data-testid="account-signed-in">
-      <section aria-labelledby="profile-title" className="rounded-[1.5rem] bg-white p-6 shadow-card">
+      <section id="profile" aria-labelledby="profile-title" className="scroll-mt-28 rounded-[1.5rem] bg-white p-6 shadow-card">
         <div className="flex items-center gap-3">
           <span aria-hidden="true" className="inline-flex size-12 shrink-0 items-center justify-center rounded-full bg-lapis text-lg font-bold text-white">
             {(me.full_name || me.email || "?").trim().slice(0, 1).toUpperCase()}
@@ -281,7 +289,7 @@ function Bookings({ verified }: { verified: boolean }) {
   }, []);
   const date = (iso: string | null) => (iso ? iso.slice(0, 10).split("-").reverse().join(".") : "—");
   return (
-    <section aria-labelledby="bookings-title" className="rounded-[1.5rem] bg-white p-6 shadow-card" data-testid="account-bookings">
+    <section id="bookings" aria-labelledby="bookings-title" className="scroll-mt-28 rounded-[1.5rem] bg-white p-6 shadow-card" data-testid="account-bookings">
       <h2 id="bookings-title" className="text-lg font-bold">{t("bookings")}</h2>
       {!verified && <p className="mt-2 text-sm text-ink-muted">{t("verifyNote")}</p>}
       {rows === null ? (
@@ -322,31 +330,5 @@ function Bookings({ verified }: { verified: boolean }) {
         </ul>
       )}
     </section>
-  );
-}
-
-/* ── header button ──────────────────────────────────────────────────────── */
-
-/** Round button in the site header: the traveller's initial when signed in, a person icon otherwise. */
-export function AccountLink({ signInLabel, accountLabel, className }: { signInLabel: string; accountLabel: string; className?: string }) {
-  const [initial, setInitial] = useState<string | null>(null);
-  useEffect(() => {
-    const check = () =>
-      void v1<Me>("/v1/me").then((r) => setInitial(r.ok ? (r.data.full_name || r.data.email || "?").trim().slice(0, 1).toUpperCase() : null));
-    check();
-    window.addEventListener("account-changed", check);
-    return () => window.removeEventListener("account-changed", check);
-  }, []);
-  const label = initial ? accountLabel : signInLabel;
-  return (
-    <Link
-      href="/account"
-      aria-label={label}
-      title={label}
-      className={cn("inline-flex size-11 shrink-0 items-center justify-center rounded-full bg-white/80 text-lapis ring-1 ring-lapis/10 transition hover:bg-white", initial && "bg-lapis text-white hover:bg-cobalt", className)}
-      data-testid="account-link"
-    >
-      {initial ? <span aria-hidden="true" className="text-base font-bold">{initial}</span> : <UserRound aria-hidden="true" className="size-5" />}
-    </Link>
   );
 }

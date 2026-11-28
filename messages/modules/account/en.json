@@ -43,6 +43,14 @@
       "completed": "Completed",
       "cancelled": "Cancelled"
     },
-    "travellersLabel": "Travellers"
+    "travellersLabel": "Travellers",
+    "nav": {
+      "myProfile": "My profile",
+      "view": "Appearance",
+      "day": "Day",
+      "night": "Night",
+      "language": "Language",
+      "menu": "Account menu"
+    }
   }
 }

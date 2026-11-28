@@ -7,6 +7,7 @@ test("traveller signs up, books while signed in, sees the booking, signs out", a
 
   await page.goto("/uz");
   await page.getByTestId("account-link").click();
+  await page.getByTestId("account-menu-signin").click();
   await expect(page.getByTestId("account-signin")).toBeVisible();
   await page.getByTestId("account-tab-up").click();
   await page.locator("#up-name").fill("Ali Valiyev");
@@ -14,7 +15,10 @@ test("traveller signs up, books while signed in, sees the booking, signs out", a
   await page.locator("#up-password").fill("correct horse battery");
   await page.getByTestId("account-submit-up").click();
   await expect(page.getByTestId("account-signed-in")).toBeVisible();
-  await expect(page.getByTestId("account-link")).toHaveText("A");
+  await expect(page.getByTestId("account-link")).toContainText("A");
+  await page.getByTestId("account-link").click();
+  await expect(page.getByTestId("account-menu-profile")).toBeVisible();
+  await page.keyboard.press("Escape");
 
   const slug = "classic-silk-road-8-days";
   const detail = await (await page.request.get(`/api/tours/${slug}`)).json();
