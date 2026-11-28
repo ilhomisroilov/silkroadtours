@@ -26,7 +26,15 @@ function apply(theme: Theme) {
 export function ThemeToggle({ toLight, toDark, className }: { toLight: string; toDark: string; className?: string }) {
   const [theme, setTheme] = useState<Theme>("dark");
   useEffect(() => {
-    setTheme(document.documentElement.dataset.theme === "light" ? "light" : "dark");
+    // Re-apply the stored choice: some pages (the 404) re-render <html> after the head script ran.
+    let stored: Theme = document.documentElement.dataset.theme === "light" ? "light" : "dark";
+    try {
+      if (localStorage.getItem(KEY) === "light") stored = "light";
+    } catch {
+      /* storage blocked */
+    }
+    if (stored === "light") document.documentElement.dataset.theme = "light";
+    setTheme(stored);
   }, []);
   const next: Theme = theme === "light" ? "dark" : "light";
   const label = next === "light" ? toLight : toDark;

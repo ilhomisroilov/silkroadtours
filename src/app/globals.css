@@ -8,7 +8,7 @@
 @theme {
   /* Site "night" palette (dark navy, 2026-11-26 concept v2).
      Brand palette (token names kept from the first design so every component re-themes at once).
-     Contrast: ink on ivory 13.5:1, ink-muted on ivory 4.8:1, white on lapis 11:1, white on cobalt 6.7:1,
+     Contrast: ink on ivory 13.5:1, ink-muted on ivory 7:1, white on lapis 11:1, white on cobalt 6.7:1,
      saffron-ink on white 5.5:1, lapis on saffron 4.9:1. */
   --color-lapis: #176bcb; /* primary navy */
   --color-lapis-deep: #0d304f;
@@ -28,7 +28,7 @@
   --color-sand-soft: rgb(255 255 255 / 0.06);
   --color-ivory: #08243d; /* page background */
   --color-ink: #e9eff8;
-  --color-ink-muted: #8fa2b7;
+  --color-ink-muted: #a3b4c6;
   --color-line: rgb(255 255 255 / 0.14);
   --color-field: rgb(255 255 255 / 0.28); /* form-control borders (3.1:1) */
   --color-danger: #d94b55;
@@ -385,6 +385,8 @@ input::placeholder, textarea::placeholder { color: var(--placeholder); }
   cursor: pointer;
 }
 :root select:disabled { cursor: not-allowed; opacity: 0.7; }
+/* Borderless selects inside a composed field (home search) draw their own chevron. */
+:root select.bg-transparent { background: none; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; padding-right: 1.5rem; }
 select option { background: var(--picker); color: var(--color-ink); }
 /* Where the browser can style the open list (Chrome, Edge), it becomes a glass panel that opens under the field. */
 @supports (appearance: base-select) {
@@ -404,6 +406,9 @@ select option { background: var(--picker); color: var(--color-ink); }
     -webkit-backdrop-filter: blur(22px) saturate(160%);
     backdrop-filter: blur(22px) saturate(160%);
     box-shadow: var(--glass-edge), 0 24px 48px -20px rgb(2 12 24 / 0.6);
+    /* Open under the field; go above only when the list does not fit below. */
+    position-area: block-end span-inline-end;
+    position-try-order: normal;
     position-try-fallbacks: flip-block;
   }
   select option {
@@ -485,4 +490,16 @@ input::-webkit-calendar-picker-indicator:hover { opacity: 1; background-color: v
   background: var(--color-lapis);
   box-shadow: none;
 }
-:is(.bg-white, .bg-white\/90, .bg-white\/80):has(:checked)[class*="has-[:checked]:bg-sky"] { background: var(--color-lapis-mist); }
+:is(.bg-white, .bg-white\/90, .bg-white\/80):has(:checked)[class*="has-[:checked]:bg-sky"] { background: var(--color-sky); }
+[class*="has-[:checked]:bg-sky"]:has(:checked) .text-ink-muted { color: var(--color-ink); }
+/* The admin panel is a light work surface: its native selects and date fields use light glass. */
+.admin-root {
+  color-scheme: light;
+  --glass: #ffffff;
+  --glass-edge: inset 0 0 0 1px #dfe4ea;
+  --picker: #ffffff;
+  --placeholder: #8a949e;
+  --chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%231660b8'%3E%3Cpath d='M5.3 7.3a1 1 0 0 1 1.4 0L10 10.6l3.3-3.3a1 1 0 1 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 0-1.4Z'/%3E%3C/svg%3E");
+}
+/* Menus inside the header: the header's own blur stops a second backdrop blur, so they use the solid picker glass. */
+header :is(.bg-white, .bg-ivory) { background: var(--picker); }

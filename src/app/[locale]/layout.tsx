@@ -48,10 +48,9 @@ export default async function LocaleLayout({ children, params }: { children: Rea
 
   return (
     <html lang={locale} className={`${displayFont.variable} ${bodyFont.variable}`} suppressHydrationWarning>
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
-      </head>
       <body className="min-h-dvh antialiased">
+        {/* First thing in <body> (works on every page, the 404 included), before anything is painted. */}
+        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
         <a
           href="#main"
           className="sr-only z-[100] rounded-full bg-lapis px-5 py-3 font-semibold text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
