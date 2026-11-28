@@ -13,7 +13,8 @@
 #   3. domain: while gulistantravel.uz does not point to this server yet, Guliston Travel answers on
 #      nationaltours.uz (its existing certificate). Once gulistantravel.uz points here, a re-run issues its
 #      certificate, serves the site there and turns nationaltours.uz into a 301 redirect to it;
-#   4. stops the National Tours container and its cron job. Nothing is deleted: its container, data volume,
+#   4. starts the accounts service next to the site (deploy/accounts-up.sh);
+#   5. stops the National Tours container and its cron job. Nothing is deleted: its container, data volume,
 #      .env and nginx file stay, and `deploy/restore-national.sh` brings it back.
 # yoshlikedu.uz, bilimjon.uz and other nginx sites are never touched.
 set -euo pipefail
@@ -67,6 +68,9 @@ if docker ps --format '{{.Names}}' | grep -qx "$NATIONAL"; then
   [ -f "/etc/cron.d/$NATIONAL" ] && mv "/etc/cron.d/$NATIONAL" "/etc/$NATIONAL.cron.disabled"
   echo "stopped container $NATIONAL; its data volume, .env and nginx file are kept"
 fi
+
+say "accounts service (sign-up, sign-in, my bookings)"
+bash deploy/accounts-up.sh || echo "accounts service did not start; the site works without it (the account page says it is unavailable)"
 
 say "Guliston Travel is live"
 docker ps --format '{{.Names}}\t{{.Status}}' | grep -E "^(gulistantravel|$NATIONAL)\b" || true
