@@ -67,7 +67,7 @@ export function HeroImageField({ label, hint, value, onChange }: { label: string
     <Card title={label}>
       {hint && <Typography.Paragraph type="secondary">{hint}</Typography.Paragraph>}
       <Flex gap={16} wrap align="flex-start">
-        {value ? <Image src={value} alt="" width={260} height={180} style={{ objectFit: "cover", borderRadius: 8 }} fallback={NO_IMAGE} /> : <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />}
+        {value ? <Image src={value} alt={label} width={260} height={180} style={{ objectFit: "cover", borderRadius: 8 }} fallback={NO_IMAGE} /> : <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />}
         <Flex vertical gap={8} style={{ flex: "1 1 260px", minWidth: 0 }}>
           <Input aria-label={label} value={value} onChange={(e) => onChange(e.target.value)} placeholder="/images/…" />
           <MediaPicker onPick={onChange} />
@@ -98,7 +98,7 @@ export function GalleryField({ label, value, onChange, alt }: { label: string; v
         <Row gutter={[12, 12]}>
           {value.map((g, i) => (
             <Col key={g.url} xs={12} sm={8} lg={6}>
-              <Card size="small" cover={<Image src={g.url} alt="" height={140} style={{ objectFit: "cover" }} fallback={NO_IMAGE} />} styles={{ body: { padding: 8 } }}>
+              <Card size="small" cover={<Image src={g.url} alt={`${label} ${i + 1}`} height={140} style={{ objectFit: "cover" }} fallback={NO_IMAGE} />} styles={{ body: { padding: 8 } }}>
                 <Flex justify="space-between">
                   <Space size={4}>
                     <Button size="small" icon={<ArrowUpOutlined rotate={-90} />} disabled={i === 0} onClick={() => move(i, -1)} aria-label={t("common.moveUp")} />

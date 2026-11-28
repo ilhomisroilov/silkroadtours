@@ -11,7 +11,7 @@ const METHODS = [
   { key: "click", name: "Click", color: "#0073ff" },
   { key: "uzum", name: "Uzum Bank", color: "#7000ff" },
   { key: "uzcard", name: "Uzcard / Humo", color: "#1f7a4d" },
-  { key: "card", name: "Visa / Mastercard", color: "#1a1f71" },
+  { key: "card", name: "Visa / Mastercard", color: "#5b7cfa" },
 ] as const;
 
 export function PaymentMethods() {
@@ -39,7 +39,7 @@ export function PaymentMethods() {
               data-testid={`pay-${m.key}`}
             >
               <span aria-hidden="true" className="size-3 shrink-0 rounded-full" style={{ background: m.color }} />
-              <span className="min-w-0 truncate">{m.name}</span>
+              <span className="min-w-0 leading-tight">{m.name}</span>
             </button>
           </li>
         ))}

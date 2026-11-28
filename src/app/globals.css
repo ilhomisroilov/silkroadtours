@@ -348,3 +348,6 @@ select option { background: #0d304f; color: #fff; }
 .admin-root .bg-saffron { background-color: #d9a441; color: #14202b; box-shadow: none; }
 .admin-root main section { animation: none; }
 .admin-root a.group:hover, .admin-root li > a[class*="rounded"]:hover { transform: none; }
+
+/* Admin: the show-password eye is a real tap target (24px minimum). */
+.admin-root .ant-input-password-icon { display: inline-flex; min-width: 24px; min-height: 24px; align-items: center; justify-content: center; }

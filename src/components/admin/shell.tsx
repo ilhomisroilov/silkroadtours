@@ -151,8 +151,8 @@ export function AdminShell({ user, locale, children }: { user: { name: string; r
             <Typography.Text strong style={{ fontSize: 17 }}>{BRAND.name}</Typography.Text>
           </Layout.Header>
         )}
-        <Layout.Content>
-          <main id="main" style={{ maxWidth: 1320, margin: "0 auto", padding: desktop ? "28px 32px 48px" : "16px 12px 40px" }}>{children}</main>
+        <Layout.Content id="main" tabIndex={-1}>
+          <div style={{ maxWidth: 1320, margin: "0 auto", padding: desktop ? "28px 32px 48px" : "16px 12px 40px" }}>{children}</div>
         </Layout.Content>
       </Layout>
     </Layout>

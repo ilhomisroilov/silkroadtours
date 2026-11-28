@@ -50,7 +50,7 @@ test("admin: sign in, see a new booking, confirm it (seats go down), sign out", 
   expect(pub.data.status).toBe("confirmed");
 
   // 6. Sign out; the panel is protected again.
-  if (isMobileProject) await page.getByRole("button", { name: "Boshqaruv menyusi" }).first().click();
+  if (isMobileProject) await page.getByRole("button", { name: /Bo(sh|ş)qaruv menyusi/ }).first().click();
   await page.getByTestId("admin-logout").click();
   await expect(page).toHaveURL(/\/admin\/login$/);
   await page.goto("/admin/bookings");

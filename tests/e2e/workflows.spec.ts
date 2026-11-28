@@ -109,7 +109,7 @@ test.describe.serial("acceptance workflows A–J", () => {
     await page.getByRole("link", { name: /Samarkand/ }).first().waitFor();
     const editHref = await page.locator(`a[href^="/admin/tours/"]`).filter({ hasText: /Afrosiyob/ }).first().getAttribute("href");
     await page.goto(editHref!);
-    const title = page.locator("fieldset", { has: page.locator("legend", { hasText: "Title" }) }).locator("input").first();
+    const title = page.locator("fieldset", { has: page.locator("legend", { hasText: "Title" }) }).getByRole("textbox").first();
     const original = (await title.inputValue()).replace(/( ✦)+$/, "");
     const edited = `${original} ✦`;
     await title.fill(edited);
