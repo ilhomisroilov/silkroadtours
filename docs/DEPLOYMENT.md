@@ -51,6 +51,20 @@ before every reload and rolls back its own file if the test fails, asks certbot 
 uses a free local port (`APP_PORT`, default 3100). If port 80 belongs to something other than host nginx
 (Apache, Caddy, a Docker proxy), it stops and tells you instead of installing a second web server.
 
+### Go live: Guliston Travel from the National Tours data (2026-11-28)
+Guliston Travel is the production site; National Tours is stopped (kept, not deleted). One command, run
+from a separate clone:
+```bash
+git clone https://github.com/ilhomisroilov/silkroadtours.git ~/gulistantravel   # first time only
+cd ~/gulistantravel && git pull && sudo bash deploy/go-live.sh
+```
+`deploy/go-live.sh` creates `.env` from the National Tours one (keys carry over, new session secret,
+`SEARCH_INDEXING=off`), copies the National Tours database and media into the new site while its database is
+empty, and serves Guliston Travel on nationaltours.uz until gulistantravel.uz points to the server. Run it
+again after the gulistantravel.uz A records are set: it issues that certificate, moves the site there and
+turns nationaltours.uz into a 301 redirect. It then stops the `silkroadtours` container (restart policy off,
+cron job parked in `/etc/silkroadtours.cron.disabled`). `sudo bash deploy/restore-national.sh` undoes it.
+
 ### Two brands on one server (National Tours + Guliston Travel)
 The same code runs as separate sites; each brand is its own deployment with its own clone, `.env`, container,
 database volume, local port, nginx file, certificate, cron job and backups. Nothing is shared but the code.

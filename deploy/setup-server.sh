@@ -15,6 +15,11 @@
 #   INSTANCE   silkroadtours | gulistantravel       (container, nginx file, cron and backup names)
 # BRAND, APP_PORT and INSTANCE are remembered in .env, so later runs need no variables.
 #
+# Optional (used by deploy/go-live.sh):
+#   IMPORT_FROM  container whose database and media are copied in when this site's database is still empty
+#   TAKE_OVER    instance whose nginx site is switched off (file kept) because this site now serves its domain
+#   OLD_DOMAINS  space-separated domains that answer with a 301 to https://$DOMAIN (their certificates must exist)
+#
 # Safe for neighbours:
 #   • never removes or edits other nginx sites, never touches the default site;
 #   • adds only /etc/nginx/sites-available/$INSTANCE.conf (+ one shared snippet) and validates with
@@ -51,10 +56,16 @@ case "$INSTANCE" in *[!a-z0-9-]*|"") echo "INSTANCE may use only a-z, 0-9 and '-
 ZONE="${INSTANCE//-/_}"   # nginx rate-limit zone and upstream names must be unique per site
 SITE=/etc/nginx/sites-available/$INSTANCE.conf
 LINK=/etc/nginx/sites-enabled/$INSTANCE.conf
+ACME_SITE=/etc/nginx/sites-available/$INSTANCE-acme.conf           # temporary, only while a new certificate is issued
+REDIRECT_SITE=/etc/nginx/sites-available/$INSTANCE-redirects.conf  # OLD_DOMAINS → DOMAIN
+IMPORT_FROM="${IMPORT_FROM:-}"; TAKE_OVER="${TAKE_OVER:-}"; OLD_DOMAINS="${OLD_DOMAINS:-}"
+TAKE_OVER_LINK=""; [ -n "$TAKE_OVER" ] && TAKE_OVER_LINK="/etc/nginx/sites-enabled/$TAKE_OVER.conf"
 echo "brand: $BRAND · domain: $DOMAIN · local port: $APP_PORT · instance: $INSTANCE · directory: $APP_DIR"
 for f in /etc/nginx/sites-enabled/*; do
   [ -e "$f" ] || continue
   [ "$(readlink -f "$f")" = "$(readlink -f "$SITE")" ] && continue
+  [ "$f" = "$TAKE_OVER_LINK" ] && continue
+  case "$f" in "/etc/nginx/sites-enabled/$INSTANCE-"*) continue ;; esac
   if grep -qE "server_name[^;]*[[:space:]]${DOMAIN//./\\.}[[:space:];]" "$f" 2>/dev/null; then
     echo "$DOMAIN is already served by $f (another deployment). Not touching it."; exit 1
   fi
@@ -112,6 +123,26 @@ for p in 80 443; do
 done
 command -v netfilter-persistent >/dev/null && netfilter-persistent save || true
 
+if [ -n "$IMPORT_FROM" ]; then
+  say "data: copy from $IMPORT_FROM if this site's database is empty"
+  APP_PORT="$APP_PORT" docker compose build
+  if docker compose run --rm --no-deps --entrypoint sh app -c 'test -s /data/silkroad.db'; then
+    echo "database already exists — nothing imported"
+  else
+    docker ps --format '{{.Names}}' | grep -qx "$IMPORT_FROM" || { echo "container $IMPORT_FROM is not running; start it or drop IMPORT_FROM"; exit 1; }
+    IMP=$(mktemp -d); chmod 755 "$IMP"
+    OUT=$(docker exec "$IMPORT_FROM" node scripts/db.mjs backup | sed -n 's/^backup written: //p')
+    [ -n "$OUT" ] || { echo "backup of $IMPORT_FROM failed"; rm -rf "$IMP"; exit 1; }
+    docker cp "$IMPORT_FROM:$OUT" "$IMP/silkroad.db"
+    mkdir -p "$IMP/media"; docker cp "$IMPORT_FROM:/data/media/." "$IMP/media/" 2>/dev/null || true
+    chmod -R a+rX "$IMP"
+    docker compose run --rm --no-deps -v "$IMP":/import:ro --entrypoint sh app -c \
+      'cp /import/silkroad.db /data/silkroad.db && mkdir -p /data/media && cp -R /import/media/. /data/media/'
+    rm -rf "$IMP"
+    echo "imported the database and media of $IMPORT_FROM (its own data is untouched)"
+  fi
+fi
+
 say "app container (127.0.0.1:$APP_PORT)"
 APP_PORT="$APP_PORT" docker compose up -d --build
 for i in $(seq 1 90); do curl -fsS "http://127.0.0.1:$APP_PORT/api/health" >/dev/null 2>&1 && break; sleep 2; done
@@ -134,23 +165,30 @@ echo "this server: ${PUBLIC_IP:-unknown} · $DOMAIN → ${APEX_IP:-not found} ·
 DOMAINS=(-d "$DOMAIN")
 if [ -n "$WWW_IP" ] && { [ -z "$PUBLIC_IP" ] || [ "$WWW_IP" = "$PUBLIC_IP" ]; }; then DOMAINS+=(-d "www.$DOMAIN"); fi
 
-install_site() { # $1 = source file; validates and rolls back on failure
-  local backup=""
-  [ -f "$SITE" ] && backup=$(mktemp) && cp "$SITE" "$backup"
+# A site switched off by TAKE_OVER is switched back on if this script stops before it finishes.
+RELINK=0
+restore_taken_over() { if [ "$RELINK" = 1 ] && [ -f "/etc/nginx/sites-available/$TAKE_OVER.conf" ]; then ln -sf "/etc/nginx/sites-available/$TAKE_OVER.conf" "$TAKE_OVER_LINK"; nginx -t && systemctl reload nginx; echo "switched $TAKE_OVER back on"; fi; }
+trap restore_taken_over EXIT
+
+install_site() { # $1 = source file, $2 = target (default $SITE); validates and rolls back on failure
+  local target="${2:-$SITE}" link backup=""
+  link="/etc/nginx/sites-enabled/$(basename "$target")"
+  [ -f "$target" ] && backup=$(mktemp) && cp "$target" "$backup"
   sed -e "s/127\.0\.0\.1:3000/127.0.0.1:$APP_PORT/g" -e "s/__DOMAIN__/$DOMAIN/g" \
-      -e "s/srt_api/${ZONE}_api/g" -e "s/silkroad_app/${ZONE}_app/g" "$1" > "$SITE"
+      -e "s/srt_api/${ZONE}_api/g" -e "s/silkroad_app/${ZONE}_app/g" "$1" > "$target"
   if [ -f "/etc/letsencrypt/live/$DOMAIN/fullchain.pem" ] && ! openssl x509 -noout -text -in "/etc/letsencrypt/live/$DOMAIN/fullchain.pem" | grep -q "DNS:www.$DOMAIN"; then
-    sed -i '/# BEGIN WWW/,/# END WWW/d' "$SITE"   # certificate does not cover www yet
+    sed -i '/# BEGIN WWW/,/# END WWW/d' "$target"   # certificate does not cover www yet
   fi
-  ln -sf "$SITE" "$LINK"
+  ln -sf "$target" "$link"
   if ! nginx -t; then
     echo "nginx config test failed — restoring previous state, other sites untouched"
-    if [ -n "$backup" ]; then cp "$backup" "$SITE"; else rm -f "$SITE" "$LINK"; fi
+    if [ -n "$backup" ]; then cp "$backup" "$target"; else rm -f "$target" "$link"; fi
     nginx -t && systemctl reload nginx
     exit 1
   fi
   systemctl reload nginx
 }
+remove_site() { rm -f "$1" "/etc/nginx/sites-enabled/$(basename "$1")"; nginx -t && systemctl reload nginx; }
 
 say "nginx site for $DOMAIN"
 mkdir -p /var/www/certbot
@@ -159,15 +197,42 @@ NEED_CERT=0
 if [ ! -f "/etc/letsencrypt/live/$DOMAIN/fullchain.pem" ]; then NEED_CERT=1
 elif [ ${#DOMAINS[@]} -gt 2 ] && ! openssl x509 -noout -text -in "/etc/letsencrypt/live/$DOMAIN/fullchain.pem" | grep -q "DNS:www.$DOMAIN"; then NEED_CERT=1; fi
 if [ "$NEED_CERT" = 1 ]; then
-  install_site deploy/nginx/silkroadtours-http-only.conf
+  if [ -f "$SITE" ]; then
+    # This site already serves another name: keep that file running and answer ACME from a temporary one.
+    install_site deploy/nginx/silkroadtours-http-only.conf "$ACME_SITE"
+  else
+    install_site deploy/nginx/silkroadtours-http-only.conf
+  fi
   if [ -n "$APEX_IP" ] && [ -n "$PUBLIC_IP" ] && [ "$APEX_IP" != "$PUBLIC_IP" ]; then
-    echo "$DOMAIN points to $APEX_IP, not to this server ($PUBLIC_IP). Fix the A record, wait a few minutes, re-run."; exit 1
+    echo "$DOMAIN points to $APEX_IP, not to this server ($PUBLIC_IP). Fix the A record, wait a few minutes, re-run."
+    [ -f "$ACME_SITE" ] && remove_site "$ACME_SITE"; exit 1
   fi
   if [ -n "$EMAIL" ]; then EM=(--email "$EMAIL"); else EM=(--register-unsafely-without-email); fi
-  certbot certonly --webroot -w /var/www/certbot "${DOMAINS[@]}" --expand --agree-tos --non-interactive "${EM[@]}" \
-    || { echo "Certificate not issued yet: make sure the A record of $DOMAIN points to this server, then re-run. The site already answers on http://$DOMAIN"; exit 1; }
+  if ! certbot certonly --webroot -w /var/www/certbot "${DOMAINS[@]}" --expand --agree-tos --non-interactive "${EM[@]}"; then
+    echo "Certificate not issued yet: make sure the A record of $DOMAIN points to this server, then re-run."
+    if [ -f "$ACME_SITE" ]; then remove_site "$ACME_SITE"; echo "The running site was not changed."; else echo "The site already answers on http://$DOMAIN"; fi
+    exit 1
+  fi
+fi
+if [ -n "$TAKE_OVER_LINK" ] && [ -L "$TAKE_OVER_LINK" ]; then
+  rm -f "$TAKE_OVER_LINK"; RELINK=1   # its file stays in sites-available
+  echo "switched off nginx site $TAKE_OVER (file kept: /etc/nginx/sites-available/$TAKE_OVER.conf)"
 fi
 install_site deploy/nginx/silkroadtours.conf
+[ -f "$ACME_SITE" ] && remove_site "$ACME_SITE"
+if [ -n "$OLD_DOMAINS" ]; then
+  say "301 redirects: $OLD_DOMAINS → https://$DOMAIN"
+  RD=$(mktemp)
+  for OLD in $OLD_DOMAINS; do
+    [ "$OLD" = "$DOMAIN" ] && continue
+    if [ -f "/etc/letsencrypt/live/$OLD/fullchain.pem" ]; then sed "s/__OLD__/$OLD/g" deploy/nginx/silkroadtours-redirect.conf >> "$RD"
+    else sed -e "s/__OLD__/$OLD/g" -e '/# BEGIN TLS/,/# END TLS/d' deploy/nginx/silkroadtours-redirect.conf >> "$RD"; fi
+  done
+  install_site "$RD" "$REDIRECT_SITE"; rm -f "$RD"
+elif [ -f "$REDIRECT_SITE" ]; then
+  remove_site "$REDIRECT_SITE"
+fi
+RELINK=0
 mkdir -p /etc/letsencrypt/renewal-hooks/deploy
 printf '#!/bin/sh\nnginx -t && systemctl reload nginx\n' > /etc/letsencrypt/renewal-hooks/deploy/reload-nginx.sh
 chmod +x /etc/letsencrypt/renewal-hooks/deploy/reload-nginx.sh

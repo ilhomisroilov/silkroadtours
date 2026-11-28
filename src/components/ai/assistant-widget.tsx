@@ -119,6 +119,26 @@ export function AssistantWidget({ locale, welcome, enabled }: { locale: Locale; 
     void fetch("/api/ai/feedback", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ messageId: msg.id, rating }) });
   };
 
+  // The launcher steps aside while a form field is focused (it never covers the field, its picker icon or
+  // the on-screen keyboard) and shrinks to a round icon once the visitor scrolls, so it covers less content.
+  const [typing, setTyping] = useState(false);
+  const [compact, setCompact] = useState(false);
+  const isHome = /^\/[a-z]{2}\/?$/.test(pathname ?? "");
+  useEffect(() => {
+    const onScroll = () => setCompact(!isHome || window.scrollY > 120);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [isHome]);
+  useEffect(() => {
+    const isField = (el: EventTarget | null) => el instanceof HTMLElement && el.matches("input, textarea, select, [contenteditable=true]");
+    const on = (e: FocusEvent) => { if (isField(e.target)) setTyping(true); };
+    const off = () => setTimeout(() => setTyping(isField(document.activeElement)), 0);
+    document.addEventListener("focusin", on);
+    document.addEventListener("focusout", off);
+    return () => { document.removeEventListener("focusin", on); document.removeEventListener("focusout", off); };
+  }, []);
+
   if (!enabled || pathname?.startsWith("/admin") || pathname?.endsWith("/ai-guide")) return null;
 
   return (
@@ -128,12 +148,15 @@ export function AssistantWidget({ locale, welcome, enabled }: { locale: Locale; 
           ref={launcherRef}
           type="button"
           onClick={() => setOpen(true)}
-          className="fixed bottom-4 right-4 z-40 inline-flex h-14 items-center gap-2 rounded-full bg-gradient-to-r from-lapis to-cobalt pl-2 pr-5 text-[0.95rem] font-bold text-white shadow-lift transition hover:brightness-110 focus-visible:outline-saffron max-sm:bottom-20 max-sm:pr-2"
+          className={`fixed bottom-4 right-4 z-40 inline-flex h-14 items-center gap-2 rounded-full bg-gradient-to-r from-lapis to-cobalt pl-2 pr-2 text-[0.95rem] font-bold text-white shadow-lift transition-all hover:brightness-110 focus-visible:outline-saffron max-lg:bottom-20 ${compact ? "" : "sm:pr-5"} ${typing ? "hidden" : ""}`}
           aria-haspopup="dialog"
           aria-label={t.open}
+          title={t.open}
+          onMouseEnter={() => setCompact(false)}
+          onMouseLeave={() => setCompact(!isHome || window.scrollY > 120)}
         >
           <span className="inline-flex size-11 items-center justify-center rounded-full bg-white/95"><RobotIllustration className="w-8" /></span>
-          <span className="max-sm:sr-only">{t.open}</span>
+          <span className={compact ? "sr-only" : "max-sm:sr-only"}>{t.open}</span>
         </button>
       )}
       {open && (

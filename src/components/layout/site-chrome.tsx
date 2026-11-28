@@ -209,7 +209,7 @@ export async function SiteFooter({ locale }: { locale: Locale }) {
         </div>
       </div>
       <div className="border-t border-white/10">
-        <div className="container-page flex flex-col gap-2 py-5 text-sm text-white/65 sm:flex-row sm:items-center sm:justify-between">
+        <div className="container-page flex flex-col gap-2 pt-5 pb-40 text-sm text-white/65 sm:flex-row sm:items-center sm:justify-between lg:pb-5 lg:pr-24">
           <p>{t("footer.rights", { year, name: contact.agencyName || t("meta.siteName") })}</p>
           <p className="flex flex-wrap items-center gap-x-4">
             <Link href="/privacy" className="inline-flex min-h-10 items-center hover:text-white">{t("nt.footer.privacy")}</Link>
@@ -229,7 +229,7 @@ export async function FloatingContact({ locale }: { locale: Locale }) {
   if (!links.whatsapp && !links.telegram) return null;
   const t = await getTranslations({ locale, namespace: "contact" });
   return (
-    <aside aria-label={t("floating")} className="fixed bottom-4 right-4 z-30 flex flex-col gap-2 max-lg:bottom-24">
+    <aside aria-label={t("floating")} className="fixed bottom-[5.5rem] right-4 z-30 flex flex-col gap-2 max-lg:bottom-[9.5rem]">
       {links.whatsapp && (
         <a href={links.whatsapp} target="_blank" rel="noopener" className="inline-flex size-14 items-center justify-center rounded-full bg-success text-white shadow-lift hover:scale-105 focus-visible:scale-105">
           <MessageCircle aria-hidden="true" className="size-6" />
