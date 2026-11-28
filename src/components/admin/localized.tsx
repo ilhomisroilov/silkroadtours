@@ -88,7 +88,7 @@ export function LocalizedFields({
   };
   return (
     <fieldset style={{ border: 0, padding: 0, margin: "0 0 18px", minWidth: 0 }}>
-      <Flex justify="space-between" align="center" wrap gap={8} style={{ marginBottom: 6 }}>
+      <Flex justify="space-between" align="center" wrap gap={8} style={{ marginBottom: 6, minHeight: 30 }}>
         <legend style={{ padding: 0, fontWeight: 600, fontSize: 14, float: "left" }}>
           <label htmlFor={fid}>{label}</label>
           {required && <span aria-hidden="true" style={{ color: "#d4380d" }}> *</span>}

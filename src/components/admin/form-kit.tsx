@@ -14,7 +14,8 @@ export const NO_IMAGE =
 export function Field({ label, children, help }: { label: string; children: ReactNode; help?: ReactNode }) {
   return (
     <label style={{ display: "flex", flexDirection: "column", gap: 6, fontWeight: 600, fontSize: 14 }}>
-      {label}
+      {/* Same label height as translated fields (whose label row holds the language switch), so inputs in a row line up. */}
+      <span style={{ display: "flex", alignItems: "center", minHeight: 30 }}>{label}</span>
       <span style={{ fontWeight: 400 }}>{children}</span>
       {help && <Typography.Text type="secondary" style={{ fontSize: 12, fontWeight: 400 }}>{help}</Typography.Text>}
     </label>
