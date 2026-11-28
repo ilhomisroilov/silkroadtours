@@ -1,0 +1,65 @@
+# Backend checks: lint, migrations, tests against a real PostgreSQL, dependency audit, image build.
+# Also scans the whole repository history for leaked secrets. Never deploys and needs no secrets.
+name: Backend
+
+on:
+  push:
+    paths: ["backend/**", ".github/workflows/backend.yml"]
+  pull_request:
+    paths: ["backend/**", ".github/workflows/backend.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: backend
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: nt
+          POSTGRES_PASSWORD: nt
+          POSTGRES_DB: nt_test
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U nt" --health-interval 5s --health-timeout 5s --health-retries 20
+    env:
+      NT_DATABASE_URL: postgresql+asyncpg://nt:nt@127.0.0.1:5432/nt_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: backend/requirements*.txt
+      - run: pip install -r requirements-dev.txt
+      - name: Lint
+        run: ruff check .
+      - name: Migrations apply, match the models and roll back
+        run: |
+          alembic upgrade head
+          alembic check
+          alembic downgrade base
+      - name: Tests
+        run: pytest -q
+      - name: Known vulnerabilities in dependencies
+        run: pip-audit -r requirements.txt
+      - name: Docker image builds
+        run: docker build -t gulistantravel-api:ci .
+
+  secrets:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Scan for leaked secrets
+        run: |
+          docker run --rm -v "$PWD:/repo" zricethezav/gitleaks:v8.21.2 detect --source /repo --redact --no-banner

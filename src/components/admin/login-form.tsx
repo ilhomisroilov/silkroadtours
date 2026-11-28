@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { apiFetch, translateCode } from "@/lib/client/api";
 
-export function LoginForm() {
+export function LoginForm({ idle = false }: { idle?: boolean }) {
   const t = useTranslations("admin.login");
   const tp = useTranslations("admin.panel");
   const te = useTranslations("errors");
@@ -15,6 +15,8 @@ export function LoginForm() {
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   return (
+    <>
+    {idle && <Alert type="info" showIcon title={t("idle")} style={{ marginBottom: 16 }} data-testid="admin-idle-notice" />}
     <Form
       layout="vertical"
       requiredMark={false}
@@ -39,5 +41,6 @@ export function LoginForm() {
       </Form.Item>
       <Button type="primary" htmlType="submit" block loading={busy} data-testid="login-submit">{t("submit")}</Button>
     </Form>
+    </>
   );
 }

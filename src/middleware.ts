@@ -14,5 +14,5 @@ export default function middleware(req: NextRequest) {
 
 export const config = {
   // Skip the API, the admin panel, Next internals and any file with an extension (images, robots.txt, sitemap.xml).
-  matcher: ["/((?!api|admin|_next|_vercel|.*\\..*).*)"],
+  matcher: ["/((?!api|v1|admin|_next|_vercel|.*\\..*).*)"],
 };

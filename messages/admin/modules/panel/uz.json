@@ -46,6 +46,10 @@
     "theme": "Koʻrinish",
     "day": "Kun",
     "night": "Tun",
-    "profile": "Profil"
+    "profile": "Profil",
+    "myProfile": "Mening profilim",
+    "myProfileLead": "Ismingiz, kirish maʼlumotlaringiz va parolingiz.",
+    "emailFixed": "Emailni faqat sayt egasi oʻzgartira oladi.",
+    "autoSignOut": "Xavfsizlik uchun 1 soat harakat boʻlmasa tizimdan avtomatik chiqasiz."
   }
 }
