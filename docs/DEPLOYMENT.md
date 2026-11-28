@@ -1,4 +1,4 @@
-# Deploying National Tours (Docker + nginx on Oracle Cloud Always Free)
+# Deploying Gulistan Travel (Docker + nginx on Oracle Cloud Always Free)
 
 The site runs as one Docker container (Next.js + SQLite on a persistent volume) behind **nginx** on the host,
 with free Let's Encrypt certificates. Everything fits the Oracle Cloud **Always Free** tier (Ampere A1 ARM or
@@ -26,7 +26,7 @@ file (`VACUUM INTO`), and WAL mode handles concurrent reads. If traffic ever nee
 3. DNS at the domain registrar (only these two records; leave everything else unchanged):
    | Type | Name | Value |
    |---|---|---|
-   | A | `@` (nationaltours.uz) | server public IP |
+   | A | `@` (gulistantravel.uz) | server public IP |
    | A | `www` | server public IP |
 
 ## 2. Deploy
@@ -34,12 +34,12 @@ file (`VACUUM INTO`), and WAL mode handles concurrent reads. If traffic ever nee
 ssh ubuntu@SERVER_IP
 sudo apt-get update && sudo apt-get install -y git
 git clone https://github.com/ilhomisroilov/silkroadtours.git && cd silkroadtours
-sudo DOMAIN=nationaltours.uz EMAIL=you@example.com bash deploy/setup-server.sh   # asks for the Gemini key; creates .env with random secrets
+sudo DOMAIN=gulistantravel.uz EMAIL=you@example.com bash deploy/setup-server.sh   # asks for the Gemini key; creates .env with random secrets
 
 ```
 `deploy/setup-server.sh` installs Docker, nginx and certbot, opens ports 80/443 in the host firewall (Oracle
 Ubuntu images block them by default), builds and starts the container, waits for `/api/health`, obtains the
-certificate for `nationaltours.uz` + `www.nationaltours.uz`, installs `deploy/nginx/silkroadtours.conf`
+certificate for `gulistantravel.uz` + `www.gulistantravel.uz`, installs `deploy/nginx/silkroadtours.conf`
 (HTTP→HTTPS, www→apex, HSTS, gzip, static caching, `/api/` rate limit) and a daily backup cron job.
 It is safe to run again. `DOMAIN` sets the site address everywhere (nginx, certificate, canonical links,
 sitemap); www is added to the certificate only when `www.DOMAIN` already points to the server, so re-run
@@ -51,15 +51,37 @@ before every reload and rolls back its own file if the test fails, asks certbot 
 uses a free local port (`APP_PORT`, default 3100). If port 80 belongs to something other than host nginx
 (Apache, Caddy, a Docker proxy), it stops and tells you instead of installing a second web server.
 
+### Moving to a new domain (nationaltours.uz → gulistantravel.uz)
+1. DNS of the new domain: `A @` and `A www` → the server IP (later `A api` for the backend). With Cloudflare,
+   keep the records "DNS only" (grey cloud) until the certificate is issued.
+2. On the server:
+   ```bash
+   cd ~/silkroadtours && git pull
+   sudo DOMAIN=gulistantravel.uz OLD_DOMAINS="nationaltours.uz" bash deploy/setup-server.sh
+   ```
+   If the new name does not point to the server yet, the script stops **before** touching nginx or `.env`,
+   so the current site keeps running. Otherwise it rebuilds the app with the new address, issues the new
+   certificate through a temporary ACME-only file (the running site file is not replaced until the
+   certificate exists), switches `silkroadtours.conf` to the new domain and adds
+   `silkroadtours-redirects.conf`: every old URL answers `301 → https://gulistantravel.uz<same path>`.
+   The old certificate keeps renewing through the same webroot, so links and bookmarks keep working.
+3. On first start the container applies migration `0004_gulistan_brand.sql`, which renames the brand in stored
+   settings (agency name, AI assistant name and greetings) and in FAQ/service texts. No catalogue reset needed.
+4. Check: `curl -I https://nationaltours.uz/uz/tours` → `301` to the new domain; `https://gulistantravel.uz/api/health` → 200;
+   yoshlikedu.uz and bilimjon.uz still answer.
+
+Container, volume, backup paths and nginx file names keep the technical name `silkroadtours`, so the
+data volume and cron jobs carry over untouched.
+
 ## 3. First administrator (no default password exists)
 ```bash
 sudo bash deploy/create-admin.sh   # asks email, name and a hidden password (12+ characters)
 ```
 Or by hand:
 ```bash
-curl -X POST https://nationaltours.uz/api/admin/auth/bootstrap \
+curl -X POST https://gulistantravel.uz/api/admin/auth/bootstrap \
   -H "x-admin-secret: $(grep ^ADMIN_SECRET= .env | cut -d= -f2-)" \
-  -H "origin: https://nationaltours.uz" -H "content-type: application/json" \
+  -H "origin: https://gulistantravel.uz" -H "content-type: application/json" \
   -d '{"email":"owner@your-domain","name":"Owner","password":"a long unique password"}'
 ```
 This works only while no admin exists; afterwards it is permanently disabled. Sign in at `/admin`,
@@ -88,6 +110,6 @@ last 4 characters). Chain: `AI_PROVIDER`/`AI_MODEL` → `AI_SECONDARY_MODEL` (sa
 the assistant and planner still work from the catalogue. Tone, welcome texts, limits and retention are
 edited in **Admin → AI**; the protected safety rules are in code (`src/lib/ai/agent.ts`, `src/lib/ai/guard.ts`).
 
-Evaluate after changes: `BASE_URL=https://nationaltours.uz npm run ai:eval` (UZ/EN/RU questions; fails if
+Evaluate after changes: `BASE_URL=https://gulistantravel.uz npm run ai:eval` (UZ/EN/RU questions; fails if
 the assistant confirms a booking, claims availability, asks for payment, links a non-existent tour or shows
 a price without "indicative").

@@ -180,7 +180,7 @@ export const COMPAT_PROVIDERS = {
     baseUrl: () => "https://openrouter.ai/api/v1",
     apiKey: () => env("OPENROUTER_API_KEY"),
     defaultModel: () => env("OPENROUTER_MODEL") || "openrouter/free",
-    headers: () => ({ "HTTP-Referer": env("SITE_URL") || "https://nationaltours.uz", "X-Title": "National Tours" }),
+    headers: () => ({ "HTTP-Referer": env("SITE_URL") || "https://gulistantravel.uz", "X-Title": "Gulistan Travel" }),
   },
   cerebras: {
     id: "cerebras",

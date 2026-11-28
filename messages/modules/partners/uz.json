@@ -1,11 +1,11 @@
 {
   "partnersPage": {
     "metaTitle": "Turizm bizneslari uchun hamkorlar tarmogʻi",
-    "metaDescription": "Oʻzbekiston boʻylab mehmonxonalar, restoranlar, transport kompaniyalari, gidlar, muzeylar va tajriba mezbonlari sayohatini rejalashtirayotgan mehmonlar bilan uchrashish uchun National Tours tarmogʻiga qoʻshiladi.",
+    "metaDescription": "Oʻzbekiston boʻylab mehmonxonalar, restoranlar, transport kompaniyalari, gidlar, muzeylar va tajriba mezbonlari sayohatini rejalashtirayotgan mehmonlar bilan uchrashish uchun Gulistan Travel tarmogʻiga qoʻshiladi.",
     "crumb": "Hamkorlar",
     "eyebrow": "Hamkorlar tarmogʻi",
     "title": "Oʻzbekistonga sayohat rejalayotgan mehmonlar bilan biznesingizni rivojlantiring",
-    "lead": "National Tours mahalliy mehmonxonalar, restoranlar, haydovchilar, gidlar va mezbonlarni sayohatning har bir bosqichida mehmonlar bilan bogʻlaydi — birinchi gʻoyadan Buxorodagi soʻnggi kechki ovqatgacha.",
+    "lead": "Gulistan Travel mahalliy mehmonxonalar, restoranlar, haydovchilar, gidlar va mezbonlarni sayohatning har bir bosqichida mehmonlar bilan bogʻlaydi — birinchi gʻoyadan Buxorodagi soʻnggi kechki ovqatgacha.",
     "ctaApply": "Hamkor boʻlish",
     "ctaDirectory": "Hamkorlarimiz bilan tanishing",
     "stats": {
@@ -48,7 +48,7 @@
     "typeCount": "{count, plural, =0 {Bu toifada birinchi boʻling} one {# hamkor} other {# hamkor}}",
     "ecoEyebrow": "Yagona bogʻlangan sayohat",
     "ecoTitle": "Biznesingiz mehmon bilan qayerda uchrashadi",
-    "ecoText": "Sayohatchilar sayohatning har bir bosqichida National Tours xizmatlaridan foydalanadi. Hamkor profillari, xizmatlar va narxlar aynan qaror qabul qilinadigan joyda koʻrinadi.",
+    "ecoText": "Sayohatchilar sayohatning har bir bosqichida Gulistan Travel xizmatlaridan foydalanadi. Hamkor profillari, xizmatlar va narxlar aynan qaror qabul qilinadigan joyda koʻrinadi.",
     "eco": {
       "discover": "Kashf eting",
       "discoverText": "Yoʻnalish sahifalari, sayohat qoʻllanmalari va AI gid sayohatga ilhom beradi.",
@@ -63,7 +63,7 @@
       "experience": "His eting",
       "experienceText": "Mehmonlar eshigingizga keladi, tashrifdan zavqlanadi va taassurotlari bilan boʻlishadi."
     },
-    "benefitsTitle": "Nega National Tours bilan hamkorlik qilish kerak",
+    "benefitsTitle": "Nega Gulistan Travel bilan hamkorlik qilish kerak",
     "benefits": {
       "b1": "Yoʻlga tayyor mehmonlar",
       "b1Text": "Soʻrovlar shunchaki koʻzdan kechirayotganlardan emas, sanalar, marshrut va byudjetni rejalashtirayotgan odamlardan keladi.",
@@ -148,7 +148,7 @@
       "about": "Biz haqimizda",
       "services": "Xizmatlar va taxminiy narxlar",
       "servicesEmpty": "Xizmatlar soʻrov boʻyicha tasdiqlanadi.",
-      "listings": "National Tours saytidagi eʼlonlar",
+      "listings": "Gulistan Travel saytidagi eʼlonlar",
       "listingsText": "Ushbu hamkorga tegishli mehmonxonalar, restoranlar va transport xizmatlari.",
       "website": "Veb-sayt",
       "inquire": "Soʻrov yuborish",
@@ -163,7 +163,7 @@
     },
     "apply": {
       "metaTitle": "Hamkor boʻlish",
-      "title": "National Tours hamkori boʻling",
+      "title": "Gulistan Travel hamkori boʻling",
       "lead": "Biznesingiz haqida soʻzlab bering. Qisqa tekshiruvdan soʻng profilingiz hamkorlar katalogida paydo boʻladi va sayohat menejerlarimiz sizga mehmonlar yubora boshlaydi.",
       "sideTitle": "Keyin nima boʻladi",
       "side1": "Darhol maʼlumotnoma raqami va shaxsiy kabinet havolasini olasiz.",
@@ -194,7 +194,7 @@
       "addService": "Xizmat qoʻshish",
       "removeService": "{n}-xizmatni olib tashlash",
       "serviceN": "{n}-xizmat",
-      "consent": "Men ushbu biznes vakili ekanligimni tasdiqlayman va National Tours arizani koʻrib chiqish hamda men bilan bogʻlanish uchun bu maʼlumotlarni saqlashiga roziman.",
+      "consent": "Men ushbu biznes vakili ekanligimni tasdiqlayman va Gulistan Travel arizani koʻrib chiqish hamda men bilan bogʻlanish uchun bu maʼlumotlarni saqlashiga roziman.",
       "submit": "Arizani yuborish",
       "submitting": "Yuborilmoqda…",
       "doneTitle": "Rahmat — arizangiz qabul qilindi",

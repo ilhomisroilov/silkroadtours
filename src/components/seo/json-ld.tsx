@@ -24,7 +24,7 @@ export async function OrganizationJsonLd({ locale }: { locale: Locale }) {
         name: contact.agencyName || t("siteName"),
         url: `${base}/${locale}`,
         description: t("defaultDescription"),
-        logo: `${base}/brand/national-tours-logo.png`,
+        logo: `${base}/brand/gulistan-travel-logo.png`,
         ...(contact.phone ? { telephone: contact.phone } : {}),
         ...(contact.email ? { email: contact.email } : {}),
         address: {

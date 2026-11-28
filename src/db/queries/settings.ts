@@ -13,9 +13,9 @@ export const FALLBACK_RATES: ExchangeRates = {
 };
 
 export const FALLBACK_CONTACT: ContactSettings = {
-  agencyName: "National Tours",
+  agencyName: "Gulistan Travel",
   phone: "",
-  email: "",
+  email: "info@gulistantravel.uz",
   whatsapp: "",
   telegram: "",
   address: { en: "Jizzakh, Uzbekistan", uz: "Jizzax, Oʻzbekiston", ru: "Джизак, Узбекистан" },

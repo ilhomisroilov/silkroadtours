@@ -136,7 +136,7 @@ const resetLines = [
   "DELETE FROM partners WHERE source = 'sample';",
   "DELETE FROM lead_activities WHERE lead_id IN (SELECT id FROM leads WHERE source = 'admin' AND source_ref LIKE 'SAMPLE-%');",
   "DELETE FROM leads WHERE source = 'admin' AND source_ref LIKE 'SAMPLE-%';",
-  "UPDATE settings SET value = json_set(value, '$.agencyName', 'National Tours') WHERE key = 'contact' AND json_extract(value, '$.agencyName') IN ('Silk Road Tours', '');",
+  "UPDATE settings SET value = json_set(value, '$.agencyName', 'Gulistan Travel') WHERE key = 'contact' AND json_extract(value, '$.agencyName') IN ('Silk Road Tours', 'National Tours', '');",
   "",
 ];
 const lines: string[] = [];
@@ -486,9 +486,9 @@ lines.push("");
 const settingsRows = {
   exchange_rates: { base: "USD", rates: SEED_RATES, updatedAt: new Date().toISOString(), source: "manual" },
   contact: {
-    agencyName: "National Tours",
+    agencyName: "Gulistan Travel",
     phone: "",
-    email: "",
+    email: "info@gulistantravel.uz",
     whatsapp: "",
     telegram: "",
     address: { en: "Jizzakh, Uzbekistan", uz: "Jizzax, Oʻzbekiston", ru: "Джизак, Узбекистан" },

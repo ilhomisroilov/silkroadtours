@@ -1,8 +1,8 @@
 {
   "meta": {
-    "siteName": "National Tours",
-    "titleTemplate": "%s · National Tours",
-    "defaultTitle": "National Tours — tours across Uzbekistan from Jizzakh",
+    "siteName": "Gulistan Travel",
+    "titleTemplate": "%s · Gulistan Travel",
+    "defaultTitle": "Gulistan Travel — tours across Uzbekistan from Jizzakh",
     "defaultDescription": "Private and group tours across Uzbekistan: Samarkand, Bukhara, Khiva, yurt camps, the Nuratau and Zaamin mountains. Live prices in dollars, so'm or euros, run by a local team in Jizzakh."
   },
   "nav": {
@@ -604,7 +604,7 @@
   "about": {
     "metaTitle": "About us",
     "title": "A local agency from Jizzakh",
-    "lead": "National Tours is a tour agency based in Jizzakh, the gateway between Samarkand, the Nuratau mountains and Zaamin National Park.",
+    "lead": "Gulistan Travel is a tour agency based in Jizzakh, the gateway between Samarkand, the Nuratau mountains and Zaamin National Park.",
     "p1": "We organise trips for two kinds of travellers: guests from abroad discovering the Silk Road for the first time, and families and companies from Uzbekistan looking for a weekend in the mountains or a holiday close to home.",
     "p2": "We design routes we know first-hand, work with local guides, drivers, guesthouses and yurt camps, and show real prices before you book.",
     "valuesTitle": "How we work",
@@ -616,7 +616,7 @@
     "value3Text": "We work with family guesthouses, craftspeople and guides from the regions we visit.",
     "licence": "Licence number: {number}",
     "cta": "See our tours",
-    "eyebrow": "About National Tours",
+    "eyebrow": "About Gulistan Travel",
     "factsTitle": "Our catalogue today",
     "factDestinations": "{count} destinations",
     "factTours": "{count} ready-made tours",
@@ -830,7 +830,7 @@
       "cta": "Try AI Planner"
     },
     "why": {
-      "eyebrow": "Why choose National Tours",
+      "eyebrow": "Why choose Gulistan Travel",
       "title": "Your Trusted Travel Partner",
       "t1": "Uzbekistan & beyond",
       "s1": "{count} destinations",

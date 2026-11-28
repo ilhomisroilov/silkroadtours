@@ -71,7 +71,7 @@ export function AdminShell({ user, locale, children }: { user: { name: string; r
       <aside className={cn("on-dark bg-girih-dark fixed inset-y-0 left-0 z-50 flex w-64 flex-col gap-6 overflow-y-auto overscroll-contain p-4 transition-transform lg:static lg:overflow-visible lg:translate-x-0", open ? "translate-x-0" : "-translate-x-full")}>
         <Link href="/admin" className="flex items-center gap-2 px-2 pt-2">
           <GirihRosette size={32} tone="saffron" strokeWidth={2.2} />
-          <span className="font-display text-xl font-bold text-ivory">National Tours</span>
+          <span className="font-display text-xl font-bold text-ivory">Gulistan Travel</span>
         </Link>
         {nav}
         <div className="mt-auto space-y-3 border-t border-white/15 pt-4 text-sm text-sand">

@@ -60,7 +60,7 @@ This works only while there are no admins. Afterwards, owners add staff through 
 
 ## 6. Agency contact details
 
-The seed stores the agency name "National Tours" and the address "Jizzakh, Uzbekistan". Phone, email, WhatsApp, Telegram and licence number are left empty on purpose. Set the real values in **Admin → Settings → Contact details**. Empty fields are hidden on the site (including the floating WhatsApp/Telegram buttons); they are never shown as placeholders.
+The seed stores the agency name "Gulistan Travel", the email info@gulistantravel.uz and the address "Jizzakh, Uzbekistan". Phone, WhatsApp, Telegram and licence number are left empty on purpose. Set the real values in **Admin → Settings → Contact details**. Empty fields are hidden on the site (including the floating WhatsApp/Telegram buttons); they are never shown as placeholders.
 
 ## 7. Exchange rates
 
