@@ -32,10 +32,9 @@ Admin panel (`/admin`): dashboard, bookings, leads and requests, customers (buil
 tours with departures and prices, destinations, articles (guides, experiences, services), media library with
 uploads, reviews, newsletter subscribers with CSV export, AI conversations and usage, settings and users.
 
-Uzbek alphabet: Uzbek text is stored in the current Latin spelling (oʻ, gʻ, sh, ch), which stays as the backup,
-and shown in the new alphabet (ö, ğ, ş, ç) by `src/lib/uz-alphabet.ts` when pages, messages and AI replies are
-rendered. Links, slugs, e-mail addresses and foreign words are left as they are. To show the stored spelling again,
-build with `NEXT_PUBLIC_UZ_ALPHABET=legacy` (in `.env` for `docker compose up -d --build`).
+Uzbek alphabet: Uzbek text is stored and shown in the current Latin spelling (oʻ, gʻ, sh, ch).
+`src/lib/uz-alphabet.ts` can show it in the new alphabet (ö, ğ, ş, ç) instead: build with
+`NEXT_PUBLIC_UZ_SPELLING=new` (in `.env` for `docker compose up -d --build`).
 
 Photos: real, open-licensed images from Wikimedia Commons; author, licence and source for every file are in
 `public/images/credits.json` and shown on the page where a photo is used as the hero.

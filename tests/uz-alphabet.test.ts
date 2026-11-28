@@ -18,7 +18,13 @@ describe("new Uzbek alphabet", () => {
     assert.equal(toNewUzbek("{kind, select, shop {Doʻkon} other {Boshqa}}"), "{kind, select, shop {Dökon} other {Boşqa}}");
     assert.equal(toNewUzbek("check-in, Wi-Fi, How much"), "check-in, Wi-Fi, How much");
   });
-  it("converts nested message trees", () => {
+  it("converts nested message trees when the new spelling is switched on", { skip: process.env.NEXT_PUBLIC_UZ_SPELLING !== "new" }, () => {
     assert.deepEqual(uzDeep({ a: ["Toshkent"], b: { c: "Chorvoq" }, n: 3 }), { a: ["Toşkent"], b: { c: "Çorvoq" }, n: 3 });
+  });
+});
+
+describe("default Uzbek spelling", () => {
+  it("shows the stored oʻ, gʻ, sh, ch spelling unless NEXT_PUBLIC_UZ_SPELLING=new", { skip: process.env.NEXT_PUBLIC_UZ_SPELLING === "new" }, () => {
+    assert.deepEqual(uzDeep({ a: ["Toshkent", "Yoʻlovchilar"] }), { a: ["Toshkent", "Yoʻlovchilar"] });
   });
 });
