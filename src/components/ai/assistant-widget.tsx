@@ -124,6 +124,8 @@ export function AssistantWidget({ locale, welcome, enabled }: { locale: Locale; 
   const [typing, setTyping] = useState(false);
   const [compact, setCompact] = useState(false);
   const isHome = /^\/[a-z]{2}\/?$/.test(pathname ?? "");
+  // Booking steps carry their own buttons at the bottom of small screens; the launcher stays out of their way.
+  const isBooking = /\/book(ing)?\//.test(pathname ?? "");
   useEffect(() => {
     const onScroll = () => setCompact(!isHome || window.scrollY > 120);
     onScroll();
@@ -148,9 +150,8 @@ export function AssistantWidget({ locale, welcome, enabled }: { locale: Locale; 
           ref={launcherRef}
           type="button"
           onClick={() => setOpen(true)}
-          className={`fixed bottom-4 right-4 z-40 inline-flex h-14 items-center gap-2 rounded-full bg-gradient-to-r from-lapis to-cobalt pl-2 pr-2 text-[0.95rem] font-bold text-white shadow-lift transition-all hover:brightness-110 focus-visible:outline-saffron max-lg:bottom-20 ${compact ? "" : "sm:pr-5"} ${typing ? "hidden" : ""}`}
+          className={`fixed bottom-4 right-4 z-40 inline-flex h-14 items-center gap-2 rounded-full bg-gradient-to-r from-lapis to-cobalt pl-2 pr-2 text-[0.95rem] font-bold text-white shadow-lift transition-all hover:brightness-110 focus-visible:outline-saffron max-lg:bottom-20 ${compact ? "" : "sm:pr-5"} ${typing ? "hidden" : ""} ${isBooking ? "max-lg:hidden" : ""}`}
           aria-haspopup="dialog"
-          aria-label={t.open}
           title={t.open}
           onMouseEnter={() => setCompact(false)}
           onMouseLeave={() => setCompact(!isHome || window.scrollY > 120)}

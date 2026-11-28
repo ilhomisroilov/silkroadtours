@@ -308,3 +308,7 @@ select option { background: #0d304f; color: #fff; }
 /* Gold is not a brand accent in concept v2: gold buttons become Royal Blue (stars stay gold). */
 .bg-saffron { background-color: #176bcb; color: #ffffff; box-shadow: 0 12px 28px -14px rgb(23 107 203 / 0.9); }
 .hover\:bg-saffron:hover, .bg-saffron:hover { background-color: #2b7fdc; }
+
+/* Filled badges keep white text readable (WCAG AA 4.5:1) on the night theme. */
+.bg-turquoise-ink { background-color: #0b6f79; }
+.bg-pomegranate { background-color: #c03a45; }

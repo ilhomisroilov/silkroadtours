@@ -37,7 +37,7 @@ export async function JourneyStrip({ locale }: { locale: Locale }) {
                   <Icon aria-hidden="true" className="size-6" />
                 </span>
                 <span className="min-w-0">
-                  <span className="block text-[0.7rem] font-bold uppercase tracking-[0.16em] text-white/50">0{i + 1}</span>
+                  <span className="block text-[0.7rem] font-bold uppercase tracking-[0.16em] text-white/75">0{i + 1}</span>
                   <span className="mt-0.5 block font-display text-lg text-white group-hover:text-saffron">{t(`steps.${key}.title`)}</span>
                   <span className="mt-1 block text-sm leading-snug text-white/70">{t(`steps.${key}.text`)}</span>
                 </span>
