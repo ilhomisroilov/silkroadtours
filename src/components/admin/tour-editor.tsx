@@ -332,7 +332,7 @@ function TourEditorInner({
                     key={m}
                     checked={tour.seasonMonths.includes(m)}
                     onChange={(on) => set("seasonMonths", on ? [...tour.seasonMonths, m].sort((a, b) => a - b) : tour.seasonMonths.filter((x) => x !== m))}
-                    style={{ padding: "6px 12px", fontSize: 14, border: "1px solid #d9d9d9" }}
+                    style={{ padding: "6px 12px", fontSize: 14, border: "1px solid var(--adm-field-border)" }}
                   >
                     {tm(String(m) as never)}
                   </Tag.CheckableTag>

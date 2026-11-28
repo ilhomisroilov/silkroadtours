@@ -11,6 +11,8 @@ import {
   LogoutOutlined,
   MailOutlined,
   MenuOutlined,
+  MoonOutlined,
+  SunOutlined,
   PictureOutlined,
   ProjectOutlined,
   QuestionCircleOutlined,
@@ -22,7 +24,7 @@ import {
   ApartmentOutlined,
   CompassOutlined,
 } from "@ant-design/icons";
-import { Avatar, Button, Drawer, Flex, Grid, Layout, Menu, Segmented, Typography, type MenuProps } from "antd";
+import { Button, Drawer, Flex, Grid, Layout, Menu, Segmented, Typography, type MenuProps } from "antd";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
@@ -30,7 +32,7 @@ import { useState, type ReactNode } from "react";
 import { ADMIN_LOCALE_COOKIE, type AdminLocale } from "@/i18n/admin";
 import { apiFetch } from "@/lib/client/api";
 import { BRAND } from "@/lib/brand";
-import { ADMIN_COLORS } from "./antd-provider";
+import { ADMIN_COLORS, useAdminTheme } from "./antd-provider";
 
 type NavKey =
   | "overview" | "crm" | "customers" | "bookings" | "requests" | "trips" | "places" | "tours" | "destinations"
@@ -113,9 +115,9 @@ export function AdminShell({ user, locale, children }: { user: { name: string; r
 
   const side = (
     <Flex vertical style={{ height: "100%", background: ADMIN_COLORS.night }}>
-      <Link href="/admin" style={{ display: "flex", alignItems: "center", gap: 10, padding: "20px 20px 12px", color: "#fff" }}>
-        <Avatar shape="square" size={36} style={{ background: ADMIN_COLORS.gold, color: ADMIN_COLORS.night, fontWeight: 700 }}>{BRAND.name.slice(0, 1)}</Avatar>
-        <span style={{ fontSize: 18, fontWeight: 700, lineHeight: 1.2 }}>{BRAND.name}</span>
+      <Link href="/admin" aria-label={BRAND.name} style={{ display: "flex", justifyContent: "center", padding: "18px 20px 10px" }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={BRAND.logo.header.src} alt={BRAND.name} width={BRAND.logo.header.width} height={BRAND.logo.header.height} style={{ width: 132, height: "auto" }} />
       </Link>
       <nav aria-label={t("nav.menu")} style={{ flex: 1, overflowY: "auto" }}>
         <Menu theme="dark" mode="inline" selectedKeys={[activeKey(pathname)]} items={items} style={{ borderInlineEnd: 0 }} />
@@ -146,15 +148,54 @@ export function AdminShell({ user, locale, children }: { user: { name: string; r
       )}
       <Layout>
         {!desktop && (
-          <Layout.Header style={{ position: "sticky", top: 0, zIndex: 20, display: "flex", alignItems: "center", gap: 12, padding: "0 12px", borderBottom: "1px solid #dfe4ea", height: 56, lineHeight: "56px" }}>
+          <Layout.Header style={{ position: "sticky", top: 0, zIndex: 20, display: "flex", alignItems: "center", gap: 12, padding: "0 12px", borderBottom: "1px solid var(--adm-border)", height: 56, lineHeight: "56px" }}>
             <Button type="text" size="large" icon={<MenuOutlined />} aria-label={t("nav.menu")} onClick={() => setOpen(true)} />
-            <Typography.Text strong style={{ fontSize: 17 }}>{BRAND.name}</Typography.Text>
+            <Link href="/admin" aria-label={BRAND.name} style={{ display: "flex", alignItems: "center" }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={BRAND.logo.header.src} alt={BRAND.name} width={BRAND.logo.header.width} height={BRAND.logo.header.height} style={{ height: 40, width: "auto" }} />
+            </Link>
+            <span style={{ flex: 1 }} />
+            <ThemeSwitch compact />
           </Layout.Header>
         )}
         <Layout.Content id="main" tabIndex={-1}>
-          <div style={{ maxWidth: 1320, margin: "0 auto", padding: desktop ? "28px 32px 48px" : "16px 12px 40px" }}>{children}</div>
+          <div style={{ maxWidth: 1320, margin: "0 auto", padding: desktop ? "16px 32px 48px" : "16px 12px 40px" }}>
+            {desktop && <Flex justify="flex-end" style={{ marginBottom: 8 }}><ThemeSwitch /></Flex>}
+            {children}
+          </div>
         </Layout.Content>
       </Layout>
     </Layout>
+  );
+}
+
+/** Day / Night switch for the work area. The side menu keeps its dark look in both modes. */
+function ThemeSwitch({ compact = false }: { compact?: boolean }) {
+  const t = useTranslations("admin.panel");
+  const { mode, setMode } = useAdminTheme();
+  if (compact) {
+    const next = mode === "dark" ? "light" : "dark";
+    return (
+      <Button
+        type="text"
+        size="large"
+        icon={mode === "dark" ? <SunOutlined /> : <MoonOutlined />}
+        aria-label={next === "dark" ? t("night") : t("day")}
+        onClick={() => setMode(next)}
+        data-testid="admin-theme"
+      />
+    );
+  }
+  return (
+    <Segmented<"light" | "dark">
+      aria-label={t("theme")}
+      value={mode}
+      onChange={setMode}
+      data-testid="admin-theme"
+      options={[
+        { value: "light", label: <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><SunOutlined aria-hidden />{t("day")}</span> },
+        { value: "dark", label: <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><MoonOutlined aria-hidden />{t("night")}</span> },
+      ]}
+    />
   );
 }

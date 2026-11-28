@@ -42,6 +42,9 @@
     "allFolders": "Hammasi",
     "uploads": "Yuklanganlar",
     "noImages": "Rasm topilmadi",
-    "fixBeforeSave": "Saqlashdan oldin quyidagilarni tuzating"
+    "fixBeforeSave": "Saqlashdan oldin quyidagilarni tuzating",
+    "theme": "Koʻrinish",
+    "day": "Kun",
+    "night": "Tun"
   }
 }

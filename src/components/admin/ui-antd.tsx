@@ -10,7 +10,7 @@ export function PageHeader({ title, actions, children }: { title: string; action
     <Flex wrap justify="space-between" align="flex-end" gap={16} style={{ marginBottom: 24 }}>
       <div style={{ minWidth: 0 }}>
         <Typography.Title level={2} style={{ margin: 0, fontWeight: 700 }}>{title}</Typography.Title>
-        {children && <div style={{ marginTop: 6, color: "#55606b" }}>{children}</div>}
+        {children && <div style={{ marginTop: 6, color: "var(--adm-muted)" }}>{children}</div>}
       </div>
       {actions && <Flex wrap gap={8}>{actions}</Flex>}
     </Flex>

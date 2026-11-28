@@ -175,7 +175,7 @@ export function UsersManager({ users, meId }: { users: UserRow[]; meId: number }
           <Input.Password value={pw} onChange={(e) => setPw(e.target.value)} autoComplete="new-password" />
         </Field>
       </Modal>
-      <div style={{ background: "#f4f6f9", borderRadius: 8, padding: 16 }}>
+      <div style={{ background: "var(--adm-surface-2)", borderRadius: 8, padding: 16 }}>
         <Typography.Title level={5} style={{ marginTop: 0 }}>{t("newUser")}</Typography.Title>
         <Form
           form={form}

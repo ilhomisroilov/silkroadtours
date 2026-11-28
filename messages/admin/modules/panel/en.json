@@ -42,6 +42,9 @@
     "allFolders": "All",
     "uploads": "Uploaded",
     "noImages": "No images found",
-    "fixBeforeSave": "Fix these before saving"
+    "fixBeforeSave": "Fix these before saving",
+    "theme": "Appearance",
+    "day": "Day",
+    "night": "Night"
   }
 }

@@ -135,17 +135,17 @@ export function MediaPicker({ onPick, multiple = false, label }: { onPick: (url:
                     style={{
                       position: "relative",
                       padding: 0,
-                      border: on ? "2px solid #176bcb" : "1px solid #dfe4ea",
+                      border: on ? "2px solid #176bcb" : "1px solid var(--adm-border)",
                       borderRadius: 8,
                       overflow: "hidden",
-                      background: "#fff",
+                      background: "var(--adm-surface)",
                       cursor: "pointer",
                       textAlign: "left",
                     }}
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={i.url} alt="" loading="lazy" style={{ display: "block", width: "100%", aspectRatio: "4 / 3", objectFit: "cover", background: "#eef1f5" }} />
-                    <span style={{ display: "block", padding: "4px 8px", fontSize: 12, color: "#55606b", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{i.name}</span>
+                    <img src={i.url} alt="" loading="lazy" style={{ display: "block", width: "100%", aspectRatio: "4 / 3", objectFit: "cover", background: "var(--adm-surface-2)" }} />
+                    <span style={{ display: "block", padding: "4px 8px", fontSize: 12, color: "var(--adm-muted)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{i.name}</span>
                     {on && (
                       <span style={{ position: "absolute", top: 6, right: 6, width: 24, height: 24, borderRadius: 12, background: "#176bcb", color: "#fff", display: "grid", placeItems: "center" }}>
                         <CheckOutlined />

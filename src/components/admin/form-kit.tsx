@@ -25,8 +25,8 @@ export function Field({ label, children, help }: { label: string; children: Reac
 export function SaveBar({ dirty, busy, onSave, testId, extra }: { dirty: boolean; busy: boolean; onSave: () => void; testId?: string; extra?: ReactNode }) {
   const t = useTranslations("admin");
   return (
-    <div style={{ position: "sticky", bottom: 0, zIndex: 20, marginTop: 16, paddingBlock: 8, background: "#f4f6f9" }}>
-      <Flex justify="space-between" align="center" gap={12} wrap style={{ background: "#fff", border: "1px solid #dfe4ea", borderRadius: 10, padding: "10px 14px", boxShadow: "0 -4px 16px rgba(16,32,48,0.06)" }}>
+    <div style={{ position: "sticky", bottom: 0, zIndex: 20, marginTop: 16, paddingBlock: 8, background: "var(--adm-bg)" }}>
+      <Flex justify="space-between" align="center" gap={12} wrap style={{ background: "var(--adm-surface)", border: "1px solid var(--adm-border)", borderRadius: 10, padding: "10px 14px", boxShadow: "0 -4px 16px rgba(16,32,48,0.06)" }}>
         <Typography.Text type={dirty ? "warning" : "secondary"}>{dirty ? t("panel.unsaved") : t("panel.noChanges")}</Typography.Text>
         <Space wrap>
           {extra}
