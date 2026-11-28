@@ -31,7 +31,7 @@ async def test_checkout_link_has_frozen_uzs_amount(client, departure):
     assert p["amount_uzs_tiyin"] == DEPOSIT_TIYIN
     decoded = base64.b64decode(p["checkout_url"].rsplit("/", 1)[1]).decode()
     assert f"ac.order_id={p['order_no']}" in decoded and f"a={DEPOSIT_TIYIN}" in decoded
-    assert "c=https://nationaltours.uz/en/booking/NT-" in decoded
+    assert "c=https://gulistantravel.uz/en/booking/GT-" in decoded
 
 
 async def test_rejects_wrong_key(client, departure):

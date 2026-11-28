@@ -23,7 +23,7 @@ SECURITY_HEADERS = {
 def create_app() -> FastAPI:
     s = get_settings()
     app = FastAPI(
-        title="National Tours API",
+        title="Gulistan Travel API",
         version="0.1.0",
         docs_url="/docs" if s.docs_enabled else None,
         redoc_url=None,

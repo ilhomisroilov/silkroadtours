@@ -51,7 +51,7 @@ jobs:
       - name: Known vulnerabilities in dependencies
         run: pip-audit -r requirements.txt
       - name: Docker image builds
-        run: docker build -t nationaltours-api:ci .
+        run: docker build -t gulistantravel-api:ci .
 
   secrets:
     runs-on: ubuntu-latest

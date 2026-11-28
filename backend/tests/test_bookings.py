@@ -13,7 +13,7 @@ async def test_create_booking_prices_on_server_and_holds_seats(client, departure
     r = await client.post("/v1/bookings", json=booking_body(departure.id, adults=2, children=1), headers=idem())
     assert r.status_code == 201, r.text
     b = r.json()
-    assert b["reference"].startswith("NT-")
+    assert b["reference"].startswith("GT-")
     assert b["status"] == "awaiting_payment"
     assert b["total"] == {"currency": "USD", "amount_minor": 135_000}
     assert b["deposit"]["amount_minor"] == 40_500  # 30%

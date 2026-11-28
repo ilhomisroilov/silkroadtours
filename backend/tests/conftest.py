@@ -7,13 +7,15 @@ os.environ["NT_PAYME_KEY"] = "test-payme-key"
 os.environ["NT_CLICK_SERVICE_ID"] = "777"
 os.environ["NT_CLICK_MERCHANT_ID"] = "888"
 os.environ["NT_CLICK_SECRET_KEY"] = "test-click-secret"
-os.environ["NT_API_URL"] = "https://api.nationaltours.uz"
+os.environ["NT_API_URL"] = "https://api.gulistantravel.uz"
 os.environ["NT_GOOGLE_CLIENT_ID"] = "google-client"
 os.environ["NT_GOOGLE_CLIENT_SECRET"] = "google-secret"
 os.environ["NT_FACEBOOK_APP_ID"] = "fb-app"
 os.environ["NT_FACEBOOK_APP_SECRET"] = "fb-secret"
 os.environ["NT_TELEGRAM_BOT_TOKEN"] = "123456:test-bot-token"
-os.environ["NT_TELEGRAM_BOT_USERNAME"] = "nationaltours_bot"
+os.environ["NT_SMTP_USERNAME"] = "no-reply@gulistantravel.uz"
+os.environ["NT_SMTP_PASSWORD"] = "app-password"
+os.environ["NT_TELEGRAM_BOT_USERNAME"] = "gulistantravel_bot"
 
 import uuid  # noqa: E402
 from datetime import UTC, date, datetime, timedelta  # noqa: E402
@@ -48,7 +50,7 @@ async def clean():
 @pytest.fixture
 async def client():
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test",
-                           headers={"Origin": "https://nationaltours.uz"}) as c:
+                           headers={"Origin": "https://gulistantravel.uz"}) as c:
         yield c
 
 

@@ -12,8 +12,8 @@ class Settings(BaseSettings):
     env: str = Field("development", description="development | staging | production")
     database_url: str = "postgresql+asyncpg://nt:nt@127.0.0.1:5432/nt"
     redis_url: str = "redis://127.0.0.1:6379/0"
-    site_url: str = "https://nationaltours.uz"
-    allowed_origins: list[str] = ["https://nationaltours.uz", "https://www.nationaltours.uz"]
+    site_url: str = "https://gulistantravel.uz"
+    allowed_origins: list[str] = ["https://gulistantravel.uz", "https://www.gulistantravel.uz"]
 
     rate_limit_enabled: bool = True
     docs_enabled: bool = False
@@ -23,16 +23,25 @@ class Settings(BaseSettings):
     deposit_percent: int = Field(30, ge=0, le=100)
 
     # Accounts
-    api_url: str = "https://api.nationaltours.uz"  # public address of this API (OAuth redirect URIs)
+    api_url: str = "https://api.gulistantravel.uz"  # public address of this API (OAuth redirect URIs)
     session_cookie: str = "nt_session"
     session_days: int = 30
-    cookie_domain: str | None = None  # ".nationaltours.uz" so the site and the API share the sign-in
+    cookie_domain: str | None = None  # ".gulistantravel.uz" so the site and the API share the sign-in
     google_client_id: str = ""
     google_client_secret: SecretStr = SecretStr("")
     facebook_app_id: str = ""
     facebook_app_secret: SecretStr = SecretStr("")
     telegram_bot_token: SecretStr = SecretStr("")
     telegram_bot_username: str = ""
+
+    # Email through Google Workspace (smtp.gmail.com, STARTTLS) with an app password of the sending mailbox
+    brand_name: str = "Gulistan Travel"
+    mail_from: str = "no-reply@gulistantravel.uz"
+    mail_reply_to: str = "info@gulistantravel.uz"
+    smtp_host: str = "smtp.gmail.com"
+    smtp_port: int = 587
+    smtp_username: str = ""
+    smtp_password: SecretStr = SecretStr("")
 
     # Payme (Merchant API). The key is the cashbox key from the Payme business cabinet.
     payme_merchant_id: str = ""

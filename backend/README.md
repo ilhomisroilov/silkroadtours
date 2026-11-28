@@ -1,4 +1,4 @@
-# National Tours API (backend)
+# Gulistan Travel API (backend)
 
 Python 3.12, FastAPI, SQLAlchemy 2 (async), PostgreSQL 16, Redis. This is phase 0–1 of the production
 rebuild: the booking and payment core. The Next.js site keeps running unchanged until its pages are
@@ -57,8 +57,13 @@ This compose file is separate from the root one, so it never restarts the live s
 | Telegram | `POST /v1/auth/telegram` with the widget's data |
 | What is enabled | `GET /v1/auth/providers` |
 
-Emails (verification, reset) are written to the `outbox` table in the same transaction; the sender for the
-chosen mail service is the next worker job.
+Emails (verification, reset) are written to the `outbox` table in the same transaction and sent by the worker
+through Google Workspace SMTP (`smtp.gmail.com:587`, STARTTLS, app password of `no-reply@gulistantravel.uz`).
+Failed sends retry with backoff; the one-time link is wiped from the row once the email is sent. Templates
+in Uzbek, Russian and English live in `app/services/mailer.py`.
+
+For delivery, the gulistantravel.uz DNS needs Google Workspace MX records, SPF
+(`v=spf1 include:_spf.google.com ~all`), DKIM (generated in the Workspace admin console) and a DMARC record.
 
 ## Next
 

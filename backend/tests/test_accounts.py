@@ -136,7 +136,7 @@ async def oauth_round_trip(client, provider, return_to="/uz/account"):
     assert start.status_code == 303
     q = parse_qs(urlparse(start.headers["location"]).query)
     assert q["code_challenge_method"] == ["S256"] and q["redirect_uri"] == [
-        f"https://api.nationaltours.uz/v1/auth/{provider}/callback"]
+        f"https://api.gulistantravel.uz/v1/auth/{provider}/callback"]
     return await client.get(f"/v1/auth/{provider}/callback", params={"code": "abc", "state": q["state"][0]})
 
 
@@ -144,7 +144,7 @@ async def test_google_sign_up_with_pkce(client, monkeypatch, departure):
     seen = fake_providers(monkeypatch)
     await client.post("/v1/bookings", json=booking_body(departure.id, email="ali@gmail.com"), headers=idem())
     done = await oauth_round_trip(client, "google")
-    assert done.status_code == 303 and done.headers["location"] == "https://nationaltours.uz/uz/account"
+    assert done.status_code == 303 and done.headers["location"] == "https://gulistantravel.uz/uz/account"
     assert seen["google_form"]["code_verifier"][0]
     me = (await client.get("/v1/me")).json()
     assert me["email"] == "ali@gmail.com" and me["email_verified"] and me["sign_in_methods"] == ["google"]
@@ -166,14 +166,14 @@ async def test_state_is_single_use_and_required(client, monkeypatch):
 async def test_return_path_cannot_leave_our_site(client, monkeypatch):
     fake_providers(monkeypatch)
     done = await oauth_round_trip(client, "google", return_to="//evil.example/steal")
-    assert done.headers["location"] == "https://nationaltours.uz/"
+    assert done.headers["location"] == "https://gulistantravel.uz/"
 
 
 async def test_google_takes_over_an_unproven_password_account(client, monkeypatch):
     """Someone registered the victim's address with a password but never proved it. When the real owner signs in
     with Google (which proved the address), the squatter's password and sessions stop working."""
     async with httpx.AsyncClient(transport=client._transport, base_url="http://test",
-                                 headers={"Origin": "https://nationaltours.uz"}) as squatter:
+                                 headers={"Origin": "https://gulistantravel.uz"}) as squatter:
         await register(squatter, email="ali@gmail.com")
         fake_providers(monkeypatch)
         await oauth_round_trip(client, "google")
@@ -233,7 +233,7 @@ async def test_telegram_rejects_forged_or_old_data(client, payload):
 
 async def test_providers_list(client):
     out = (await client.get("/v1/auth/providers")).json()
-    assert out == {"google": True, "facebook": True, "telegram": {"enabled": True, "bot_username": "nationaltours_bot"}}
+    assert out == {"google": True, "facebook": True, "telegram": {"enabled": True, "bot_username": "gulistantravel_bot"}}
 
 
 async def test_booking_link_needs_verified_email_not_just_matching(client, departure, monkeypatch):
