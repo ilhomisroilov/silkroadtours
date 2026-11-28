@@ -1,27 +1,28 @@
 "use client";
 
+import { LockOutlined, MailOutlined } from "@ant-design/icons";
+import { Alert, Button, Form, Input } from "antd";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { apiFetch, translateCode } from "@/lib/client/api";
-import { Button } from "@/components/ui/button";
-import { Field, Input } from "@/components/ui/form";
 
 export function LoginForm() {
   const t = useTranslations("admin.login");
+  const tp = useTranslations("admin.panel");
   const te = useTranslations("errors");
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   return (
-    <form
-      className="flex flex-col gap-5"
-      onSubmit={async (e) => {
-        e.preventDefault();
-        const fd = new FormData(e.currentTarget);
+    <Form
+      layout="vertical"
+      requiredMark={false}
+      size="large"
+      onFinish={async (v: { email: string; password: string }) => {
         setBusy(true);
         setError(null);
-        const r = await apiFetch("/api/admin/auth/login", { method: "POST", json: { email: fd.get("email"), password: fd.get("password") } });
+        const r = await apiFetch("/api/admin/auth/login", { method: "POST", json: v });
         setBusy(false);
         if (r.ok) {
           router.replace("/admin");
@@ -29,14 +30,14 @@ export function LoginForm() {
         } else setError(translateCode(r.error.code, te as never));
       }}
     >
-      {error && <p role="alert" className="rounded-sm bg-danger/5 p-3 font-semibold text-danger" data-testid="login-error">{error}</p>}
-      <Field id="email" label={t("email")} required>
-        <Input id="email" name="email" type="email" autoComplete="username" required />
-      </Field>
-      <Field id="password" label={t("password")} required>
-        <Input id="password" name="password" type="password" autoComplete="current-password" required />
-      </Field>
-      <Button type="submit" size="lg" disabled={busy} data-testid="login-submit">{t("submit")}</Button>
-    </form>
+      {error && <Alert type="error" showIcon message={error} style={{ marginBottom: 16 }} data-testid="login-error" />}
+      <Form.Item label={t("email")} name="email" rules={[{ required: true, type: "email", message: tp("required") }]}>
+        <Input id="email" prefix={<MailOutlined />} type="email" autoComplete="username" />
+      </Form.Item>
+      <Form.Item label={t("password")} name="password" rules={[{ required: true, message: tp("required") }]}>
+        <Input.Password id="password" prefix={<LockOutlined />} autoComplete="current-password" />
+      </Form.Item>
+      <Button type="primary" htmlType="submit" block loading={busy} data-testid="login-submit">{t("submit")}</Button>
+    </Form>
   );
 }

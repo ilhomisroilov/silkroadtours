@@ -1,36 +1,59 @@
 "use client";
 
+import { KeyOutlined, ReloadOutlined, SaveOutlined, SendOutlined, UserAddOutlined } from "@ant-design/icons";
+import { Button, Col, Flex, Form, Input, InputNumber, Modal, Row, Select, Switch, Table, Typography } from "antd";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import type { AdminRole, ContactSettings, ExchangeRates } from "@/db/types";
-import { Button } from "@/components/ui/button";
 import { useAdminApi } from "./booking-actions";
-import { LocalizedFields } from "./localized";
+import { Field } from "./form-kit";
+import { EditLanguageProvider, LocalizedFields } from "./localized";
 
-const field = "mt-1 block min-h-11 w-full rounded-sm border border-field bg-white px-3 font-normal";
+type ContactKey = "agencyName" | "phone" | "email" | "whatsapp" | "telegram" | "licenseNumber";
 
 export function ContactForm({ initial, canEdit }: { initial: ContactSettings; canEdit: boolean }) {
   const t = useTranslations("admin.settings");
   const tc = useTranslations("admin.common");
   const call = useAdminApi();
   const [c, setC] = useState(initial);
-  const input = (k: "agencyName" | "phone" | "email" | "whatsapp" | "telegram" | "licenseNumber", label: string) => (
-    <label className="block text-sm font-semibold">{label}<input value={c[k]} disabled={!canEdit} onChange={(e) => setC({ ...c, [k]: e.target.value })} className={field} data-testid={`contact-${k}`} /></label>
-  );
+  const [busy, setBusy] = useState(false);
+  const fields: [ContactKey, string, string?][] = [
+    ["agencyName", t("agencyName")],
+    ["phone", t("phone"), "+998 …"],
+    ["email", t("email"), "info@…"],
+    ["whatsapp", t("whatsapp"), "+998 …"],
+    ["telegram", t("telegram"), "@…"],
+    ["licenseNumber", t("licence")],
+  ];
   return (
-    <form className="space-y-4" onSubmit={async (e) => { e.preventDefault(); await call("/api/admin/settings/contact", { method: "PUT", json: c }, tc("saved")); }}>
-      <p className="text-sm text-ink-muted">{t("contactHint")}</p>
-      <div className="grid gap-4 sm:grid-cols-2">
-        {input("agencyName", t("agencyName"))}
-        {input("phone", t("phone"))}
-        {input("email", t("email"))}
-        {input("whatsapp", t("whatsapp"))}
-        {input("telegram", t("telegram"))}
-        {input("licenseNumber", t("licence"))}
-      </div>
+    <EditLanguageProvider>
+      <Typography.Paragraph type="secondary">{t("contactHint")}</Typography.Paragraph>
+      <Row gutter={[16, 16]} style={{ marginBottom: 16 }}>
+        {fields.map(([k, label, ph]) => (
+          <Col key={k} xs={24} md={12}>
+            <Field label={label}>
+              <Input value={c[k]} placeholder={ph} disabled={!canEdit} onChange={(e) => setC({ ...c, [k]: e.target.value })} data-testid={`contact-${k}`} />
+            </Field>
+          </Col>
+        ))}
+      </Row>
       <LocalizedFields label={t("address")} value={c.address} onChange={(a) => setC({ ...c, address: a })} />
-      {canEdit && <Button type="submit" data-testid="contact-save">{tc("save")}</Button>}
-    </form>
+      {canEdit && (
+        <Button
+          type="primary"
+          icon={<SaveOutlined />}
+          loading={busy}
+          data-testid="contact-save"
+          onClick={async () => {
+            setBusy(true);
+            await call("/api/admin/settings/contact", { method: "PUT", json: c }, tc("saved"));
+            setBusy(false);
+          }}
+        >
+          {tc("save")}
+        </Button>
+      )}
+    </EditLanguageProvider>
   );
 }
 
@@ -38,26 +61,47 @@ export function RatesForm({ initial, canEdit }: { initial: ExchangeRates; canEdi
   const t = useTranslations("admin.settings");
   const tc = useTranslations("admin.common");
   const call = useAdminApi();
-  const [uzs, setUzs] = useState(initial.rates.UZS);
-  const [eur, setEur] = useState(initial.rates.EUR);
+  const [uzs, setUzs] = useState<number>(initial.rates.UZS);
+  const [eur, setEur] = useState<number>(initial.rates.EUR);
+  const [updated, setUpdated] = useState(initial);
   return (
-    <div className="space-y-4">
-      <p className="text-sm text-ink-muted">{t("ratesHint")} {t("ratesUpdated", { date: initial.updatedAt.slice(0, 16).replace("T", " "), source: initial.source })}</p>
-      <form className="flex flex-wrap items-end gap-3" onSubmit={async (e) => { e.preventDefault(); await call("/api/admin/settings/exchange_rates", { method: "PUT", json: { rates: { USD: 1, UZS: uzs, EUR: eur } } }, tc("saved")); }}>
-        <label className="block text-sm font-semibold">{t("rateUzs")}<input type="number" step="0.01" min={1} value={uzs} disabled={!canEdit} onChange={(e) => setUzs(Number(e.target.value))} className={field} /></label>
-        <label className="block text-sm font-semibold">{t("rateEur")}<input type="number" step="0.0001" min={0.01} value={eur} disabled={!canEdit} onChange={(e) => setEur(Number(e.target.value))} className={field} /></label>
-        {canEdit && <Button type="submit">{tc("save")}</Button>}
+    <Flex vertical gap={12}>
+      <Typography.Text type="secondary">
+        {t("ratesHint")} {t("ratesUpdated", { date: updated.updatedAt.slice(0, 16).replace("T", " "), source: updated.source })}
+      </Typography.Text>
+      <Row gutter={[16, 16]} align="bottom">
+        <Col xs={24} sm={12} md={8}>
+          <Field label={t("rateUzs")}>
+            <InputNumber style={{ width: "100%" }} min={1} step={0.01} value={uzs} disabled={!canEdit} onChange={(v) => setUzs(Number(v ?? 0))} prefix="1 USD =" suffix="UZS" />
+          </Field>
+        </Col>
+        <Col xs={24} sm={12} md={8}>
+          <Field label={t("rateEur")}>
+            <InputNumber style={{ width: "100%" }} min={0.01} step={0.0001} value={eur} disabled={!canEdit} onChange={(v) => setEur(Number(v ?? 0))} prefix="1 USD =" suffix="EUR" />
+          </Field>
+        </Col>
+      </Row>
+      <Flex wrap gap={8}>
+        {canEdit && (
+          <Button type="primary" icon={<SaveOutlined />} onClick={() => call("/api/admin/settings/exchange_rates", { method: "PUT", json: { rates: { USD: 1, UZS: uzs, EUR: eur } } }, tc("saved"))}>
+            {tc("save")}
+          </Button>
+        )}
         <Button
-          variant="outline"
+          icon={<ReloadOutlined />}
           onClick={async () => {
             const r = await call<ExchangeRates>("/api/admin/settings/rates/refresh", { method: "POST" }, tc("saved"));
-            if (r && typeof r === "object") { setUzs(r.rates.UZS); setEur(r.rates.EUR); }
+            if (r && typeof r === "object") {
+              setUzs(r.rates.UZS);
+              setEur(r.rates.EUR);
+              setUpdated(r);
+            }
           }}
         >
           {t("refreshCbu")}
         </Button>
-      </form>
-    </div>
+      </Flex>
+    </Flex>
   );
 }
 
@@ -65,10 +109,10 @@ export function TelegramTest() {
   const t = useTranslations("admin.settings");
   const call = useAdminApi();
   return (
-    <div className="space-y-3">
-      <p className="text-sm text-ink-muted">{t("telegramHint")}</p>
-      <Button variant="secondary" onClick={() => call("/api/admin/settings/telegram/test", { method: "POST" }, t("testSent"))}>{t("sendTest")}</Button>
-    </div>
+    <Flex vertical gap={12} align="flex-start">
+      <Typography.Text type="secondary">{t("telegramHint")}</Typography.Text>
+      <Button icon={<SendOutlined />} onClick={() => call("/api/admin/settings/telegram/test", { method: "POST" }, t("testSent"))}>{t("sendTest")}</Button>
+    </Flex>
   );
 }
 
@@ -78,77 +122,101 @@ export function UsersManager({ users, meId }: { users: UserRow[]; meId: number }
   const t = useTranslations("admin.settings");
   const tc = useTranslations("admin.common");
   const call = useAdminApi();
+  const [resetFor, setResetFor] = useState<UserRow | null>(null);
+  const [pw, setPw] = useState("");
+  const [form] = Form.useForm();
+  const roles = [
+    { value: "editor", label: t("roles.editor") },
+    { value: "owner", label: t("roles.owner") },
+  ];
   return (
-    <div className="space-y-4">
-      <div className="overflow-x-auto">
-        <table className="w-full text-sm">
-          <thead className="text-left text-xs uppercase text-ink-muted"><tr><th className="py-2">{t("name")}</th><th>{t("email")}</th><th>{t("role")}</th><th>{t("active")}</th><th>{t("lastLogin")}</th><th><span className="sr-only">{tc("actions")}</span></th></tr></thead>
-          <tbody>
-            {users.map((u) => (
-              <tr key={u.id} className="border-t border-line align-middle">
-                <td className="py-2 font-semibold">{u.name}{u.id === meId ? ` (${t("you")})` : ""}</td>
-                <td>{u.email}</td>
-                <td>
-                  <select aria-label={t("role")} defaultValue={u.role} className="min-h-11 rounded-sm border border-field px-2" onChange={(e) => call(`/api/admin/users/${u.id}`, { method: "PATCH", json: { role: e.target.value } }, tc("saved"))}>
-                    <option value="owner">{t("roles.owner")}</option>
-                    <option value="editor">{t("roles.editor")}</option>
-                  </select>
-                </td>
-                <td>{u.isActive ? tc("yes") : tc("no")}</td>
-                <td className="text-xs text-ink-muted">{u.lastLoginAt?.slice(0, 16).replace("T", " ") ?? "—"}</td>
-                <td className="flex flex-wrap gap-1 py-2">
-                  <button type="button" className="min-h-11 rounded-sm px-2 font-semibold hover:bg-sand-soft" onClick={() => call(`/api/admin/users/${u.id}`, { method: "PATCH", json: { isActive: !u.isActive } }, tc("saved"))}>{u.isActive ? t("deactivate") : t("activate")}</button>
-                  <button
-                    type="button"
-                    className="min-h-11 rounded-sm px-2 font-semibold hover:bg-sand-soft"
-                    onClick={() => {
-                      const pw = prompt(t("newPassword"));
-                      if (pw) void call(`/api/admin/users/${u.id}`, { method: "PATCH", json: { password: pw } }, tc("saved"));
-                    }}
-                  >
-                    {t("resetPassword")}
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <form
-        className="grid items-end gap-3 rounded-sm bg-sand-soft p-4 sm:grid-cols-5"
-        onSubmit={async (e) => {
-          e.preventDefault();
-          const f = new FormData(e.currentTarget);
-          const ok = await call("/api/admin/users", { method: "POST", json: { name: f.get("name"), email: f.get("email"), password: f.get("password"), role: f.get("role") } }, tc("saved"));
-          if (ok) e.currentTarget?.reset();
+    <Flex vertical gap={16}>
+      <Table<UserRow>
+        rowKey="id"
+        size="middle"
+        pagination={false}
+        scroll={{ x: 720 }}
+        dataSource={users}
+        columns={[
+          { title: t("name"), render: (_, u) => <Typography.Text strong>{u.name}{u.id === meId ? ` (${t("you")})` : ""}</Typography.Text> },
+          { title: t("email"), dataIndex: "email" },
+          {
+            title: t("role"),
+            width: 160,
+            render: (_, u) => (
+              <Select aria-label={t("role")} defaultValue={u.role} options={roles} style={{ width: 140 }} onChange={(role) => call(`/api/admin/users/${u.id}`, { method: "PATCH", json: { role } }, tc("saved"))} />
+            ),
+          },
+          {
+            title: t("active"),
+            width: 90,
+            render: (_, u) => <Switch checked={u.isActive} disabled={u.id === meId} onChange={(v) => call(`/api/admin/users/${u.id}`, { method: "PATCH", json: { isActive: v } }, tc("saved"))} aria-label={u.isActive ? t("deactivate") : t("activate")} />,
+          },
+          { title: t("lastLogin"), width: 150, render: (_, u) => <Typography.Text type="secondary">{u.lastLoginAt?.slice(0, 16).replace("T", " ") ?? "—"}</Typography.Text> },
+          {
+            title: <span className="sr-only">{tc("actions")}</span>,
+            width: 170,
+            render: (_, u) => <Button size="small" icon={<KeyOutlined />} onClick={() => { setPw(""); setResetFor(u); }}>{t("resetPassword")}</Button>,
+          },
+        ]}
+      />
+      <Modal
+        open={!!resetFor}
+        title={`${t("resetPassword")}: ${resetFor?.name ?? ""}`}
+        okText={tc("save")}
+        cancelText={tc("cancel")}
+        okButtonProps={{ disabled: pw.length < 12 }}
+        onCancel={() => setResetFor(null)}
+        onOk={async () => {
+          if (resetFor && (await call(`/api/admin/users/${resetFor.id}`, { method: "PATCH", json: { password: pw } }, tc("saved")))) setResetFor(null);
         }}
       >
-        <label className="block text-sm font-semibold">{t("name")}<input name="name" required minLength={2} className={field} /></label>
-        <label className="block text-sm font-semibold">{t("email")}<input name="email" type="email" required className={field} /></label>
-        <label className="block text-sm font-semibold">{t("password")}<input name="password" type="password" required minLength={12} autoComplete="new-password" className={field} /></label>
-        <label className="block text-sm font-semibold">{t("role")}<select name="role" className={field}><option value="editor">{t("roles.editor")}</option><option value="owner">{t("roles.owner")}</option></select></label>
-        <Button type="submit">{t("newUser")}</Button>
-      </form>
-    </div>
+        <Field label={t("newPassword")} help="12+">
+          <Input.Password value={pw} onChange={(e) => setPw(e.target.value)} autoComplete="new-password" />
+        </Field>
+      </Modal>
+      <div style={{ background: "var(--adm-surface-2)", borderRadius: 8, padding: 16 }}>
+        <Typography.Title level={5} style={{ marginTop: 0 }}>{t("newUser")}</Typography.Title>
+        <Form
+          form={form}
+          layout="vertical"
+          requiredMark={false}
+          initialValues={{ role: "editor" }}
+          onFinish={async (v) => {
+            if (await call("/api/admin/users", { method: "POST", json: v }, tc("saved"))) form.resetFields();
+          }}
+        >
+          <Row gutter={[12, 0]}>
+            <Col xs={24} md={6}><Form.Item name="name" label={t("name")} rules={[{ required: true, min: 2 }]}><Input /></Form.Item></Col>
+            <Col xs={24} md={6}><Form.Item name="email" label={t("email")} rules={[{ required: true, type: "email" }]}><Input /></Form.Item></Col>
+            <Col xs={24} md={5}><Form.Item name="password" label={t("password")} rules={[{ required: true, min: 12 }]}><Input.Password autoComplete="new-password" /></Form.Item></Col>
+            <Col xs={24} md={4}><Form.Item name="role" label={t("role")}><Select options={roles} /></Form.Item></Col>
+            <Col xs={24} md={3}><Form.Item label=" "><Button type="primary" htmlType="submit" icon={<UserAddOutlined />} block>{tc("add")}</Button></Form.Item></Col>
+          </Row>
+        </Form>
+      </div>
+    </Flex>
   );
 }
 
 export function OwnPasswordForm() {
   const t = useTranslations("admin.settings");
   const call = useAdminApi();
+  const [form] = Form.useForm();
   return (
-    <form
-      className="grid items-end gap-3 sm:grid-cols-3"
-      onSubmit={async (e) => {
-        e.preventDefault();
-        const form = e.currentTarget;
-        const f = new FormData(form);
-        if (await call("/api/admin/auth/password", { method: "POST", json: { currentPassword: f.get("current"), newPassword: f.get("next") } }, t("changePassword"))) form.reset();
+    <Form
+      form={form}
+      layout="vertical"
+      requiredMark={false}
+      onFinish={async (v) => {
+        if (await call("/api/admin/auth/password", { method: "POST", json: { currentPassword: v.current, newPassword: v.next } }, t("changePassword"))) form.resetFields();
       }}
     >
-      <label className="block text-sm font-semibold">{t("currentPassword")}<input name="current" type="password" required autoComplete="current-password" className={field} /></label>
-      <label className="block text-sm font-semibold">{t("newPassword")}<input name="next" type="password" required minLength={12} autoComplete="new-password" className={field} /></label>
-      <Button type="submit" variant="secondary">{t("changePassword")}</Button>
-    </form>
+      <Row gutter={[12, 0]} align="bottom">
+        <Col xs={24} md={9}><Form.Item name="current" label={t("currentPassword")} rules={[{ required: true }]}><Input.Password autoComplete="current-password" /></Form.Item></Col>
+        <Col xs={24} md={9}><Form.Item name="next" label={t("newPassword")} rules={[{ required: true, min: 12 }]}><Input.Password autoComplete="new-password" /></Form.Item></Col>
+        <Col xs={24} md={6}><Form.Item label=" "><Button htmlType="submit" icon={<KeyOutlined />} block>{t("changePassword")}</Button></Form.Item></Col>
+      </Row>
+    </Form>
   );
 }

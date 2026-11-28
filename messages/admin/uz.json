@@ -5,7 +5,7 @@
   "nav": {
     "overview": "Umumiy koʻrinish",
     "bookings": "Bronlar",
-    "requests": "Lidlar va soʻrovlar",
+    "requests": "Soʻrovlar",
     "tours": "Turlar",
     "destinations": "Yoʻnalishlar",
     "faq": "Savol-javob",
@@ -20,7 +20,7 @@
     "content": "Kontent",
     "media": "Virtual sayohatlar va media",
     "newsletter": "Obunachilar",
-    "crm": "CRM va lidlar",
+    "crm": "Sotuv bosqichlari",
     "trips": "Sayohat rejalari",
     "places": "Mehmonxona, taom va transport",
     "partners": "Hamkorlar"

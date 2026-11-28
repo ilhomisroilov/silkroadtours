@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { FilterBar, FilterField, filterInput } from "@/components/admin/list-tools";
-import { TourRowActions } from "@/components/admin/tour-row-actions";
-import { PageHeader, tableCls } from "@/components/admin/ui";
+import { ToursTable } from "@/components/admin/tour-row-actions";
+import { PageHeader } from "@/components/admin/ui";
 import { buttonVariants } from "@/components/ui/button";
 import { getDb } from "@/db/client";
 import { listToursAdmin } from "@/db/queries/tours";
@@ -45,38 +45,20 @@ export default async function AdminTours({ searchParams }: { searchParams: Promi
           </select>
         </FilterField>
       </FilterBar>
-      <div className={tableCls.wrap}>
-        <table className={tableCls.table}>
-          <thead className={tableCls.thead}>
-            <tr>
-              <th className={tableCls.th}>{t("tours.titleField")}</th>
-              <th className={tableCls.th}>{t("tours.audience")}</th>
-              <th className={tableCls.th}>{t("tours.durationDays")}</th>
-              <th className={tableCls.th}>{t("bookings.quote")}</th>
-              <th className={tableCls.th}>{t("bookings.status")}</th>
-              <th className={tableCls.th}>{t("common.actions")}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {tours.map((tour) => (
-              <tr key={tour.id} className="hover:bg-sand-soft/50">
-                <td className={tableCls.td}>
-                  <Link href={`/admin/tours/${tour.id}`} className="font-bold text-lapis underline">{localize(tour.title, locale)}</Link>
-                  <div className="text-xs text-ink-muted">/{tour.slug} · {localize(tour.destination.name, locale)} · {t("tours.bookings", { count: tour.bookingCount })}</div>
-                </td>
-                <td className={tableCls.td}>{tour.audience}</td>
-                <td className={tableCls.td}>{tour.durationDays}</td>
-                <td className={tableCls.td}>{tour.fromPriceMinor ? formatMoney(tour.fromPriceMinor, tour.baseCurrency, locale) : "—"}</td>
-                <td className={tableCls.td}>
-                  <span className={tour.isPublished ? "font-semibold text-success" : "text-ink-muted"}>{tour.isPublished ? t("common.published") : t("common.draft")}</span>
-                  {tour.isFeatured && <div className="text-xs text-saffron-ink">★ {t("tours.featured")}</div>}
-                </td>
-                <td className={tableCls.td}><TourRowActions id={tour.id} isPublished={tour.isPublished} bookingCount={tour.bookingCount} /></td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <ToursTable
+        rows={tours.map((tour) => ({
+          id: tour.id,
+          slug: tour.slug,
+          title: localize(tour.title, locale),
+          destination: localize(tour.destination.name, locale),
+          audience: tour.audience,
+          durationDays: tour.durationDays,
+          price: tour.fromPriceMinor ? formatMoney(tour.fromPriceMinor, tour.baseCurrency, locale) : "—",
+          isPublished: tour.isPublished,
+          isFeatured: tour.isFeatured,
+          bookingCount: tour.bookingCount,
+        }))}
+      />
     </>
   );
 }

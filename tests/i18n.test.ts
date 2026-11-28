@@ -12,8 +12,8 @@ const flatten = (o: Tree, prefix = ""): Record<string, string> =>
     return acc;
   }, {});
 
-const SITE_MODULES = ["eco", "places", "virtual", "builder", "partners", "aiguide"];
-const ADMIN_MODULES = ["crm", "partners", "places", "trips", "aicenter"];
+const SITE_MODULES = ["eco", "places", "virtual", "builder", "partners", "aiguide", "payments"];
+const ADMIN_MODULES = ["crm", "partners", "places", "trips", "aicenter", "panel"];
 const withModules = (base: string, dir: string, mods: string[], l: string): Tree =>
   Object.assign({}, load(`${base}/${l}.json`), ...mods.map((m) => load(`${dir}/${m}/${l}.json`)));
 const siteTree = (l: string) => withModules("messages", "messages/modules", SITE_MODULES, l);

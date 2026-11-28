@@ -1,15 +1,15 @@
 {
   "crm": {
-    "title": "CRM voronkasi",
-    "summary": "{count} ta lid · ochiq bitimlarda {value}",
+    "title": "Sotuv bosqichlari",
+    "summary": "{count} ta murojaat · ochiq bitimlarda {value}",
     "viewLabel": "Koʻrinish",
     "views": {
       "board": "Doska",
       "table": "Jadval"
     },
-    "newLead": "Yangi lid",
+    "newLead": "Yangi murojaat",
     "stages": {
-      "new": "Yangi lid",
+      "new": "Yangi murojaat",
       "contacted": "Bogʻlanildi",
       "qualified": "Saralandi",
       "offer_sent": "Taklif yuborildi",
@@ -51,15 +51,15 @@
       "none": "Belgilanmagan"
     },
     "board": {
-      "label": "Lidlar voronkasi doskasi",
-      "count": "{count} ta lid",
-      "empty": "Lidni shu yerga tashlang",
-      "lost": "Yoʻqotilgan lidlar",
-      "lostEmpty": "Yoʻqotilgan lidlar yoʻq.",
+      "label": "Sotuv bosqichlari doskasi",
+      "count": "{count} ta murojaat",
+      "empty": "Murojaatni shu yerga tashlang",
+      "lost": "Yoʻqotilgan murojaatlar",
+      "lostEmpty": "Yoʻqotilgan murojaatlar yoʻq.",
       "hint": "Kartani boshqa ustunga sudrab oʻtkazing yoki kartadagi strelkalardan foydalaning.",
       "moveTo": "{stage} bosqichiga oʻtkazish",
       "moved": "{name} — {stage}",
-      "moveFailed": "Lidni oʻtkazib boʻlmadi."
+      "moveFailed": "Murojaatni oʻtkazib boʻlmadi."
     },
     "card": {
       "travellers": "{count} kishi",
@@ -71,8 +71,8 @@
       "assignedTo": "Menejer: {name}"
     },
     "table": {
-      "caption": "Lidlar",
-      "lead": "Lid",
+      "caption": "Murojaatlar",
+      "lead": "Murojaat",
       "customer": "Mijoz",
       "stage": "Bosqich",
       "source": "Manba",
@@ -83,19 +83,19 @@
       "created": "Yaratilgan",
       "updated": "Yangilangan",
       "sortBy": "{column} boʻyicha saralash",
-      "empty": "Bu filtrlarga mos lid topilmadi."
+      "empty": "Bu filtrlarga mos murojaat topilmadi."
     },
     "detail": {
-      "back": "CRM voronkasi",
+      "back": "Sotuv bosqichlari",
       "customer": "Mijoz",
       "trip": "Sayohat",
       "deal": "Bitim",
-      "pipeline": "Voronka",
+      "pipeline": "Bosqichlar",
       "name": "Ism-familiya",
       "email": "Email",
       "phone": "Telefon",
       "locale": "Til",
-      "title": "Lid nomi",
+      "title": "Murojaat nomi",
       "destination": "Yoʻnalish",
       "interests": "Qiziqishlar va istaklar",
       "budget": "Byudjet (USD)",
@@ -104,7 +104,7 @@
       "travelDates": "Sayohat sanalari",
       "travellers": "Sayohatchilar soni",
       "value": "Bitim qiymati (USD)",
-      "valueHint": "Kutilayotgan tushum, voronka summalari uchun.",
+      "valueHint": "Kutilayotgan tushum, bosqichlar boʻyicha summalar uchun.",
       "source": "Manba",
       "reference": "Raqam",
       "openSource": "Asl yozuvni ochish: {source}",
@@ -139,13 +139,13 @@
       "placeholder_call": "Qoʻngʻiroq xulosasi: kim, nima, keyingi qadam",
       "placeholder_email": "Email xulosasi: mavzu va asosiy fikrlar",
       "submit": "Tarixga saqlash",
-      "logged": "Lid tarixiga saqlandi"
+      "logged": "Murojaat tarixiga saqlandi"
     },
     "activity": {
       "title": "Faoliyat tarixi",
       "empty": "Hozircha faoliyat yoʻq.",
       "kinds": {
-        "created": "Lid yaratildi",
+        "created": "Murojaat yaratildi",
         "note": "Izoh",
         "stage": "Bosqich oʻzgardi",
         "assign": "Menejer",
@@ -163,11 +163,11 @@
       "system": "Sayt"
     },
     "create": {
-      "title": "Yangi lid",
+      "title": "Yangi murojaat",
       "intro": "Telefon qoʻngʻiroqlari, ofisga kelganlar, koʻrgazmalar va saytdan tashqari aloqalar uchun.",
       "note": "Birinchi izoh (ixtiyoriy)",
-      "submit": "Lid yaratish",
-      "created": "Lid yaratildi"
+      "submit": "Murojaat yaratish",
+      "created": "Murojaat yaratildi"
     },
     "errors": {
       "assignee_not_found": "Bu menejer hisobi faol emas.",
@@ -178,28 +178,28 @@
       "invalid_phone": "Toʻgʻri telefon raqamini kiriting."
     },
     "dashboard": {
-      "title": "CRM voronkasi",
-      "funnel": "Lidlar voronkasi",
-      "funnelHint": "Har bir bosqichdagi lidlar soni",
+      "title": "Sotuv bosqichlari",
+      "funnel": "Bosqichlar boʻyicha murojaatlar",
+      "funnelHint": "Har bir bosqichdagi murojaatlar soni",
       "conversion": "Tasdiqlanishga konversiya",
-      "conversionHint": "{total} ta liddan {won} tasi tasdiqlangan yoki yakunlangan",
-      "pipeline": "Ochiq voronka",
-      "pipelineHint": "Ochiq lidlarning kutilayotgan qiymati",
+      "conversionHint": "{total} ta murojaatdan {won} tasi tasdiqlangan yoki yakunlangan",
+      "pipeline": "Jarayondagi bitimlar",
+      "pipelineHint": "Ochiq murojaatlarning kutilayotgan qiymati",
       "won": "Tasdiqlangan qiymat",
-      "wonHint": "Tasdiqlangan va yakunlangan lidlar",
-      "newLeads": "Yangi lidlar",
+      "wonHint": "Tasdiqlangan va yakunlangan murojaatlar",
+      "newLeads": "Yangi murojaatlar",
       "newLeadsHint": "Soʻnggi 7 kun",
       "followUps": "Qayta aloqalar",
       "followUpsToday": "Bugun",
       "followUpsOverdue": "Muddati oʻtgan",
-      "bySource": "Manbalar boʻyicha lidlar",
+      "bySource": "Manbalar boʻyicha murojaatlar",
       "lost": "Yoʻqotilgan: {count}",
-      "open": "CRM ni ochish",
-      "noLeads": "Hozircha lid yoʻq."
+      "open": "Sotuv bosqichlarini ochish",
+      "noLeads": "Hozircha murojaat yoʻq."
     },
     "customer": {
-      "title": "CRM lidlari",
-      "empty": "Bu email boʻyicha hozircha CRM lidi yoʻq."
+      "title": "Sotuvdagi murojaatlar",
+      "empty": "Bu email boʻyicha hozircha sotuvdagi murojaat yoʻq."
     }
   }
 }

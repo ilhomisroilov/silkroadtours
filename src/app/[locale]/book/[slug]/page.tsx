@@ -55,7 +55,7 @@ export default async function BookPage({ params, searchParams }: Props) {
       />
       <h1 className="mt-6 text-4xl text-lapis-deep">{t("booking.title")}</h1>
       <div className="mt-8 grid gap-10 lg:grid-cols-[1fr_22rem]">
-        <ClientMessages namespaces={["booking", "tour", "monthsShort", "errors", "forms"]}>
+        <ClientMessages namespaces={["booking", "tour", "monthsShort", "errors", "forms", "payments"]}>
           <BookingForm
             slug={slug}
             tourTitle={title}

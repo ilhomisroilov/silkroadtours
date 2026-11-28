@@ -1,58 +1,11 @@
-import type { ReactNode } from "react";
-import { cn } from "@/lib/cn";
-import type { BookingStatus } from "@/db/types";
 
-export function PageHeader({ title, actions, children }: { title: string; actions?: ReactNode; children?: ReactNode }) {
-  return (
-    <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
-      <div>
-        <h1 className="text-4xl text-lapis-deep">{title}</h1>
-        {children}
-      </div>
-      {actions && <div className="flex flex-wrap gap-2">{actions}</div>}
-    </div>
-  );
-}
-
-export function Panel({ title, children, className, actions }: { title?: string; children: ReactNode; className?: string; actions?: ReactNode }) {
-  return (
-    <section className={cn("rounded-sm border border-line bg-white p-5 shadow-sm", className)}>
-      {(title || actions) && (
-        <div className="mb-4 flex items-center justify-between gap-3">
-          {title && <h2 className="font-sans text-lg font-bold text-lapis-deep">{title}</h2>}
-          {actions}
-        </div>
-      )}
-      {children}
-    </section>
-  );
-}
-
-export function StatTile({ label, value, hint }: { label: string; value: string; hint?: string }) {
-  return (
-    <div className="rounded-sm border border-line bg-white p-5 shadow-sm">
-      <p className="text-sm font-semibold text-ink-muted">{label}</p>
-      <p className="mt-1 break-words font-display text-3xl font-bold text-ink">{value}</p>
-      {hint && <p className="mt-1 text-xs text-ink-muted">{hint}</p>}
-    </div>
-  );
-}
-
-const STATUS_CLS: Record<BookingStatus, string> = {
-  pending: "bg-saffron-soft text-saffron-ink",
-  confirmed: "bg-success/10 text-success",
-  completed: "bg-lapis/10 text-lapis",
-  cancelled: "bg-danger/10 text-danger",
-};
-export function StatusBadge({ status, label }: { status: BookingStatus; label: string }) {
-  return <span className={cn("inline-flex rounded-full px-2.5 py-0.5 text-xs font-bold", STATUS_CLS[status])} data-testid="status-badge">{label}</span>;
-}
+export { PageHeader, Panel, SiteLink, StatTile, StatusBadge } from "./ui-antd";
 
 export const tableCls = {
-  wrap: "overflow-x-auto rounded-sm border border-line bg-white shadow-sm",
+  wrap: "overflow-x-auto rounded-lg border border-line bg-white",
   table: "w-full text-left text-sm",
-  thead: "bg-sand-soft text-xs uppercase tracking-wide text-ink-muted",
-  th: "px-4 py-3 font-bold",
+  thead: "bg-sand-soft text-xs font-semibold text-ink-muted",
+  th: "px-4 py-3 font-semibold",
   td: "border-t border-line px-4 py-3 align-top",
 };
 

@@ -503,3 +503,101 @@ input::-webkit-calendar-picker-indicator:hover { opacity: 1; background-color: v
 }
 /* Menus inside the header: the header's own blur stops a second backdrop blur, so they use the solid picker glass. */
 header :is(.bg-white, .bg-ivory) { background: var(--picker); }
+
+/*
+ * Admin panel: an Ant Design work surface, light (Day) or dark (Night), never the site's night-glass look.
+ * The site's token names are redefined so older admin pieces follow the chosen mode. The side menu stays dark.
+ */
+.admin-root {
+  color-scheme: light;
+  --adm-bg: #f4f6f9;
+  --adm-surface: #ffffff;
+  --adm-surface-2: #eef2f7;
+  --adm-border: #dfe4ea;
+  --adm-text: #14202b;
+  --adm-muted: #55606b;
+  --adm-heading: #0d304f;
+  --adm-link: #1660b8;
+  --adm-field: #ffffff;
+  --adm-field-border: #c4ccd5;
+  --color-ivory: var(--adm-bg);
+  --color-ink: var(--adm-text);
+  --color-ink-muted: var(--adm-muted);
+  --color-line: var(--adm-border);
+  --color-field: var(--adm-field-border);
+  --color-sand: #e7ecf2;
+  --color-sand-soft: var(--adm-surface-2);
+  --color-sky: var(--adm-surface-2);
+  --color-saffron-ink: #8a5a00;
+  --color-saffron-soft: #fbf1dc;
+  --color-turquoise-ink: #0a6f78;
+  --color-lapis-mist: #e6f0fb;
+  --glass: var(--adm-field);
+  --picker: var(--adm-surface);
+  color: var(--adm-text);
+  background: var(--adm-bg);
+}
+.admin-root[data-admin-theme="dark"] {
+  color-scheme: dark;
+  --adm-bg: #0b141e;
+  --adm-surface: #141f2b;
+  --adm-surface-2: #1b2836;
+  --adm-border: #2a3a4b;
+  --adm-text: #e6edf3;
+  --adm-muted: #a3b1bf;
+  --adm-heading: #f1f5f9;
+  --adm-link: #6fb1ff;
+  --adm-field: #101a25;
+  --adm-field-border: #3a4b5d;
+  --color-sand: #223143;
+  --color-saffron-ink: #f0c36d;
+  --color-saffron-soft: #3a2f17;
+  --color-turquoise-ink: #5fd0d9;
+  --color-lapis-mist: #1a2c42;
+}
+/* Undo the site's night-glass overrides inside the admin. */
+.admin-root .bg-white, .admin-root .card, .admin-root [class*="bg-white/"] {
+  background: var(--adm-surface); -webkit-backdrop-filter: none; backdrop-filter: none; box-shadow: none;
+}
+.admin-root .hover\:bg-white:hover { background: var(--adm-surface-2); }
+.admin-root .bg-ivory, .admin-root [class*="bg-ivory/"] { background-color: var(--adm-bg); -webkit-backdrop-filter: none; backdrop-filter: none; }
+.admin-root .bg-lapis-deep { background-color: #0d304f; -webkit-backdrop-filter: none; backdrop-filter: none; }
+.admin-root .bg-lapis-night, .admin-root .bg-girih-dark { background-color: #061a2e; -webkit-backdrop-filter: none; backdrop-filter: none; }
+.admin-root .text-lapis-deep, .admin-root .text-lapis-night, .admin-root :is(h1, h2, h3).text-lapis { color: var(--adm-heading); }
+.admin-root .text-lapis, .admin-root .text-cobalt, .admin-root .text-terracotta { color: var(--adm-link); }
+.admin-root .hover\:text-lapis:hover, .admin-root .hover\:text-lapis-deep:hover { color: var(--adm-heading); }
+.admin-root .text-ivory { color: #ffffff; }
+.admin-root .text-sand { color: var(--adm-text); }
+.admin-root .shadow-card, .admin-root .shadow-lift { box-shadow: 0 1px 3px rgb(16 32 48 / 0.08); }
+.admin-root input::placeholder, .admin-root textarea::placeholder { color: var(--adm-muted); opacity: 0.85; }
+.admin-root select option { background: var(--adm-surface); color: var(--adm-text); }
+.admin-root .bg-saffron { background-color: #d9a441; color: #14202b; box-shadow: none; }
+.admin-root main section { animation: none; }
+.admin-root a.group:hover, .admin-root li > a[class*="rounded"]:hover { transform: none; }
+/* Older admin pieces: plain native fields that match the Ant Design controls (40px) in both modes. */
+.admin-root :is(input:not([type="checkbox"]):not([type="radio"]):not(.ant-input):not([class*="ant-"]), textarea:not(.ant-input), select) {
+  background: var(--adm-field); color: var(--adm-text); border-color: var(--adm-field-border);
+}
+.admin-root select { -webkit-appearance: auto; appearance: auto; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; padding-right: 0.5rem; }
+.admin-root input[type="date"], .admin-root input[type="time"] { box-shadow: none; min-height: 0; height: 2.5rem; }
+/* The show-password eye is a real tap target (24px minimum). */
+.admin-root .ant-input-password-icon { display: inline-flex; min-width: 24px; min-height: 24px; align-items: center; justify-content: center; }
+/* Admin side menu: the panel's night-glass look (blurred Samarkand night, blue active pill); it scrolls on its own. */
+.admin-side {
+  display: flex; flex-direction: column; height: 100%; color: #ffffff;
+  background: linear-gradient(180deg, rgb(6 26 46 / 0.72), rgb(10 44 80 / 0.55)), url("/images/hero/samarkand-night-blur.jpg") left center / cover no-repeat, #061a2e;
+}
+.admin-side-logo { display: flex; justify-content: center; padding: 18px 20px 10px; flex: none; }
+.admin-side-logo img { width: 132px; height: auto; }
+.admin-side-nav { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 6px 16px 20px; scrollbar-width: thin; scrollbar-color: rgb(255 255 255 / 0.25) transparent; }
+.admin-side-nav ul { display: flex; flex-direction: column; gap: 4px; margin: 0; padding: 0; list-style: none; }
+.admin-side-link {
+  display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 6px 12px; border-radius: 10px;
+  color: rgb(255 255 255 / 0.92); font-weight: 600; font-size: 15px; line-height: 1.3; text-decoration: none;
+  transition: background-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+}
+.admin-side-link svg { width: 20px; height: 20px; flex: none; }
+.admin-side-link:hover { background: rgb(255 255 255 / 0.1); color: #ffffff; transform: translateX(2px); }
+.admin-side-link[aria-current="page"] { background: #176bcb; color: #ffffff; box-shadow: 0 12px 28px -14px rgb(23 107 203 / 0.9); transform: none; }
+.admin-side-link:focus-visible { outline: 2px solid #8fd0ff; outline-offset: 2px; }
+.admin-root .ant-drawer .ant-drawer-body { padding: 0; }

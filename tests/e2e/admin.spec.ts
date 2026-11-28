@@ -40,7 +40,7 @@ test("admin: sign in, see a new booking, confirm it (seats go down), sign out", 
   // 4. Confirm it: two seats are reserved on the departure.
   const seats = page.getByTestId("admin-departure-seats");
   const before = seatsLeft((await seats.textContent()) ?? "");
-  await page.getByTestId("status-select").selectOption("confirmed");
+  await page.getByTestId("status-select").locator("label", { has: page.locator('input[value="confirmed"]') }).click();
   await page.getByTestId("status-apply").click();
   await expect(page.getByTestId("status-badge")).toHaveText("Tasdiqlangan");
   await expect(seats).toContainText(`${before - 2} ta joy`);
@@ -50,7 +50,7 @@ test("admin: sign in, see a new booking, confirm it (seats go down), sign out", 
   expect(pub.data.status).toBe("confirmed");
 
   // 6. Sign out; the panel is protected again.
-  if (isMobileProject) await page.getByRole("button", { name: "Boshqaruv menyusi" }).first().click();
+  await page.getByTestId("admin-user-menu").first().click();
   await page.getByTestId("admin-logout").click();
   await expect(page).toHaveURL(/\/admin\/login$/);
   await page.goto("/admin/bookings");

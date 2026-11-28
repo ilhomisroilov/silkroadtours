@@ -1,0 +1,8 @@
+{
+  "payments": {
+    "title": "Toʻlov usuli",
+    "lead": "Bron tasdiqlangandan soʻng toʻlov qilasiz. Hozircha soʻrovni yuboring, menejer toʻlov boʻyicha siz bilan bogʻlanadi.",
+    "unavailable": "{name} vaqtincha ish faoliyatida emas",
+    "unavailableHint": "Onlayn toʻlov tez orada ishga tushadi. Bron soʻrovini yuboravering, menejer toʻlovni boshqa qulay usulda kelishib oladi."
+  }
+}

@@ -18,6 +18,7 @@ import { Button } from "@/components/ui/button";
 import { Field, fieldAria, Input, NativeSelect, Textarea } from "@/components/ui/form";
 import { Turnstile, type TurnstileHandle } from "@/components/forms/turnstile";
 import type { DepartureOption } from "@/components/tours/booking-card";
+import { PaymentMethods } from "./payment-methods";
 
 type FormIn = z.input<typeof bookingInputSchema>;
 type FormOut = z.output<typeof bookingInputSchema>;
@@ -317,6 +318,7 @@ export function BookingForm({
           </div>
         </dl>
         <QuoteBox testId="review" quote={quote} error={quoteError} adults={adults} childCount={children} />
+        <PaymentMethods />
         <Turnstile ref={turnstile} locale={locale} error={err("turnstileToken")} onToken={(tok) => setValue("turnstileToken", tok, { shouldValidate: !!tok })} />
         <p className="text-sm text-ink-muted">{t("consent")} {t("privacyNote")}</p>
       </fieldset>
