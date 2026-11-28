@@ -1,7 +1,7 @@
 import uuid
-from datetime import datetime
+from datetime import date, datetime
 
-from sqlalchemy import CheckConstraint, DateTime, ForeignKey, Index, Integer, String, Text
+from sqlalchemy import CheckConstraint, Date, DateTime, ForeignKey, Index, Integer, String, Text
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -25,7 +25,10 @@ class Booking(Timestamps, Base):
 
     tour_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("tours.id", ondelete="SET NULL"))
     departure_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("departures.id", ondelete="SET NULL"))
+    kind: Mapped[str] = mapped_column(String(16), default="tour")  # tour | custom (priced by a manager)
     tour_title_snapshot: Mapped[str] = mapped_column(String(300))
+    free_cancel_until: Mapped[date | None] = mapped_column(Date)
+    refund_due_minor: Mapped[int] = mapped_column(Integer, default=0)  # owed back after a cancellation
     adults: Mapped[int] = mapped_column(Integer)
     children: Mapped[int] = mapped_column(Integer, default=0)
     seats: Mapped[int] = mapped_column(Integer)
@@ -52,7 +55,8 @@ class Booking(Timestamps, Base):
         CheckConstraint(
             "total_minor >= 0 AND deposit_minor >= 0 AND deposit_minor <= total_minor", name="amounts"
         ),
-        CheckConstraint("paid_minor >= 0", name="paid"),
+        CheckConstraint("paid_minor >= 0 AND refund_due_minor >= 0", name="paid"),
+        CheckConstraint("kind IN ('tour','custom')", name="kind"),
         Index("ix_bookings_status_hold", "status", "hold_expires_at"),
     )
 

@@ -9,11 +9,12 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.api.schemas import BookingCreated, BookingIn, BookingOut, Money, PaymentIn, PaymentOut
 from app.config import get_settings
 from app.core.ratelimit import limit
+from app.core.security import same_origin
 from app.core.tokens import hash_token, tokens_equal
 from app.db import get_session
 from app.models import Booking, Departure, IdempotencyKey
 from app.services.accounts import session_user
-from app.services.booking import NewBooking, create_booking, lock_booking
+from app.services.booking import NewBooking, create_booking, lock_booking, traveller_cancel
 from app.services.payments.intents import checkout_url, create_payment
 
 router = APIRouter(prefix="/v1/bookings", tags=["bookings"])
@@ -27,7 +28,8 @@ async def booking_out(session: AsyncSession, b: Booking) -> dict:
         reference=b.reference, status=b.status, payment_state=b.payment_state, tour_title=b.tour_title_snapshot,
         start_date=dep.start_date if dep else None, adults=b.adults, children=b.children,
         total=m(b.total_minor), deposit=m(b.deposit_minor), paid=m(b.paid_minor), amount_due=m(b.amount_due_minor),
-        hold_expires_at=b.hold_expires_at,
+        hold_expires_at=b.hold_expires_at, kind=b.kind, free_cancel_until=b.free_cancel_until,
+        refund_due=m(b.refund_due_minor),
     ).model_dump(mode="json")
 
 
@@ -101,5 +103,17 @@ async def pay(reference: str, body: PaymentIn, request: Request, x_booking_token
     url = checkout_url(payment, b.locale, f"{get_settings().site_url}/{b.locale}/booking/{b.reference}")
     out = PaymentOut(order_no=payment.order_no, provider=payment.provider, amount_uzs_tiyin=payment.amount_minor,
                      checkout_url=url)
+    await session.commit()
+    return out
+
+
+@router.post("/{reference}/cancel", response_model=BookingOut,
+             dependencies=[Depends(limit("booking.cancel", times=10, seconds=600))])
+async def cancel(reference: str, request: Request, x_booking_token: str | None = Header(None),
+                 session: AsyncSession = Depends(get_session)):
+    same_origin(request)
+    b = await _authorised(session, request, reference, x_booking_token, lock=True)
+    await traveller_cancel(session, b)
+    out = await booking_out(session, b)
     await session.commit()
     return out

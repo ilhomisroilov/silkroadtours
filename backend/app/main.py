@@ -6,7 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from sqlalchemy import text
 
-from app.api import auth, bookings, payments
+from app.api import admin, auth, bookings, catalog, payments, requests
 from app.config import get_settings
 from app.db import SessionLocal
 from app.services.booking import BookingError
@@ -32,7 +32,7 @@ def create_app() -> FastAPI:
     app.add_middleware(
         CORSMiddleware,
         allow_origins=s.allowed_origins,
-        allow_methods=["GET", "POST", "PATCH", "DELETE"],
+        allow_methods=["GET", "POST", "PATCH", "PUT", "DELETE"],
         allow_headers=["Content-Type", "Idempotency-Key", "X-Booking-Token", "Authorization"],
         allow_credentials=True,
         max_age=600,
@@ -68,6 +68,9 @@ def create_app() -> FastAPI:
     app.include_router(auth.router)
     app.include_router(bookings.router)
     app.include_router(payments.router)
+    app.include_router(catalog.router)
+    app.include_router(requests.router)
+    app.include_router(admin.router)
     return app
 
 

@@ -36,6 +36,9 @@ class BookingOut(BaseModel):
     paid: Money
     amount_due: Money
     hold_expires_at: datetime | None
+    kind: str = "tour"
+    free_cancel_until: date | None = None
+    refund_due: Money | None = None
 
 
 class BookingCreated(BookingOut):

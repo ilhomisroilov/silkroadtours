@@ -74,6 +74,7 @@ class Session(Base):
     ip: Mapped[str | None] = mapped_column(String(64))
     user_agent: Mapped[str | None] = mapped_column(String(300))
     method: Mapped[str] = mapped_column(String(16))  # how they signed in
+    mfa_verified: Mapped[bool] = mapped_column(Boolean, default=False)  # staff passed the second factor
 
 
 class OAuthState(Base):

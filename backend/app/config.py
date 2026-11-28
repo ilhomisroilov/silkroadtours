@@ -22,6 +22,10 @@ class Settings(BaseSettings):
     booking_hold_minutes: int = 30
     deposit_percent: int = Field(30, ge=0, le=100)
 
+    # Fernet key for secrets kept in the database (2FA seeds). Generate once:
+    #   python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
+    secret_key: SecretStr = SecretStr("")
+
     # Accounts
     api_url: str = "https://api.gulistantravel.uz"  # public address of this API (OAuth redirect URIs)
     session_cookie: str = "nt_session"

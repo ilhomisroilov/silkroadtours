@@ -20,7 +20,8 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.models.base import Base, Timestamps, utcnow, uuid_pk
 
 PAYMENT_STATUSES = ("pending", "succeeded", "refunded", "cancelled")
-PROVIDERS = ("payme", "click")
+PROVIDERS = ("payme", "click", "manual")
+MANUAL_METHODS = ("cash", "bank_transfer", "card_terminal", "refund")
 ORDER_NO_SEQ = Sequence("payment_order_no_seq", start=100001)
 
 
@@ -49,6 +50,10 @@ class Payment(Timestamps, Base):
     fx_rate: Mapped[Decimal | None] = mapped_column(Numeric(18, 6))
 
     paid_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    # Manual entries by staff (cash at the office, bank transfer, terminal, refunds paid out)
+    method: Mapped[str | None] = mapped_column(String(16))
+    external_reference: Mapped[str | None] = mapped_column(String(120))
+    recorded_by: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("users.id", ondelete="SET NULL"))
 
     transactions: Mapped[list["ProviderTransaction"]] = relationship(back_populates="payment")
 

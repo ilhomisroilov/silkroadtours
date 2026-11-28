@@ -61,6 +61,44 @@ async def _locked_departure(session: AsyncSession, departure_id: uuid.UUID) -> D
     return dep
 
 
+@dataclass
+class Quote:
+    currency: str
+    total_minor: int
+    deposit_minor: int
+    per_adult_minor: int
+    per_child_minor: int
+    free_cancel_until: date | None
+    seats_left: int
+
+
+def deposit_for(total: int, tour: Tour | None) -> int:
+    pct = tour.deposit_percent if tour is not None and tour.deposit_percent is not None else get_settings().deposit_percent
+    return share(total, pct) or total
+
+
+def make_quote(tour: Tour, dep: Departure, adults: int, children: int) -> Quote:
+    total = price_total(tour, dep, adults, children)
+    child = tour.child_price_minor if tour.child_price_minor is not None else tour.adult_price_minor
+    free_until = dep.start_date - timedelta(days=tour.free_cancel_days) if tour.free_cancel_days else None
+    return Quote(currency=tour.currency, total_minor=total, deposit_minor=deposit_for(total, tour),
+                 per_adult_minor=apply_percent(tour.adult_price_minor, dep.price_modifier_percent),
+                 per_child_minor=apply_percent(child, dep.price_modifier_percent),
+                 free_cancel_until=free_until if free_until and free_until >= now().date() else None,
+                 seats_left=dep.seats_left)
+
+
+def check_bookable(tour: Tour | None, dep: Departure, seats: int, today: date | None = None) -> None:
+    if tour is None or not tour.is_active or tour.archived_at is not None or dep.status != "open":
+        raise BookingError("departure_closed", "This departure is not open for booking")
+    if dep.start_date <= (today or now().date()):
+        raise BookingError("departure_past", "This departure has already started")
+    if seats > tour.max_group:
+        raise BookingError("group_too_large", f"At most {tour.max_group} travellers per booking", 422)
+    if dep.seats_left < seats:
+        raise BookingError("not_enough_seats", f"Only {dep.seats_left} seats left")
+
+
 async def create_booking(session: AsyncSession, data: NewBooking, today: date | None = None) -> tuple[Booking, str]:
     """Reserve seats and create a booking that waits for payment. Returns the booking and its access token
     (shown to the traveller once; only its hash is stored)."""
@@ -70,25 +108,22 @@ async def create_booking(session: AsyncSession, data: NewBooking, today: date | 
 
     dep = await _locked_departure(session, data.departure_id)
     tour = await session.get(Tour, dep.tour_id)
-    if tour is None or not tour.is_active or dep.status != "open":
-        raise BookingError("departure_closed", "This departure is not open for booking")
-    if dep.start_date <= (today or now().date()):
-        raise BookingError("departure_past", "This departure has already started")
-    if dep.seats_left < seats:
-        raise BookingError("not_enough_seats", f"Only {dep.seats_left} seats left")
+    check_bookable(tour, dep, seats, today)
+    q = make_quote(tour, dep, data.adults, data.children)
 
     dep.seats_reserved += seats
-    total = price_total(tour, dep, data.adults, data.children)
     token = new_access_token()
     booking = Booking(
         reference=booking_reference(),
         access_token_hash=hash_token(token),
+        kind="tour",
         status="awaiting_payment",
         payment_state="unpaid",
         hold_expires_at=now() + timedelta(minutes=get_settings().booking_hold_minutes),
         tour_id=tour.id,
         departure_id=dep.id,
-        tour_title_snapshot=tour.title,
+        tour_title_snapshot=(tour.i18n.get(data.locale) or {}).get("title") or tour.title,
+        free_cancel_until=q.free_cancel_until,
         adults=data.adults,
         children=data.children,
         seats=seats,
@@ -97,9 +132,9 @@ async def create_booking(session: AsyncSession, data: NewBooking, today: date | 
         phone=data.phone.strip(),
         locale=data.locale,
         special_requests=data.special_requests,
-        currency=tour.currency,
-        total_minor=total,
-        deposit_minor=share(total, get_settings().deposit_percent) or total,
+        currency=q.currency,
+        total_minor=q.total_minor,
+        deposit_minor=q.deposit_minor,
         paid_minor=0,
     )
     session.add(booking)
@@ -107,6 +142,44 @@ async def create_booking(session: AsyncSession, data: NewBooking, today: date | 
     session.add(BookingStatusChange(booking_id=booking.id, from_status=None, to_status=booking.status,
                                     actor="traveller", reason="created"))
     return booking, token
+
+
+async def create_custom_booking(session: AsyncSession, *, title: str, currency: str, total_minor: int,
+                                deposit_percent: int, adults: int, children: int, full_name: str, email: str,
+                                phone: str, locale: str, user_id: uuid.UUID | None, actor: str,
+                                hold_hours: int = 72, free_cancel_until: date | None = None) -> tuple[Booking, str]:
+    """A booking priced by a manager (hotel, transfer, tailor-made trip). No seats are involved."""
+    if total_minor <= 0:
+        raise BookingError("invalid_amount", "Total must be positive", 422)
+    token = new_access_token()
+    booking = Booking(
+        reference=booking_reference(), access_token_hash=hash_token(token), kind="custom",
+        status="awaiting_payment", payment_state="unpaid", hold_expires_at=now() + timedelta(hours=hold_hours),
+        tour_title_snapshot=title, free_cancel_until=free_cancel_until, adults=adults, children=children,
+        seats=adults + children, full_name=full_name, email=email.strip().lower(), phone=phone, locale=locale,
+        currency=currency, total_minor=total_minor, deposit_minor=share(total_minor, deposit_percent) or total_minor,
+        paid_minor=0, user_id=user_id,
+    )
+    session.add(booking)
+    await session.flush()
+    session.add(BookingStatusChange(booking_id=booking.id, from_status=None, to_status=booking.status, actor=actor,
+                                    reason="offer accepted"))
+    return booking, token
+
+
+async def traveller_cancel(session: AsyncSession, booking: Booking, today: date | None = None) -> None:
+    """The traveller cancels. Unpaid: always. Paid: free until free_cancel_until, after that a manager decides.
+    Money already paid is recorded as owed back; staff pay it out and record the refund."""
+    today = today or now().date()
+    if booking.status == "awaiting_payment" and booking.paid_minor == 0:
+        await transition(session, booking, "cancelled", "traveller", "cancelled before payment")
+        return
+    if booking.status != "confirmed" and booking.status != "awaiting_payment":
+        raise BookingError("not_cancellable", "This booking can no longer be cancelled online")
+    if booking.free_cancel_until is None or today > booking.free_cancel_until:
+        raise BookingError("cancel_needs_manager", "Free cancellation has ended; please contact us")
+    booking.refund_due_minor = booking.paid_minor
+    await transition(session, booking, "cancelled", "traveller", "free cancellation")
 
 
 async def lock_booking(session: AsyncSession, booking_id: uuid.UUID) -> Booking:
@@ -171,6 +244,7 @@ async def reverse_payment(session: AsyncSession, booking: Booking, amount_minor:
     if booking.status == "completed":
         raise BookingError("booking_completed", "A completed trip cannot be refunded automatically")
     booking.paid_minor = max(0, booking.paid_minor - amount_minor)
+    booking.refund_due_minor = max(0, booking.refund_due_minor - amount_minor)
     if booking.paid_minor == 0:
         booking.payment_state = "refunded"
         if booking.status in ("confirmed", "awaiting_payment"):

@@ -195,11 +195,13 @@ async def link_guest_bookings(session: AsyncSession, user: User) -> int:
 
 # ── sessions ────────────────────────────────────────────────────────────────
 
-async def start_session(session: AsyncSession, user: User, method: str, ip: str | None, user_agent: str | None) -> str:
+async def start_session(session: AsyncSession, user: User, method: str, ip: str | None, user_agent: str | None,
+                        mfa_verified: bool = False) -> str:
     token = new_access_token()
-    session.add(Session(user_id=user.id, token_hash=hash_token(token), method=method, ip=ip,
+    days = get_settings().session_days if user.role == "tourist" else 1  # staff sign in again every day
+    session.add(Session(user_id=user.id, token_hash=hash_token(token), method=method, ip=ip, mfa_verified=mfa_verified,
                         user_agent=(user_agent or "")[:300],
-                        expires_at=now() + timedelta(days=get_settings().session_days)))
+                        expires_at=now() + timedelta(days=days)))
     user.last_login_at = now()
     return token
 
