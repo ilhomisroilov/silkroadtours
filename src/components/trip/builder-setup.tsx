@@ -10,7 +10,7 @@ import { todayInTashkent } from "@/validators/common";
 export function Stepper({ value, min, max, onChange, label }: { value: number; min: number; max: number; onChange: (v: number) => void; label: string }) {
   const t = useTranslations("tripBuilder.setup");
   const btn =
-    "inline-flex size-10 items-center justify-center rounded-full bg-sky text-lapis transition hover:bg-lapis hover:text-white disabled:opacity-40 disabled:hover:bg-sky disabled:hover:text-lapis";
+    "inline-flex size-11 items-center justify-center rounded-full bg-sky text-lapis transition hover:bg-lapis hover:text-white disabled:opacity-40 disabled:hover:bg-sky disabled:hover:text-lapis";
   return (
     <div className="inline-flex items-center gap-2" role="group" aria-label={label}>
       <button type="button" className={btn} onClick={() => onChange(Math.max(min, value - 1))} disabled={value <= min} aria-label={t("decrease", { label })}>
@@ -26,6 +26,9 @@ export function Stepper({ value, min, max, onChange, label }: { value: number; m
   );
 }
 
+/** On one line (xl) Dates and Travellers carry a small sub-label row (From/To, Adults/Children); this gap keeps
+ *  Trip name and Destinations on the same baseline as their fields. */
+const SUBLABEL_GAP = "xl:mt-[calc(0.8125rem*1.4+0.25rem)]";
 const inputCls =
   "min-h-11 w-full rounded-xl border border-field bg-white px-3 text-base text-ink focus-visible:border-cobalt focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt/30";
 
@@ -73,7 +76,7 @@ export function BuilderSetup({
         <label className="flex flex-col gap-1.5 text-sm font-semibold text-ink">
           {t("name")}
           <input
-            className={inputCls}
+            className={`${inputCls} ${SUBLABEL_GAP}`}
             value={trip.title}
             maxLength={120}
             placeholder={t("namePlaceholder")}
@@ -91,7 +94,7 @@ export function BuilderSetup({
           <Popover>
             <PopoverTrigger
               aria-labelledby="tb-dest-label tb-dest-value"
-              className="flex min-h-11 w-full items-center gap-2 rounded-xl border border-field bg-white px-3 text-left text-base text-ink hover:border-cobalt"
+              className={`${SUBLABEL_GAP} flex min-h-11 w-full items-center gap-2 rounded-xl border border-field bg-white px-3 text-left text-base text-ink hover:border-cobalt`}
             >
               <MapPin aria-hidden="true" className="size-4 shrink-0 text-cobalt" />
               <span id="tb-dest-value" className="min-w-0 flex-1 truncate">

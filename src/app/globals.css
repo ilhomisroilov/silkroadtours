@@ -388,55 +388,11 @@ input::placeholder, textarea::placeholder { color: var(--placeholder); }
 /* Borderless selects inside a composed field (home search) draw their own chevron. */
 :root select.bg-transparent { background: none; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; padding-right: 1.5rem; }
 select option { background: var(--picker); color: var(--color-ink); }
-/* Where the browser can style the open list (Chrome, Edge), it becomes a glass panel that opens under the field. */
-@supports (appearance: base-select) {
-  :root select { appearance: base-select; }
-  :root select::picker-icon { display: none; }
-  ::picker(select) {
-    appearance: base-select;
-    margin-block: 0.375rem;
-    min-width: anchor-size(width);
-    max-height: min(15rem, 45dvh);
-    overflow-y: auto;
-    padding: 0.375rem;
-    border: 1px solid var(--color-line);
-    border-radius: 1rem;
-    background: var(--picker);
-    color: var(--color-ink);
-    -webkit-backdrop-filter: blur(22px) saturate(160%);
-    backdrop-filter: blur(22px) saturate(160%);
-    box-shadow: var(--glass-edge), 0 24px 48px -20px rgb(2 12 24 / 0.6);
-    /* Open under the field; go above only when the list does not fit below. */
-    position-area: block-end span-inline-end;
-    position-try-order: normal;
-    position-try-fallbacks: flip-block;
-  }
-  select option {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    min-height: 2.5rem;
-    padding: 0.5rem 0.75rem;
-    border-radius: 0.65rem;
-    background: transparent;
-    font-weight: 600;
-    white-space: nowrap;
-    cursor: pointer;
-  }
-  select option:hover, select option:focus-visible { background: var(--color-sand); outline: none; }
-  select option:checked { background: var(--color-lapis); color: #fff; }
-  select option::checkmark { order: 1; margin-left: auto; }
-  select optgroup { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-ink-muted); padding: 0.4rem 0.75rem 0.1rem; }
-  @media (prefers-reduced-motion: no-preference) {
-    ::picker(select) { transition: opacity 0.18s ease, translate 0.18s ease, overlay 0.18s allow-discrete, display 0.18s allow-discrete; opacity: 0; translate: 0 -4px; }
-    ::picker(select):popover-open { opacity: 1; translate: 0 0; }
-    @starting-style { ::picker(select):popover-open { opacity: 0; translate: 0 -4px; } }
-  }
-}
+/* The open list stays the browser's own (it always opens and scrolls reliably, on every device); only its
+   colours follow the theme. */
 :root input[type="date"], :root input[type="time"], :root input[type="month"], :root input[type="datetime-local"] {
   background: var(--glass);
   box-shadow: var(--glass-edge);
-  min-height: 2.75rem;
 }
 input::-webkit-calendar-picker-indicator {
   cursor: pointer;

@@ -174,7 +174,7 @@ export function PlannerClient({ locale, initialId, places = [] }: { locale: Loca
             className="mt-2 w-full rounded-sm border border-field bg-white p-3 text-base focus:border-lapis-deep focus:outline-none"
           />
         </label>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 items-end gap-3">
           <label className="block">
             <span className="text-sm font-bold">{t.days}</span>
             <select value={days} onChange={(e) => setDays(e.target.value)} className="mt-2 h-11 w-full rounded-sm border border-field bg-white px-2">
