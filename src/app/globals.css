@@ -557,3 +557,14 @@ header :is(.bg-white, .bg-ivory) { background: var(--picker); }
 .admin-side-link[aria-current="page"] { background: #176bcb; color: #ffffff; box-shadow: 0 12px 28px -14px rgb(23 107 203 / 0.9); transform: none; }
 .admin-side-link:focus-visible { outline: 2px solid #8fd0ff; outline-offset: 2px; }
 .admin-root .ant-drawer .ant-drawer-body { padding: 0; }
+/* Glass list of GlassSelect (components/ui/glass-select.tsx): always under its field. */
+.nt-select-list {
+  border: 1px solid var(--color-line);
+  border-radius: 1rem;
+  background: var(--picker);
+  color: var(--color-ink);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+  backdrop-filter: blur(22px) saturate(160%);
+  box-shadow: var(--glass-edge), 0 24px 48px -20px rgb(2 12 24 / 0.6);
+}
+.nt-select-list [role="listbox"] { scrollbar-width: thin; }

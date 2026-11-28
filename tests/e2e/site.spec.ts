@@ -4,9 +4,9 @@ const RAW_KEY = /\b(nav|home|common|tours|tour|booking|services|guide|footer|met
 
 test.describe("languages", () => {
   for (const [locale, heading] of [
-    ["en", /Explore the Beauty of Uzbekistan/],
-    ["uz", /Oʻzbekistonning goʻzalligini kashf eting/],
-    ["ru", /Откройте красоту Узбекистана/],
+    ["en", /Discover Uzbekistan/],
+    ["uz", /(Özbekistonni kaşf eting|Oʻzbekistonni kashf eting)/],
+    ["ru", /Откройте Узбекистан/],
   ] as const) {
     test(`home renders in ${locale} with lang="${locale}" and no missing translations`, async ({ page }) => {
       const missing: string[] = [];
@@ -45,10 +45,10 @@ test("filters update the URL and the results", async ({ page, isMobileProject })
   const all = (await count.textContent())!.trim();
   if (isMobileProject) {
     await page.getByRole("button", { name: /Filters/ }).click();
-    await page.locator("#m-audience").selectOption("domestic");
+    await page.locator("#m-audience + select").selectOption("domestic");
     await page.getByRole("button", { name: "Show results" }).click();
   } else {
-    await page.locator("#f-audience").selectOption("domestic");
+    await page.locator("#f-audience + select").selectOption("domestic");
   }
   await expect(page).toHaveURL(/audience=domestic/);
   await expect(count).not.toHaveText(all);
@@ -57,10 +57,10 @@ test("filters update the URL and the results", async ({ page, isMobileProject })
   expect(domestic).toBeLessThan(Number.parseInt(all, 10));
   if (isMobileProject) {
     await page.getByRole("button", { name: /Filters/ }).click();
-    await page.locator("#m-month").selectOption("7");
+    await page.locator("#m-month + select").selectOption("7");
     await page.getByRole("button", { name: "Show results" }).click();
   } else {
-    await page.locator("#f-month").selectOption("7");
+    await page.locator("#f-month + select").selectOption("7");
   }
   await expect(page).toHaveURL(/month=7/);
   await expect(page.getByTestId("tour-results").locator("li").first()).toBeVisible();
