@@ -22,6 +22,7 @@ import { localize } from "@/lib/localize";
 import { notifyBooking } from "@/lib/notify";
 import { quote, type QuoteResult } from "@/lib/pricing";
 import { tooManySubmissions } from "@/lib/rate-limit";
+import { currentAccount } from "@/lib/server/account";
 import { verifyTurnstile } from "@/lib/turnstile";
 import { bookingInputSchema } from "@/validators/booking";
 
@@ -110,6 +111,7 @@ export const POST = route(async (req) => {
     ipHash,
     userAgent: req.headers.get("user-agent")?.slice(0, 300) ?? null,
     utmSource: input.utmSource ?? null,
+    accountId: (await currentAccount(req.headers.get("cookie")))?.id ?? null,
   });
 
   await createLead(db, {

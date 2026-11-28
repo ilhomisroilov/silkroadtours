@@ -10,7 +10,7 @@ import { brandDeep } from "../lib/brand";
  *   messages/modules/<module>/<locale>.json        → top-level namespaces for the public site
  *   messages/admin/modules/<module>/<locale>.json  → merged into the "admin" namespace
  */
-export const SITE_MESSAGE_MODULES = ["eco", "places", "virtual", "builder", "partners", "aiguide", "payments"] as const;
+export const SITE_MESSAGE_MODULES = ["eco", "places", "virtual", "builder", "partners", "aiguide", "payments", "account"] as const;
 export const ADMIN_MESSAGE_MODULES = ["crm", "partners", "places", "trips", "aicenter", "panel"] as const;
 
 /**

@@ -233,3 +233,31 @@ export async function addBookingNote(db: Db, bookingId: number, authorId: number
     .returning();
   return row!;
 }
+
+/**
+ * A traveller's own bookings: those sent while signed in, plus (once the e-mail address is confirmed) earlier
+ * bookings made with the same address. An unconfirmed address never reveals anyone else's bookings.
+ */
+export async function listAccountBookings(db: Db, account: { id: string; email: string; emailVerified: boolean }) {
+  const who = account.emailVerified
+    ? or(eq(bookings.accountId, account.id), eq(sql`lower(${bookings.email})`, account.email.toLowerCase()))
+    : eq(bookings.accountId, account.id);
+  return db
+    .select({
+      reference: bookings.reference,
+      status: bookings.status,
+      tourTitle: bookings.tourTitleSnapshot,
+      tourSlug: tours.slug,
+      preferredDate: bookings.preferredDate,
+      adults: bookings.adults,
+      children: bookings.children,
+      quoteCurrency: bookings.quoteCurrency,
+      quoteTotalMinor: bookings.quoteTotalMinor,
+      createdAt: bookings.createdAt,
+    })
+    .from(bookings)
+    .leftJoin(tours, eq(tours.id, bookings.tourId))
+    .where(who)
+    .orderBy(desc(bookings.createdAt))
+    .limit(100);
+}

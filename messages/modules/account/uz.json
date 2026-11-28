@@ -1,0 +1,56 @@
+{
+  "account": {
+    "title": "Shaxsiy kabinet",
+    "lead": "Bronlaringiz va maʼlumotlaringiz bir joyda.",
+    "signIn": "Kirish",
+    "signUp": "Roʻyxatdan oʻtish",
+    "signOut": "Chiqish",
+    "account": "Kabinet",
+    "email": "Email",
+    "password": "Parol",
+    "passwordHint": "Kamida 10 ta belgi",
+    "fullName": "Ism va familiya",
+    "phone": "Telefon",
+    "noAccount": "Hisobingiz yoʻqmi?",
+    "haveAccount": "Hisobingiz bormi?",
+    "submitSignIn": "Kirish",
+    "submitSignUp": "Hisob ochish",
+    "telegram": "Telegram orqali kirish",
+    "or": "yoki",
+    "profile": "Profilim",
+    "bookings": "Bronlarim",
+    "save": "Saqlash",
+    "saved": "Saqlandi",
+    "noBookings": "Hozircha bron yoʻq.",
+    "findTour": "Tur tanlash",
+    "bookingRef": "Bron raqami",
+    "travelDate": "Sayohat sanasi",
+    "travellers": "{adults} katta, {children} bola",
+    "total": "Taxminiy narx",
+    "verifyNote": "Emailingiz tasdiqlangach, shu manzil bilan avval qilingan bronlar ham shu yerda koʻrinadi. Hozir hisobingizga kirgan holda yuborilgan bronlar koʻrinadi.",
+    "unavailable": "Kabinet vaqtincha ishlamayapti. Birozdan keyin qayta urinib koʻring.",
+    "errors": {
+      "invalid_credentials": "Email yoki parol notoʻgʻri.",
+      "email_taken": "Bu email bilan hisob allaqachon bor. Kirish tugmasini bosing.",
+      "weak_password": "Parol juda oddiy. Uzunroq parol tanlang.",
+      "invalid_input": "Maydonlarni tekshiring.",
+      "too_many_requests": "Urinishlar koʻp. Birozdan keyin qayta urinib koʻring.",
+      "generic": "Xatolik yuz berdi. Qayta urinib koʻring."
+    },
+    "status": {
+      "pending": "Koʻrib chiqilmoqda",
+      "confirmed": "Tasdiqlangan",
+      "completed": "Yakunlangan",
+      "cancelled": "Bekor qilingan"
+    },
+    "travellersLabel": "Sayohatchilar",
+    "nav": {
+      "myProfile": "Mening profilim",
+      "view": "Koʻrinish",
+      "day": "Kun",
+      "night": "Tun",
+      "language": "Til",
+      "menu": "Profil menyusi"
+    }
+  }
+}

@@ -46,6 +46,10 @@
     "theme": "Appearance",
     "day": "Day",
     "night": "Night",
-    "profile": "Profile"
+    "profile": "Profile",
+    "myProfile": "My profile",
+    "myProfileLead": "Your name, sign-in details and password.",
+    "emailFixed": "Only the site owner can change the email.",
+    "autoSignOut": "For security you are signed out automatically after 1 hour without activity."
   }
 }

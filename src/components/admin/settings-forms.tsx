@@ -3,6 +3,7 @@
 import { KeyOutlined, ReloadOutlined, SaveOutlined, SendOutlined, UserAddOutlined } from "@ant-design/icons";
 import { Button, Col, Flex, Form, Input, InputNumber, Modal, Row, Select, Switch, Table, Typography } from "antd";
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import type { AdminRole, ContactSettings, ExchangeRates } from "@/db/types";
 import { useAdminApi } from "./booking-actions";
@@ -218,5 +219,57 @@ export function OwnPasswordForm() {
         <Col xs={24} md={6}><Form.Item label=" "><Button htmlType="submit" icon={<KeyOutlined />} block>{t("changePassword")}</Button></Form.Item></Col>
       </Row>
     </Form>
+  );
+}
+
+/** The signed-in admin's own details: name can be changed here; email and role are set by the owner. */
+export function OwnProfileForm({ initial }: { initial: { name: string; email: string; role: string; lastLoginAt: string | null } }) {
+  const t = useTranslations("admin");
+  const call = useAdminApi();
+  const router = useRouter();
+  const [name, setName] = useState(initial.name);
+  const [busy, setBusy] = useState(false);
+  return (
+    <Flex vertical gap={16}>
+      <Row gutter={[16, 16]}>
+        <Col xs={24} md={12}>
+          <Field label={t("settings.name")}>
+            <Input value={name} onChange={(e) => setName(e.target.value)} maxLength={80} autoComplete="name" data-testid="own-name" />
+          </Field>
+        </Col>
+        <Col xs={24} md={12}>
+          <Field label={t("settings.email")} help={t("panel.emailFixed")}>
+            <Input value={initial.email} disabled />
+          </Field>
+        </Col>
+        <Col xs={24} md={12}>
+          <Field label={t("settings.role")}>
+            <Input value={initial.role} disabled />
+          </Field>
+        </Col>
+        <Col xs={24} md={12}>
+          <Field label={t("settings.lastLogin")}>
+            <Input value={initial.lastLoginAt?.slice(0, 16).replace("T", " ") ?? "—"} disabled />
+          </Field>
+        </Col>
+      </Row>
+      <Typography.Text type="secondary">{t("panel.autoSignOut")}</Typography.Text>
+      <div>
+        <Button
+          type="primary"
+          icon={<SaveOutlined />}
+          loading={busy}
+          disabled={name.trim().length < 2 || name.trim() === initial.name}
+          data-testid="own-profile-save"
+          onClick={async () => {
+            setBusy(true);
+            if (await call("/api/admin/auth/me", { method: "PATCH", json: { name: name.trim() } }, t("common.saved"))) router.refresh();
+            setBusy(false);
+          }}
+        >
+          {t("common.save")}
+        </Button>
+      </div>
+    </Flex>
   );
 }
