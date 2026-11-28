@@ -129,7 +129,14 @@ export function BookingForm({
     };
   }, [slug, currency, type, adults, children, departureId, useDepartures, te]);
 
+  // Move focus to the step heading when the step changes, but not on the first render: that would scroll the
+  // page past the tour summary on phones before the visitor has done anything.
+  const firstStep = useRef(true);
   useEffect(() => {
+    if (firstStep.current) {
+      firstStep.current = false;
+      return;
+    }
     heading.current?.focus();
   }, [step]);
 

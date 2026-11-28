@@ -140,19 +140,22 @@ export function DesktopNav({ items, label }: { items: NavItem[]; label: string }
 export function HeaderFrame({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
+  // The 404 page also reports "/" here, so the real address decides whether the home hero is under the header.
+  const [home, setHome] = useState(pathname === "/");
   useEffect(() => {
+    setHome(pathname === "/" && /^\/[a-z]{2}\/?$/.test(window.location.pathname));
     const on = () => setScrolled(window.scrollY > 8);
     on();
     window.addEventListener("scroll", on, { passive: true });
     return () => window.removeEventListener("scroll", on);
-  }, []);
-  const solid = pathname !== "/" || scrolled;
+  }, [pathname]);
+  const solid = !home || scrolled;
   return (
     <header
       data-solid={solid ? "" : undefined}
       className={cn(
         "sticky top-0 z-40 transition-[background-color,box-shadow,backdrop-filter] duration-300",
-        solid ? "border-b border-white/10 bg-[rgb(8_36_61/0.78)] shadow-[0_10px_30px_-20px_rgb(0_0_0/0.6)] backdrop-blur-xl" : "bg-transparent",
+        solid ? "nt-header-solid border-b border-line shadow-[0_10px_30px_-20px_rgb(0_0_0/0.6)] backdrop-blur-xl" : "on-dark bg-transparent",
       )}
     >
       {children}

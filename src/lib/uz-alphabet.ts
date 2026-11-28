@@ -1,9 +1,10 @@
 /**
  * Uzbek Latin spelling. All Uzbek text is stored in the current official alphabet (oʻ, gʻ, sh, ch);
- * that stored text is the backup. By default the site shows it in the new alphabet
- * (ö, ğ, ş, ç). Set NEXT_PUBLIC_UZ_ALPHABET=legacy at build time to show the stored spelling again.
+ * that stored text is what the site shows by default. Set NEXT_PUBLIC_UZ_SPELLING=new at build time to show it
+ * in the new alphabet (ö, ğ, ş, ç) instead. (The older NEXT_PUBLIC_UZ_ALPHABET switch is ignored on purpose,
+ * so servers whose .env still says "new" go back to the familiar spelling.)
  */
-export const UZ_ALPHABET: "new" | "legacy" = process.env.NEXT_PUBLIC_UZ_ALPHABET === "legacy" ? "legacy" : "new";
+export const UZ_ALPHABET: "new" | "legacy" = process.env.NEXT_PUBLIC_UZ_SPELLING === "new" ? "new" : "legacy";
 
 const APOS = "[ʻ‘’'`ʼ]";
 const RULES: [RegExp, string][] = [

@@ -41,6 +41,8 @@ async function audit(page: import("@playwright/test").Page) {
 
 for (const path of PAGES) {
   test(`no serious or critical axe violations: ${path}`, async ({ page }) => {
+    // Scroll-driven fade-ins are half transparent mid-animation; check the colours at rest.
+    await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto(path);
     await page.waitForTimeout(500);
     expect(await audit(page)).toEqual([]);

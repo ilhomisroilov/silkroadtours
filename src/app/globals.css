@@ -8,7 +8,7 @@
 @theme {
   /* Site "night" palette (dark navy, 2026-11-26 concept v2).
      Brand palette (token names kept from the first design so every component re-themes at once).
-     Contrast: ink on ivory 13.5:1, ink-muted on ivory 4.8:1, white on lapis 11:1, white on cobalt 6.7:1,
+     Contrast: ink on ivory 13.5:1, ink-muted on ivory 7:1, white on lapis 11:1, white on cobalt 6.7:1,
      saffron-ink on white 5.5:1, lapis on saffron 4.9:1. */
   --color-lapis: #176bcb; /* primary navy */
   --color-lapis-deep: #0d304f;
@@ -28,7 +28,7 @@
   --color-sand-soft: rgb(255 255 255 / 0.06);
   --color-ivory: #08243d; /* page background */
   --color-ink: #e9eff8;
-  --color-ink-muted: #8fa2b7;
+  --color-ink-muted: #a3b4c6;
   --color-line: rgb(255 255 255 / 0.14);
   --color-field: rgb(255 255 255 / 0.28); /* form-control borders (3.1:1) */
   --color-danger: #d94b55;
@@ -126,6 +126,11 @@
   input, select, textarea, button { font: inherit; }
 
   [hidden] { display: none !important; }
+
+  /* Day mode keeps the dark bands night; text inside them that sets no colour of its own follows. */
+  html[data-theme="light"] :is(.on-dark, .bg-lapis-night, .bg-girih-dark, .bg-lapis-deep, .bg-ai-soft) {
+    color: var(--color-ink);
+  }
 }
 
 @layer components {
@@ -233,25 +238,117 @@
 
 
 /* ── Glass theme (concept v2) ──────────────────────────────────────────────────────────
-   The whole site sits on the Samarkand night photograph; surfaces are frosted glass over it.
+   The whole site sits on a blurred Samarkand photograph; surfaces are frosted glass over it.
+   Night (default) and Day share every shape and effect: only the colours below change.
+   <html data-theme="light"> switches to Day (see components/layout/theme-toggle.tsx).
    Unlayered, so these win over the utility classes they re-colour. */
 :root {
   color-scheme: dark;
   --glass: linear-gradient(140deg, rgb(255 255 255 / 0.15) 0%, rgb(255 255 255 / 0.06) 55%, rgb(255 255 255 / 0.04) 100%);
   --glass-edge: inset 0 1px 0 rgb(255 255 255 / 0.22), inset 0 0 0 1px rgb(255 255 255 / 0.12);
   --glass-shadow: 0 24px 48px -28px rgb(2 12 24 / 0.75);
+  --glass-hover: rgb(255 255 255 / 0.18);
+  --glow: 0 30px 60px -30px rgb(21 195 210 / 0.45);
+  --page-bg: #08243d;
+  --page-photo:
+    linear-gradient(180deg, rgb(8 36 61 / 0.5) 0%, rgb(8 36 61 / 0.72) 45%, rgb(6 26 46 / 0.86) 100%),
+    url("/images/hero/samarkand-night-blur.jpg");
+  --surface: rgb(10 42 70 / 0.82); /* header, sticky bars, menus (bg-ivory) */
+  --band: rgb(13 48 79 / 0.72); /* bg-lapis-deep */
+  --band-night: rgb(6 26 46 / 0.58); /* bg-lapis-night, bg-girih-dark */
+  --picker: rgb(13 48 79 / 0.9); /* open select list */
+  --header: rgb(8 36 61 / 0.78);
+  --tx-lapis: #8fd0ff; /* text-lapis / text-cobalt / text-terracotta */
+  --tx-heading: #ffffff; /* headings coloured lapis or cobalt; text-lapis-deep */
+  --tx-hover: #c8e8ff;
+  --tx-ivory: #f8fafd;
+  --tx-sand: #e9eff7;
+  --placeholder: rgb(255 255 255 / 0.55);
+  --chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%238fd0ff'%3E%3Cpath d='M5.3 7.3a1 1 0 0 1 1.4 0L10 10.6l3.3-3.3a1 1 0 1 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 0-1.4Z'/%3E%3C/svg%3E");
 }
+
+/* Day: the same glass, light. Text pairs checked for WCAG AA on the light glass (ink 14:1, ink-muted 6:1,
+   lapis text 5.9:1, turquoise text 5.6:1). */
+html[data-theme="light"] {
+  color-scheme: light;
+  --color-ivory: #eaf1f8;
+  --color-ink: #0f2438;
+  --color-ink-muted: #46586b;
+  --color-line: rgb(13 48 79 / 0.14);
+  --color-field: #7d8fa2; /* form-control borders (3.2:1) */
+  --color-sky: rgb(23 107 203 / 0.08);
+  --color-sand: rgb(13 48 79 / 0.08);
+  --color-sand-soft: rgb(13 48 79 / 0.045);
+  --color-lapis-mist: rgb(23 107 203 / 0.12);
+  --color-turquoise-ink: #0a6a74;
+  --color-saffron-ink: #0a6a74;
+  --color-turquoise-soft: rgb(21 160 175 / 0.14);
+  --glass: linear-gradient(140deg, rgb(255 255 255 / 0.86) 0%, rgb(255 255 255 / 0.7) 55%, rgb(255 255 255 / 0.64) 100%);
+  --glass-edge: inset 0 1px 0 rgb(255 255 255 / 0.95), inset 0 0 0 1px rgb(13 48 79 / 0.09);
+  --glass-shadow: 0 24px 48px -28px rgb(13 48 79 / 0.38);
+  --glass-hover: rgb(255 255 255 / 0.95);
+  --glow: 0 30px 60px -30px rgb(23 107 203 / 0.45);
+  --page-bg: #eaf1f8;
+  --page-photo:
+    linear-gradient(180deg, rgb(234 241 248 / 0.55) 0%, rgb(234 241 248 / 0.76) 45%, rgb(226 236 246 / 0.9) 100%),
+    url("/images/hero/samarkand-day-blur.jpg");
+  --surface: rgb(244 248 252 / 0.86);
+  --band: rgb(13 48 79 / 0.9);
+  --band-night: rgb(8 36 61 / 0.88);
+  --picker: rgb(250 252 255 / 0.94);
+  --header: rgb(244 248 252 / 0.84);
+  --tx-lapis: #1660b8;
+  --tx-heading: #0d304f;
+  --tx-hover: #0d304f;
+  --tx-ivory: #0f2438;
+  --tx-sand: #24384d;
+  --placeholder: rgb(15 36 56 / 0.55);
+  --chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%231660b8'%3E%3Cpath d='M5.3 7.3a1 1 0 0 1 1.4 0L10 10.6l3.3-3.3a1 1 0 1 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 0-1.4Z'/%3E%3C/svg%3E");
+}
+/* Dark bands (footer, AI band, hero overlays, filled navy panels) stay night in Day mode, so the white
+   text written for them keeps its contrast. */
+html[data-theme="light"] :is(.on-dark, .bg-lapis-night, .bg-girih-dark, .bg-lapis-deep, .bg-ai-soft) {
+  color-scheme: dark;
+  --color-ink: #e9eff8;
+  --color-ink-muted: #a9b8c8;
+  --color-line: rgb(255 255 255 / 0.14);
+  --color-field: rgb(255 255 255 / 0.28);
+  --color-sky: rgb(255 255 255 / 0.08);
+  --color-sand: rgb(255 255 255 / 0.1);
+  --color-sand-soft: rgb(255 255 255 / 0.06);
+  --color-turquoise-ink: #5fd6e0;
+  --color-saffron-ink: #5fd6e0;
+  --glass: linear-gradient(140deg, rgb(255 255 255 / 0.15) 0%, rgb(255 255 255 / 0.06) 55%, rgb(255 255 255 / 0.04) 100%);
+  --glass-edge: inset 0 1px 0 rgb(255 255 255 / 0.22), inset 0 0 0 1px rgb(255 255 255 / 0.12);
+  --glass-hover: rgb(255 255 255 / 0.18);
+  --picker: rgb(13 48 79 / 0.94);
+  --color-ivory: #08243d;
+  --surface: rgb(10 42 70 / 0.82);
+  --tx-lapis: #8fd0ff;
+  --tx-heading: #ffffff;
+  --tx-hover: #c8e8ff;
+  --tx-ivory: #f8fafd;
+  --tx-sand: #e9eff7;
+  --placeholder: rgb(255 255 255 / 0.55);
+  --chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%238fd0ff'%3E%3Cpath d='M5.3 7.3a1 1 0 0 1 1.4 0L10 10.6l3.3-3.3a1 1 0 1 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 0-1.4Z'/%3E%3C/svg%3E");
+}
+.nt-header-solid { background-color: var(--header); }
 body {
-  background: #08243d;
+  background: var(--page-bg);
+  color: var(--color-ink);
 }
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   z-index: -1;
-  background:
-    linear-gradient(180deg, rgb(8 36 61 / 0.5) 0%, rgb(8 36 61 / 0.72) 45%, rgb(6 26 46 / 0.86) 100%),
-    url("/images/hero/samarkand-night-blur.jpg") center / cover no-repeat;
+  background: var(--page-photo);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+@media (prefers-reduced-motion: no-preference) {
+  body, body::before { transition: background-color 0.4s ease; }
 }
 .bg-white, .card, .bg-white\/95, .bg-white\/90, .bg-white\/85, .bg-white\/80, .bg-white\/70 {
   background: var(--glass);
@@ -259,23 +356,95 @@ body::before {
   backdrop-filter: blur(18px) saturate(150%);
   box-shadow: var(--glass-edge), var(--glass-shadow);
 }
-.hover\:bg-white:hover { background: rgb(255 255 255 / 0.18); }
+.hover\:bg-white:hover { background: var(--glass-hover); }
 .bg-ivory, .bg-ivory\/95, .bg-ivory\/60 {
-  background-color: rgb(10 42 70 / 0.82);
+  background-color: var(--surface);
   -webkit-backdrop-filter: blur(22px) saturate(150%);
   backdrop-filter: blur(22px) saturate(150%);
 }
-.bg-lapis-deep { background-color: rgb(13 48 79 / 0.72); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); }
-.text-lapis-deep, .text-lapis-night { color: #ffffff; }
-.text-lapis { color: #8fd0ff; }
-.hover\:text-lapis:hover, .hover\:text-lapis-deep:hover { color: #c8e8ff; }
-.text-ivory { color: #f8fafd; }
-.text-sand { color: #e9eff7; }
-:is(h1, h2, h3).text-lapis, :is(h1, h2, h3).text-cobalt { color: #ffffff; }
+.bg-lapis-deep { background-color: var(--band); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); }
+.text-lapis-deep, .text-lapis-night { color: var(--tx-heading); }
+.text-lapis { color: var(--tx-lapis); }
+.hover\:text-lapis:hover, .hover\:text-lapis-deep:hover { color: var(--tx-hover); }
+.text-ivory { color: var(--tx-ivory); }
+.text-sand { color: var(--tx-sand); }
+:is(h1, h2, h3).text-lapis, :is(h1, h2, h3).text-cobalt { color: var(--tx-heading); }
 .shadow-card, .shadow-lift { box-shadow: var(--glass-edge), var(--glass-shadow); }
 input, select, textarea { color: var(--color-ink); }
-input::placeholder, textarea::placeholder { color: rgb(255 255 255 / 0.55); }
-select option { background: #0d304f; color: #fff; }
+input::placeholder, textarea::placeholder { color: var(--placeholder); }
+
+/* ── Form controls: one glass look for every select and date field ─────────────────────── */
+:root select {
+  -webkit-appearance: none;
+  appearance: none;
+  background: var(--chevron) right 0.85rem center / 1.1rem no-repeat, var(--glass);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  backdrop-filter: blur(14px) saturate(150%);
+  box-shadow: var(--glass-edge);
+  padding-right: 2.5rem;
+  cursor: pointer;
+}
+:root select:disabled { cursor: not-allowed; opacity: 0.7; }
+/* Borderless selects inside a composed field (home search) draw their own chevron. */
+:root select.bg-transparent { background: none; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; padding-right: 1.5rem; }
+select option { background: var(--picker); color: var(--color-ink); }
+/* Where the browser can style the open list (Chrome, Edge), it becomes a glass panel that opens under the field. */
+@supports (appearance: base-select) {
+  :root select { appearance: base-select; }
+  :root select::picker-icon { display: none; }
+  ::picker(select) {
+    appearance: base-select;
+    margin-block: 0.375rem;
+    min-width: anchor-size(width);
+    max-height: min(15rem, 45dvh);
+    overflow-y: auto;
+    padding: 0.375rem;
+    border: 1px solid var(--color-line);
+    border-radius: 1rem;
+    background: var(--picker);
+    color: var(--color-ink);
+    -webkit-backdrop-filter: blur(22px) saturate(160%);
+    backdrop-filter: blur(22px) saturate(160%);
+    box-shadow: var(--glass-edge), 0 24px 48px -20px rgb(2 12 24 / 0.6);
+    /* Open under the field; go above only when the list does not fit below. */
+    position-area: block-end span-inline-end;
+    position-try-order: normal;
+    position-try-fallbacks: flip-block;
+  }
+  select option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.5rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.65rem;
+    background: transparent;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+  select option:hover, select option:focus-visible { background: var(--color-sand); outline: none; }
+  select option:checked { background: var(--color-lapis); color: #fff; }
+  select option::checkmark { order: 1; margin-left: auto; }
+  select optgroup { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-ink-muted); padding: 0.4rem 0.75rem 0.1rem; }
+  @media (prefers-reduced-motion: no-preference) {
+    ::picker(select) { transition: opacity 0.18s ease, translate 0.18s ease, overlay 0.18s allow-discrete, display 0.18s allow-discrete; opacity: 0; translate: 0 -4px; }
+    ::picker(select):popover-open { opacity: 1; translate: 0 0; }
+    @starting-style { ::picker(select):popover-open { opacity: 0; translate: 0 -4px; } }
+  }
+}
+:root input[type="date"], :root input[type="time"], :root input[type="month"], :root input[type="datetime-local"] {
+  background: var(--glass);
+  box-shadow: var(--glass-edge);
+  min-height: 2.75rem;
+}
+input::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.85;
+  padding: 0.2rem;
+  border-radius: 0.4rem;
+}
+input::-webkit-calendar-picker-indicator:hover { opacity: 1; background-color: var(--color-sand); }
 
 /* Cards lift and glow under the pointer. */
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
@@ -284,7 +453,7 @@ select option { background: #0d304f; color: #fff; }
   }
   a.group:hover, li > a[class*="rounded"]:hover {
     transform: translateY(-4px);
-    box-shadow: var(--glass-edge), 0 30px 60px -30px rgb(21 195 210 / 0.45);
+    box-shadow: var(--glass-edge), var(--glow);
   }
 }
 
@@ -300,11 +469,37 @@ select option { background: #0d304f; color: #fff; }
   }
 }
 .bg-lapis-night, .bg-girih-dark {
-  background-color: rgb(6 26 46 / 0.58);
+  background-color: var(--band-night);
   -webkit-backdrop-filter: blur(20px) saturate(140%);
   backdrop-filter: blur(20px) saturate(140%);
 }
-.text-cobalt, .text-terracotta { color: #8fd0ff; }
+.text-cobalt, .text-terracotta { color: var(--tx-lapis); }
 /* Gold is not a brand accent in concept v2: gold buttons become Royal Blue (stars stay gold). */
 .bg-saffron { background-color: #176bcb; color: #ffffff; box-shadow: 0 12px 28px -14px rgb(23 107 203 / 0.9); }
 .hover\:bg-saffron:hover, .bg-saffron:hover { background-color: #2b7fdc; }
+
+/* Filled badges keep white text readable (WCAG AA 4.5:1) in both themes. */
+.bg-turquoise-ink { background-color: #0b6f79; }
+.bg-pomegranate { background-color: #c03a45; }
+/* Muted white text on the solid Royal Blue panels stays above 4.5:1. */
+.bg-lapis :is(.text-white\/65, .text-white\/70, .text-white\/75, .text-white\/80, .text-white\/85) { color: rgb(255 255 255 / 0.92); }
+.bg-lapis .text-saffron { color: #ffffff; }
+/* Chosen chips, toggles and options: the glass rule above must not hide their filled state. */
+:is(.bg-white, .bg-white\/90, .bg-white\/80):has(:checked):is([class*="has-[:checked]:bg-lapis"], [class*="has-[:checked]:bg-terracotta"]),
+.bg-white[aria-selected="true"][class*="aria-selected:bg-lapis"] {
+  background: var(--color-lapis);
+  box-shadow: none;
+}
+:is(.bg-white, .bg-white\/90, .bg-white\/80):has(:checked)[class*="has-[:checked]:bg-sky"] { background: var(--color-sky); }
+[class*="has-[:checked]:bg-sky"]:has(:checked) .text-ink-muted { color: var(--color-ink); }
+/* The admin panel is a light work surface: its native selects and date fields use light glass. */
+.admin-root {
+  color-scheme: light;
+  --glass: #ffffff;
+  --glass-edge: inset 0 0 0 1px #dfe4ea;
+  --picker: #ffffff;
+  --placeholder: #8a949e;
+  --chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%231660b8'%3E%3Cpath d='M5.3 7.3a1 1 0 0 1 1.4 0L10 10.6l3.3-3.3a1 1 0 1 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 0-1.4Z'/%3E%3C/svg%3E");
+}
+/* Menus inside the header: the header's own blur stops a second backdrop blur, so they use the solid picker glass. */
+header :is(.bg-white, .bg-ivory) { background: var(--picker); }

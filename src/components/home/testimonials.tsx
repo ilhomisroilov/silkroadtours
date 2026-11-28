@@ -36,7 +36,7 @@ export function Testimonials({ items, labels }: { items: Testimonial[]; labels: 
         <div className="min-w-0">
           <p className="font-bold text-ink">{r.author}</p>
           {r.country && <p className="truncate text-sm text-ink-muted">{labels.from.replace("{country}", r.country)}</p>}
-          <p className="mt-0.5 flex gap-0.5" aria-label={`${r.rating}/5`}>
+          <p className="mt-0.5 flex gap-0.5" role="img" aria-label={`${r.rating}/5`}>
             {Array.from({ length: 5 }, (_, k) => (
               <Star key={k} aria-hidden="true" className={`size-4 ${k < r.rating ? "fill-saffron text-saffron" : "text-line"}`} />
             ))}
