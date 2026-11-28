@@ -1,31 +1,8 @@
 "use client";
 
-import {
-  BarChartOutlined,
-  BookOutlined,
-  CalendarOutlined,
-  CommentOutlined,
-  ExportOutlined,
-  FileTextOutlined,
-  GlobalOutlined,
-  LogoutOutlined,
-  MailOutlined,
-  DownOutlined,
-  MenuOutlined,
-  MoonOutlined,
-  SunOutlined,
-  PictureOutlined,
-  ProjectOutlined,
-  QuestionCircleOutlined,
-  RobotOutlined,
-  SettingOutlined,
-  ShopOutlined,
-  SolutionOutlined,
-  TeamOutlined,
-  ApartmentOutlined,
-  CompassOutlined,
-} from "@ant-design/icons";
-import { Avatar, Button, Drawer, Flex, Grid, Layout, Menu, Popover, Segmented, Typography, type MenuProps } from "antd";
+import { DownOutlined, ExportOutlined, LogoutOutlined, MenuOutlined, MoonOutlined, SunOutlined } from "@ant-design/icons";
+import { BarChart3, BookOpenCheck, Bot, Building2, CalendarCheck2, Cog, FileText, Handshake, HelpCircle, Images, KanbanSquare, Mail, Map as MapIcon, MessageSquareQuote, NotebookPen, Route, Users } from "lucide-react";
+import { Avatar, Button, Drawer, Flex, Grid, Layout, Popover, Segmented, Typography } from "antd";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
@@ -36,55 +13,26 @@ import { BRAND } from "@/lib/brand";
 import type { AdminTheme } from "@/lib/admin-theme";
 import { ADMIN_COLORS, useAdminTheme } from "./antd-provider";
 
-type NavKey =
-  | "overview" | "crm" | "customers" | "bookings" | "requests" | "trips" | "places" | "tours" | "destinations"
-  | "media" | "partners" | "content" | "ai" | "faq" | "reviews" | "newsletter" | "settings";
-
-const GROUPS: { group: "main" | "sales" | "catalog" | "content" | "system"; items: { href: string; key: NavKey; icon: ReactNode }[] }[] = [
-  { group: "main", items: [{ href: "/admin", key: "overview", icon: <BarChartOutlined /> }] },
-  {
-    group: "sales",
-    items: [
-      { href: "/admin/bookings", key: "bookings", icon: <CalendarOutlined /> },
-      { href: "/admin/requests", key: "requests", icon: <SolutionOutlined /> },
-      { href: "/admin/crm", key: "crm", icon: <ProjectOutlined /> },
-      { href: "/admin/customers", key: "customers", icon: <TeamOutlined /> },
-      { href: "/admin/trips", key: "trips", icon: <BookOutlined /> },
-    ],
-  },
-  {
-    group: "catalog",
-    items: [
-      { href: "/admin/tours", key: "tours", icon: <CompassOutlined /> },
-      { href: "/admin/destinations", key: "destinations", icon: <GlobalOutlined /> },
-      { href: "/admin/places", key: "places", icon: <ShopOutlined /> },
-      { href: "/admin/partners", key: "partners", icon: <ApartmentOutlined /> },
-      { href: "/admin/media", key: "media", icon: <PictureOutlined /> },
-    ],
-  },
-  {
-    group: "content",
-    items: [
-      { href: "/admin/content", key: "content", icon: <FileTextOutlined /> },
-      { href: "/admin/faq", key: "faq", icon: <QuestionCircleOutlined /> },
-      { href: "/admin/reviews", key: "reviews", icon: <CommentOutlined /> },
-      { href: "/admin/newsletter", key: "newsletter", icon: <MailOutlined /> },
-    ],
-  },
-  {
-    group: "system",
-    items: [
-      { href: "/admin/ai", key: "ai", icon: <RobotOutlined /> },
-      { href: "/admin/settings", key: "settings", icon: <SettingOutlined /> },
-    ],
-  },
-];
-
-function activeKey(pathname: string): string {
-  let best = "/admin";
-  for (const g of GROUPS) for (const i of g.items) if (i.href !== "/admin" && pathname.startsWith(i.href) && i.href.length > best.length) best = i.href;
-  return best;
-}
+/** Menu order and icons as the team knows them from the earlier panel. */
+const NAV = [
+  { href: "/admin", key: "overview", icon: BarChart3 },
+  { href: "/admin/crm", key: "crm", icon: KanbanSquare },
+  { href: "/admin/customers", key: "customers", icon: Users },
+  { href: "/admin/bookings", key: "bookings", icon: CalendarCheck2 },
+  { href: "/admin/requests", key: "requests", icon: BookOpenCheck },
+  { href: "/admin/trips", key: "trips", icon: NotebookPen },
+  { href: "/admin/places", key: "places", icon: Building2 },
+  { href: "/admin/tours", key: "tours", icon: Route },
+  { href: "/admin/destinations", key: "destinations", icon: MapIcon },
+  { href: "/admin/media", key: "media", icon: Images },
+  { href: "/admin/partners", key: "partners", icon: Handshake },
+  { href: "/admin/content", key: "content", icon: FileText },
+  { href: "/admin/ai", key: "ai", icon: Bot },
+  { href: "/admin/faq", key: "faq", icon: HelpCircle },
+  { href: "/admin/reviews", key: "reviews", icon: MessageSquareQuote },
+  { href: "/admin/newsletter", key: "newsletter", icon: Mail },
+  { href: "/admin/settings", key: "settings", icon: Cog },
+] as const;
 
 export function AdminShell({ user, locale, children }: { user: { name: string; role: string }; locale: AdminLocale; children: ReactNode }) {
   const t = useTranslations("admin");
@@ -95,35 +43,36 @@ export function AdminShell({ user, locale, children }: { user: { name: string; r
   const [open, setOpen] = useState(false);
 
 
-  const items: MenuProps["items"] = GROUPS.map((g) => ({
-    type: "group" as const,
-    key: g.group,
-    label: <span style={{ color: "#8fa2b7", fontSize: 12, letterSpacing: "0.06em", textTransform: "uppercase" }}>{t(`panel.groups.${g.group}`)}</span>,
-    children: g.items.map((i) => ({
-      key: i.href,
-      icon: i.icon,
-      label: <Link href={i.href} onClick={() => setOpen(false)}>{t(`nav.${i.key}`)}</Link>,
-    })),
-  }));
-
   const side = (
-    <Flex vertical style={{ height: "100%", background: ADMIN_COLORS.night }}>
-      <Link href="/admin" aria-label={BRAND.name} style={{ display: "flex", justifyContent: "center", padding: "18px 20px 10px" }}>
+    <div className="admin-side">
+      <Link href="/admin" aria-label={BRAND.name} className="admin-side-logo">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={BRAND.logo.header.src} alt={BRAND.name} width={BRAND.logo.header.width} height={BRAND.logo.header.height} style={{ width: 132, height: "auto" }} />
+        <img src={BRAND.logo.header.src} alt={BRAND.name} width={BRAND.logo.header.width} height={BRAND.logo.header.height} />
       </Link>
-      <nav aria-label={t("nav.menu")} style={{ flex: 1, overflowY: "auto" }}>
-        <Menu theme="dark" mode="inline" selectedKeys={[activeKey(pathname)]} items={items} style={{ borderInlineEnd: 0 }} />
+      <nav aria-label={t("nav.menu")} className="admin-side-nav">
+        <ul>
+          {NAV.map(({ href, key, icon: Icon }) => {
+            const active = href === "/admin" ? pathname === "/admin" : pathname.startsWith(href);
+            return (
+              <li key={href}>
+                <Link href={href} onClick={() => setOpen(false)} aria-current={active ? "page" : undefined} className="admin-side-link">
+                  <Icon aria-hidden="true" />
+                  <span>{t(`nav.${key}`)}</span>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
       </nav>
-    </Flex>
+    </div>
   );
 
   return (
     <Layout style={desktop ? { height: "100dvh", overflow: "hidden" } : { minHeight: "100dvh" }}>
       {desktop ? (
-        <Layout.Sider width={264} style={{ height: "100dvh", overflow: "hidden" }}>{side}</Layout.Sider>
+        <Layout.Sider width={264} style={{ height: "100dvh", overflow: "hidden", background: "transparent" }}>{side}</Layout.Sider>
       ) : (
-        <Drawer placement="left" open={open} onClose={() => setOpen(false)} size={280} closable={false} styles={{ body: { padding: 0, background: ADMIN_COLORS.night } }}>
+        <Drawer placement="left" open={open} onClose={() => setOpen(false)} size={280} closable={false} styles={{ body: { padding: 0 } }}>
           {side}
         </Drawer>
       )}
