@@ -1,5 +1,5 @@
 /**
- * Extended Gulistan Travel catalogue: drafted content in scripts/seed-data/generated/*.json, mapped to the
+ * Extended Guliston Travel catalogue: drafted content in scripts/seed-data/generated/*.json, mapped to the
  * seed types and checked by build-seed-sql.ts like the hand-written entries.
  */
 import { existsSync, readFileSync } from "node:fs";

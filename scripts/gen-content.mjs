@@ -12,7 +12,7 @@ const KEY = process.env.GEMINI_API_KEY;
 if (!KEY) throw new Error("GEMINI_API_KEY missing");
 const MODELS = ["gemini-flash-latest", "gemini-flash-lite-latest"];
 
-const RULES = `You write content for "Gulistan Travel", a small inbound and domestic tour operator in Uzbekistan.
+const RULES = `You write content for "Guliston Travel", a small inbound and domestic tour operator in Uzbekistan.
 Rules: factual, specific and realistic (real places, realistic distances and travel times: Tashkent–Samarkand Afrosiyob train ~2 h 10 min, Samarkand–Bukhara ~1 h 40 min, Bukhara–Khiva by road ~6–7 h, Tashkent–Termez flight ~1 h 30 min, Tashkent–Nukus flight ~2 h). Prices are indicative only.
 Never invent licences, awards, certifications, partnerships, customer counts, statistics, phone numbers, emails or addresses.
 Every text field is an object {"en": "...", "uz": "...", "ru": "..."}: natural English; Uzbek in modern Latin script using the letters oʻ and gʻ (with U+02BB) and the apostrophe ʼ (U+02BC); natural Russian. No Lorem Ipsum, no placeholders, no emojis, no markdown unless asked.
@@ -121,7 +121,7 @@ Shape:
   },
   async faq() {
     const cats = "visa, currency, transport, dress_code, safety, health, general";
-    const a = await gemini(`Write 22 FAQ entries for travellers to Uzbekistan that are NOT about: visa-free entry list, tourist registration basics, Afrosiyob basics (those exist). Spread over categories ${cats} and booking with Gulistan Travel (category general: how to request a tour, no online prepayment, how prices are confirmed, custom tours, children discounts, cancellations — say the team confirms terms in writing). Shape: [{"category":"…","question":${T},"answer":${T} (2–4 sentences)}]`);
+    const a = await gemini(`Write 22 FAQ entries for travellers to Uzbekistan that are NOT about: visa-free entry list, tourist registration basics, Afrosiyob basics (those exist). Spread over categories ${cats} and booking with Guliston Travel (category general: how to request a tour, no online prepayment, how prices are confirmed, custom tours, children discounts, cancellations — say the team confirms terms in writing). Shape: [{"category":"…","question":${T},"answer":${T} (2–4 sentences)}]`);
     return a;
   },
   async guides() {
@@ -143,7 +143,7 @@ Shape:
       ["mountains-near-tashkent", "nature", "Mountains near Tashkent: Chimgan, Charvak and Amirsoy"],
     ];
     return pool(topics, 2, async ([slug, category, title]) => {
-      const g = await gemini(`Write a travel guide article "${title}" for the Gulistan Travel website. Shape:
+      const g = await gemini(`Write a travel guide article "${title}" for the Guliston Travel website. Shape:
 {"slug":"${slug}","category":"${category}","title":${T},"excerpt":${T} (1–2 sentences),"body":${T} (Markdown, 350–450 words per language, with 3–5 "## " subheadings and short bullet lists, practical and specific, no prices except clearly approximate ranges),"readingMinutes":number}`);
       return { ...g, slug, category };
     });
@@ -166,7 +166,7 @@ Shape:
     return out;
   },
   async services() {
-    return gemini(`Write 10 travel services Gulistan Travel offers in Uzbekistan: airport transfers, private car with driver, licensed guides and interpreters, hotel booking, Afrosiyob train tickets, domestic flight tickets, visa and registration assistance (advice only), MICE and corporate events, photo tours, travel insurance assistance (via partner insurers chosen by the traveller — do not name any). Shape:
+    return gemini(`Write 10 travel services Guliston Travel offers in Uzbekistan: airport transfers, private car with driver, licensed guides and interpreters, hotel booking, Afrosiyob train tickets, domestic flight tickets, visa and registration assistance (advice only), MICE and corporate events, photo tours, travel insurance assistance (via partner insurers chosen by the traveller — do not name any). Shape:
 [{"slug":"…","icon":"plane|car|guide|hotel|train|flight|document|briefcase|camera|shield","title":${T},"summary":${T} (1 sentence),"body":${T} (Markdown, 100–150 words per language: what is included, how to request, typical lead time; no fixed prices),"requestType":"airport_transfer|custom_tour|accommodation|guide"}]`);
   },
   async reviews() {

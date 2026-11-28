@@ -6,7 +6,7 @@
 # nginx file and certificate. Two brands run side by side on one server:
 #
 #   National Tours  (existing):  cd ~/silkroadtours  && sudo bash deploy/setup-server.sh
-#   Gulistan Travel (second):    git clone https://github.com/ilhomisroilov/silkroadtours.git ~/gulistantravel
+#   Guliston Travel (second):    git clone https://github.com/ilhomisroilov/silkroadtours.git ~/gulistantravel
 #                                cd ~/gulistantravel && sudo BRAND=gulistan bash deploy/setup-server.sh
 #
 #   BRAND      national (default) | gulistan        → name, logo, texts, contact email

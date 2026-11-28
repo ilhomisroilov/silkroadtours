@@ -1,8 +1,8 @@
 {
   "meta": {
-    "siteName": "Gulistan Travel",
-    "titleTemplate": "%s · Gulistan Travel",
-    "defaultTitle": "Gulistan Travel — Jizzaxdan Oʻzbekiston boʻylab sayohatlar",
+    "siteName": "Guliston Travel",
+    "titleTemplate": "%s · Guliston Travel",
+    "defaultTitle": "Guliston Travel — Jizzaxdan Oʻzbekiston boʻylab sayohatlar",
     "defaultDescription": "Oʻzbekiston boʻylab shaxsiy va guruh turlari: Samarqand, Buxoro, Xiva, oʻtovli lagerlar, Nurota va Zomin togʻlari. Narxlar soʻm, dollar yoki yevroda. Jizzaxdagi mahalliy jamoa."
   },
   "nav": {
@@ -604,7 +604,7 @@
   "about": {
     "metaTitle": "Biz haqimizda",
     "title": "Jizzaxlik mahalliy agentlik",
-    "lead": "Gulistan Travel — Samarqand, Nurota togʻlari va Zomin milliy bogʻi oraligʻidagi darvoza — Jizzaxda joylashgan turagentlik.",
+    "lead": "Guliston Travel — Samarqand, Nurota togʻlari va Zomin milliy bogʻi oraligʻidagi darvoza — Jizzaxda joylashgan turagentlik.",
     "p1": "Biz ikki turdagi sayohatchilar uchun safarlar tashkil qilamiz: Ipak yoʻlini ilk bor kashf etayotgan chet ellik mehmonlar hamda togʻlarda dam olish kunlarini yoki uyga yaqin taʼtilni izlayotgan oʻzbekistonlik oilalar va kompaniyalar.",
     "p2": "Biz oʻzimiz yaxshi biladigan yoʻnalishlarni tuzamiz, mahalliy gidlar, haydovchilar, mehmon uylari va oʻtovli lagerlar bilan ishlaymiz hamda bron qilishdan oldin haqiqiy narxni koʻrsatamiz.",
     "valuesTitle": "Qanday ishlaymiz",
@@ -616,7 +616,7 @@
     "value3Text": "Biz boradigan hududlardagi oilaviy mehmon uylari, hunarmandlar va gidlar bilan ishlaymiz.",
     "licence": "Litsenziya raqami: {number}",
     "cta": "Turlarimizni koʻring",
-    "eyebrow": "Gulistan Travel haqida",
+    "eyebrow": "Guliston Travel haqida",
     "factsTitle": "Bugungi katalogimiz",
     "factDestinations": "{count} ta manzil",
     "factTours": "{count} ta tayyor tur",
@@ -830,7 +830,7 @@
       "cta": "AI rejalashtiruvchini sinash"
     },
     "why": {
-      "eyebrow": "Nega aynan Gulistan Travel",
+      "eyebrow": "Nega aynan Guliston Travel",
       "title": "Ishonchli sayohat hamkoringiz",
       "t1": "Oʻzbekiston va xorij",
       "s1": "{count} ta yoʻnalish",

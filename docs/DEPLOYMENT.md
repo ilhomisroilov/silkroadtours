@@ -51,11 +51,11 @@ before every reload and rolls back its own file if the test fails, asks certbot 
 uses a free local port (`APP_PORT`, default 3100). If port 80 belongs to something other than host nginx
 (Apache, Caddy, a Docker proxy), it stops and tells you instead of installing a second web server.
 
-### Two brands on one server (National Tours + Gulistan Travel)
+### Two brands on one server (National Tours + Guliston Travel)
 The same code runs as separate sites; each brand is its own deployment with its own clone, `.env`, container,
 database volume, local port, nginx file, certificate, cron job and backups. Nothing is shared but the code.
 
-| | National Tours | Gulistan Travel |
+| | National Tours | Guliston Travel |
 |---|---|---|
 | `BRAND` / `NEXT_PUBLIC_BRAND` | `national` (default) | `gulistan` |
 | Domain | nationaltours.uz | gulistantravel.uz |
@@ -63,7 +63,7 @@ database volume, local port, nginx file, certificate, cron job and backups. Noth
 | Container / nginx file / backups | `silkroadtours` | `gulistantravel` |
 | Local port (`APP_PORT`) | 3100 | 3102 (3101 is the backend API) |
 
-Add Gulistan Travel next to the running National Tours site:
+Add Guliston Travel next to the running National Tours site:
 1. DNS: `A @` and `A www` for gulistantravel.uz → the server IP.
 2. On the server:
    ```bash
@@ -78,7 +78,7 @@ Add Gulistan Travel next to the running National Tours site:
 The script refuses to switch a directory to another brand, refuses a domain another nginx site already serves,
 and gives every site its own rate-limit zone, so the brands, yoshlikedu.uz and bilimjon.uz never collide.
 Each container is capped at `APP_MEM_LIMIT` (default 768m). Texts are written with the canonical name
-"Gulistan Travel" and swapped for the deployment's brand at load time (`src/lib/brand.ts`, `scripts/brand.mjs`);
+"Guliston Travel" and swapped for the deployment's brand at load time (`src/lib/brand.ts`, `scripts/brand.mjs`);
 migration `0004_brand.sql` aligns names already stored in a database with its brand.
 
 ## 3. First administrator (no default password exists)

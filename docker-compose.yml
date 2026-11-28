@@ -1,4 +1,4 @@
-# Production stack for one brand deployment (National Tours or Gulistan Travel, see NEXT_PUBLIC_BRAND).
+# Production stack for one brand deployment (National Tours or Guliston Travel, see NEXT_PUBLIC_BRAND).
 # Each brand runs from its own clone directory with its own .env, so the compose project, data volume,
 # container name (CONTAINER_NAME) and local port (APP_PORT) are separate.
 #   cp .env.example .env   (fill in secrets; never commit .env)

@@ -1,9 +1,9 @@
 /**
  * One codebase, several brands. Each deployment picks its brand with NEXT_PUBLIC_BRAND (build argument and
  * runtime env): "national" → National Tours (nationaltours.uz, the default so an existing server keeps its
- * name), "gulistan" → Gulistan Travel (gulistantravel.uz).
+ * name), "gulistan" → Guliston Travel (gulistantravel.uz).
  *
- * Texts in messages/*.json and the seed data are written with the canonical name "Gulistan Travel";
+ * Texts in messages/*.json and the seed data are written with the canonical name "Guliston Travel";
  * brandText()/brandDeep() swap it for the active brand at load time.
  * Keep scripts/brand.mjs (used by db.mjs and the seed builder) in sync with this file.
  */
@@ -21,9 +21,13 @@ export interface Brand {
     header: { src: string; width: number; height: number };
     /** White lettering with the slogan, for the footer. */
     footer: { src: string; width: number; height: number };
-    /** Navy lettering on transparent background (search engines, documents). */
+    /** Logo on transparent background as PNG (search engines, documents). */
     png: string;
+    /** Square lockup (emblem above the name) rather than a wide one: drawn taller in the header. */
+    stacked: boolean;
   };
+  icon: string;
+  appleIcon: string;
 }
 
 export const BRANDS: Record<BrandId, Brand> = {
@@ -37,23 +41,30 @@ export const BRANDS: Record<BrandId, Brand> = {
       header: { src: "/brand/national-tours-header-light.webp", width: 439, height: 168 },
       footer: { src: "/brand/national-tours-logo-light.webp", width: 720, height: 276 },
       png: "/brand/national-tours-logo.png",
+      stacked: false,
     },
+    icon: "/icon.png",
+    appleIcon: "/apple-icon.png",
   },
   gulistan: {
     id: "gulistan",
-    name: "Gulistan Travel",
+    name: "Guliston Travel",
     domain: "gulistantravel.uz",
     email: "info@gulistantravel.uz",
     slogan: "Your journey. One platform.",
     logo: {
-      header: { src: "/brand/gulistan-travel-header-light.webp", width: 479, height: 168 },
-      footer: { src: "/brand/gulistan-travel-logo-light.webp", width: 695, height: 276 },
+      // Final artwork from the owner (2026-11-28), source: scripts/brand/gulistan-travel-source.png
+      header: { src: "/brand/gulistan-travel-logo.webp", width: 428, height: 320 },
+      footer: { src: "/brand/gulistan-travel-logo.webp", width: 428, height: 320 },
       png: "/brand/gulistan-travel-logo.png",
+      stacked: true,
     },
+    icon: "/brand/gulistan-travel-icon.png",
+    appleIcon: "/brand/gulistan-travel-apple-icon.png",
   },
 };
 
-export const CANONICAL_NAME = "Gulistan Travel";
+export const CANONICAL_NAME = "Guliston Travel";
 const CANONICAL_DOMAIN = "gulistantravel.uz";
 
 export function resolveBrandId(value: string | undefined): BrandId {

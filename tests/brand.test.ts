@@ -10,8 +10,8 @@ test("brand defaults to National Tours so an existing deployment keeps its name"
 
 test("canonical texts follow the deployment's brand", () => {
   const nt = BRANDS.national;
-  assert.equal(brandText("Become a Gulistan Travel partner", nt), "Become a National Tours partner");
+  assert.equal(brandText("Become a Guliston Travel partner", nt), "Become a National Tours partner");
   assert.equal(brandText("https://gulistantravel.uz/en", nt), "https://nationaltours.uz/en");
-  assert.equal(brandText("Become a Gulistan Travel partner", BRANDS.gulistan), "Become a Gulistan Travel partner");
-  assert.deepEqual(brandDeep({ a: ["Gulistan Travel gidi"], b: 3 }, nt), { a: ["National Tours gidi"], b: 3 });
+  assert.equal(brandText("Become a Guliston Travel partner", BRANDS.gulistan), "Become a Guliston Travel partner");
+  assert.deepEqual(brandDeep({ a: ["Guliston Travel gidi"], b: 3 }, nt), { a: ["National Tours gidi"], b: 3 });
 });

@@ -2,7 +2,7 @@
 # Consistent SQLite backup inside the container volume, then a copy on the host (/var/backups/<instance>).
 # Keeps the newest 14 in each place. Copy /var/backups/<instance> off the server regularly (e.g. Object Storage).
 # The instance (container) name comes from CONTAINER_NAME in .env: silkroadtours (National Tours) or
-# gulistantravel (Gulistan Travel).
+# gulistantravel (Guliston Travel).
 set -euo pipefail
 cd "$(dirname "$0")/.."
 C="$( { grep -m1 '^CONTAINER_NAME=' .env 2>/dev/null || true; } | cut -d= -f2-)"; C="${C:-silkroadtours}"
