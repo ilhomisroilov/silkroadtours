@@ -1,14 +1,14 @@
 "use client";
 
-import { Plus, Trash2 } from "lucide-react";
+import { DeleteOutlined, PlusOutlined } from "@ant-design/icons";
+import { Button, Card, Checkbox, Col, Flex, Input, InputNumber, Popconfirm, Row, Switch, Typography } from "antd";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import type { Attraction, LocalizedText, MediaItem } from "@/db/types";
-import { cn } from "@/lib/cn";
-import { Button } from "@/components/ui/button";
 import { useAdminApi } from "./booking-actions";
-import { emptyLocalized, LocalizedFields } from "./localized";
+import { Field, GalleryField, HeroImageField, SaveBar, useDirty } from "./form-kit";
+import { EditLanguageProvider, EditLanguageSwitch, emptyLocalized, LocalizedFields } from "./localized";
 
 export interface EditorDestination {
   id?: number;
@@ -29,10 +29,18 @@ export interface EditorDestination {
   isPublished: boolean;
 }
 
-const field = "mt-1 block min-h-11 w-full rounded-sm border border-field bg-white px-3 font-normal";
 const opt = (l: LocalizedText | null) => (l && (l.en || l.uz || l.ru) ? { en: l.en || l.uz || l.ru, uz: l.uz, ru: l.ru } : null);
+const fill = (l: LocalizedText) => ({ ...l, en: l.en || l.uz || l.ru });
 
 export function DestinationEditor({ initial }: { initial: EditorDestination }) {
+  return (
+    <EditLanguageProvider>
+      <Inner initial={initial} />
+    </EditLanguageProvider>
+  );
+}
+
+function Inner({ initial }: { initial: EditorDestination }) {
   const t = useTranslations("admin");
   const td = useTranslations("admin.destinations");
   const tt = useTranslations("admin.tours");
@@ -40,77 +48,106 @@ export function DestinationEditor({ initial }: { initial: EditorDestination }) {
   const router = useRouter();
   const call = useAdminApi();
   const [d, setD] = useState(initial);
+  const [busy, setBusy] = useState(false);
+  const { dirty, markSaved } = useDirty(d);
   const set = <K extends keyof EditorDestination>(k: K, v: EditorDestination[K]) => setD((x) => ({ ...x, [k]: v }));
+  const setAttr = (i: number, patch: Partial<Attraction>) => set("attractions", d.attractions.map((x, j) => (j === i ? { ...x, ...patch } : x)));
+
   const save = async () => {
     const { id, ...body } = d;
     const payload = {
       ...body,
+      overview: fill(d.overview),
+      bestTime: fill(d.bestTime),
       seoTitle: opt(d.seoTitle),
       seoDescription: opt(d.seoDescription),
-      attractions: d.attractions.map((a) => ({ ...a, lat: a.lat ?? undefined, lng: a.lng ?? undefined, image: a.image || undefined })),
+      attractions: d.attractions.map((a) => ({ ...a, description: fill(a.description), lat: a.lat ?? undefined, lng: a.lng ?? undefined, image: a.image || undefined })),
     };
-    if (id) await call(`/api/admin/destinations/${id}`, { method: "PUT", json: payload }, t("common.saved"));
-    else {
+    setBusy(true);
+    if (id) {
+      if (await call(`/api/admin/destinations/${id}`, { method: "PUT", json: payload }, t("common.saved"))) markSaved();
+    } else {
       const r = await call<{ id: number }>("/api/admin/destinations", { method: "POST", json: payload }, t("common.saved"));
-      if (r && typeof r === "object") router.push(`/admin/destinations/${r.id}`);
+      if (r && typeof r === "object") {
+        markSaved();
+        router.push(`/admin/destinations/${r.id}`);
+      }
     }
+    setBusy(false);
   };
+
   return (
-    <div className="space-y-6">
-      <section className="space-y-4 rounded-sm border border-line bg-white p-5">
-        <div className="grid gap-4 sm:grid-cols-4">
-          <label className="block text-sm font-semibold">{tt("slug")}<input value={d.slug} onChange={(e) => set("slug", e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, "-"))} className={field} /></label>
-          <label className="block text-sm font-semibold">{tt("lat")}<input type="number" step={0.0001} value={d.lat} onChange={(e) => set("lat", Number(e.target.value))} className={field} /></label>
-          <label className="block text-sm font-semibold">{tt("lng")}<input type="number" step={0.0001} value={d.lng} onChange={(e) => set("lng", Number(e.target.value))} className={field} /></label>
-          <label className="block text-sm font-semibold">{tt("sortOrder")}<input type="number" value={d.sortOrder} onChange={(e) => set("sortOrder", Number(e.target.value))} className={field} /></label>
-        </div>
+    <Flex vertical gap={16}>
+      <Card size="small"><EditLanguageSwitch /></Card>
+      <Card>
+        <Row gutter={[16, 16]} style={{ marginBottom: 16 }}>
+          <Col xs={24} md={12}>
+            <Field label={tt("slug")} help={`…/destinations/${d.slug || "…"}`}>
+              <Input value={d.slug} onChange={(e) => set("slug", e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, "-"))} />
+            </Field>
+          </Col>
+          <Col xs={12} md={6}><Field label={tt("sortOrder")}><InputNumber style={{ width: "100%" }} value={d.sortOrder} onChange={(v) => set("sortOrder", v ?? 0)} /></Field></Col>
+          <Col xs={12} md={6}>
+            <Field label={tt("isPublished")}>
+              <Switch checked={d.isPublished} onChange={(v) => set("isPublished", v)} checkedChildren={t("common.published")} unCheckedChildren={t("common.draft")} />
+            </Field>
+          </Col>
+        </Row>
         <LocalizedFields label={td("name")} value={d.name} onChange={(v) => set("name", v)} required />
         <LocalizedFields label={td("tagline")} value={d.tagline} onChange={(v) => set("tagline", v)} required />
         <LocalizedFields label={td("overview")} value={d.overview} onChange={(v) => set("overview", v)} multiline rows={6} required />
         <LocalizedFields label={td("bestTime")} value={d.bestTime} onChange={(v) => set("bestTime", v)} multiline rows={2} required />
-        <fieldset>
-          <legend className="text-sm font-semibold">{td("bestMonths")}</legend>
-          <div className="mt-1 flex flex-wrap gap-1.5">
-            {Array.from({ length: 12 }, (_, i) => i + 1).map((m) => (
-              <label key={m} className="inline-flex min-h-11 min-w-14 items-center justify-center rounded-sm border border-field bg-white px-2 text-sm has-[:checked]:border-lapis has-[:checked]:bg-lapis has-[:checked]:text-white">
-                <input type="checkbox" className="sr-only" checked={d.bestMonths.includes(m)} onChange={(e) => set("bestMonths", e.target.checked ? [...d.bestMonths, m].sort((a, b) => a - b) : d.bestMonths.filter((x) => x !== m))} />
-                {tm(String(m) as never)}
-              </label>
-            ))}
-          </div>
-        </fieldset>
-        <label className="block text-sm font-semibold">{tt("heroImage")}<input value={d.heroImage} onChange={(e) => set("heroImage", e.target.value)} className={field} /></label>
-        <label className="block text-sm font-semibold">{tt("gallery")}
-          <textarea rows={4} value={d.gallery.map((g) => g.url).join("\n")} onChange={(e) => {
-            const byUrl = new Map(d.gallery.map((g) => [g.url, g]));
-            set("gallery", e.target.value.split("\n").map((u) => u.trim()).filter(Boolean).map((url) => byUrl.get(url) ?? { url, type: "image" as const, alt: { ...d.name } }));
-          }} className={cn(field, "py-2 font-mono text-sm")} />
-        </label>
-        <label className="inline-flex min-h-11 items-center gap-2 font-semibold"><input type="checkbox" className="size-5" checked={d.isPublished} onChange={(e) => set("isPublished", e.target.checked)} />{tt("isPublished")}</label>
-      </section>
-      <section className="space-y-4 rounded-sm border border-line bg-white p-5">
-        <h2 className="font-sans text-lg font-bold text-lapis-deep">{td("attractions")}</h2>
-        {d.attractions.map((a, i) => (
-          <div key={i} className="space-y-3 rounded-sm border border-line p-3">
-            <LocalizedFields label={td("attractionName")} value={a.name} onChange={(v) => set("attractions", d.attractions.map((x, j) => (j === i ? { ...x, name: v } : x)))} required />
-            <LocalizedFields label={td("attractionDescription")} value={a.description} multiline rows={2} onChange={(v) => set("attractions", d.attractions.map((x, j) => (j === i ? { ...x, description: v } : x)))} />
-            <div className="grid items-end gap-3 sm:grid-cols-3">
-              <label className="block text-sm font-semibold">{tt("lat")}<input type="number" step={0.0001} value={a.lat ?? ""} onChange={(e) => set("attractions", d.attractions.map((x, j) => (j === i ? { ...x, lat: e.target.value === "" ? undefined : Number(e.target.value) } : x)))} className={field} /></label>
-              <label className="block text-sm font-semibold">{tt("lng")}<input type="number" step={0.0001} value={a.lng ?? ""} onChange={(e) => set("attractions", d.attractions.map((x, j) => (j === i ? { ...x, lng: e.target.value === "" ? undefined : Number(e.target.value) } : x)))} className={field} /></label>
-              <Button variant="ghost" size="sm" onClick={() => set("attractions", d.attractions.filter((_, j) => j !== i))}><Trash2 aria-hidden="true" />{t("common.remove")}</Button>
-            </div>
-          </div>
-        ))}
-        <Button variant="outline" onClick={() => set("attractions", [...d.attractions, { name: emptyLocalized(), description: emptyLocalized() }])}><Plus aria-hidden="true" />{td("addAttraction")}</Button>
-      </section>
-      <section className="space-y-4 rounded-sm border border-line bg-white p-5">
+        <Typography.Text strong style={{ display: "block", marginBottom: 8 }}>{td("bestMonths")}</Typography.Text>
+        <Checkbox.Group
+          value={d.bestMonths}
+          onChange={(v) => set("bestMonths", [...(v as number[])].sort((a, b) => a - b))}
+          options={Array.from({ length: 12 }, (_, i) => ({ value: i + 1, label: tm(String(i + 1) as never) }))}
+          style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(80px, 1fr))", gap: 8 }}
+        />
+        <Row gutter={[16, 16]} style={{ marginTop: 16 }}>
+          <Col xs={12}><Field label={tt("lat")}><InputNumber style={{ width: "100%" }} step={0.0001} value={d.lat} onChange={(v) => set("lat", v ?? 0)} /></Field></Col>
+          <Col xs={12}><Field label={tt("lng")}><InputNumber style={{ width: "100%" }} step={0.0001} value={d.lng} onChange={(v) => set("lng", v ?? 0)} /></Field></Col>
+        </Row>
+      </Card>
+
+      <HeroImageField label={tt("heroImage")} value={d.heroImage} onChange={(url) => set("heroImage", url)} />
+      <GalleryField label={tt("gallery")} value={d.gallery} onChange={(v) => set("gallery", v)} alt={d.name} />
+
+      <Card
+        title={`${td("attractions")} (${d.attractions.length})`}
+        extra={<Button icon={<PlusOutlined />} onClick={() => set("attractions", [...d.attractions, { name: emptyLocalized(), description: emptyLocalized() }])}>{td("addAttraction")}</Button>}
+      >
+        <Flex vertical gap={12}>
+          {d.attractions.map((a, i) => (
+            <Card
+              key={i}
+              size="small"
+              type="inner"
+              title={`${i + 1}. ${a.name.uz || a.name.en || "…"}`}
+              extra={
+                <Popconfirm title={t("common.confirmDelete")} onConfirm={() => set("attractions", d.attractions.filter((_, j) => j !== i))}>
+                  <Button size="small" danger icon={<DeleteOutlined />}>{t("common.remove")}</Button>
+                </Popconfirm>
+              }
+            >
+              <LocalizedFields label={td("attractionName")} value={a.name} onChange={(v) => setAttr(i, { name: v })} required />
+              <LocalizedFields label={td("attractionDescription")} value={a.description} multiline rows={2} onChange={(v) => setAttr(i, { description: v })} />
+              <Row gutter={[12, 12]}>
+                <Col xs={12}><Field label={tt("lat")}><InputNumber style={{ width: "100%" }} step={0.0001} value={a.lat ?? null} onChange={(v) => setAttr(i, { lat: v ?? undefined })} /></Field></Col>
+                <Col xs={12}><Field label={tt("lng")}><InputNumber style={{ width: "100%" }} step={0.0001} value={a.lng ?? null} onChange={(v) => setAttr(i, { lng: v ?? undefined })} /></Field></Col>
+              </Row>
+            </Card>
+          ))}
+        </Flex>
+      </Card>
+
+      <Card title="SEO">
         <LocalizedFields label={tt("seoTitle")} value={d.seoTitle} onChange={(v) => set("seoTitle", v)} />
         <LocalizedFields label={tt("seoDescription")} value={d.seoDescription} multiline rows={2} onChange={(v) => set("seoDescription", v)} />
-      </section>
-      <div className="sticky bottom-0 flex justify-end border-t border-line bg-sand-soft/90 py-3 backdrop-blur">
-        <Button onClick={save}>{t("common.save")}</Button>
-      </div>
-    </div>
+      </Card>
+
+      <SaveBar dirty={dirty} busy={busy} onSave={save} testId="destination-save" />
+    </Flex>
   );
 }
 
@@ -118,15 +155,14 @@ export function DeleteButton({ url, label, confirmText, redirectTo }: { url: str
   const call = useAdminApi();
   const router = useRouter();
   return (
-    <button
-      type="button"
-      className="inline-flex min-h-11 items-center gap-1.5 rounded-sm px-2.5 text-sm font-semibold text-danger hover:bg-danger/10"
-      onClick={async () => {
-        if (!confirm(confirmText)) return;
+    <Popconfirm
+      title={confirmText}
+      okButtonProps={{ danger: true }}
+      onConfirm={async () => {
         if ((await call(url, { method: "DELETE" })) && redirectTo) router.push(redirectTo);
       }}
     >
-      <Trash2 aria-hidden="true" className="size-4" /> {label}
-    </button>
+      <Button type="text" danger icon={<DeleteOutlined />}>{label}</Button>
+    </Popconfirm>
   );
 }

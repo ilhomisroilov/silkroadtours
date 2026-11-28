@@ -1,41 +1,95 @@
 "use client";
 
-import { BarChart3, BookOpenCheck, Building2, CalendarCheck2, Cog, FileText, Handshake, HelpCircle, Images, KanbanSquare, LogOut, Mail, Map, MessageSquareQuote, NotebookPen, PanelLeft, Route, Bot, Users } from "lucide-react";
+import {
+  BarChartOutlined,
+  BookOutlined,
+  CalendarOutlined,
+  CommentOutlined,
+  ExportOutlined,
+  FileTextOutlined,
+  GlobalOutlined,
+  LogoutOutlined,
+  MailOutlined,
+  MenuOutlined,
+  PictureOutlined,
+  ProjectOutlined,
+  QuestionCircleOutlined,
+  RobotOutlined,
+  SettingOutlined,
+  ShopOutlined,
+  SolutionOutlined,
+  TeamOutlined,
+  ApartmentOutlined,
+  CompassOutlined,
+} from "@ant-design/icons";
+import { Avatar, Button, Drawer, Flex, Grid, Layout, Menu, Segmented, Typography, type MenuProps } from "antd";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useState, type ReactNode } from "react";
 import { ADMIN_LOCALE_COOKIE, type AdminLocale } from "@/i18n/admin";
 import { apiFetch } from "@/lib/client/api";
-import { cn } from "@/lib/cn";
-import { GirihRosette } from "@/components/ornament";
 import { BRAND } from "@/lib/brand";
+import { ADMIN_COLORS } from "./antd-provider";
 
-const NAV = [
-  { href: "/admin", key: "overview", icon: BarChart3 },
-  { href: "/admin/crm", key: "crm", icon: KanbanSquare },
-  { href: "/admin/customers", key: "customers", icon: Users },
-  { href: "/admin/bookings", key: "bookings", icon: CalendarCheck2 },
-  { href: "/admin/requests", key: "requests", icon: BookOpenCheck },
-  { href: "/admin/trips", key: "trips", icon: NotebookPen },
-  { href: "/admin/places", key: "places", icon: Building2 },
-  { href: "/admin/tours", key: "tours", icon: Route },
-  { href: "/admin/destinations", key: "destinations", icon: Map },
-  { href: "/admin/media", key: "media", icon: Images },
-  { href: "/admin/partners", key: "partners", icon: Handshake },
-  { href: "/admin/content", key: "content", icon: FileText },
-  { href: "/admin/ai", key: "ai", icon: Bot },
-  { href: "/admin/faq", key: "faq", icon: HelpCircle },
-  { href: "/admin/reviews", key: "reviews", icon: MessageSquareQuote },
-  { href: "/admin/newsletter", key: "newsletter", icon: Mail },
-  { href: "/admin/settings", key: "settings", icon: Cog },
-] as const;
+type NavKey =
+  | "overview" | "crm" | "customers" | "bookings" | "requests" | "trips" | "places" | "tours" | "destinations"
+  | "media" | "partners" | "content" | "ai" | "faq" | "reviews" | "newsletter" | "settings";
+
+const GROUPS: { group: "main" | "sales" | "catalog" | "content" | "system"; items: { href: string; key: NavKey; icon: ReactNode }[] }[] = [
+  { group: "main", items: [{ href: "/admin", key: "overview", icon: <BarChartOutlined /> }] },
+  {
+    group: "sales",
+    items: [
+      { href: "/admin/bookings", key: "bookings", icon: <CalendarOutlined /> },
+      { href: "/admin/requests", key: "requests", icon: <SolutionOutlined /> },
+      { href: "/admin/crm", key: "crm", icon: <ProjectOutlined /> },
+      { href: "/admin/customers", key: "customers", icon: <TeamOutlined /> },
+      { href: "/admin/trips", key: "trips", icon: <BookOutlined /> },
+    ],
+  },
+  {
+    group: "catalog",
+    items: [
+      { href: "/admin/tours", key: "tours", icon: <CompassOutlined /> },
+      { href: "/admin/destinations", key: "destinations", icon: <GlobalOutlined /> },
+      { href: "/admin/places", key: "places", icon: <ShopOutlined /> },
+      { href: "/admin/partners", key: "partners", icon: <ApartmentOutlined /> },
+      { href: "/admin/media", key: "media", icon: <PictureOutlined /> },
+    ],
+  },
+  {
+    group: "content",
+    items: [
+      { href: "/admin/content", key: "content", icon: <FileTextOutlined /> },
+      { href: "/admin/faq", key: "faq", icon: <QuestionCircleOutlined /> },
+      { href: "/admin/reviews", key: "reviews", icon: <CommentOutlined /> },
+      { href: "/admin/newsletter", key: "newsletter", icon: <MailOutlined /> },
+    ],
+  },
+  {
+    group: "system",
+    items: [
+      { href: "/admin/ai", key: "ai", icon: <RobotOutlined /> },
+      { href: "/admin/settings", key: "settings", icon: <SettingOutlined /> },
+    ],
+  },
+];
+
+function activeKey(pathname: string): string {
+  let best = "/admin";
+  for (const g of GROUPS) for (const i of g.items) if (i.href !== "/admin" && pathname.startsWith(i.href) && i.href.length > best.length) best = i.href;
+  return best;
+}
 
 export function AdminShell({ user, locale, children }: { user: { name: string; role: string }; locale: AdminLocale; children: ReactNode }) {
   const t = useTranslations("admin");
   const pathname = usePathname();
   const router = useRouter();
+  const screens = Grid.useBreakpoint();
+  const desktop = screens.lg ?? true;
   const [open, setOpen] = useState(false);
+
   const setLocale = (l: AdminLocale) => {
     document.cookie = `${ADMIN_LOCALE_COOKIE}=${l}; Path=/admin; Max-Age=31536000; SameSite=Lax${location.protocol === "https:" ? "; Secure" : ""}`;
     router.refresh();
@@ -45,61 +99,62 @@ export function AdminShell({ user, locale, children }: { user: { name: string; r
     router.replace("/admin/login");
     router.refresh();
   };
-  const nav = (
-    <nav aria-label={t("nav.menu")}>
-      <ul className="space-y-1">
-        {NAV.map(({ href, key, icon: Icon }) => {
-          const active = href === "/admin" ? pathname === "/admin" : pathname.startsWith(href);
-          return (
-            <li key={href}>
-              <Link
-                href={href}
-                onClick={() => setOpen(false)}
-                aria-current={active ? "page" : undefined}
-                className={cn("flex min-h-11 items-center gap-3 rounded-sm px-3 font-semibold", active ? "bg-saffron text-ink" : "text-sand hover:bg-white/10 hover:text-white")}
-              >
-                <Icon aria-hidden="true" className="size-5" />
-                {t(`nav.${key}`)}
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
-    </nav>
+
+  const items: MenuProps["items"] = GROUPS.map((g) => ({
+    type: "group" as const,
+    key: g.group,
+    label: <span style={{ color: "#8fa2b7", fontSize: 12, letterSpacing: "0.06em", textTransform: "uppercase" }}>{t(`panel.groups.${g.group}`)}</span>,
+    children: g.items.map((i) => ({
+      key: i.href,
+      icon: i.icon,
+      label: <Link href={i.href} onClick={() => setOpen(false)}>{t(`nav.${i.key}`)}</Link>,
+    })),
+  }));
+
+  const side = (
+    <Flex vertical style={{ height: "100%", background: ADMIN_COLORS.night }}>
+      <Link href="/admin" style={{ display: "flex", alignItems: "center", gap: 10, padding: "20px 20px 12px", color: "#fff" }}>
+        <Avatar shape="square" size={36} style={{ background: ADMIN_COLORS.gold, color: ADMIN_COLORS.night, fontWeight: 700 }}>{BRAND.name.slice(0, 1)}</Avatar>
+        <span style={{ fontSize: 18, fontWeight: 700, lineHeight: 1.2 }}>{BRAND.name}</span>
+      </Link>
+      <nav aria-label={t("nav.menu")} style={{ flex: 1, overflowY: "auto" }}>
+        <Menu theme="dark" mode="inline" selectedKeys={[activeKey(pathname)]} items={items} style={{ borderInlineEnd: 0 }} />
+      </nav>
+      <Flex vertical gap={8} style={{ padding: 16, borderTop: "1px solid rgba(255,255,255,0.12)" }}>
+        <Typography.Text style={{ color: "#c9d4e0", fontSize: 13 }}>{t("nav.signedInAs", { name: user.name })}</Typography.Text>
+        <Segmented<AdminLocale>
+          block
+          aria-label={t("panel.language")}
+          value={locale}
+          onChange={setLocale}
+          options={[{ label: "Oʻzbekcha", value: "uz" }, { label: "English", value: "en" }]}
+        />
+        <Button block href="/" target="_blank" icon={<ExportOutlined />}>{t("nav.viewSite")}</Button>
+        <Button block danger icon={<LogoutOutlined />} onClick={logout} data-testid="admin-logout">{t("nav.logout")}</Button>
+      </Flex>
+    </Flex>
   );
+
   return (
-    <div className="lg:grid lg:min-h-dvh lg:grid-cols-[16rem_1fr]">
-      <aside className={cn("on-dark bg-girih-dark fixed inset-y-0 left-0 z-50 flex w-64 flex-col gap-6 overflow-y-auto overscroll-contain p-4 transition-transform lg:static lg:overflow-visible lg:translate-x-0", open ? "translate-x-0" : "-translate-x-full")}>
-        <Link href="/admin" className="flex items-center gap-2 px-2 pt-2">
-          <GirihRosette size={32} tone="saffron" strokeWidth={2.2} />
-          <span className="font-display text-xl font-bold text-ivory">{BRAND.name}</span>
-        </Link>
-        {nav}
-        <div className="mt-auto space-y-3 border-t border-white/15 pt-4 text-sm text-sand">
-          <p>{t("nav.signedInAs", { name: user.name })}</p>
-          <div className="flex gap-1" role="group" aria-label={t("language")}>
-            {(["uz", "en"] as const).map((l) => (
-              <button key={l} type="button" onClick={() => setLocale(l)} aria-pressed={locale === l} className={cn("min-h-11 flex-1 rounded-sm font-semibold uppercase", locale === l ? "bg-white/20 text-white" : "hover:bg-white/10")}>
-                {l}
-              </button>
-            ))}
-          </div>
-          <a href="/en" className="flex min-h-11 items-center rounded-sm px-2 hover:bg-white/10">{t("nav.viewSite")} ↗</a>
-          <button type="button" onClick={logout} className="flex min-h-11 w-full items-center gap-2 rounded-sm px-2 font-semibold text-white hover:bg-white/10" data-testid="admin-logout">
-            <LogOut aria-hidden="true" className="size-4" /> {t("nav.logout")}
-          </button>
-        </div>
-      </aside>
-      {open && <button type="button" aria-label={t("common.cancel")} className="fixed inset-0 z-40 bg-black/40 lg:hidden" onClick={() => setOpen(false)} />}
-      <div className="min-w-0">
-        <div className="sticky top-0 z-30 flex items-center gap-3 border-b border-line bg-ivory px-4 py-2 lg:hidden">
-          <button type="button" onClick={() => setOpen(true)} className="inline-flex size-11 items-center justify-center rounded-sm hover:bg-sand-soft" aria-label={t("nav.menu")}>
-            <PanelLeft aria-hidden="true" className="size-5" />
-          </button>
-          <span className="font-display text-lg font-bold text-lapis-deep">{t("brand")}</span>
-        </div>
-        <main id="main" className="mx-auto max-w-7xl p-4 sm:p-6 lg:p-8">{children}</main>
-      </div>
-    </div>
+    <Layout style={{ minHeight: "100dvh" }}>
+      {desktop ? (
+        <Layout.Sider width={264} style={{ position: "sticky", top: 0, height: "100dvh", overflow: "hidden" }}>{side}</Layout.Sider>
+      ) : (
+        <Drawer placement="left" open={open} onClose={() => setOpen(false)} size={280} closable={false} styles={{ body: { padding: 0, background: ADMIN_COLORS.night } }}>
+          {side}
+        </Drawer>
+      )}
+      <Layout>
+        {!desktop && (
+          <Layout.Header style={{ position: "sticky", top: 0, zIndex: 20, display: "flex", alignItems: "center", gap: 12, padding: "0 12px", borderBottom: "1px solid #dfe4ea", height: 56, lineHeight: "56px" }}>
+            <Button type="text" size="large" icon={<MenuOutlined />} aria-label={t("nav.menu")} onClick={() => setOpen(true)} />
+            <Typography.Text strong style={{ fontSize: 17 }}>{BRAND.name}</Typography.Text>
+          </Layout.Header>
+        )}
+        <Layout.Content>
+          <main id="main" style={{ maxWidth: 1320, margin: "0 auto", padding: desktop ? "28px 32px 48px" : "16px 12px 40px" }}>{children}</main>
+        </Layout.Content>
+      </Layout>
+    </Layout>
   );
 }

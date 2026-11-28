@@ -40,7 +40,7 @@ test("admin: sign in, see a new booking, confirm it (seats go down), sign out", 
   // 4. Confirm it: two seats are reserved on the departure.
   const seats = page.getByTestId("admin-departure-seats");
   const before = seatsLeft((await seats.textContent()) ?? "");
-  await page.getByTestId("status-select").selectOption("confirmed");
+  await page.getByTestId("status-select").locator("label", { has: page.locator('input[value="confirmed"]') }).click();
   await page.getByTestId("status-apply").click();
   await expect(page.getByTestId("status-badge")).toHaveText("Tasdiqlangan");
   await expect(seats).toContainText(`${before - 2} ta joy`);

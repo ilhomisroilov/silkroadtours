@@ -1,0 +1,8 @@
+{
+  "payments": {
+    "title": "Payment method",
+    "lead": "You pay once your booking is confirmed. For now, send your request and a manager will contact you about payment.",
+    "unavailable": "{name} is temporarily unavailable",
+    "unavailableHint": "Online payment will be switched on soon. Go ahead and send your booking request; a manager will arrange payment with you another convenient way."
+  }
+}

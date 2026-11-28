@@ -98,7 +98,7 @@ test.describe.serial("acceptance workflows A–J", () => {
     // F: the booking from workflow A is confirmed.
     await page.goto(`/admin/bookings?q=${state.bookingRef}`);
     await page.getByTestId("admin-bookings").getByRole("link", { name: state.bookingRef! }).click();
-    await page.getByTestId("status-select").selectOption("confirmed");
+    await page.getByTestId("status-select").locator("label", { has: page.locator('input[value="confirmed"]') }).click();
     await page.getByTestId("status-apply").click();
     await expect(page.getByTestId("status-badge")).toHaveText("Confirmed");
     expect((await (await request.get(`/api/bookings/${state.bookingRef}`)).json()).data.status).toBe("confirmed");

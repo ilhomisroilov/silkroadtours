@@ -308,3 +308,43 @@ select option { background: #0d304f; color: #fff; }
 /* Gold is not a brand accent in concept v2: gold buttons become Royal Blue (stars stay gold). */
 .bg-saffron { background-color: #176bcb; color: #ffffff; box-shadow: 0 12px 28px -14px rgb(23 107 203 / 0.9); }
 .hover\:bg-saffron:hover, .bg-saffron:hover { background-color: #2b7fdc; }
+
+/*
+ * Admin panel: a light work surface (Ant Design), not the site's night palette. The same token names are
+ * redefined so the older admin pieces that still use them read dark text on light backgrounds.
+ */
+.admin-root {
+  --color-ivory: #f4f6f9;
+  --color-ink: #14202b;
+  --color-ink-muted: #55606b;
+  --color-line: #dfe4ea;
+  --color-field: #b9c2cc;
+  --color-sand: #e7ecf2;
+  --color-sand-soft: #eef2f7;
+  --color-sky: #f0f4f8;
+  --color-saffron-ink: #8a5a00;
+  --color-saffron-soft: #fbf1dc;
+  --color-turquoise-ink: #0a6f78;
+  --color-lapis-mist: #e6f0fb;
+  color: var(--color-ink);
+  background: var(--color-ivory);
+}
+/* Undo the site's night-glass overrides inside the admin. */
+.admin-root .bg-white, .admin-root .card, .admin-root [class*="bg-white/"] {
+  background: #ffffff; -webkit-backdrop-filter: none; backdrop-filter: none; box-shadow: none;
+}
+.admin-root .hover\:bg-white:hover { background: #f0f4f8; }
+.admin-root .bg-ivory, .admin-root [class*="bg-ivory/"] { background-color: #f4f6f9; -webkit-backdrop-filter: none; backdrop-filter: none; }
+.admin-root .bg-lapis-deep { background-color: #0d304f; -webkit-backdrop-filter: none; backdrop-filter: none; }
+.admin-root .bg-lapis-night, .admin-root .bg-girih-dark { background-color: #061a2e; -webkit-backdrop-filter: none; backdrop-filter: none; }
+.admin-root .text-lapis-deep, .admin-root .text-lapis-night, .admin-root :is(h1, h2, h3).text-lapis { color: #0d304f; }
+.admin-root .text-lapis, .admin-root .text-cobalt, .admin-root .text-terracotta { color: #1660b8; }
+.admin-root .hover\:text-lapis:hover, .admin-root .hover\:text-lapis-deep:hover { color: #0d304f; }
+.admin-root .text-ivory { color: #ffffff; }
+.admin-root .text-sand { color: #2a3742; }
+.admin-root .shadow-card, .admin-root .shadow-lift { box-shadow: 0 1px 3px rgb(16 32 48 / 0.08); }
+.admin-root input::placeholder, .admin-root textarea::placeholder { color: #8a949e; }
+.admin-root select option { background: #ffffff; color: #14202b; }
+.admin-root .bg-saffron { background-color: #d9a441; color: #14202b; box-shadow: none; }
+.admin-root main section { animation: none; }
+.admin-root a.group:hover, .admin-root li > a[class*="rounded"]:hover { transform: none; }

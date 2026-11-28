@@ -1,10 +1,35 @@
 "use client";
 
-import { ArrowDown, ArrowUp, Plus, Trash2 } from "lucide-react";
+import { ArrowDownOutlined, ArrowUpOutlined, DeleteOutlined, PlusOutlined, SaveOutlined } from "@ant-design/icons";
+import {
+  Alert,
+  Badge,
+  Button,
+  Card,
+  Checkbox,
+  Col,
+  Collapse,
+  DatePicker,
+  Empty,
+  Flex,
+  Image,
+  Input,
+  InputNumber,
+  Popconfirm,
+  Row,
+  Select,
+  Space,
+  Switch,
+  Table,
+  Tabs,
+  Tag,
+  Typography,
+} from "antd";
+import dayjs from "dayjs";
 import dynamic from "next/dynamic";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useMemo, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
 import {
   AUDIENCES,
   BOOKING_TYPES,
@@ -25,14 +50,10 @@ import {
   type RoutePoint,
   type TransportItem,
 } from "@/db/types";
-import { imageExists } from "@/lib/images";
-import { cn } from "@/lib/cn";
 import { CURRENCY_EXPONENT, formatMoney, tierPriceIn } from "@/lib/pricing";
-import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/primitives";
 import { useAdminApi } from "./booking-actions";
-import { emptyLocalized, LocalizedFields, LocalizedLines } from "./localized";
+import { EditLanguageProvider, EditLanguageSwitch, emptyLocalized, LocalizedFields, LocalizedLines } from "./localized";
+import { Field, GalleryField, HeroImageField, SaveBar } from "./form-kit";
 
 const PointPicker = dynamic(() => import("./point-picker"), { ssr: false });
 
@@ -100,9 +121,10 @@ export interface EditorDeparture {
   priceModifierPercent: number;
 }
 
-const field = "block min-h-11 w-full rounded-sm border border-field bg-white px-3";
 const nonEmpty = (l: LocalizedText) => !!(l.en.trim() || l.uz.trim() || l.ru.trim());
 const optionalLocalized = (l: LocalizedText | null) => (l && nonEmpty(l) ? { en: l.en.trim() || l.uz || l.ru, uz: l.uz, ru: l.ru } : null);
+/** Long texts need English on the server; when only Uzbek or Russian was written, it stands in for English. */
+const longText = (l: LocalizedText) => ({ en: l.en.trim() || l.uz.trim() || l.ru.trim(), uz: l.uz, ru: l.ru });
 
 /** Shape the editor state into the exact body PUT /api/admin/tours/[id] expects. */
 export function toUpsertBody(t: EditorTour) {
@@ -113,8 +135,8 @@ export function toUpsertBody(t: EditorTour) {
     primaryDestinationId: t.primaryDestinationId,
     destinationIds: t.destinationIds.filter((d) => d !== t.primaryDestinationId),
     title: t.title,
-    summary: t.summary,
-    description: t.description,
+    summary: longText(t.summary),
+    description: longText(t.description),
     durationDays: t.durationDays,
     durationNights: t.durationNights,
     difficulty: t.difficulty,
@@ -124,8 +146,8 @@ export function toUpsertBody(t: EditorTour) {
     childPricePercent: t.childPricePercent,
     compareAtPriceMinor: t.compareAtPriceMinor,
     badges: t.badges,
-    included: t.included.filter(nonEmpty),
-    excluded: t.excluded.filter(nonEmpty),
+    included: t.included.filter(nonEmpty).map(longText),
+    excluded: t.excluded.filter(nonEmpty).map(longText),
     accommodation: t.accommodation,
     transport: t.transport,
     route: t.route,
@@ -141,25 +163,34 @@ export function toUpsertBody(t: EditorTour) {
   };
 }
 
-function Num({ label, value, onChange, min, max, step }: { label: string; value: number | null; onChange: (v: number | null) => void; min?: number; max?: number; step?: number }) {
+/** What would make the server refuse the tour, in words the editor can act on. */
+function problems(t: EditorTour, tt: (k: string, v?: Record<string, string>) => string): string[] {
+  const out: string[] = [];
+  const langs = { en: "English", uz: "Oʻzbekcha", ru: "Русский" } as const;
+  for (const l of ["en", "uz", "ru"] as const) if (!t.title[l].trim()) out.push(`${tt("titleField")}: ${tt("missingTranslation", { lang: langs[l] })}`);
+  if (!nonEmpty(t.summary)) out.push(`${tt("summary")}: —`);
+  if (!nonEmpty(t.description)) out.push(`${tt("description")}: —`);
+  if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(t.slug.trim())) out.push(`${tt("slug")}: a-z, 0-9, -`);
+  if (t.maxGroup < t.minGroup) out.push(`${tt("maxGroup")} < ${tt("minGroup")}`);
+  return out;
+}
+
+export function TourEditor(props: {
+  initial: EditorTour;
+  itinerary: EditorDay[];
+  tiers: EditorTier[];
+  departures: EditorDeparture[];
+  destinations: { id: number; name: string }[];
+  rates: ExchangeRates;
+}) {
   return (
-    <label className="block text-sm font-semibold">
-      {label}
-      <input type="number" min={min} max={max} step={step} value={value ?? ""} onChange={(e) => onChange(e.target.value === "" ? null : Number(e.target.value))} className={cn(field, "mt-1 font-normal")} />
-    </label>
+    <EditLanguageProvider>
+      <TourEditorInner {...props} />
+    </EditLanguageProvider>
   );
 }
 
-function Section({ title, children }: { title: string; children: ReactNode }) {
-  return (
-    <section className="space-y-4 rounded-sm border border-line bg-white p-5">
-      <h3 className="font-sans text-lg font-bold text-lapis-deep">{title}</h3>
-      {children}
-    </section>
-  );
-}
-
-export function TourEditor({
+function TourEditorInner({
   initial,
   itinerary: initialDays,
   tiers: initialTiers,
@@ -187,180 +218,277 @@ export function TourEditor({
   const [tour, setTour] = useState<EditorTour>(initial);
   const [days, setDays] = useState<EditorDay[]>(initialDays);
   const [tiers, setTiers] = useState<EditorTier[]>(initialTiers);
+  const [saved, setSaved] = useState({ tour: JSON.stringify(initial), days: JSON.stringify(initialDays), tiers: JSON.stringify(initialTiers) });
   const [busy, setBusy] = useState(false);
+  const [issues, setIssues] = useState<string[]>([]);
   const isNew = !tour.id;
   const set = <K extends keyof EditorTour>(k: K, v: EditorTour[K]) => setTour((x) => ({ ...x, [k]: v }));
+  const dirtyTour = JSON.stringify(tour) !== saved.tour;
+  const dirtyDays = JSON.stringify(days) !== saved.days;
+  const dirtyTiers = JSON.stringify(tiers) !== saved.tiers;
+
+  useEffect(() => {
+    const warn = (e: BeforeUnloadEvent) => {
+      if (dirtyTour || dirtyDays || dirtyTiers) e.preventDefault();
+    };
+    window.addEventListener("beforeunload", warn);
+    return () => window.removeEventListener("beforeunload", warn);
+  }, [dirtyTour, dirtyDays, dirtyTiers]);
 
   const saveTour = async () => {
+    const found = problems(tour, tt as never);
+    setIssues(found);
+    if (found.length) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
     setBusy(true);
     const body = toUpsertBody(tour);
     if (isNew) {
       const r = await call<{ id: number }>("/api/admin/tours", { method: "POST", json: body }, tt("createdNotice"));
       setBusy(false);
-      if (r && typeof r === "object") router.push(`/admin/tours/${r.id}?tab=itinerary`);
+      if (r && typeof r === "object") {
+        setSaved((s) => ({ ...s, tour: JSON.stringify(tour) }));
+        router.push(`/admin/tours/${r.id}?tab=itinerary`);
+      }
       return;
     }
-    await call(`/api/admin/tours/${tour.id}`, { method: "PUT", json: body }, t("common.saved"));
+    const ok = await call(`/api/admin/tours/${tour.id}`, { method: "PUT", json: body }, t("common.saved"));
+    if (ok) setSaved((s) => ({ ...s, tour: JSON.stringify(tour) }));
     setBusy(false);
   };
 
-  const saveButton = (onClick: () => void, testId: string) => (
-    <div className="sticky bottom-0 z-10 -mx-1 flex justify-end border-t border-line bg-sand-soft/90 px-1 py-3 backdrop-blur">
-      <Button onClick={onClick} disabled={busy} data-testid={testId}>{busy ? t("common.saving") : t("common.save")}</Button>
-    </div>
-  );
+  const destOptions = destinations.map((d) => ({ value: d.id, label: d.name }));
 
-  // ── Content ────────────────────────────────────────────────────────────
+  // ── Main ───────────────────────────────────────────────────────────────
   const content = (
-    <div className="space-y-6">
-      <Section title={tt("tabs.content")}>
-        <div className="grid gap-4 md:grid-cols-3">
-          <label className="block text-sm font-semibold">{tt("slug")}
-            <input value={tour.slug} onChange={(e) => set("slug", e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, "-"))} className={cn(field, "mt-1 font-normal")} />
+    <Flex vertical gap={16}>
+      <Card title={tt("tabs.content")}>
+        <Row gutter={[16, 16]}>
+          <Col xs={24} md={12}>
+            <LocalizedFields label={tt("titleField")} value={tour.title} onChange={(v) => set("title", v)} required />
+          </Col>
+          <Col xs={24} md={12}>
+            <Field label={tt("slug")} help={`gulistantravel.uz/…/tours/${tour.slug || "…"}`}>
+              <Input value={tour.slug} onChange={(e) => set("slug", e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, "-"))} />
+            </Field>
+          </Col>
+          <Col xs={24}>
+            <LocalizedFields label={tt("summary")} value={tour.summary} onChange={(v) => set("summary", v)} multiline rows={2} required />
+            <LocalizedFields label={tt("description")} value={tour.description} onChange={(v) => set("description", v)} multiline rows={6} required />
+          </Col>
+        </Row>
+      </Card>
+
+      <Card title={tt("primaryDestination")}>
+        <Row gutter={[16, 16]}>
+          <Col xs={24} sm={12} lg={6}>
+            <Field label={tt("audience")}>
+              <Select style={{ width: "100%" }} value={tour.audience} onChange={(v) => set("audience", v)} options={AUDIENCES.map((a) => ({ value: a, label: a === "inbound" ? "Inbound" : "Domestic" }))} />
+            </Field>
+          </Col>
+          <Col xs={24} sm={12} lg={6}>
+            <Field label={tt("category")}>
+              <Select style={{ width: "100%" }} value={tour.category} onChange={(v) => set("category", v)} options={TOUR_CATEGORIES.map((c) => ({ value: c, label: tc(c) }))} />
+            </Field>
+          </Col>
+          <Col xs={24} sm={12} lg={6}>
+            <Field label={tt("primaryDestination")}>
+              <Select showSearch optionFilterProp="label" style={{ width: "100%" }} value={tour.primaryDestinationId} onChange={(v) => set("primaryDestinationId", v)} options={destOptions} />
+            </Field>
+          </Col>
+          <Col xs={24} sm={12} lg={6}>
+            <Field label={tt("difficulty")}>
+              <Select style={{ width: "100%" }} value={tour.difficulty} onChange={(v) => set("difficulty", v)} options={DIFFICULTIES.map((d) => ({ value: d, label: td(d) }))} />
+            </Field>
+          </Col>
+          <Col xs={24}>
+            <Field label={tt("otherDestinations")}>
+              <Select
+                mode="multiple"
+                allowClear
+                optionFilterProp="label"
+                style={{ width: "100%" }}
+                value={tour.destinationIds.filter((d) => d !== tour.primaryDestinationId)}
+                onChange={(v) => set("destinationIds", v)}
+                options={destOptions.filter((d) => d.value !== tour.primaryDestinationId)}
+              />
+            </Field>
+          </Col>
+        </Row>
+      </Card>
+
+      <Card title={tt("durationDays")}>
+        <Row gutter={[16, 16]}>
+          <Col xs={12} md={6}><Field label={tt("durationDays")}><InputNumber style={{ width: "100%" }} min={1} max={60} value={tour.durationDays} onChange={(v) => set("durationDays", v ?? 1)} /></Field></Col>
+          <Col xs={12} md={6}><Field label={tt("durationNights")}><InputNumber style={{ width: "100%" }} min={0} max={60} value={tour.durationNights} onChange={(v) => set("durationNights", v ?? 0)} /></Field></Col>
+          <Col xs={12} md={6}><Field label={tt("minGroup")}><InputNumber style={{ width: "100%" }} min={1} value={tour.minGroup} onChange={(v) => set("minGroup", v ?? 1)} /></Field></Col>
+          <Col xs={12} md={6}><Field label={tt("maxGroup")}><InputNumber style={{ width: "100%" }} min={1} value={tour.maxGroup} status={tour.maxGroup < tour.minGroup ? "error" : undefined} onChange={(v) => set("maxGroup", v ?? 1)} /></Field></Col>
+          <Col xs={24}>
+            <Field label={tt("seasonMonths")}>
+              <Flex wrap gap={6}>
+                {Array.from({ length: 12 }, (_, i) => i + 1).map((m) => (
+                  <Tag.CheckableTag
+                    key={m}
+                    checked={tour.seasonMonths.includes(m)}
+                    onChange={(on) => set("seasonMonths", on ? [...tour.seasonMonths, m].sort((a, b) => a - b) : tour.seasonMonths.filter((x) => x !== m))}
+                    style={{ padding: "6px 12px", fontSize: 14, border: "1px solid #d9d9d9" }}
+                  >
+                    {tm(String(m) as never)}
+                  </Tag.CheckableTag>
+                ))}
+              </Flex>
+            </Field>
+          </Col>
+          <Col xs={24} md={12}>
+            <Field label={tt("guideLanguages")}>
+              <Select
+                mode="tags"
+                style={{ width: "100%" }}
+                value={tour.guideLanguages}
+                onChange={(v: string[]) => set("guideLanguages", v.map((x) => x.trim().toLowerCase()).filter((x) => /^[a-z]{2}$/.test(x)))}
+                options={["en", "ru", "uz", "de", "fr", "it", "es", "ja", "zh", "ko", "tr", "ar"].map((l) => ({ value: l, label: l.toUpperCase() }))}
+              />
+            </Field>
+          </Col>
+          <Col xs={24} md={12}>
+            <Field label={tt("badges")}>
+              <Checkbox.Group value={tour.badges} onChange={(v) => set("badges", v as EditorTour["badges"])} options={TOUR_BADGES.map((b) => ({ value: b, label: tb(b) }))} />
+            </Field>
+          </Col>
+        </Row>
+      </Card>
+
+      <Card title={tt("tabs.pricing")}>
+        <Row gutter={[16, 16]}>
+          <Col xs={24} sm={8}>
+            <Field label={tt("baseCurrency")}>
+              <Select style={{ width: "100%" }} value={tour.baseCurrency} onChange={(v) => set("baseCurrency", v)} options={CURRENCIES.map((c) => ({ value: c, label: c }))} />
+            </Field>
+          </Col>
+          <Col xs={24} sm={8}>
+            <Field label={tt("childPercent")} help={t("panel.childPercent")}>
+              <InputNumber style={{ width: "100%" }} min={0} max={100} suffix="%" value={tour.childPricePercent} onChange={(v) => set("childPricePercent", v ?? 0)} />
+            </Field>
+          </Col>
+          <Col xs={24} sm={8}>
+            <Field label={tt("compareAt")}>
+              <InputNumber
+                style={{ width: "100%" }}
+                min={0}
+                prefix={tour.baseCurrency}
+                value={tour.compareAtPriceMinor == null ? null : tour.compareAtPriceMinor / 10 ** CURRENCY_EXPONENT[tour.baseCurrency]}
+                onChange={(v) => set("compareAtPriceMinor", v == null ? null : Math.round(Number(v) * 10 ** CURRENCY_EXPONENT[tour.baseCurrency]))}
+              />
+            </Field>
+          </Col>
+        </Row>
+        <Typography.Paragraph type="secondary" style={{ margin: "12px 0 0" }}>{tt("previewNote")}</Typography.Paragraph>
+      </Card>
+
+      <Card title={`${tt("included")} / ${tt("excluded")}`}>
+        <Row gutter={[16, 0]}>
+          <Col xs={24} md={12}><LocalizedLines label={tt("included")} value={tour.included} onChange={(v) => set("included", v)} help={t("panel.lines")} /></Col>
+          <Col xs={24} md={12}><LocalizedLines label={tt("excluded")} value={tour.excluded} onChange={(v) => set("excluded", v)} help={t("panel.lines")} /></Col>
+        </Row>
+      </Card>
+
+      <Collapse
+        items={[{
+          key: "seo",
+          label: tt("seo"),
+          children: (
+            <>
+              <LocalizedFields label={tt("seoTitle")} value={tour.seoTitle} onChange={(v) => set("seoTitle", v)} />
+              <LocalizedFields label={tt("seoDescription")} value={tour.seoDescription} onChange={(v) => set("seoDescription", v)} multiline rows={2} />
+            </>
+          ),
+        }]}
+      />
+
+      <Card>
+        <Flex wrap gap={24} align="center">
+          <label style={{ display: "inline-flex", gap: 10, alignItems: "center", fontWeight: 600 }}>
+            <Switch checked={tour.isPublished} onChange={(v) => set("isPublished", v)} data-testid="tour-published" /> {tt("isPublished")}
           </label>
-          <label className="block text-sm font-semibold">{tt("audience")}
-            <select value={tour.audience} onChange={(e) => set("audience", e.target.value as EditorTour["audience"])} className={cn(field, "mt-1 font-normal")}>
-              {AUDIENCES.map((a) => <option key={a} value={a}>{a}</option>)}
-            </select>
+          <label style={{ display: "inline-flex", gap: 10, alignItems: "center", fontWeight: 600 }}>
+            <Switch checked={tour.isFeatured} onChange={(v) => set("isFeatured", v)} /> {tt("isFeatured")}
           </label>
-          <label className="block text-sm font-semibold">{tt("category")}
-            <select value={tour.category} onChange={(e) => set("category", e.target.value as EditorTour["category"])} className={cn(field, "mt-1 font-normal")}>
-              {TOUR_CATEGORIES.map((c) => <option key={c} value={c}>{tc(c)}</option>)}
-            </select>
+          <label style={{ display: "inline-flex", gap: 10, alignItems: "center", fontWeight: 600 }}>
+            {tt("sortOrder")} <InputNumber value={tour.sortOrder} onChange={(v) => set("sortOrder", v ?? 0)} style={{ width: 100 }} />
           </label>
-          <label className="block text-sm font-semibold">{tt("primaryDestination")}
-            <select value={tour.primaryDestinationId} onChange={(e) => set("primaryDestinationId", Number(e.target.value))} className={cn(field, "mt-1 font-normal")}>
-              {destinations.map((d) => <option key={d.id} value={d.id}>{d.name}</option>)}
-            </select>
-          </label>
-          <fieldset className="md:col-span-2">
-            <legend className="text-sm font-semibold">{tt("otherDestinations")}</legend>
-            <div className="mt-1 flex flex-wrap gap-2">
-              {destinations.filter((d) => d.id !== tour.primaryDestinationId).map((d) => (
-                <label key={d.id} className="inline-flex min-h-11 items-center gap-2 rounded-full border border-field bg-white px-3 text-sm">
-                  <input type="checkbox" checked={tour.destinationIds.includes(d.id)} onChange={(e) => set("destinationIds", e.target.checked ? [...tour.destinationIds, d.id] : tour.destinationIds.filter((x) => x !== d.id))} />
-                  {d.name}
-                </label>
-              ))}
-            </div>
-          </fieldset>
-        </div>
-        <LocalizedFields label={tt("titleField")} value={tour.title} onChange={(v) => set("title", v)} required />
-        <LocalizedFields label={tt("summary")} value={tour.summary} onChange={(v) => set("summary", v)} multiline rows={3} required />
-        <LocalizedFields label={tt("description")} value={tour.description} onChange={(v) => set("description", v)} multiline rows={8} required />
-      </Section>
-      <Section title={tt("difficulty")}>
-        <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-6">
-          <Num label={tt("durationDays")} value={tour.durationDays} min={1} max={60} onChange={(v) => set("durationDays", v ?? 1)} />
-          <Num label={tt("durationNights")} value={tour.durationNights} min={0} max={60} onChange={(v) => set("durationNights", v ?? 0)} />
-          <Num label={tt("minGroup")} value={tour.minGroup} min={1} onChange={(v) => set("minGroup", v ?? 1)} />
-          <Num label={tt("maxGroup")} value={tour.maxGroup} min={1} onChange={(v) => set("maxGroup", v ?? 1)} />
-          <Num label={tt("childPercent")} value={tour.childPricePercent} min={0} max={100} onChange={(v) => set("childPricePercent", v ?? 0)} />
-          <Num label={tt("sortOrder")} value={tour.sortOrder} onChange={(v) => set("sortOrder", v ?? 0)} />
-          <label className="block text-sm font-semibold">{tt("difficulty")}
-            <select value={tour.difficulty} onChange={(e) => set("difficulty", e.target.value as EditorTour["difficulty"])} className={cn(field, "mt-1 font-normal")}>
-              {DIFFICULTIES.map((d) => <option key={d} value={d}>{td(d)}</option>)}
-            </select>
-          </label>
-          <label className="block text-sm font-semibold">{tt("baseCurrency")}
-            <select value={tour.baseCurrency} onChange={(e) => set("baseCurrency", e.target.value as Currency)} className={cn(field, "mt-1 font-normal")}>
-              {CURRENCIES.map((c) => <option key={c} value={c}>{c}</option>)}
-            </select>
-          </label>
-          <div className="sm:col-span-2">
-            <Num
-              label={tt("compareAt")}
-              value={tour.compareAtPriceMinor == null ? null : tour.compareAtPriceMinor / 10 ** CURRENCY_EXPONENT[tour.baseCurrency]}
-              min={0}
-              onChange={(v) => set("compareAtPriceMinor", v == null ? null : Math.round(v * 10 ** CURRENCY_EXPONENT[tour.baseCurrency]))}
-            />
-          </div>
-        </div>
-        <fieldset>
-          <legend className="text-sm font-semibold">{tt("badges")}</legend>
-          <div className="mt-1 flex flex-wrap gap-2">
-            {TOUR_BADGES.map((b) => (
-              <label key={b} className="inline-flex min-h-11 items-center gap-2 rounded-full border border-field bg-white px-3 text-sm">
-                <input type="checkbox" checked={tour.badges.includes(b)} onChange={(e) => set("badges", e.target.checked ? [...tour.badges, b] : tour.badges.filter((x) => x !== b))} />
-                {tb(b)}
-              </label>
-            ))}
-          </div>
-        </fieldset>
-        <fieldset>
-          <legend className="text-sm font-semibold">{tt("seasonMonths")}</legend>
-          <div className="mt-1 flex flex-wrap gap-1.5">
-            {Array.from({ length: 12 }, (_, i) => i + 1).map((m) => (
-              <label key={m} className="inline-flex min-h-11 min-w-14 items-center justify-center gap-1 rounded-sm border border-field bg-white px-2 text-sm has-[:checked]:border-lapis has-[:checked]:bg-lapis has-[:checked]:text-white">
-                <input type="checkbox" className="sr-only" checked={tour.seasonMonths.includes(m)} onChange={(e) => set("seasonMonths", e.target.checked ? [...tour.seasonMonths, m].sort((a, b) => a - b) : tour.seasonMonths.filter((x) => x !== m))} />
-                {tm(String(m) as never)}
-              </label>
-            ))}
-          </div>
-        </fieldset>
-        <label className="block text-sm font-semibold">{tt("guideLanguages")}
-          <input value={tour.guideLanguages.join(", ")} onChange={(e) => set("guideLanguages", e.target.value.split(/[,\s]+/).map((x) => x.trim().toLowerCase()).filter((x) => x.length === 2))} className={cn(field, "mt-1 font-normal")} />
-        </label>
-        <div className="flex flex-wrap gap-6">
-          <label className="inline-flex min-h-11 items-center gap-2 font-semibold"><input type="checkbox" checked={tour.isPublished} onChange={(e) => set("isPublished", e.target.checked)} className="size-5" data-testid="tour-published" />{tt("isPublished")}</label>
-          <label className="inline-flex min-h-11 items-center gap-2 font-semibold"><input type="checkbox" checked={tour.isFeatured} onChange={(e) => set("isFeatured", e.target.checked)} className="size-5" />{tt("isFeatured")}</label>
-        </div>
-      </Section>
-      <Section title={`${tt("included")} / ${tt("excluded")}`}>
-        <LocalizedLines label={tt("included")} value={tour.included} onChange={(v) => set("included", v)} />
-        <LocalizedLines label={tt("excluded")} value={tour.excluded} onChange={(v) => set("excluded", v)} />
-      </Section>
-      <Section title={tt("seo")}>
-        <LocalizedFields label={tt("seoTitle")} value={tour.seoTitle} onChange={(v) => set("seoTitle", v)} />
-        <LocalizedFields label={tt("seoDescription")} value={tour.seoDescription} onChange={(v) => set("seoDescription", v)} multiline rows={2} />
-      </Section>
-      {saveButton(saveTour, "tour-save")}
-    </div>
+        </Flex>
+      </Card>
+      <SaveBar dirty={dirtyTour} busy={busy} onSave={saveTour} testId="tour-save" />
+    </Flex>
   );
 
   // ── Itinerary ──────────────────────────────────────────────────────────
   const renumber = (list: EditorDay[]) => list.map((d, i) => ({ ...d, dayNumber: i + 1 }));
+  const updDay = (i: number, patch: Partial<EditorDay>) => setDays(days.map((x, j) => (j === i ? { ...x, ...patch } : x)));
+  const move = (i: number, d: -1 | 1) => {
+    const next = [...days];
+    [next[i], next[i + d]] = [next[i + d]!, next[i]!];
+    setDays(renumber(next));
+  };
   const itinerary = (
-    <div className="space-y-4">
-      {days.map((d, i) => (
-        <Section key={i} title={tt("day", { day: d.dayNumber })}>
-          <div className="flex flex-wrap gap-2">
-            <Button size="sm" variant="ghost" disabled={i === 0} onClick={() => setDays(renumber(days.map((x, j) => (j === i - 1 ? days[i]! : j === i ? days[i - 1]! : x))))}><ArrowUp aria-hidden="true" />{t("common.moveUp")}</Button>
-            <Button size="sm" variant="ghost" disabled={i === days.length - 1} onClick={() => setDays(renumber(days.map((x, j) => (j === i + 1 ? days[i]! : j === i ? days[i + 1]! : x))))}><ArrowDown aria-hidden="true" />{t("common.moveDown")}</Button>
-            <Button size="sm" variant="ghost" onClick={() => setDays(renumber(days.filter((_, j) => j !== i)))}><Trash2 aria-hidden="true" />{t("common.remove")}</Button>
-          </div>
-          <LocalizedFields label={tt("titleField")} value={d.title} onChange={(v) => setDays(days.map((x, j) => (j === i ? { ...x, title: v } : x)))} required />
-          <LocalizedFields label={tt("description")} value={d.description} multiline onChange={(v) => setDays(days.map((x, j) => (j === i ? { ...x, description: v } : x)))} required />
-          <LocalizedFields label={tt("overnight")} value={d.overnight} onChange={(v) => setDays(days.map((x, j) => (j === i ? { ...x, overnight: v } : x)))} />
-          <div className="grid items-end gap-4 sm:grid-cols-3">
-            <fieldset>
-              <legend className="text-sm font-semibold">{tt("meals")}</legend>
-              <div className="mt-1 flex gap-2">
-                {MEALS.map((m) => (
-                  <label key={m} className="inline-flex min-h-11 items-center gap-1.5 rounded-sm border border-field bg-white px-3 text-sm">
-                    <input type="checkbox" checked={d.meals.includes(m)} onChange={(e) => setDays(days.map((x, j) => (j === i ? { ...x, meals: e.target.checked ? [...x.meals, m] : x.meals.filter((y) => y !== m) } : x)))} />
-                    {tmeal(m)}
-                  </label>
-                ))}
-              </div>
-            </fieldset>
-            <Num label={tt("distanceKm")} value={d.distanceKm} min={0} onChange={(v) => setDays(days.map((x, j) => (j === i ? { ...x, distanceKm: v } : x)))} />
-            <Num label={tt("walkingHours")} value={d.walkingHours} min={0} step={0.5} onChange={(v) => setDays(days.map((x, j) => (j === i ? { ...x, walkingHours: v } : x)))} />
-          </div>
-        </Section>
-      ))}
-      <Button variant="outline" onClick={() => setDays([...days, { dayNumber: days.length + 1, title: emptyLocalized(), description: emptyLocalized(), meals: [], overnight: null, distanceKm: null, walkingHours: null }])}>
-        <Plus aria-hidden="true" /> {tt("addDay")}
+    <Flex vertical gap={12}>
+      {days.length === 0 && <Empty description={t("common.empty")} />}
+      <Collapse
+        defaultActiveKey={days.length ? ["0"] : []}
+        items={days.map((d, i) => ({
+          key: String(i),
+          label: (
+            <Flex gap={8} align="center" wrap>
+              <Tag color="blue" style={{ marginInlineEnd: 0 }}>{tt("day", { day: d.dayNumber })}</Tag>
+              <span>{d.title.uz || d.title.en || d.title.ru || "…"}</span>
+            </Flex>
+          ),
+          extra: (
+            <Space size={4} onClick={(e) => e.stopPropagation()}>
+              <Button size="small" icon={<ArrowUpOutlined />} disabled={i === 0} onClick={() => move(i, -1)} aria-label={t("common.moveUp")} />
+              <Button size="small" icon={<ArrowDownOutlined />} disabled={i === days.length - 1} onClick={() => move(i, 1)} aria-label={t("common.moveDown")} />
+              <Popconfirm title={t("common.confirmDelete")} onConfirm={() => setDays(renumber(days.filter((_, j) => j !== i)))}>
+                <Button size="small" danger icon={<DeleteOutlined />} aria-label={t("common.remove")} />
+              </Popconfirm>
+            </Space>
+          ),
+          children: (
+            <>
+              <LocalizedFields label={tt("titleField")} value={d.title} onChange={(v) => updDay(i, { title: v })} required />
+              <LocalizedFields label={tt("description")} value={d.description} multiline onChange={(v) => updDay(i, { description: v })} required />
+              <LocalizedFields label={tt("overnight")} value={d.overnight} onChange={(v) => updDay(i, { overnight: v })} />
+              <Row gutter={[16, 16]}>
+                <Col xs={24} md={12}>
+                  <Field label={tt("meals")}>
+                    <Checkbox.Group value={d.meals} onChange={(v) => updDay(i, { meals: v as Meal[] })} options={MEALS.map((m) => ({ value: m, label: tmeal(m) }))} />
+                  </Field>
+                </Col>
+                <Col xs={12} md={6}><Field label={tt("distanceKm")}><InputNumber style={{ width: "100%" }} min={0} value={d.distanceKm} onChange={(v) => updDay(i, { distanceKm: v })} /></Field></Col>
+                <Col xs={12} md={6}><Field label={tt("walkingHours")}><InputNumber style={{ width: "100%" }} min={0} step={0.5} value={d.walkingHours} onChange={(v) => updDay(i, { walkingHours: v })} /></Field></Col>
+              </Row>
+            </>
+          ),
+        }))}
+      />
+      <Button type="dashed" block icon={<PlusOutlined />} onClick={() => setDays([...days, { dayNumber: days.length + 1, title: emptyLocalized(), description: emptyLocalized(), meals: [], overnight: null, distanceKm: null, walkingHours: null }])}>
+        {tt("addDay")}
       </Button>
-      {saveButton(async () => {
-        setBusy(true);
-        await call(`/api/admin/tours/${tour.id}/itinerary`, {
-          method: "PUT",
-          json: days.map((d) => ({ ...d, overnight: optionalLocalized(d.overnight) })),
-        }, t("common.saved"));
-        setBusy(false);
-      }, "itinerary-save")}
-    </div>
+      <SaveBar
+        dirty={dirtyDays}
+        busy={busy}
+        testId="itinerary-save"
+        onSave={async () => {
+          setBusy(true);
+          const ok = await call(`/api/admin/tours/${tour.id}/itinerary`, {
+            method: "PUT",
+            json: days.map((d) => ({ ...d, description: longText(d.description), overnight: optionalLocalized(d.overnight) })),
+          }, t("common.saved"));
+          if (ok) setSaved((s) => ({ ...s, days: JSON.stringify(days) }));
+          setBusy(false);
+        }}
+      />
+    </Flex>
   );
 
   // ── Pricing ────────────────────────────────────────────────────────────
@@ -376,150 +504,120 @@ export function TourEditor({
       return "—";
     }
   };
+  const updTier = (i: number, patch: Partial<EditorTier>) => setTiers(tiers.map((x, j) => (j === i ? { ...x, ...patch } : x)));
   const pricing = (
-    <div className="space-y-4">
-      <div className="overflow-x-auto rounded-sm border border-line bg-white">
-        <table className="w-full text-sm">
-          <thead className="bg-sand-soft text-xs uppercase text-ink-muted">
-            <tr>
-              <th className="px-3 py-2 text-left">{tt("tierType")}</th>
-              <th className="px-3 py-2 text-left">{tt("tierMin")}</th>
-              <th className="px-3 py-2 text-left">{tt("tierMax")}</th>
-              {priceCols.map((c) => <th key={c.key} className="px-3 py-2 text-left">{c.cur}{c.cur === tour.baseCurrency ? " *" : ""}</th>)}
-              <th className="px-3 py-2 text-left">{tt("preview")}</th>
-              <th className="px-3 py-2"><span className="sr-only">{t("common.actions")}</span></th>
-            </tr>
-          </thead>
-          <tbody>
-            {tiers.map((tier, i) => (
-              <tr key={i} className="border-t border-line">
-                <td className="px-3 py-2">
-                  <select aria-label={tt("tierType")} value={tier.bookingType} onChange={(e) => setTiers(tiers.map((x, j) => (j === i ? { ...x, bookingType: e.target.value as BookingType } : x)))} className="min-h-11 rounded-sm border border-field px-2">
-                    {BOOKING_TYPES.map((b) => <option key={b} value={b}>{b}</option>)}
-                  </select>
-                </td>
-                {(["minPax", "maxPax"] as const).map((k) => (
-                  <td key={k} className="px-3 py-2"><input aria-label={tt(k === "minPax" ? "tierMin" : "tierMax")} type="number" min={1} value={tier[k]} onChange={(e) => setTiers(tiers.map((x, j) => (j === i ? { ...x, [k]: Number(e.target.value) } : x)))} className="min-h-11 w-20 rounded-sm border border-field px-2" /></td>
-                ))}
-                {priceCols.map((c) => (
-                  <td key={c.key} className="px-3 py-2">
-                    <input
-                      aria-label={c.cur}
-                      type="number"
-                      min={0}
-                      step={c.cur === "UZS" ? 1000 : 1}
-                      value={tier[c.key] == null ? "" : tier[c.key]! / 10 ** CURRENCY_EXPONENT[c.cur]}
-                      placeholder={c.cur === tour.baseCurrency ? "" : preview(tier, c.cur)}
-                      onChange={(e) => setTiers(tiers.map((x, j) => (j === i ? { ...x, [c.key]: e.target.value === "" ? null : Math.round(Number(e.target.value) * 10 ** CURRENCY_EXPONENT[c.cur]) } : x)))}
-                      className={cn("min-h-11 w-32 rounded-sm border px-2", c.cur === tour.baseCurrency ? "border-lapis" : "border-field")}
-                    />
-                  </td>
-                ))}
-                <td className="whitespace-nowrap px-3 py-2 text-xs text-ink-muted">{CURRENCIES.map((c) => preview(tier, c)).join(" · ")}</td>
-                <td className="px-3 py-2"><button type="button" aria-label={t("common.remove")} onClick={() => setTiers(tiers.filter((_, j) => j !== i))} className="inline-flex size-11 items-center justify-center rounded-sm hover:bg-danger/10"><Trash2 aria-hidden="true" className="size-4 text-danger" /></button></td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <p className="text-sm text-ink-muted">{tt("previewNote")} USD 1 = {rates.rates.UZS.toLocaleString("en")} UZS = {rates.rates.EUR} EUR</p>
-      <Button variant="outline" onClick={() => setTiers([...tiers, { bookingType: "private", minPax: (tiers.at(-1)?.maxPax ?? 0) + 1, maxPax: (tiers.at(-1)?.maxPax ?? 0) + 2, priceUsd: null, priceUzs: null, priceEur: null }])}>
-        <Plus aria-hidden="true" /> {tt("addTier")}
+    <Flex vertical gap={12}>
+      <Alert type="info" showIcon message={`${tt("previewNote")} USD 1 = ${rates.rates.UZS.toLocaleString("en")} UZS = ${rates.rates.EUR} EUR`} />
+      <Table<EditorTier & { i: number }>
+        rowKey="i"
+        pagination={false}
+        scroll={{ x: 900 }}
+        dataSource={tiers.map((x, i) => ({ ...x, i }))}
+        columns={[
+          { title: tt("tierType"), width: 150, render: (_, r) => <Select aria-label={tt("tierType")} style={{ width: 140 }} value={r.bookingType} onChange={(v) => updTier(r.i, { bookingType: v })} options={BOOKING_TYPES.map((b) => ({ value: b, label: b }))} /> },
+          { title: tt("tierMin"), width: 100, render: (_, r) => <InputNumber aria-label={tt("tierMin")} min={1} value={r.minPax} onChange={(v) => updTier(r.i, { minPax: v ?? 1 })} style={{ width: 80 }} /> },
+          { title: tt("tierMax"), width: 100, render: (_, r) => <InputNumber aria-label={tt("tierMax")} min={1} value={r.maxPax} status={r.maxPax < r.minPax ? "error" : undefined} onChange={(v) => updTier(r.i, { maxPax: v ?? 1 })} style={{ width: 80 }} /> },
+          ...priceCols.map((c) => ({
+            title: <span>{c.cur}{c.cur === tour.baseCurrency && <Badge status="processing" style={{ marginInlineStart: 6 }} />}</span>,
+            width: 160,
+            render: (_: unknown, r: EditorTier & { i: number }) => (
+              <InputNumber
+                aria-label={c.cur}
+                min={0}
+                step={c.cur === "UZS" ? 10000 : 10}
+                style={{ width: 150 }}
+                value={r[c.key] == null ? null : r[c.key]! / 10 ** CURRENCY_EXPONENT[c.cur]}
+                placeholder={c.cur === tour.baseCurrency ? "" : preview(r, c.cur)}
+                formatter={(v) => (v == null || String(v) === "" ? "" : String(v).replace(/\B(?=(\d{3})+(?!\d))/g, " "))}
+                parser={(v) => Number((v ?? "").replace(/\s/g, "")) as never}
+                onChange={(v) => updTier(r.i, { [c.key]: v == null ? null : Math.round(Number(v) * 10 ** CURRENCY_EXPONENT[c.cur]) })}
+              />
+            ),
+          })),
+          { title: tt("preview"), render: (_, r) => <Typography.Text type="secondary" style={{ fontSize: 12 }}>{CURRENCIES.map((c) => preview(r, c)).join(" · ")}</Typography.Text> },
+          {
+            title: <span className="sr-only">{t("common.actions")}</span>,
+            width: 60,
+            render: (_, r) => <Button danger type="text" icon={<DeleteOutlined />} aria-label={t("common.remove")} onClick={() => setTiers(tiers.filter((_, j) => j !== r.i))} />,
+          },
+        ]}
+      />
+      <Button type="dashed" icon={<PlusOutlined />} onClick={() => setTiers([...tiers, { bookingType: "private", minPax: (tiers.at(-1)?.maxPax ?? 0) + 1, maxPax: (tiers.at(-1)?.maxPax ?? 0) + 2, priceUsd: null, priceUzs: null, priceEur: null }])}>
+        {tt("addTier")}
       </Button>
-      {saveButton(async () => {
-        setBusy(true);
-        await call(`/api/admin/tours/${tour.id}/pricing`, { method: "PUT", json: tiers }, t("common.saved"));
-        setBusy(false);
-      }, "pricing-save")}
-    </div>
+      <SaveBar
+        dirty={dirtyTiers}
+        busy={busy}
+        testId="pricing-save"
+        onSave={async () => {
+          setBusy(true);
+          const ok = await call(`/api/admin/tours/${tour.id}/pricing`, { method: "PUT", json: tiers }, t("common.saved"));
+          if (ok) setSaved((s) => ({ ...s, tiers: JSON.stringify(tiers) }));
+          setBusy(false);
+        }}
+      />
+    </Flex>
   );
 
   // ── Media ──────────────────────────────────────────────────────────────
-  const galleryText = tour.gallery.map((g) => g.url).join("\n");
   const media = (
-    <div className="space-y-4">
-      <Section title={tt("heroImage")}>
-        <p className="text-sm text-ink-muted">{tt("imageHint")}</p>
-        <input value={tour.heroImage} onChange={(e) => set("heroImage", e.target.value)} className={field} aria-label={tt("heroImage")} />
-        <ImagePreview src={tour.heroImage} missing={tt("imageMissing")} />
-      </Section>
-      <Section title={tt("gallery")}>
-        <textarea
-          aria-label={tt("gallery")}
-          rows={6}
-          value={galleryText}
-          onChange={(e) => {
-            const urls = e.target.value.split("\n").map((u) => u.trim()).filter(Boolean);
-            const byUrl = new Map(tour.gallery.map((g) => [g.url, g]));
-            set("gallery", urls.map((url) => byUrl.get(url) ?? { url, type: "image", alt: { ...tour.title } }));
-          }}
-          className="block w-full rounded-sm border border-field bg-white px-3 py-2 font-mono text-sm"
-        />
-        <ul className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-          {tour.gallery.map((g) => <li key={g.url}><ImagePreview src={g.url} missing={tt("imageMissing")} /></li>)}
-        </ul>
-      </Section>
-      {saveButton(saveTour, "media-save")}
-    </div>
+    <Flex vertical gap={16}>
+      <HeroImageField label={tt("heroImage")} hint={tt("imageHint")} value={tour.heroImage} onChange={(url) => set("heroImage", url)} />
+      <GalleryField label={tt("gallery")} value={tour.gallery} onChange={(v) => set("gallery", v)} alt={tour.title} />
+      <SaveBar dirty={dirtyTour} busy={busy} onSave={saveTour} testId="media-save" />
+    </Flex>
   );
 
   // ── Route ──────────────────────────────────────────────────────────────
   const route = (
-    <div className="space-y-4">
-      <Section title={tt("routePoints")}>
-        <p className="text-sm text-ink-muted">{tt("pickOnMap")}</p>
-        <div className="h-80 overflow-hidden rounded-sm">
+    <Flex vertical gap={16}>
+      <Card title={tt("routePoints")}>
+        <Typography.Paragraph type="secondary">{tt("pickOnMap")}</Typography.Paragraph>
+        <div style={{ height: 320, overflow: "hidden", borderRadius: 8 }}>
           <PointPicker points={tour.route.map((p) => ({ lat: p.lat, lng: p.lng, label: p.label.en }))} onPick={(lat, lng) => set("route", [...tour.route, { lat, lng, label: emptyLocalized(), day: tour.route.length + 1 }])} />
         </div>
-        <ol className="space-y-3">
+        <Flex vertical gap={12} style={{ marginTop: 16 }}>
           {tour.route.map((p, i) => (
-            <li key={i} className="space-y-2 rounded-sm border border-line p-3">
-              <div className="grid items-end gap-3 sm:grid-cols-4">
-                <Num label={tt("lat")} value={p.lat} step={0.0001} onChange={(v) => set("route", tour.route.map((x, j) => (j === i ? { ...x, lat: v ?? x.lat } : x)))} />
-                <Num label={tt("lng")} value={p.lng} step={0.0001} onChange={(v) => set("route", tour.route.map((x, j) => (j === i ? { ...x, lng: v ?? x.lng } : x)))} />
-                <Num label={tt("dayLabel")} value={p.day ?? null} min={1} onChange={(v) => set("route", tour.route.map((x, j) => (j === i ? { ...x, day: v ?? undefined } : x)))} />
-                <Button variant="ghost" size="sm" onClick={() => set("route", tour.route.filter((_, j) => j !== i))}><Trash2 aria-hidden="true" />{t("common.remove")}</Button>
+            <Card key={i} size="small" title={`${i + 1}. ${p.label.uz || p.label.en || "…"}`} extra={<Button size="small" danger icon={<DeleteOutlined />} onClick={() => set("route", tour.route.filter((_, j) => j !== i))}>{t("common.remove")}</Button>}>
+              <Row gutter={[12, 12]}>
+                <Col xs={12} md={8}><Field label={tt("lat")}><InputNumber style={{ width: "100%" }} step={0.0001} value={p.lat} onChange={(v) => set("route", tour.route.map((x, j) => (j === i ? { ...x, lat: v ?? x.lat } : x)))} /></Field></Col>
+                <Col xs={12} md={8}><Field label={tt("lng")}><InputNumber style={{ width: "100%" }} step={0.0001} value={p.lng} onChange={(v) => set("route", tour.route.map((x, j) => (j === i ? { ...x, lng: v ?? x.lng } : x)))} /></Field></Col>
+                <Col xs={24} md={8}><Field label={tt("dayLabel")}><InputNumber style={{ width: "100%" }} min={1} value={p.day ?? null} onChange={(v) => set("route", tour.route.map((x, j) => (j === i ? { ...x, day: v ?? undefined } : x)))} /></Field></Col>
+              </Row>
+              <div style={{ marginTop: 12 }}>
+                <LocalizedFields label={tt("label")} value={p.label} onChange={(v) => set("route", tour.route.map((x, j) => (j === i ? { ...x, label: v } : x)))} required />
               </div>
-              <LocalizedFields label={tt("label")} value={p.label} onChange={(v) => set("route", tour.route.map((x, j) => (j === i ? { ...x, label: v } : x)))} required />
-            </li>
+            </Card>
           ))}
-        </ol>
-      </Section>
-      {saveButton(saveTour, "route-save")}
-    </div>
+        </Flex>
+      </Card>
+      <SaveBar dirty={dirtyTour} busy={busy} onSave={saveTour} testId="route-save" />
+    </Flex>
   );
 
-  const tab = search.get("tab") ?? "content";
+  const [tab, setTab] = useState(isNew ? "content" : search.get("tab") ?? "content");
   return (
-    <Tabs defaultValue={isNew ? "content" : tab}>
-      <TabsList aria-label={tt("title")}>
-        <TabsTrigger value="content">{tt("tabs.content")}</TabsTrigger>
-        <TabsTrigger value="itinerary" disabled={isNew}>{tt("tabs.itinerary")}</TabsTrigger>
-        <TabsTrigger value="pricing" disabled={isNew}>{tt("tabs.pricing")}</TabsTrigger>
-        <TabsTrigger value="departures" disabled={isNew}>{tt("tabs.departures")}</TabsTrigger>
-        <TabsTrigger value="media">{tt("tabs.media")}</TabsTrigger>
-        <TabsTrigger value="route">{tt("tabs.route")}</TabsTrigger>
-      </TabsList>
-      <TabsContent value="content">{content}</TabsContent>
-      <TabsContent value="itinerary">{itinerary}</TabsContent>
-      <TabsContent value="pricing">{pricing}</TabsContent>
-      <TabsContent value="departures">{tour.id ? <DeparturesTab tourId={tour.id} durationDays={tour.durationDays} departures={departures} /> : null}</TabsContent>
-      <TabsContent value="media">{media}</TabsContent>
-      <TabsContent value="route">{route}</TabsContent>
-    </Tabs>
+    <Flex vertical gap={16}>
+      <Card size="small">
+        <EditLanguageSwitch />
+      </Card>
+      {issues.length > 0 && <Alert type="error" showIcon closable onClose={() => setIssues([])} message={t("panel.fixBeforeSave")} description={<ul style={{ margin: 0, paddingInlineStart: 18 }}>{issues.map((x) => <li key={x}>{x}</li>)}</ul>} />}
+      <Tabs
+        activeKey={tab}
+        onChange={setTab}
+        items={[
+          { key: "content", label: <Badge dot={dirtyTour} offset={[6, 0]}>{tt("tabs.content")}</Badge>, children: content },
+          { key: "itinerary", label: <Badge dot={dirtyDays} offset={[6, 0]}>{tt("tabs.itinerary")}</Badge>, disabled: isNew, children: itinerary },
+          { key: "pricing", label: <Badge dot={dirtyTiers} offset={[6, 0]}>{tt("tabs.pricing")}</Badge>, disabled: isNew, children: pricing },
+          { key: "departures", label: tt("tabs.departures"), disabled: isNew, children: tour.id ? <DeparturesTab tourId={tour.id} durationDays={tour.durationDays} departures={departures} /> : null },
+          { key: "media", label: tt("tabs.media"), children: media },
+          { key: "route", label: tt("tabs.route"), children: route },
+        ]}
+      />
+    </Flex>
   );
 }
 
-function ImagePreview({ src, missing }: { src: string; missing: string }) {
-  if (!src) return null;
-  if (!imageExists(src)) return <p className="rounded-sm bg-saffron-soft/50 p-2 text-xs text-saffron-ink">{src} — {missing}</p>;
-  // eslint-disable-next-line @next/next/no-img-element
-  return <img src={src} alt="" className="aspect-[4/3] w-full max-w-xs rounded-sm object-cover" loading="lazy" />;
-}
-
-function iso(d: Date) {
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
-}
 function addDays(isoDate: string, n: number) {
   const d = new Date(`${isoDate}T00:00:00Z`);
   d.setUTCDate(d.getUTCDate() + n);
@@ -532,91 +630,69 @@ function DeparturesTab({ tourId, durationDays, departures }: { tourId: number; d
   const call = useAdminApi();
   const [rows, setRows] = useState(departures);
   const [draft, setDraft] = useState({ startDate: "", seatsTotal: 12, status: "open" as DepartureStatus, priceModifierPercent: 0 });
-  const dates = useMemo(() => new Map(rows.map((r) => [r.startDate, r])), [rows]);
+  const taken = useMemo(() => new Set(rows.map((r) => r.startDate)), [rows]);
   const upd = (id: number, patch: Partial<EditorDeparture>) => setRows(rows.map((r) => (r.id === id ? { ...r, ...patch } : r)));
   const body = (r: EditorDeparture) => ({ startDate: r.startDate, endDate: r.endDate, seatsTotal: r.seatsTotal, status: r.status, priceModifierPercent: r.priceModifierPercent });
+  const add = async () => {
+    if (!draft.startDate) return;
+    const endDate = addDays(draft.startDate, Math.max(0, durationDays - 1));
+    const r = await call<{ id: number }>(`/api/admin/tours/${tourId}/departures`, { method: "POST", json: { ...draft, endDate } }, t("common.saved"));
+    if (r && typeof r === "object") {
+      setRows([...rows, { id: r.id, startDate: draft.startDate, endDate, seatsTotal: draft.seatsTotal, seatsBooked: 0, status: draft.status, priceModifierPercent: draft.priceModifierPercent }].sort((a, b) => a.startDate.localeCompare(b.startDate)));
+      setDraft({ ...draft, startDate: "" });
+    }
+  };
   return (
-    <div className="grid gap-6 xl:grid-cols-[auto_1fr]">
-      <div className="space-y-4">
-        <div className="rounded-sm border border-line bg-white p-3">
-          <Calendar
-            mode="single"
-            numberOfMonths={1}
-            selected={draft.startDate ? new Date(`${draft.startDate}T00:00:00`) : undefined}
-            onSelect={(d) => d && setDraft({ ...draft, startDate: iso(d) })}
-            modifiers={{ departure: (d) => dates.has(iso(d)) }}
-            modifiersClassNames={{ departure: "[&>button]:bg-saffron-soft [&>button]:font-bold [&>button]:text-white" }}
-          />
-        </div>
-        <form
-          className="space-y-3 rounded-sm border border-line bg-white p-4"
-          onSubmit={async (e) => {
-            e.preventDefault();
-            if (!draft.startDate) return;
-            const r = await call<{ id: number }>(`/api/admin/tours/${tourId}/departures`, {
-              method: "POST",
-              json: { ...draft, endDate: addDays(draft.startDate, Math.max(0, durationDays - 1)) },
-            }, t("common.saved"));
-            if (r && typeof r === "object") {
-              setRows([...rows, { id: r.id, startDate: draft.startDate, endDate: addDays(draft.startDate, Math.max(0, durationDays - 1)), seatsTotal: draft.seatsTotal, seatsBooked: 0, status: draft.status, priceModifierPercent: draft.priceModifierPercent }].sort((a, b) => a.startDate.localeCompare(b.startDate)));
-              setDraft({ ...draft, startDate: "" });
-            }
-          }}
-        >
-          <p className="font-bold text-lapis-deep">{tt("addDeparture")}</p>
-          <label className="block text-sm font-semibold">{tt("startDate")}<input type="date" required value={draft.startDate} onChange={(e) => setDraft({ ...draft, startDate: e.target.value })} className={cn(field, "mt-1 font-normal")} /></label>
-          <Num label={tt("seatsTotal")} value={draft.seatsTotal} min={1} onChange={(v) => setDraft({ ...draft, seatsTotal: v ?? 1 })} />
-          <Num label={tt("modifier")} value={draft.priceModifierPercent} min={-90} max={300} onChange={(v) => setDraft({ ...draft, priceModifierPercent: v ?? 0 })} />
-          <Button type="submit" variant="secondary"><Plus aria-hidden="true" />{tt("addDeparture")}</Button>
-        </form>
-      </div>
-      <div className="overflow-x-auto rounded-sm border border-line bg-white">
-        <table className="w-full text-sm">
-          <thead className="bg-sand-soft text-xs uppercase text-ink-muted">
-            <tr>
-              <th className="px-3 py-2 text-left">{tt("startDate")}</th>
-              <th className="px-3 py-2 text-left">{tt("endDate")}</th>
-              <th className="px-3 py-2 text-left">{tt("seatsTotal")}</th>
-              <th className="px-3 py-2 text-left">{tt("seatsBooked")}</th>
-              <th className="px-3 py-2 text-left">{tt("depStatus")}</th>
-              <th className="px-3 py-2 text-left">{tt("modifier")}</th>
-              <th className="px-3 py-2"><span className="sr-only">{t("common.actions")}</span></th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((r) => (
-              <tr key={r.id} className="border-t border-line">
-                <td className="px-3 py-2"><input aria-label={tt("startDate")} type="date" value={r.startDate} onChange={(e) => upd(r.id, { startDate: e.target.value })} className="min-h-11 rounded-sm border border-field px-2" /></td>
-                <td className="px-3 py-2"><input aria-label={tt("endDate")} type="date" value={r.endDate} onChange={(e) => upd(r.id, { endDate: e.target.value })} className="min-h-11 rounded-sm border border-field px-2" /></td>
-                <td className="px-3 py-2"><input aria-label={tt("seatsTotal")} type="number" min={1} value={r.seatsTotal} onChange={(e) => upd(r.id, { seatsTotal: Number(e.target.value) })} className="min-h-11 w-20 rounded-sm border border-field px-2" /></td>
-                <td className="px-3 py-2 tabular-nums">{r.seatsBooked}</td>
-                <td className="px-3 py-2">
-                  <select aria-label={tt("depStatus")} value={r.status} onChange={(e) => upd(r.id, { status: e.target.value as DepartureStatus })} className="min-h-11 rounded-sm border border-field px-2">
-                    {DEPARTURE_STATUSES.map((s) => <option key={s} value={s}>{tt(`depStatuses.${s}`)}</option>)}
-                  </select>
-                </td>
-                <td className="px-3 py-2"><input aria-label={tt("modifier")} type="number" min={-90} max={300} value={r.priceModifierPercent} onChange={(e) => upd(r.id, { priceModifierPercent: Number(e.target.value) })} className="min-h-11 w-20 rounded-sm border border-field px-2" /></td>
-                <td className="flex gap-1 px-3 py-2">
-                  <Button size="sm" variant="outline" onClick={() => call(`/api/admin/tours/${tourId}/departures/${r.id}`, { method: "PATCH", json: body(r) }, t("common.saved"))}>{t("common.save")}</Button>
-                  <button
-                    type="button"
-                    aria-label={t("common.delete")}
-                    className="inline-flex size-11 items-center justify-center rounded-sm hover:bg-danger/10"
-                    onClick={async () => {
-                      if (!confirm(t("common.confirmDelete"))) return;
-                      if (await call(`/api/admin/tours/${tourId}/departures/${r.id}`, { method: "DELETE" }, t("common.saved"))) setRows(rows.filter((x) => x.id !== r.id));
-                    }}
-                  >
-                    <Trash2 aria-hidden="true" className="size-4 text-danger" />
-                  </button>
-                </td>
-              </tr>
-            ))}
-            {rows.length === 0 && <tr><td colSpan={7} className="px-3 py-6 text-center text-ink-muted">{t("common.empty")}</td></tr>}
-          </tbody>
-        </table>
-      </div>
-    </div>
+    <Flex vertical gap={16}>
+      <Card title={tt("addDeparture")}>
+        <Row gutter={[16, 16]} align="bottom">
+          <Col xs={24} sm={12} md={7}>
+            <Field label={tt("startDate")} help={draft.startDate ? `${tt("endDate")}: ${addDays(draft.startDate, Math.max(0, durationDays - 1))}` : t("panel.calendarHint")}>
+              <DatePicker
+                style={{ width: "100%" }}
+                format="DD.MM.YYYY"
+                value={draft.startDate ? dayjs(draft.startDate) : null}
+                disabledDate={(d) => d.isBefore(dayjs(), "day") || taken.has(d.format("YYYY-MM-DD"))}
+                onChange={(d) => setDraft({ ...draft, startDate: d ? d.format("YYYY-MM-DD") : "" })}
+              />
+            </Field>
+          </Col>
+          <Col xs={12} sm={6} md={5}><Field label={tt("seatsTotal")}><InputNumber style={{ width: "100%" }} min={1} max={500} value={draft.seatsTotal} onChange={(v) => setDraft({ ...draft, seatsTotal: v ?? 1 })} /></Field></Col>
+          <Col xs={12} sm={6} md={5}><Field label={tt("modifier")}><InputNumber style={{ width: "100%" }} min={-90} max={300} suffix="%" value={draft.priceModifierPercent} onChange={(v) => setDraft({ ...draft, priceModifierPercent: v ?? 0 })} /></Field></Col>
+          <Col xs={24} md={7}><Button type="primary" block icon={<PlusOutlined />} disabled={!draft.startDate} onClick={add}>{tt("addDeparture")}</Button></Col>
+        </Row>
+      </Card>
+      <Table<EditorDeparture>
+        rowKey="id"
+        pagination={{ pageSize: 20, hideOnSinglePage: true }}
+        scroll={{ x: 860 }}
+        dataSource={rows}
+        locale={{ emptyText: t("common.empty") }}
+        columns={[
+          { title: tt("startDate"), render: (_, r) => <DatePicker aria-label={tt("startDate")} format="DD.MM.YYYY" allowClear={false} value={dayjs(r.startDate)} onChange={(d) => d && upd(r.id, { startDate: d.format("YYYY-MM-DD"), endDate: addDays(d.format("YYYY-MM-DD"), Math.max(0, durationDays - 1)) })} /> },
+          { title: tt("endDate"), render: (_, r) => dayjs(r.endDate).format("DD.MM.YYYY") },
+          { title: tt("seatsTotal"), render: (_, r) => <InputNumber aria-label={tt("seatsTotal")} min={Math.max(1, r.seatsBooked)} value={r.seatsTotal} onChange={(v) => upd(r.id, { seatsTotal: v ?? r.seatsTotal })} style={{ width: 90 }} /> },
+          { title: tt("seatsBooked"), render: (_, r) => <Tag color={r.seatsBooked >= r.seatsTotal ? "red" : r.seatsBooked ? "gold" : "default"}>{r.seatsBooked} / {r.seatsTotal}</Tag> },
+          { title: tt("depStatus"), render: (_, r) => <Select aria-label={tt("depStatus")} style={{ width: 150 }} value={r.status} onChange={(v) => upd(r.id, { status: v })} options={DEPARTURE_STATUSES.map((s) => ({ value: s, label: tt(`depStatuses.${s}`) }))} /> },
+          { title: tt("modifier"), render: (_, r) => <InputNumber aria-label={tt("modifier")} min={-90} max={300} suffix="%" value={r.priceModifierPercent} onChange={(v) => upd(r.id, { priceModifierPercent: v ?? 0 })} style={{ width: 100 }} /> },
+          {
+            title: <span className="sr-only">{t("common.actions")}</span>,
+            render: (_, r) => (
+              <Space>
+                <Button size="small" type="primary" ghost onClick={() => call(`/api/admin/tours/${tourId}/departures/${r.id}`, { method: "PATCH", json: body(r) }, t("common.saved"))}>{t("common.save")}</Button>
+                <Popconfirm
+                  title={t("common.confirmDelete")}
+                  onConfirm={async () => {
+                    if (await call(`/api/admin/tours/${tourId}/departures/${r.id}`, { method: "DELETE" }, t("common.saved"))) setRows(rows.filter((x) => x.id !== r.id));
+                  }}
+                >
+                  <Button size="small" danger icon={<DeleteOutlined />} aria-label={t("common.delete")} disabled={r.seatsBooked > 0} />
+                </Popconfirm>
+              </Space>
+            ),
+          },
+        ]}
+      />
+    </Flex>
   );
 }
-
