@@ -30,6 +30,8 @@ class Settings(BaseSettings):
     api_url: str = "https://api.gulistantravel.uz"  # public address of this API (OAuth redirect URIs)
     session_cookie: str = "nt_session"
     session_days: int = 30
+    # Signed out after this many minutes with no request (owner's rule: 1 hour), for tourists and staff alike.
+    session_idle_minutes: int = 60
     cookie_domain: str | None = None  # ".gulistantravel.uz" so the site and the API share the sign-in
     google_client_id: str = ""
     google_client_secret: SecretStr = SecretStr("")

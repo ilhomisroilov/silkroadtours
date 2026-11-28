@@ -328,6 +328,8 @@ export const bookings = sqliteTable(
     ipHash: text("ip_hash"),
     userAgent: text("user_agent"),
     utmSource: text("utm_source"),
+    /** Traveller account (accounts service user id) when the booking was sent while signed in. */
+    accountId: text("account_id"),
 
     createdAt: createdAt(),
     updatedAt: updatedAt(),
@@ -339,6 +341,7 @@ export const bookings = sqliteTable(
     index("bookings_tour_idx").on(t.tourId),
     index("bookings_email_idx").on(t.email),
     index("bookings_ip_idx").on(t.ipHash, t.createdAt),
+    index("bookings_account_idx").on(t.accountId),
     check("bookings_pax_ck", sql`${t.adults} >= 1 AND ${t.children} >= 0`),
     check("bookings_status_ck", sql`${t.status} IN ('pending','confirmed','completed','cancelled')`),
   ],

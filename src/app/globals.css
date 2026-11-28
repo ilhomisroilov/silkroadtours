@@ -557,3 +557,13 @@ header :is(.bg-white, .bg-ivory) { background: var(--picker); }
 .admin-side-link[aria-current="page"] { background: #176bcb; color: #ffffff; box-shadow: 0 12px 28px -14px rgb(23 107 203 / 0.9); transform: none; }
 .admin-side-link:focus-visible { outline: 2px solid #8fd0ff; outline-offset: 2px; }
 .admin-root .ant-drawer .ant-drawer-body { padding: 0; }
+
+/* AntD's coloured tag text is too pale on its light fill for small text (WCAG AA); darker shades in day mode. */
+body.admin-root:not([data-admin-theme="dark"]) .ant-tag.ant-tag-gold { color: #7c4a03; }
+body.admin-root:not([data-admin-theme="dark"]) .ant-tag.ant-tag-orange { color: #873800; }
+body.admin-root:not([data-admin-theme="dark"]) .ant-tag.ant-tag-green { color: #135200; }
+body.admin-root:not([data-admin-theme="dark"]) .ant-tag.ant-tag-cyan { color: #00474f; }
+body.admin-root:not([data-admin-theme="dark"]) .ant-tag.ant-tag-blue { color: #003eb3; }
+body.admin-root:not([data-admin-theme="dark"]) .ant-tag.ant-tag-purple { color: #391085; }
+body.admin-root:not([data-admin-theme="dark"]) .ant-tag.ant-tag-red { color: #a8071a; }
+body.admin-root:not([data-admin-theme="dark"]) .ant-tag.ant-tag-volcano { color: #871400; }

@@ -2,12 +2,18 @@ import "server-only";
 import { and, eq, gt, lt } from "drizzle-orm";
 import type { Db } from "@/db/client";
 import { adminSessions, adminUsers, type AdminUser } from "@/db/schema";
+import { SESSION_IDLE_MS } from "../admin-idle";
 import { randomToken, sha256Hex } from "../crypto";
 
 export const SESSION_COOKIE = "st_admin";
-export const SESSION_TTL_SECONDS = 60 * 60 * 24 * 7; // 7 days
-/** Sessions are extended when less than this much time is left. */
-const RENEW_THRESHOLD_SECONDS = 60 * 60 * 24 * 3;
+/** Signed out automatically after this long without any request to the admin. Enforced here, on the server. */
+export const SESSION_IDLE_SECONDS = SESSION_IDLE_MS / 1000; // 1 hour
+/** Even while active, a session never lives longer than this; then the admin signs in again. */
+export const SESSION_MAX_SECONDS = 60 * 60 * 12; // 12 hours
+/** Avoids a database write on every request: the idle window is pushed forward at most once a minute. */
+const RENEW_EVERY_SECONDS = 60;
+/** Kept for the cookie lifetime; the server decides whether the session is still alive. */
+export const SESSION_TTL_SECONDS = SESSION_MAX_SECONDS;
 
 export type SessionAdmin = Pick<AdminUser, "id" | "email" | "name" | "role">;
 
@@ -32,7 +38,7 @@ export async function createSession(
   await db.insert(adminSessions).values({
     id,
     userId,
-    expiresAt: new Date(Date.now() + SESSION_TTL_SECONDS * 1000),
+    expiresAt: new Date(Date.now() + SESSION_IDLE_SECONDS * 1000),
     ipHash: meta.ipHash,
     userAgent: meta.userAgent?.slice(0, 300) ?? null,
   });
@@ -41,7 +47,8 @@ export async function createSession(
   return token;
 }
 
-/** Resolves an active admin from a raw session token, renewing the session when it is close to expiry. */
+/** Resolves an active admin from a raw session token. Each request moves the idle deadline one hour ahead,
+ *  capped at SESSION_MAX_SECONDS from sign-in; an hour with no requests ends the session. */
 export async function validateSession(db: Db, token: string | undefined | null): Promise<SessionAdmin | null> {
   if (!token || token.length > 100) return null;
   const id = await sha256Hex(token);
@@ -49,6 +56,7 @@ export async function validateSession(db: Db, token: string | undefined | null):
   const [row] = await db
     .select({
       expiresAt: adminSessions.expiresAt,
+      createdAt: adminSessions.createdAt,
       id: adminUsers.id,
       email: adminUsers.email,
       name: adminUsers.name,
@@ -62,11 +70,15 @@ export async function validateSession(db: Db, token: string | undefined | null):
 
   if (!row || !row.isActive) return null;
 
-  if (row.expiresAt.getTime() - now.getTime() < RENEW_THRESHOLD_SECONDS * 1000) {
-    await db
-      .update(adminSessions)
-      .set({ expiresAt: new Date(now.getTime() + SESSION_TTL_SECONDS * 1000) })
-      .where(eq(adminSessions.id, id));
+  const hardStop = row.createdAt.getTime() + SESSION_MAX_SECONDS * 1000;
+  if (hardStop <= now.getTime()) {
+    await db.delete(adminSessions).where(eq(adminSessions.id, id));
+    return null;
+  }
+  const next = Math.min(now.getTime() + SESSION_IDLE_SECONDS * 1000, hardStop);
+  // Also shortens sessions made before the idle limit existed (they carried a 7-day expiry).
+  if (Math.abs(next - row.expiresAt.getTime()) >= RENEW_EVERY_SECONDS * 1000) {
+    await db.update(adminSessions).set({ expiresAt: new Date(next) }).where(eq(adminSessions.id, id));
   }
   return { id: row.id, email: row.email, name: row.name, role: row.role };
 }

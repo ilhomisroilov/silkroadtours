@@ -30,7 +30,8 @@
     "email": "Email",
     "password": "Password",
     "submit": "Sign in",
-    "noAccount": "Don't have an account yet? Ask the site owner to add you as a team member."
+    "noAccount": "Don't have an account yet? Ask the site owner to add you as a team member.",
+    "idle": "You were signed out after an hour without activity. Please sign in again."
   },
   "common": {
     "save": "Save",

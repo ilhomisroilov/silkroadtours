@@ -10,12 +10,12 @@ export async function generateMetadata(): Promise<Metadata> {
   return { title: t("login.title") };
 }
 
-export default async function AdminLoginPage() {
+export default async function AdminLoginPage({ searchParams }: { searchParams: Promise<{ reason?: string }> }) {
   if (await getAdminFromCookies()) redirect("/admin");
   const { t } = await adminT();
   return (
     <LoginCard title={t("login.title")} note={t("login.noAccount")}>
-      <LoginForm />
+      <LoginForm idle={(await searchParams).reason === "idle"} />
     </LoginCard>
   );
 }

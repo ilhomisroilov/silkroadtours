@@ -212,10 +212,13 @@ async def session_user(session: AsyncSession, token: str | None) -> tuple[Sessio
     s = await session.scalar(select(Session).where(Session.token_hash == hash_token(token)))
     if s is None or s.revoked_at is not None or s.expires_at < now():
         return None
+    if now() - s.last_seen_at > timedelta(minutes=get_settings().session_idle_minutes):
+        s.revoked_at = now()  # idle too long: this session is over
+        return None
     user = await session.get(User, s.user_id)
     if user is None or not user.is_active:
         return None
-    if now() - s.last_seen_at > timedelta(minutes=5):
+    if now() - s.last_seen_at > timedelta(minutes=1):
         s.last_seen_at = now()
     return s, user
 

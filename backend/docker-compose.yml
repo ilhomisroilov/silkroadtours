@@ -37,6 +37,10 @@ services:
     depends_on:
       migrate: { condition: service_completed_successfully }
     ports: ["127.0.0.1:${API_PORT:-3101}:8000"]
+    # Also on the site's private network, where the site reaches it as http://accounts-api:8000.
+    networks:
+      default: {}
+      site: { aliases: [accounts-api] }
     deploy: { resources: { limits: { memory: 512m, cpus: "1.0" } } }
 
   worker:
@@ -75,6 +79,11 @@ services:
     security_opt: [no-new-privileges:true]
     restart: unless-stopped
     deploy: { resources: { limits: { memory: 256m, cpus: "0.5" } } }
+
+networks:
+  site:
+    external: true
+    name: ${SITE_NETWORK:-gulistantravel-accounts}
 
 volumes:
   pgdata:

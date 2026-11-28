@@ -73,6 +73,7 @@ test("no serious or critical axe violations: booking confirmation and admin pane
   await expect(page).toHaveURL(/\/admin$/);
   for (const path of ["/admin", "/admin/bookings", "/admin/tours/1", "/admin/settings"]) {
     await page.goto(path);
+    await page.waitForLoadState("networkidle"); // AntD adds the styles of lazily shown parts right after load
     expect(await audit(page), path).toEqual([]);
   }
 });

@@ -23,6 +23,9 @@ services:
       - app-data:/data
     ports:
       - "127.0.0.1:${APP_PORT:-3100}:3000"
+    # "accounts" is a private network to this brand's Python accounts service (backend/), which joins it as
+    # accounts-api. The site forwards /v1/… there (ACCOUNTS_API_URL in .env); it is never published.
+    networks: [default, accounts]
     init: true
     # Caps this site so a second brand on the same server cannot starve the other sites.
     mem_limit: ${APP_MEM_LIMIT:-768m}
@@ -34,6 +37,11 @@ services:
       options:
         max-size: "10m"
         max-file: "5"
+
+networks:
+  default: {}
+  accounts:
+    name: ${CONTAINER_NAME:-silkroadtours}-accounts
 
 volumes:
   app-data:

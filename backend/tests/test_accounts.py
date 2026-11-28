@@ -42,6 +42,26 @@ async def test_register_sign_in_and_profile(client):
     assert (await client.get("/v1/me")).status_code == 200
 
 
+async def test_one_hour_without_activity_signs_out(client):
+    from datetime import timedelta
+
+    from sqlalchemy import update
+
+    from app.models import Session
+    from app.services.accounts import now
+
+    assert (await register(client)).status_code == 201
+    async with SessionLocal() as db:  # 59 minutes idle: still signed in, and the clock restarts
+        await db.execute(update(Session).values(last_seen_at=now() - timedelta(minutes=59)))
+        await db.commit()
+    assert (await client.get("/v1/me")).status_code == 200
+    async with SessionLocal() as db:
+        await db.execute(update(Session).values(last_seen_at=now() - timedelta(minutes=61)))
+        await db.commit()
+    assert (await client.get("/v1/me")).status_code == 401
+    assert (await client.get("/v1/me")).status_code == 401
+
+
 async def test_password_rules_and_duplicates(client):
     assert (await register(client, password="short")).status_code == 422
     assert (await register(client)).status_code == 201

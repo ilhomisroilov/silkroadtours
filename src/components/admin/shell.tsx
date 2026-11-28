@@ -6,11 +6,12 @@ import { Avatar, Button, Drawer, Flex, Grid, Layout, Popover, Segmented, Typogra
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { ADMIN_LOCALE_COOKIE, type AdminLocale } from "@/i18n/admin";
 import { apiFetch } from "@/lib/client/api";
 import { BRAND } from "@/lib/brand";
 import type { AdminTheme } from "@/lib/admin-theme";
+import { SESSION_IDLE_MS } from "@/lib/admin-idle";
 import { ADMIN_COLORS, useAdminTheme } from "./antd-provider";
 
 /** Menu order and icons as the team knows them from the earlier panel. */
@@ -41,6 +42,7 @@ export function AdminShell({ user, locale, children }: { user: { name: string; r
   const screens = Grid.useBreakpoint();
   const desktop = screens.lg ?? true;
   const [open, setOpen] = useState(false);
+  useIdleSignOut();
 
 
   const side = (
@@ -165,13 +167,13 @@ function UserMenu({ user, locale, compact = false }: { user: { name: string; rol
       <Button
         type={compact ? "text" : "default"}
         size="large"
-        aria-label={t("panel.profile")}
         aria-expanded={open}
         data-testid="admin-user-menu"
         style={compact ? { paddingInline: 4 } : { paddingInline: 8, borderRadius: 999 }}
       >
         <Flex align="center" gap={8}>
-          <Avatar size={30} style={{ background: ADMIN_COLORS.primary }}>{initial}</Avatar>
+          <Avatar aria-hidden size={30} style={{ background: ADMIN_COLORS.primary }}>{initial}</Avatar>
+          <span className="sr-only">{t("panel.profile")}{compact ? `: ${user.name}` : ""}</span>
           {!compact && <span style={{ maxWidth: 160, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{user.name}</span>}
           {mode === "dark" ? <MoonOutlined aria-hidden /> : <SunOutlined aria-hidden />}
           <DownOutlined aria-hidden style={{ fontSize: 11 }} />
@@ -179,4 +181,25 @@ function UserMenu({ user, locale, compact = false }: { user: { name: string; rol
       </Button>
     </Popover>
   );
+}
+
+/** Mirrors the server's one-hour idle limit: after an hour with no mouse, keyboard or touch input the panel
+ *  signs out and shows why. The server enforces the limit on its own; this only makes it visible. */
+function useIdleSignOut() {
+  useEffect(() => {
+    let last = Date.now();
+    const seen = () => { last = Date.now(); };
+    const events = ["pointerdown", "keydown", "wheel", "touchstart", "scroll"] as const;
+    events.forEach((e) => window.addEventListener(e, seen, { passive: true, capture: true }));
+    const timer = window.setInterval(async () => {
+      if (Date.now() - last < SESSION_IDLE_MS) return;
+      window.clearInterval(timer);
+      await apiFetch("/api/admin/auth/logout", { method: "POST" });
+      window.location.assign("/admin/login?reason=idle");
+    }, 30_000);
+    return () => {
+      window.clearInterval(timer);
+      events.forEach((e) => window.removeEventListener(e, seen, { capture: true }));
+    };
+  }, []);
 }

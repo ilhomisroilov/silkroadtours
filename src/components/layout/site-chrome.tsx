@@ -9,6 +9,7 @@ import { contactSettings } from "@/lib/server/site";
 import { ArrowRight } from "lucide-react";
 import { listPublishedDestinations } from "@/db/queries/destinations";
 import { db } from "@/lib/server/site";
+import { AccountLink } from "@/components/account/account-client";
 import { WishlistLink } from "@/components/common/wishlist";
 import { NewsletterForm } from "./newsletter-form";
 import { Logo } from "./logo";
@@ -90,6 +91,7 @@ export async function SiteHeader({ locale, currency }: { locale: Locale; currenc
           <ThemeToggle toLight={t("nt.theme.toLight")} toDark={t("nt.theme.toDark")} className="max-sm:hidden" />
           <LanguageSwitcher currency={currency} />
           <WishlistLink label={t("nt.menu.wishlist")} className="max-sm:hidden xl:max-2xl:hidden" />
+          <AccountLink signInLabel={t("account.signIn")} accountLabel={t("account.account")} />
           <Link
             href="/trip-builder"
             className="hidden min-h-11 shrink-0 items-center gap-2 whitespace-nowrap rounded-full bg-lapis px-5 text-sm font-bold text-white shadow-[0_8px_20px_-10px_rgb(23_61_102/0.8)] transition-colors hover:bg-cobalt sm:inline-flex"
@@ -104,6 +106,7 @@ export async function SiteHeader({ locale, currency }: { locale: Locale; currenc
               { href: "/about", label: t("eco.nav.about") },
               { href: "/contact", label: t("eco.nav.contact") },
               { href: "/wishlist", label: t("nt.menu.wishlist") },
+              { href: "/account", label: t("account.title") },
             ]}
             currency={currency}
             footer={

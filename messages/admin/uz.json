@@ -30,7 +30,8 @@
     "email": "Email",
     "password": "Parol",
     "submit": "Kirish",
-    "noAccount": "Hisobingiz yoʻqmi? Sayt egasidan sizni jamoa aʼzosi sifatida qoʻshishini soʻrang."
+    "noAccount": "Hisobingiz yoʻqmi? Sayt egasidan sizni jamoa aʼzosi sifatida qoʻshishini soʻrang.",
+    "idle": "Bir soat davomida harakat boʻlmagani uchun tizimdan chiqdingiz. Iltimos, qaytadan kiring."
   },
   "common": {
     "save": "Saqlash",
