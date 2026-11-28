@@ -1,15 +1,17 @@
-# Gulistan Travel backend stack (API, worker, PostgreSQL with pgvector, Redis).
+# Backend stack for one brand (API, worker, PostgreSQL with pgvector, Redis).
 # Separate from the root docker-compose.yml: starting it never touches the live site container.
 #   cd backend && cp .env.example .env   (fill in on the server only; never commit .env)
 #   docker compose up -d --build
 # Only the API is published, and only on 127.0.0.1, so the host nginx is its sole client.
 # Every service has a memory and CPU cap so the other sites on a shared server are never starved.
 
-name: gulistantravel-backend
+# One stack per brand, each from its own checkout with its own .env. COMPOSE_PROJECT_NAME in .env keeps their
+# containers, volumes (database) and image apart, e.g. gulistantravel-backend on 3101, nationaltours-backend on 3103.
+name: ${COMPOSE_PROJECT_NAME:-gulistantravel-backend}
 
 x-app: &app
   build: .
-  image: gulistantravel-api:latest
+  image: ${COMPOSE_PROJECT_NAME:-gulistantravel-backend}-api:latest
   env_file: .env
   environment:
     NT_DATABASE_URL: postgresql+asyncpg://nt:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}@db:5432/nt

@@ -97,10 +97,10 @@ class RequestIn(BaseModel):
 @router.post("", status_code=201, dependencies=[Depends(limit("request.create", times=8, seconds=600))])
 async def create(body: RequestIn, request: Request, session: AsyncSession = Depends(get_session)):
     if body.website:  # bots fill every field; people never see this one
-        return {"reference": booking_reference("GS"), "status": "new"}
+        return {"reference": booking_reference(get_settings().request_prefix), "status": "new"}
     signed = await session_user(session, request.cookies.get(get_settings().session_cookie))
     data = body.model_dump(exclude={"details", "website"})
-    req = ServiceRequest(reference=booking_reference("GS"), kind=body.details.kind, status="new",
+    req = ServiceRequest(reference=booking_reference(get_settings().request_prefix), kind=body.details.kind, status="new",
                          details=body.details.model_dump(mode="json", exclude={"kind"}),
                          user_id=signed[1].id if signed else None, **data | {"email": str(body.email).lower()})
     session.add(req)

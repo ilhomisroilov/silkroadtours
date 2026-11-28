@@ -39,7 +39,10 @@ class Settings(BaseSettings):
     telegram_bot_username: str = ""
 
     # Email through Google Workspace (smtp.gmail.com, STARTTLS) with an app password of the sending mailbox
+    # One API runs per brand (Gulistan Travel, National Tours), each with its own database and .env.
     brand_name: str = "Gulistan Travel"
+    booking_prefix: str = Field("GT", pattern=r"^[A-Z]{2,3}$")  # GT-XXXXXXXX on tickets and payment pages
+    request_prefix: str = Field("GS", pattern=r"^[A-Z]{2,3}$")  # service requests
     mail_from: str = "no-reply@gulistantravel.uz"
     mail_reply_to: str = "info@gulistantravel.uz"
     smtp_host: str = "smtp.gmail.com"

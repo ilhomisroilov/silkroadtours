@@ -5,7 +5,7 @@ import secrets
 _ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"  # no 0/O/1/I to avoid misreading
 
 
-def booking_reference(prefix: str = "GT") -> str:
+def booking_reference(prefix: str) -> str:
     return f"{prefix}-" + "".join(secrets.choice(_ALPHABET) for _ in range(8))
 
 

@@ -1,7 +1,7 @@
 """Server-side commands, run inside the API container, for example:
 
-    docker compose exec api python -m app.cli create-owner owner@gulistantravel.uz "Full Name"
-    docker compose exec api python -m app.cli set-role manager@gulistantravel.uz manager
+    docker compose exec api python -m app.cli create-owner owner@example.uz "Full Name"
+    docker compose exec api python -m app.cli set-role manager@example.uz manager
 
 The password is typed at a hidden prompt, so it never lands in shell history or logs. The first sign-in then
 asks the person to set up two-step verification in an authenticator app.

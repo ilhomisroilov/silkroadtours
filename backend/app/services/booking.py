@@ -114,7 +114,7 @@ async def create_booking(session: AsyncSession, data: NewBooking, today: date | 
     dep.seats_reserved += seats
     token = new_access_token()
     booking = Booking(
-        reference=booking_reference(),
+        reference=booking_reference(get_settings().booking_prefix),
         access_token_hash=hash_token(token),
         kind="tour",
         status="awaiting_payment",
@@ -153,7 +153,7 @@ async def create_custom_booking(session: AsyncSession, *, title: str, currency: 
         raise BookingError("invalid_amount", "Total must be positive", 422)
     token = new_access_token()
     booking = Booking(
-        reference=booking_reference(), access_token_hash=hash_token(token), kind="custom",
+        reference=booking_reference(get_settings().booking_prefix), access_token_hash=hash_token(token), kind="custom",
         status="awaiting_payment", payment_state="unpaid", hold_expires_at=now() + timedelta(hours=hold_hours),
         tour_title_snapshot=title, free_cancel_until=free_cancel_until, adults=adults, children=children,
         seats=adults + children, full_name=full_name, email=email.strip().lower(), phone=phone, locale=locale,

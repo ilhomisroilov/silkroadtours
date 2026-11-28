@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1.7
-# Gulistan Travel API image (amd64 and arm64). Runs as an unprivileged user on a read-only root filesystem.
+# Travel API image (one per brand at run time) (amd64 and arm64). Runs as an unprivileged user on a read-only root filesystem.
 FROM python:3.12-slim-bookworm AS build
 ENV PIP_NO_CACHE_DIR=1 PIP_DISABLE_PIP_VERSION_CHECK=1
 WORKDIR /src
