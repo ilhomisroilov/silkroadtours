@@ -30,9 +30,9 @@ async def test_verification_email_is_sent_once_and_link_is_wiped(client, monkeyp
         assert msg.sent_at is not None and "link" not in msg.data
 
     em = sent[0]
-    assert em["From"] == "Gulistan Travel <no-reply@gulistantravel.uz>"
+    assert em["From"] == "Guliston Travel <no-reply@gulistantravel.uz>"
     assert em["To"] == "ali@example.com"
-    assert em["Subject"] == "Email manzilingizni tasdiqlang | Gulistan Travel"
+    assert em["Subject"] == "Email manzilingizni tasdiqlang | Guliston Travel"
     text = em.get_body(("plain",)).get_content()
     html_part = em.get_body(("html",)).get_content()
     assert "https://gulistantravel.uz/uz/account/verify-email?token=" in text

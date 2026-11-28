@@ -22,6 +22,10 @@ class Settings(BaseSettings):
     booking_hold_minutes: int = 30
     deposit_percent: int = Field(30, ge=0, le=100)
 
+    # Fernet key for secrets kept in the database (2FA seeds). Generate once:
+    #   python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
+    secret_key: SecretStr = SecretStr("")
+
     # Accounts
     api_url: str = "https://api.gulistantravel.uz"  # public address of this API (OAuth redirect URIs)
     session_cookie: str = "nt_session"
@@ -35,7 +39,10 @@ class Settings(BaseSettings):
     telegram_bot_username: str = ""
 
     # Email through Google Workspace (smtp.gmail.com, STARTTLS) with an app password of the sending mailbox
-    brand_name: str = "Gulistan Travel"
+    # One API runs per brand (Guliston Travel, National Tours), each with its own database and .env.
+    brand_name: str = "Guliston Travel"
+    booking_prefix: str = Field("GT", pattern=r"^[A-Z]{2,3}$")  # GT-XXXXXXXX on tickets and payment pages
+    request_prefix: str = Field("GS", pattern=r"^[A-Z]{2,3}$")  # service requests
     mail_from: str = "no-reply@gulistantravel.uz"
     mail_reply_to: str = "info@gulistantravel.uz"
     smtp_host: str = "smtp.gmail.com"

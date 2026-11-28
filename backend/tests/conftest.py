@@ -16,6 +16,7 @@ os.environ["NT_TELEGRAM_BOT_TOKEN"] = "123456:test-bot-token"
 os.environ["NT_SMTP_USERNAME"] = "no-reply@gulistantravel.uz"
 os.environ["NT_SMTP_PASSWORD"] = "app-password"
 os.environ["NT_TELEGRAM_BOT_USERNAME"] = "gulistantravel_bot"
+os.environ["NT_SECRET_KEY"] = __import__("cryptography.fernet").fernet.Fernet.generate_key().decode()  # per run
 
 import uuid  # noqa: E402
 from datetime import UTC, date, datetime, timedelta  # noqa: E402

@@ -13,25 +13,17 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.config import get_settings
 from app.core.ratelimit import client_ip, limit
+from app.core.security import same_origin
 from app.core.tokens import hash_token
 from app.db import get_session
 from app.models import Booking, Departure, Session, User, UserIdentity
-from app.services import accounts, oauth
+from app.services import accounts, mfa, oauth
 from app.services.accounts import AuthError
 
 router = APIRouter(prefix="/v1", tags=["accounts"])
 
 
 # ── plumbing ────────────────────────────────────────────────────────────────
-
-def same_origin(request: Request) -> None:
-    origin = request.headers.get("origin")
-    if origin is None:
-        referer = request.headers.get("referer", "")
-        origin = "/".join(referer.split("/")[:3]) if referer else None
-    if origin not in get_settings().allowed_origins:
-        raise HTTPException(403, {"code": "bad_origin"})
-
 
 def set_session_cookie(response: Response, token: str) -> None:
     s = get_settings()
@@ -52,8 +44,10 @@ async def current(request: Request, session: AsyncSession = Depends(get_session)
     return found
 
 
-async def signed_in(session: AsyncSession, response: Response, request: Request, user: User, method: str) -> None:
-    token = await accounts.start_session(session, user, method, client_ip(request), request.headers.get("user-agent"))
+async def signed_in(session: AsyncSession, response: Response, request: Request, user: User, method: str,
+                    mfa_verified: bool = False) -> None:
+    token = await accounts.start_session(session, user, method, client_ip(request), request.headers.get("user-agent"),
+                                         mfa_verified=mfa_verified)
     await session.commit()
     set_session_cookie(response, token)
 
@@ -148,8 +142,59 @@ async def login(body: LoginIn, request: Request, response: Response, session: As
         user = await accounts.login_with_password(session, body.email, body.password)
     except AuthError as e:
         raise auth_error(e) from None
+    if user.role != "tourist" and await mfa.enabled(session, user.id):
+        challenge = await mfa.new_challenge(session, user)
+        await session.commit()
+        return {"ok": False, "mfa_required": True, "challenge": challenge}
     await signed_in(session, response, request, user, "password")
+    return {"ok": True, "mfa_setup_required": user.role != "tourist"}
+
+
+class MfaIn(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    challenge: str = Field(min_length=20, max_length=200)
+    code: str = Field(min_length=6, max_length=16)
+
+
+@router.post("/auth/mfa", dependencies=[Depends(same_origin), Depends(limit("auth.mfa", times=10, seconds=900))])
+async def mfa_login(body: MfaIn, request: Request, response: Response, session: AsyncSession = Depends(get_session)):
+    try:
+        user = await mfa.solve_challenge(session, body.challenge, body.code)
+    except AuthError as e:
+        await session.commit()  # keep the failed-attempt count
+        raise auth_error(e) from None
+    await signed_in(session, response, request, user, "password", mfa_verified=True)
     return {"ok": True}
+
+
+class CodeIn(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    code: str = Field(min_length=6, max_length=8)
+
+
+@router.post("/me/mfa/setup", dependencies=[Depends(same_origin)])
+async def mfa_setup(found=Depends(current), session: AsyncSession = Depends(get_session)):
+    _, user = found
+    try:
+        out = await mfa.begin_setup(session, user)
+    except AuthError as e:
+        raise auth_error(e) from None
+    await session.commit()
+    return out
+
+
+@router.post("/me/mfa/confirm", dependencies=[Depends(same_origin), Depends(limit("auth.mfa", times=10, seconds=900))])
+async def mfa_confirm(body: CodeIn, found=Depends(current), session: AsyncSession = Depends(get_session)):
+    sess, user = found
+    try:
+        codes = await mfa.confirm_setup(session, user, body.code)
+    except AuthError as e:
+        await session.commit()
+        raise auth_error(e) from None
+    s = await session.get(Session, sess.id)
+    s.mfa_verified = True
+    await session.commit()
+    return {"recovery_codes": codes}
 
 
 @router.post("/auth/logout", dependencies=[Depends(same_origin)])
