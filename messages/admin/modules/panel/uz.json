@@ -45,6 +45,7 @@
     "fixBeforeSave": "Saqlashdan oldin quyidagilarni tuzating",
     "theme": "Koʻrinish",
     "day": "Kun",
-    "night": "Tun"
+    "night": "Tun",
+    "profile": "Profil"
   }
 }

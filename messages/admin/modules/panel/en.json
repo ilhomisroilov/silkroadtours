@@ -45,6 +45,7 @@
     "fixBeforeSave": "Fix these before saving",
     "theme": "Appearance",
     "day": "Day",
-    "night": "Night"
+    "night": "Night",
+    "profile": "Profile"
   }
 }
