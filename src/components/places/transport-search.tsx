@@ -230,6 +230,70 @@ export function TransportSearch({
         >
           <Search aria-hidden="true" className="size-5" /> {t("search")}
         </button>
+        {priced.length > 0 && (
+          // One panel: the search above, the live filters and sort for its results below (no second filter bar).
+          <div className="flex flex-wrap items-end gap-4 border-t border-line pt-4 sm:col-span-2 lg:col-span-full" data-testid="transport-filters">
+            <fieldset className="min-w-0">
+              <legend className="mb-1.5 text-xs font-bold uppercase tracking-wide text-ink-muted">{t("modeFilter")}</legend>
+              <div className="flex flex-wrap gap-2">
+                {(["", ...modes] as (SearchMode | "")[]).map((m) => (
+                  <button
+                    key={m || "all"}
+                    type="button"
+                    aria-pressed={mode === m}
+                    onClick={() => setMode(m)}
+                    className={cn(
+                      "inline-flex min-h-10 items-center gap-1.5 rounded-full border px-3.5 text-sm font-semibold transition",
+                      mode === m ? "border-lapis-deep bg-lapis-deep text-white" : "border-field bg-white text-ink hover:border-cobalt",
+                    )}
+                  >
+                    {m ? modeLabel(m) : t("allModes")}
+                  </button>
+                ))}
+              </div>
+            </fieldset>
+            <label className="block">
+              <span className="mb-1.5 block text-xs font-bold uppercase tracking-wide text-ink-muted">{t("timeFilter")}</span>
+              <NativeSelect
+                value={time}
+                onChange={(e) => setTime(e.target.value as TimeOfDay | "")}
+                className="min-h-10 rounded-full py-1.5 text-sm font-semibold"
+              >
+                {TIMES.map((x) => (
+                  <option key={x || "any"} value={x}>
+                    {t(`times.${x || "any"}` as never)}
+                  </option>
+                ))}
+              </NativeSelect>
+            </label>
+            {priceCap > 0 && (
+              <label className="block min-w-48 flex-1 sm:max-w-72">
+                <span className="mb-1.5 flex justify-between text-xs font-bold uppercase tracking-wide text-ink-muted">
+                  <span>{t("maxPrice")}</span>
+                  <span className="normal-case text-lapis">{money(maxPrice ?? priceCap)}</span>
+                </span>
+                <input
+                  type="range"
+                  min={0}
+                  max={priceCap}
+                  step={1}
+                  value={maxPrice ?? priceCap}
+                  onChange={(e) => setMaxPrice(Number(e.target.value) >= priceCap ? null : Number(e.target.value))}
+                  className="m-0 block h-10 w-full accent-[var(--color-lapis)]"
+                  aria-valuetext={money(maxPrice ?? priceCap)}
+                />
+              </label>
+            )}
+            <label className="block">
+              <span className="mb-1.5 block text-xs font-bold uppercase tracking-wide text-ink-muted">{t("sortLabel")}</span>
+              <NativeSelect value={sort} onChange={(e) => setSort(e.target.value as Sort)} className="min-h-10 rounded-full py-1.5 text-sm font-semibold">
+                <option value="departure">{t("sort.departure")}</option>
+                <option value="price">{t("sort.price")}</option>
+                <option value="duration">{t("sort.duration")}</option>
+              </NativeSelect>
+            </label>
+          </div>
+        )}
       </form>
 
       <section id="results" tabIndex={-1} aria-labelledby="results-title" className="mt-10 scroll-mt-24 outline-none">
@@ -243,16 +307,6 @@ export function TransportSearch({
               {dateLabel(query.date)} · {t("paxCount", { count: query.pax })} · {t(`classes.${query.cls}`)} · {t("resultsCount", { count: shown.length })}
             </p>
           </div>
-          {priced.length > 0 && (
-            <label className="flex items-center gap-2 text-sm">
-              <span className="font-semibold text-ink-muted">{t("sortLabel")}</span>
-              <NativeSelect value={sort} onChange={(e) => setSort(e.target.value as Sort)} className="w-auto min-w-40 rounded-full py-2 text-sm font-semibold">
-                <option value="departure">{t("sort.departure")}</option>
-                <option value="price">{t("sort.price")}</option>
-                <option value="duration">{t("sort.duration")}</option>
-              </NativeSelect>
-            </label>
-          )}
         </div>
 
         {priced.length === 0 ? (
@@ -349,60 +403,6 @@ export function TransportSearch({
                 ) : null,
               )}
             </ul>
-
-            <div className="mt-6 flex flex-wrap items-end gap-4 rounded-2xl bg-sand-soft/70 p-4">
-              <fieldset className="min-w-0">
-                <legend className="mb-1.5 text-xs font-bold uppercase tracking-wide text-ink-muted">{t("modeFilter")}</legend>
-                <div className="flex flex-wrap gap-2">
-                  {(["", ...modes] as (SearchMode | "")[]).map((m) => (
-                    <button
-                      key={m || "all"}
-                      type="button"
-                      aria-pressed={mode === m}
-                      onClick={() => setMode(m)}
-                      className={cn(
-                        "inline-flex min-h-10 items-center gap-1.5 rounded-full border px-3.5 text-sm font-semibold transition",
-                        mode === m ? "border-lapis-deep bg-lapis-deep text-white" : "border-field bg-white text-ink hover:border-cobalt",
-                      )}
-                    >
-                      {m ? modeLabel(m) : t("allModes")}
-                    </button>
-                  ))}
-                </div>
-              </fieldset>
-              <label className="block">
-                <span className="mb-1.5 block text-xs font-bold uppercase tracking-wide text-ink-muted">{t("timeFilter")}</span>
-                <NativeSelect
-                  value={time}
-                  onChange={(e) => setTime(e.target.value as TimeOfDay | "")}
-                  className="min-h-10 rounded-full py-1.5 text-sm font-semibold"
-                >
-                  {TIMES.map((x) => (
-                    <option key={x || "any"} value={x}>
-                      {t(`times.${x || "any"}` as never)}
-                    </option>
-                  ))}
-                </NativeSelect>
-              </label>
-              {priceCap > 0 && (
-                <label className="block min-w-48 flex-1 sm:max-w-72">
-                  <span className="mb-1.5 flex justify-between text-xs font-bold uppercase tracking-wide text-ink-muted">
-                    <span>{t("maxPrice")}</span>
-                    <span className="normal-case text-lapis">{money(maxPrice ?? priceCap)}</span>
-                  </span>
-                  <input
-                    type="range"
-                    min={0}
-                    max={priceCap}
-                    step={1}
-                    value={maxPrice ?? priceCap}
-                    onChange={(e) => setMaxPrice(Number(e.target.value) >= priceCap ? null : Number(e.target.value))}
-                    className="h-10 w-full accent-[var(--color-lapis)]"
-                    aria-valuetext={money(maxPrice ?? priceCap)}
-                  />
-                </label>
-              )}
-            </div>
 
             {shown.length === 0 ? (
               <p className="mt-6 rounded-2xl border border-dashed border-line p-6 text-ink-muted">{t("noMatch")}</p>

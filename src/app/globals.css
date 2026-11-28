@@ -393,7 +393,6 @@ select option { background: var(--picker); color: var(--color-ink); }
 :root input[type="date"], :root input[type="time"], :root input[type="month"], :root input[type="datetime-local"] {
   background: var(--glass);
   box-shadow: var(--glass-edge);
-  min-height: 2.75rem;
 }
 input::-webkit-calendar-picker-indicator {
   cursor: pointer;
