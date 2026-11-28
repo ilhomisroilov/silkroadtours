@@ -88,21 +88,21 @@ console.log("1. Database and catalogue");
 await check("health check reads the database", () => {
   expectStatus(health, 200);
   const db = health.json.data.database;
-  expect(db.destinations === 9, `expected 9 destinations, got ${db.destinations} — run: npm run db:reset:local`);
-  expect(db.tours === 18, `expected 18 tours, got ${db.tours} — run: npm run db:reset:local`);
+  expect(db.destinations === 19, `expected 19 destinations, got ${db.destinations} — run: npm run db:reset:local`);
+  expect(db.tours === 27, `expected 27 tours, got ${db.tours} — run: npm run db:reset:local`);
   return `${db.destinations} destinations, ${db.tours} tours`;
 });
 await check("destinations list", async () => {
   const r = await api("GET", "/api/destinations");
   expectStatus(r, 200);
-  expect(r.json.data.length === 9, "expected 9 destinations");
+  expect(r.json.data.length === 19, "expected 19 destinations");
   expect(r.json.data.every((d) => d.tourCount >= 2), "every destination should have at least 2 tours");
 });
 await check("tour filters: audience, currency, month, destination", async () => {
   const all = await api("GET", "/api/tours?pageSize=48");
-  expect(all.json.data.total === 18, `expected 18 tours, got ${all.json.data.total}`);
+  expect(all.json.data.total === 27, `expected 27 tours, got ${all.json.data.total}`);
   const domestic = await api("GET", "/api/tours?audience=domestic&currency=UZS&pageSize=48");
-  expect(domestic.json.data.total === 7, `expected 7 domestic tours, got ${domestic.json.data.total}`);
+  expect(domestic.json.data.total === 10, `expected 10 domestic tours, got ${domestic.json.data.total}`);
   expect(domestic.json.data.items.every((t) => t.fromPrice?.currency === "UZS"), "prices should be in UZS");
   const july = await api("GET", "/api/tours?month=7&pageSize=48");
   const slugs = july.json.data.items.map((t) => t.slug);
@@ -199,7 +199,7 @@ await check("airport transfer request", async () => {
 });
 await check("FAQ, rates and contact endpoints", async () => {
   const [faq, rates, contact] = await Promise.all([api("GET", "/api/faq"), api("GET", "/api/rates"), api("GET", "/api/contact")]);
-  expect(faq.json.data.length === 12, "expected 12 FAQ items");
+  expect(faq.json.data.length === 35, "expected 35 FAQ items");
   expect(rates.json.data.rates.UZS > 1000, "bad UZS rate");
   expect(contact.json.data.agencyName, "missing agency name");
 });
