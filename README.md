@@ -1,4 +1,4 @@
-# Gulistan Travel — AI-assisted travel platform
+# National Tours / Gulistan Travel — AI-assisted travel platform (one codebase, brand per deployment)
 
 Website, AI travel assistant, AI trip planner and admin panel for a tour agency in Jizzakh, Uzbekistan.
 Next.js 15 + SQLite (libSQL) in Docker behind nginx. The site is in English, Uzbek and Russian and shows

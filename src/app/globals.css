@@ -6,8 +6,8 @@
  * (contrast ratios are listed in the design doc).
  */
 @theme {
-  /* Gulistan Travel "night" palette (dark navy, 2026-11-26 concept v2).
-     Gulistan Travel palette (token names kept from the first design so every component re-themes at once).
+  /* Site "night" palette (dark navy, 2026-11-26 concept v2).
+     Brand palette (token names kept from the first design so every component re-themes at once).
      Contrast: ink on ivory 13.5:1, ink-muted on ivory 4.8:1, white on lapis 11:1, white on cobalt 6.7:1,
      saffron-ink on white 5.5:1, lapis on saffron 4.9:1. */
   --color-lapis: #176bcb; /* primary navy */

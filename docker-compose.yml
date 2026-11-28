@@ -1,4 +1,6 @@
-# Gulistan Travel — production stack.
+# Production stack for one brand deployment (National Tours or Gulistan Travel, see NEXT_PUBLIC_BRAND).
+# Each brand runs from its own clone directory with its own .env, so the compose project, data volume,
+# container name (CONTAINER_NAME) and local port (APP_PORT) are separate.
 #   cp .env.example .env   (fill in secrets; never commit .env)
 #   docker compose up -d --build
 # The app listens only on 127.0.0.1:${APP_PORT:-3100}; nginx on the host terminates HTTPS (see deploy/nginx).
@@ -8,11 +10,12 @@ services:
     build:
       context: .
       args:
-        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-https://gulistantravel.uz}
+        NEXT_PUBLIC_BRAND: ${NEXT_PUBLIC_BRAND:-national}
+        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-https://nationaltours.uz}
         NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${NEXT_PUBLIC_TURNSTILE_SITE_KEY:-}
         NEXT_PUBLIC_UZ_ALPHABET: ${NEXT_PUBLIC_UZ_ALPHABET:-new}
-    image: silkroadtours:latest
-    container_name: silkroadtours
+    image: ${CONTAINER_NAME:-silkroadtours}:latest
+    container_name: ${CONTAINER_NAME:-silkroadtours}
     env_file: .env
     environment:
       DATABASE_URL: file:/data/silkroad.db
@@ -21,6 +24,8 @@ services:
     ports:
       - "127.0.0.1:${APP_PORT:-3100}:3000"
     init: true
+    # Caps this site so a second brand on the same server cannot starve the other sites.
+    mem_limit: ${APP_MEM_LIMIT:-768m}
     restart: unless-stopped
     security_opt:
       - no-new-privileges:true

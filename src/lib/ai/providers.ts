@@ -1,4 +1,5 @@
 import "server-only";
+import { BRAND } from "@/lib/brand";
 
 /**
  * Provider-independent AI layer: Website UI → /api/ai/chat → runAgent() → ProviderAdapter → model.
@@ -180,7 +181,7 @@ export const COMPAT_PROVIDERS = {
     baseUrl: () => "https://openrouter.ai/api/v1",
     apiKey: () => env("OPENROUTER_API_KEY"),
     defaultModel: () => env("OPENROUTER_MODEL") || "openrouter/free",
-    headers: () => ({ "HTTP-Referer": env("SITE_URL") || "https://gulistantravel.uz", "X-Title": "Gulistan Travel" }),
+    headers: () => ({ "HTTP-Referer": env("SITE_URL") || `https://${BRAND.domain}`, "X-Title": BRAND.name }),
   },
   cerebras: {
     id: "cerebras",

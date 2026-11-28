@@ -1,5 +1,5 @@
 {
-  "name": "Gulistan Travel",
+  "name": "National Tours",
   "image": "mcr.microsoft.com/devcontainers/typescript-node:1-22-bookworm",
   "postCreateCommand": "bash scripts/codespace-setup.sh",
   "forwardPorts": [3000],

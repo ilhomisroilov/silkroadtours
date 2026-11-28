@@ -3,6 +3,7 @@ import { getRequestConfig } from "next-intl/server";
 import { ADMIN_LOCALES, type AdminLocale } from "./admin";
 import { routing } from "./routing";
 import { uzDeep } from "../lib/uz-alphabet";
+import { brandDeep } from "../lib/brand";
 
 /**
  * Feature modules keep their messages in their own files, merged on top of the main dictionary:
@@ -12,13 +13,17 @@ import { uzDeep } from "../lib/uz-alphabet";
 export const SITE_MESSAGE_MODULES = ["eco", "places", "virtual", "builder", "partners", "aiguide"] as const;
 export const ADMIN_MESSAGE_MODULES = ["crm", "partners", "places", "trips", "aicenter"] as const;
 
-/** Uzbek dictionaries are shown in the new Latin alphabet; the files keep the current spelling as the backup. */
-const uzCache = new Map<string, Record<string, unknown>>();
+/**
+ * The brand name is swapped in for the deployment's brand (src/lib/brand.ts); Uzbek dictionaries are shown
+ * in the new Latin alphabet (the files keep the current spelling as the backup). Cached in production.
+ */
+const cache = new Map<string, Record<string, unknown>>();
 function forLocale(key: string, locale: string, messages: Record<string, unknown>): Record<string, unknown> {
-  if (locale !== "uz") return messages;
-  if (process.env.NODE_ENV !== "production") return uzDeep(messages);
-  const hit = uzCache.get(key) ?? uzDeep(messages);
-  uzCache.set(key, hit);
+  const build = () => (locale === "uz" ? uzDeep(brandDeep(messages)) : brandDeep(messages));
+  if (process.env.NODE_ENV !== "production") return build();
+  const k = `${key}:${locale}`;
+  const hit = cache.get(k) ?? build();
+  cache.set(k, hit);
   return hit;
 }
 

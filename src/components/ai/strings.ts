@@ -1,9 +1,10 @@
 import type { Locale } from "@/db/types";
 import { uzDeep } from "@/lib/uz-alphabet";
+import { BRAND } from "@/lib/brand";
 
 const en = {
-    open: "Ask Gulistan Travel",
-    title: "Gulistan Travel assistant",
+    open: `Ask ${BRAND.name}`,
+    title: `${BRAND.name} assistant`,
     subtitle: "Answers from our tours & travel guides",
     close: "Close assistant",
     placeholder: "Ask about tours, cities, budgets…",
@@ -33,8 +34,8 @@ export type AiStrings = typeof en;
 const RAW_AI_STRINGS: Record<Locale, AiStrings> = {
   en,
   uz: {
-    open: "Gulistan Travel yordamchisi",
-    title: "Gulistan Travel yordamchisi",
+    open: `${BRAND.name} yordamchisi`,
+    title: `${BRAND.name} yordamchisi`,
     subtitle: "Javoblar turlarimiz va qoʻllanmalarimizdan",
     close: "Yordamchini yopish",
     placeholder: "Turlar, shaharlar, byudjet haqida soʻrang…",
@@ -59,8 +60,8 @@ const RAW_AI_STRINGS: Record<Locale, AiStrings> = {
     notHelpful: "Foydali emas",
   },
   ru: {
-    open: "Спросить Gulistan Travel",
-    title: "Помощник Gulistan Travel",
+    open: `Спросить ${BRAND.name}`,
+    title: `Помощник ${BRAND.name}`,
     subtitle: "Ответы на основе наших туров и гидов",
     close: "Закрыть помощника",
     placeholder: "Спросите о турах, городах, бюджете…",

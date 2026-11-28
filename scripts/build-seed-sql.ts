@@ -21,6 +21,8 @@ import { sampleLeads } from "./seed-data/leads.ts";
 import { samplePartners } from "./seed-data/partners.ts";
 import { seedPlaces } from "./seed-data/places.ts";
 import { uzText } from "../src/lib/uz-alphabet.ts";
+// @ts-expect-error plain JS module shared with db.mjs
+import { brand, brandText } from "./brand.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const RESET = process.argv.includes("--reset");
@@ -136,7 +138,7 @@ const resetLines = [
   "DELETE FROM partners WHERE source = 'sample';",
   "DELETE FROM lead_activities WHERE lead_id IN (SELECT id FROM leads WHERE source = 'admin' AND source_ref LIKE 'SAMPLE-%');",
   "DELETE FROM leads WHERE source = 'admin' AND source_ref LIKE 'SAMPLE-%';",
-  "UPDATE settings SET value = json_set(value, '$.agencyName', 'Gulistan Travel') WHERE key = 'contact' AND json_extract(value, '$.agencyName') IN ('Silk Road Tours', 'National Tours', '');",
+  "UPDATE settings SET value = json_set(value, '$.agencyName', 'Gulistan Travel') WHERE key = 'contact' AND json_extract(value, '$.agencyName') IN ('Silk Road Tours', 'National Tours', 'Gulistan Travel', '');",
   "",
 ];
 const lines: string[] = [];
@@ -488,7 +490,7 @@ const settingsRows = {
   contact: {
     agencyName: "Gulistan Travel",
     phone: "",
-    email: "info@gulistantravel.uz",
+    email: brand.email,
     whatsapp: "",
     telegram: "",
     address: { en: "Jizzakh, Uzbekistan", uz: "Jizzax, Oʻzbekiston", ru: "Джизак, Узбекистан" },
@@ -500,9 +502,9 @@ for (const [key, value] of Object.entries(settingsRows)) {
 }
 
 mkdirSync(join(ROOT, "drizzle"), { recursive: true });
-writeFileSync(join(ROOT, "drizzle/seed.sql"), [...header, ...(RESET ? resetLines : []), ...lines].join("\n") + "\n");
+writeFileSync(join(ROOT, "drizzle/seed.sql"), brandText([...header, ...(RESET ? resetLines : []), ...lines].join("\n") + "\n"));
 // Always also written: used once to replace an older catalogue (`node scripts/db.mjs seed --reset`).
-writeFileSync(join(ROOT, "drizzle/seed-reset.sql"), [...header, ...resetLines, ...lines].join("\n") + "\n");
+writeFileSync(join(ROOT, "drizzle/seed-reset.sql"), brandText([...header, ...resetLines, ...lines].join("\n") + "\n"));
 writeFileSync(join(ROOT, "drizzle/seed-images.txt"), images.map((p) => `public${p}`).join("\n") + "\n");
 
 const missing = images.filter((p) => !existsSync(join(ROOT, "public", p)));

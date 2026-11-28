@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server";
+import { BRAND } from "@/lib/brand";
 import type { Locale } from "@/db/types";
 import { localize } from "@/lib/localize";
 import { contactSettings, siteUrl } from "@/lib/server/site";
@@ -24,7 +25,7 @@ export async function OrganizationJsonLd({ locale }: { locale: Locale }) {
         name: contact.agencyName || t("siteName"),
         url: `${base}/${locale}`,
         description: t("defaultDescription"),
-        logo: `${base}/brand/gulistan-travel-logo.png`,
+        logo: `${base}${BRAND.logo.png}`,
         ...(contact.phone ? { telephone: contact.phone } : {}),
         ...(contact.email ? { email: contact.email } : {}),
         address: {
