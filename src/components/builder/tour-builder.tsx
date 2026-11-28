@@ -151,9 +151,9 @@ export function TourBuilder({
 
   const estimate = (
     <div className="rounded-[1.5rem] bg-lapis p-6 text-white shadow-lift">
-      <p className="text-sm font-bold uppercase tracking-[0.1em] text-saffron">{t("estimateTitle")}</p>
+      <p className="text-sm font-bold uppercase tracking-[0.1em] text-white">{t("estimateTitle")}</p>
       {route.length === 0 ? (
-        <p className="mt-3 text-white/80">{t("estimateEmpty")}</p>
+        <p className="mt-3 text-white/90">{t("estimateEmpty")}</p>
       ) : (
         <>
           <p className="mt-3 text-[1.7rem] font-extrabold leading-tight">{range(perAdult)}</p>

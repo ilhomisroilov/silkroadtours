@@ -10,7 +10,7 @@ export function AskAssistantButton({ label, question, className, send = true }: 
     <button
       type="button"
       onClick={() => openAssistant(question, send)}
-      className={cn("inline-flex min-h-11 items-center gap-2 rounded-full bg-cobalt px-5 text-sm font-bold text-white transition hover:bg-lapis", className)}
+      className={cn("inline-flex min-h-11 items-center gap-2 rounded-full bg-lapis px-5 text-sm font-bold text-white transition hover:bg-[#1259ad]", className)}
     >
       <Sparkles aria-hidden="true" className="size-4" />
       {label}

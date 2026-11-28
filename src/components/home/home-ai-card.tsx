@@ -74,7 +74,7 @@ export function HomeAiCard({ labels }: { labels: Labels }) {
         <button
           type="submit"
           aria-label={labels.send}
-          className="inline-flex size-11 shrink-0 items-center justify-center rounded-full bg-cobalt text-white transition hover:bg-lapis"
+          className="inline-flex size-11 shrink-0 items-center justify-center rounded-full bg-lapis text-white transition hover:bg-[#1259ad]"
         >
           <SendHorizontal aria-hidden="true" className="size-5" />
         </button>

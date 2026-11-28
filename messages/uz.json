@@ -1091,6 +1091,11 @@
       "eyebrow": "Biz bilan bogʻlaning",
       "formTitle": "Bizga xabar yuboring",
       "formText": "Tur, guruh sayohati yoki boshqa savollaringiz bormi? Yozing, siz tanlagan kanal orqali javob beramiz."
+    },
+    "theme": {
+      "toLight": "Kunduzgi rejimga oʻtish",
+      "toDark": "Tungi rejimga oʻtish",
+      "label": "Kunduz / tun"
     }
   }
 }

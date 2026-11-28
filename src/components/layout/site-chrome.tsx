@@ -12,6 +12,7 @@ import { db } from "@/lib/server/site";
 import { WishlistLink } from "@/components/common/wishlist";
 import { NewsletterForm } from "./newsletter-form";
 import { Logo } from "./logo";
+import { ThemeToggle } from "./theme-toggle";
 import { DesktopNav, HeaderFrame, type NavItem } from "./nav-menu";
 import { LanguageSwitcher, MobileMenu } from "./switchers";
 
@@ -86,6 +87,7 @@ export async function SiteHeader({ locale, currency }: { locale: Locale; currenc
         </Link>
         <DesktopNav items={items} label={t("nav.mainNav")} />
         <div className="flex items-center gap-1 sm:gap-2">
+          <ThemeToggle toLight={t("nt.theme.toLight")} toDark={t("nt.theme.toDark")} className="max-sm:hidden" />
           <LanguageSwitcher currency={currency} />
           <WishlistLink label={t("nt.menu.wishlist")} className="max-sm:hidden xl:max-2xl:hidden" />
           <Link
@@ -104,6 +106,12 @@ export async function SiteHeader({ locale, currency }: { locale: Locale; currenc
               { href: "/wishlist", label: t("nt.menu.wishlist") },
             ]}
             currency={currency}
+            footer={
+              <div className="flex items-center justify-between gap-3 border-t border-line px-5 py-3">
+                <span className="text-sm font-semibold text-ink-muted">{t("nt.theme.label")}</span>
+                <ThemeToggle toLight={t("nt.theme.toLight")} toDark={t("nt.theme.toDark")} />
+              </div>
+            }
           />
         </div>
       </div>

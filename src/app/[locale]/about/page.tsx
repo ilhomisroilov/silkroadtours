@@ -157,15 +157,15 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         <section aria-labelledby="about-cta" className="relative overflow-hidden rounded-[2rem] bg-lapis p-8 text-white sm:p-12">
           <Globe2 aria-hidden="true" className="absolute -right-10 -top-10 size-56 text-white/5" />
           <h2 id="about-cta" className="relative text-3xl text-white">{t("about.ctaTitle")}</h2>
-          <p className="relative mt-3 max-w-2xl text-lg text-white/80">{t("about.ctaText")}</p>
+          <p className="relative mt-3 max-w-2xl text-lg text-white/90">{t("about.ctaText")}</p>
           <div className="relative mt-7 flex flex-wrap gap-3">
             <Link href="/planner" className={buttonVariants({ variant: "saffron" })}>
               <Wand2 aria-hidden="true" className="size-4" /> {t("about.ctaPlanner")}
             </Link>
-            <Link href="/custom-tour" className="inline-flex min-h-11 items-center gap-2 rounded-full bg-white/10 px-5 text-sm font-semibold text-white ring-1 ring-white/30 hover:bg-white/20">
+            <Link href="/custom-tour" className="inline-flex min-h-11 items-center gap-2 rounded-full bg-black/15 px-5 text-sm font-semibold text-white ring-1 ring-white/40 hover:bg-black/25">
               <PencilRuler aria-hidden="true" className="size-4" /> {t("about.ctaBuilder")}
             </Link>
-            <Link href="/contact" className="inline-flex min-h-11 items-center gap-2 rounded-full bg-white/10 px-5 text-sm font-semibold text-white ring-1 ring-white/30 hover:bg-white/20">
+            <Link href="/contact" className="inline-flex min-h-11 items-center gap-2 rounded-full bg-black/15 px-5 text-sm font-semibold text-white ring-1 ring-white/40 hover:bg-black/25">
               <MessageSquareText aria-hidden="true" className="size-4" /> {t("about.ctaContact")}
             </Link>
           </div>

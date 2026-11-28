@@ -17,6 +17,7 @@ import { routing } from "@/i18n/routing";
 import { requestCurrency, siteUrl } from "@/lib/server/site";
 import { uzText } from "@/lib/uz-alphabet";
 import { BRAND } from "@/lib/brand";
+import { THEME_SCRIPT } from "@/components/layout/theme-toggle";
 
 export const viewport: Viewport = {
   themeColor: "#0e1830",
@@ -46,7 +47,10 @@ export default async function LocaleLayout({ children, params }: { children: Rea
   const ai = await getAiSettings(getDb()).catch(() => null);
 
   return (
-    <html lang={locale} className={`${displayFont.variable} ${bodyFont.variable}`}>
+    <html lang={locale} className={`${displayFont.variable} ${bodyFont.variable}`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+      </head>
       <body className="min-h-dvh antialiased">
         <a
           href="#main"
