@@ -56,6 +56,15 @@ function LocaleLinksWithQuery(props: { onNavigate?: () => void }) {
   return <LocaleLinks {...props} query={query} />;
 }
 
+/** The language list on its own (keeps the page and its filters), for menus such as the profile menu. */
+export function LanguageList({ onNavigate }: { onNavigate?: () => void }) {
+  return (
+    <Suspense fallback={<LocaleLinks query={{}} />}>
+      <LocaleLinksWithQuery onNavigate={onNavigate} />
+    </Suspense>
+  );
+}
+
 /** Keeps the visitor on the same page (and filters) when changing language; also holds the currency choice. */
 export function LanguageSwitcher({ className, tone = "light", currency }: { className?: string; tone?: "light" | "dark"; currency?: Currency }) {
   const t = useTranslations("nav");

@@ -43,6 +43,14 @@
       "completed": "Завершено",
       "cancelled": "Отменено"
     },
-    "travellersLabel": "Путешественники"
+    "travellersLabel": "Путешественники",
+    "nav": {
+      "myProfile": "Мой профиль",
+      "view": "Вид",
+      "day": "День",
+      "night": "Ночь",
+      "language": "Язык",
+      "menu": "Меню профиля"
+    }
   }
 }

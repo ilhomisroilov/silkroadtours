@@ -10,7 +10,7 @@ const KEY = "nt-theme";
 /** Runs in <head> before the first paint, so a visitor who chose Day never sees a flash of Night. */
 export const THEME_SCRIPT = `try{if(localStorage.getItem("${KEY}")==="light")document.documentElement.dataset.theme="light"}catch(e){}`;
 
-function apply(theme: Theme) {
+export function applyTheme(theme: Theme) {
   const root = document.documentElement;
   if (theme === "light") root.dataset.theme = "light";
   else delete root.dataset.theme;
@@ -20,6 +20,21 @@ function apply(theme: Theme) {
   } catch {
     /* private mode: the choice lasts for this page only */
   }
+}
+
+/** The visitor's current Day / Night choice, read after mount (the head script set it before paint). */
+export function useTheme(): [Theme, (t: Theme) => void] {
+  const [theme, setTheme] = useState<Theme>("dark");
+  useEffect(() => {
+    let stored: Theme = document.documentElement.dataset.theme === "light" ? "light" : "dark";
+    try {
+      if (localStorage.getItem(KEY) === "light") stored = "light";
+    } catch {
+      /* storage blocked */
+    }
+    setTheme(stored);
+  }, []);
+  return [theme, (t: Theme) => { applyTheme(t); setTheme(t); }];
 }
 
 /** Night / Day switch. Same glass design in both; only the colours change. */
@@ -42,7 +57,7 @@ export function ThemeToggle({ toLight, toDark, className }: { toLight: string; t
     <button
       type="button"
       onClick={() => {
-        apply(next);
+        applyTheme(next);
         setTheme(next);
       }}
       aria-label={label}
