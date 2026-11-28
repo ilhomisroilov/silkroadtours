@@ -1,6 +1,7 @@
 "use client";
 
-import { BedDouble, CalendarDays, ChevronDown, Compass, MapPin, Search, Sparkles, TrainFront, Users, UtensilsCrossed } from "lucide-react";
+import { GlassSelect } from "@/components/ui/glass-select";
+import { BedDouble, CalendarDays, Compass, MapPin, Search, Sparkles, TrainFront, Users, UtensilsCrossed } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useId, useState, type ComponentType, type ReactNode } from "react";
 
@@ -37,7 +38,6 @@ function Field({ icon: Icon, label, children, wide }: { icon: ComponentType<{ cl
   );
 }
 
-const Chevron = () => <ChevronDown aria-hidden="true" className="pointer-events-none absolute bottom-1 right-0 size-4 text-ink-muted" />;
 const Divider = () => <span aria-hidden="true" className="mx-4 h-px bg-line sm:mx-0 sm:h-9 sm:w-px" />;
 
 /** The hero search: one box for tours, hotels, restaurants, flights & trains and the AI guide. */
@@ -49,27 +49,25 @@ export function EcosystemSearch({ locale, options }: { locale: string; options: 
   const L = options.labels;
   const destSelect = (name: string) => (
     <>
-      <select name={name} defaultValue="" className={control}>
+      <GlassSelect name={name} defaultValue="" className={control}>
         <option value="">{L.anyDestination}</option>
         {options.destinations.map((d) => (
           <option key={d.slug} value={d.slug}>
             {d.name}
           </option>
         ))}
-      </select>
-      <Chevron />
+      </GlassSelect>
     </>
   );
   const guests = (name: string, label: string) => (
     <Field icon={Users} label={label}>
-      <select name={name} defaultValue="2" className={control}>
+      <GlassSelect name={name} defaultValue="2" className={control}>
         {options.people.map((p, i) => (
           <option key={p} value={i + 1}>
             {p}
           </option>
         ))}
-      </select>
-      <Chevron />
+      </GlassSelect>
     </Field>
   );
   const submit = (label: string) => (
@@ -107,15 +105,14 @@ export function EcosystemSearch({ locale, options }: { locale: string; options: 
             </Field>
             <Divider />
             <Field icon={CalendarDays} label={L.when}>
-              <select name="month" defaultValue="" className={control}>
+              <GlassSelect name="month" defaultValue="" className={control}>
                 <option value="">{L.anyDate}</option>
                 {options.months.map((m) => (
                   <option key={m.value} value={m.value}>
                     {m.label}
                   </option>
                 ))}
-              </select>
-              <Chevron />
+              </GlassSelect>
             </Field>
             <Divider />
             {guests("guests", L.travelers)}
@@ -154,14 +151,13 @@ export function EcosystemSearch({ locale, options }: { locale: string; options: 
               <span key={k} className="contents">
                 {i > 0 && <Divider />}
                 <Field icon={MapPin} label={t(k)}>
-                  <select name={k} defaultValue={options.cities[i]?.value ?? ""} className={control}>
+                  <GlassSelect name={k} defaultValue={options.cities[i]?.value ?? ""} className={control}>
                     {options.cities.map((c) => (
                       <option key={c.value} value={c.value}>
                         {c.name}
                       </option>
                     ))}
-                  </select>
-                  <Chevron />
+                  </GlassSelect>
                 </Field>
               </span>
             ))}

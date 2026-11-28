@@ -7,7 +7,7 @@ import { useId, useState, type FormEvent, type ReactNode } from "react";
 import { LEAD_STAGES, LOCALES, type LeadStage } from "@/db/types";
 import { cn } from "@/lib/cn";
 import { Button } from "@/components/ui/button";
-import { Input, NativeSelect, Textarea } from "@/components/ui/form";
+import { Input, PlainSelect, Textarea } from "@/components/ui/form";
 import { BOARD_STAGES, STAGE_ACCENT } from "./shared";
 import { useCrmApi } from "./use-crm-api";
 
@@ -86,7 +86,7 @@ export function AssignFollowUp({ id, assignedTo, followUpAt, admins }: { id: num
     <div className="space-y-4">
       <div>
         <label htmlFor="lead-manager" className="mb-1.5 block text-sm font-semibold">{t("detail.manager")}</label>
-        <NativeSelect
+        <PlainSelect
           id="lead-manager"
           value={manager}
           disabled={busy}
@@ -99,7 +99,7 @@ export function AssignFollowUp({ id, assignedTo, followUpAt, admins }: { id: num
         >
           <option value="">{t("detail.unassigned")}</option>
           {admins.map((a) => <option key={a.id} value={a.id}>{a.name}</option>)}
-        </NativeSelect>
+        </PlainSelect>
       </div>
       <form
         onSubmit={async (e) => {
@@ -252,9 +252,9 @@ export function LeadForm({ mode, leadId, initial, admins, destinations, defaultA
       {field("phone", t("detail.phone"), { type: "tel", maxLength: 40, inputMode: "tel", placeholder: "+998 90 123 45 67" })}
       <div>
         <label htmlFor={f("locale")} className="mb-1.5 block text-sm font-semibold">{t("detail.locale")}</label>
-        <NativeSelect id={f("locale")} value={v.locale} onChange={set("locale")}>
+        <PlainSelect id={f("locale")} value={v.locale} onChange={set("locale")}>
           {LOCALES.map((l) => <option key={l} value={l}>{t(`locales.${l}`)}</option>)}
-        </NativeSelect>
+        </PlainSelect>
       </div>
       {field("title", t("detail.title"), { required: true, minLength: 2, maxLength: 200 }, true)}
       {field("destination", t("detail.destination"), { maxLength: 120, list: destinations?.length ? f("dest-list") : undefined })}
@@ -278,16 +278,16 @@ export function LeadForm({ mode, leadId, initial, admins, destinations, defaultA
         <>
           <div>
             <label htmlFor={f("stage")} className="mb-1.5 block text-sm font-semibold">{t("detail.stage")}</label>
-            <NativeSelect id={f("stage")} value={extra.stage} onChange={(e) => setExtra((x) => ({ ...x, stage: e.target.value as LeadStage }))}>
+            <PlainSelect id={f("stage")} value={extra.stage} onChange={(e) => setExtra((x) => ({ ...x, stage: e.target.value as LeadStage }))}>
               {LEAD_STAGES.map((s) => <option key={s} value={s}>{t(`stages.${s}`)}</option>)}
-            </NativeSelect>
+            </PlainSelect>
           </div>
           <div>
             <label htmlFor={f("assigned")} className="mb-1.5 block text-sm font-semibold">{t("detail.manager")}</label>
-            <NativeSelect id={f("assigned")} value={extra.assignedTo} onChange={(e) => setExtra((x) => ({ ...x, assignedTo: e.target.value }))}>
+            <PlainSelect id={f("assigned")} value={extra.assignedTo} onChange={(e) => setExtra((x) => ({ ...x, assignedTo: e.target.value }))}>
               <option value="">{t("detail.unassigned")}</option>
               {admins?.map((a) => <option key={a.id} value={a.id}>{a.name}</option>)}
-            </NativeSelect>
+            </PlainSelect>
           </div>
           <div>
             <label htmlFor={f("follow")} className="mb-1.5 block text-sm font-semibold">{t("detail.followUp")}</label>

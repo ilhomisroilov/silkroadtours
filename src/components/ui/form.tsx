@@ -1,5 +1,6 @@
 import { forwardRef, type InputHTMLAttributes, type LabelHTMLAttributes, type ReactNode, type SelectHTMLAttributes, type TextareaHTMLAttributes } from "react";
 import { cn } from "@/lib/cn";
+import { GlassSelect } from "./glass-select";
 
 const control =
   "block w-full rounded-sm border border-field bg-white px-3.5 py-2.5 text-base text-ink placeholder:text-ink-muted/80 transition-colors focus-visible:border-cobalt aria-[invalid=true]:border-danger aria-[invalid=true]:bg-danger/[0.03] disabled:bg-sand-soft disabled:text-ink-muted";
@@ -14,23 +15,22 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaHTMLAttributes<H
 );
 Textarea.displayName = "Textarea";
 
-/** Native select: the most accessible and mobile-friendly choice for simple lists in forms. */
-export const NativeSelect = forwardRef<HTMLSelectElement, SelectHTMLAttributes<HTMLSelectElement>>(
-  ({ className, children, ...props }, ref) => (
-    <select
-      ref={ref}
-      className={cn(
-        control,
-        "min-h-11 appearance-none bg-[url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%231f3a93'%3E%3Cpath d='M5.3 7.3a1 1 0 0 1 1.4 0L10 10.6l3.3-3.3a1 1 0 1 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 0-1.4Z'/%3E%3C/svg%3E\")] bg-[length:1.1rem] bg-[right_0.85rem_center] bg-no-repeat pr-10",
-        className,
-      )}
-      {...props}
-    >
-      {children}
-    </select>
-  ),
-);
+/** Select for forms: a real <select> underneath (forms, react-hook-form, no-JS), shown as the glass list that
+ *  always opens under the field. Same props and <option> children as <select>. */
+export const NativeSelect = forwardRef<HTMLSelectElement, SelectHTMLAttributes<HTMLSelectElement>>(({ className, children, ...props }, ref) => (
+  <GlassSelect ref={ref} className={cn(control, "min-h-11", className)} {...props}>
+    {children}
+  </GlassSelect>
+));
 NativeSelect.displayName = "NativeSelect";
+
+/** The browser's own select, for the admin (Ant Design surfaces keep native controls). */
+export const PlainSelect = forwardRef<HTMLSelectElement, SelectHTMLAttributes<HTMLSelectElement>>(({ className, children, ...props }, ref) => (
+  <select ref={ref} className={cn(control, "min-h-11", className)} {...props}>
+    {children}
+  </select>
+));
+PlainSelect.displayName = "PlainSelect";
 
 export function Label({ className, ...props }: LabelHTMLAttributes<HTMLLabelElement>) {
   return <label className={cn("mb-1.5 block text-sm font-semibold text-ink", className)} {...props} />;

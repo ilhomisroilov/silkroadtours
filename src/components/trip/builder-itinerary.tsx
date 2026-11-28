@@ -1,5 +1,6 @@
 "use client";
 
+import { GlassSelect } from "@/components/ui/glass-select";
 import { ArrowDown, ArrowUp, Compass, Trash2, Wand2 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
@@ -86,7 +87,7 @@ export function BuilderItinerary({
           <label className="sr-only" htmlFor={`day-${item.id}`}>
             {t("dayFor", { title: item.title })}
           </label>
-          <select
+          <GlassSelect
             id={`day-${item.id}`}
             value={dayOf(item)}
             onChange={(e) => setDay(item.id, Number(e.target.value))}
@@ -98,7 +99,7 @@ export function BuilderItinerary({
                 {t("dayN", { day: d })}
               </option>
             ))}
-          </select>
+          </GlassSelect>
           <button type="button" className={iconBtn} onClick={() => move(item.id, -1)} disabled={pos === 0} aria-label={t("moveUp", { title: item.title })}>
             <ArrowUp aria-hidden="true" className="size-4" />
           </button>

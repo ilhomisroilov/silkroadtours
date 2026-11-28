@@ -1,5 +1,6 @@
 "use client";
 
+import { GlassSelect } from "@/components/ui/glass-select";
 import { Crosshair, List, Loader2, LocateFixed, MapPin, Route } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -241,7 +242,7 @@ export function Navigator({
           <div className="flex gap-2">
             <label className="min-w-0 flex-1">
               <span className="sr-only">{t("destination")}</span>
-              <select
+              <GlassSelect
                 value={destination}
                 onChange={(e) => {
                   setDestination(e.target.value);
@@ -255,7 +256,7 @@ export function Navigator({
                     {d.name}
                   </option>
                 ))}
-              </select>
+              </GlassSelect>
             </label>
             <button
               type="button"

@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { useAdminApi } from "@/components/admin/booking-actions";
 import { ServicesEditor, type ServicesEditorLabels } from "@/components/partners/services-editor";
 import { Button } from "@/components/ui/button";
-import { Input, NativeSelect, Textarea } from "@/components/ui/form";
+import { Input, PlainSelect, Textarea } from "@/components/ui/form";
 import type { PartnerStatus, PartnerType } from "@/db/types";
 import { PARTNER_TYPE_LIST, SERVICE_UNITS, type PartnerService } from "@/lib/partners";
 import { cn } from "@/lib/cn";
@@ -121,9 +121,9 @@ export function PartnerEditor({ partner, destinations }: { partner: EditablePart
       <div className="grid gap-4 sm:grid-cols-2">
         <label className={field}>
           <span className="block">{t("type")}</span>
-          <NativeSelect value={v.type} onChange={(e) => set("type", e.target.value as PartnerType)}>
+          <PlainSelect value={v.type} onChange={(e) => set("type", e.target.value as PartnerType)}>
             {PARTNER_TYPE_LIST.map((ty) => <option key={ty} value={ty}>{t(`types.${ty}`)}</option>)}
-          </NativeSelect>
+          </PlainSelect>
         </label>
         <label className={field}>
           <span className="block">{t("businessName")}</span>
@@ -147,10 +147,10 @@ export function PartnerEditor({ partner, destinations }: { partner: EditablePart
         </label>
         <label className={field}>
           <span className="block">{t("destination")}</span>
-          <NativeSelect value={v.destinationSlug ?? ""} onChange={(e) => set("destinationSlug", e.target.value || null)}>
+          <PlainSelect value={v.destinationSlug ?? ""} onChange={(e) => set("destinationSlug", e.target.value || null)}>
             <option value="">{t("noDestination")}</option>
             {destinations.map((d) => <option key={d.slug} value={d.slug}>{d.name}</option>)}
-          </NativeSelect>
+          </PlainSelect>
         </label>
         <label className={field}>
           <span className="block">{t("city")}</span>
@@ -158,9 +158,9 @@ export function PartnerEditor({ partner, destinations }: { partner: EditablePart
         </label>
         <label className={field}>
           <span className="block">{t("locale")}</span>
-          <NativeSelect value={v.locale} onChange={(e) => set("locale", e.target.value as EditablePartner["locale"])}>
+          <PlainSelect value={v.locale} onChange={(e) => set("locale", e.target.value as EditablePartner["locale"])}>
             {(["en", "uz", "ru"] as const).map((l) => <option key={l} value={l}>{l.toUpperCase()}</option>)}
-          </NativeSelect>
+          </PlainSelect>
         </label>
       </div>
       <label className={field}>
@@ -206,12 +206,12 @@ export function PlaceLinker({ partnerId, options, canEdit }: { partnerId: number
     >
       <label className="min-w-0 flex-1 text-sm font-semibold">
         <span className="mb-1 block">{t("choosePlace")}</span>
-        <NativeSelect value={placeId} onChange={(e) => setPlaceId(e.target.value)} data-testid="partner-place-select">
+        <PlainSelect value={placeId} onChange={(e) => setPlaceId(e.target.value)} data-testid="partner-place-select">
           <option value="">—</option>
           {options.map((o) => (
             <option key={o.id} value={o.id}>{o.label}{o.linkedElsewhere ? ` (${t("linkedToOther")})` : ""}</option>
           ))}
-        </NativeSelect>
+        </PlainSelect>
       </label>
       <Button type="submit" size="sm" disabled={!placeId || busy} data-testid="partner-place-link">
         <Link2 aria-hidden="true" /> {t("link")}

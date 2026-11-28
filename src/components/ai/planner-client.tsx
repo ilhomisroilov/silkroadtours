@@ -1,5 +1,6 @@
 "use client";
 
+import { GlassSelect } from "@/components/ui/glass-select";
 import { ArrowDown, ArrowUp, Minus, Plus, RotateCcw, Sparkles, Trash2 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { ServiceRequestForm } from "@/components/services/service-request-form";
@@ -177,21 +178,21 @@ export function PlannerClient({ locale, initialId, places = [] }: { locale: Loca
         <div className="grid grid-cols-2 items-end gap-3">
           <label className="block">
             <span className="text-sm font-bold">{t.days}</span>
-            <select value={days} onChange={(e) => setDays(e.target.value)} className="mt-2 h-11 w-full rounded-sm border border-field bg-white px-2">
+            <GlassSelect value={days} onChange={(e) => setDays(e.target.value)} className="mt-2 h-11 w-full rounded-sm border border-field bg-white px-2">
               <option value="">{t.any}</option>
               {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14].map((d) => (
                 <option key={d} value={d}>{d}</option>
               ))}
-            </select>
+            </GlassSelect>
           </label>
           <label className="block">
             <span className="text-sm font-bold">{t.budget}</span>
-            <select value={budget} onChange={(e) => setBudget(e.target.value)} className="mt-2 h-11 w-full rounded-sm border border-field bg-white px-2">
+            <GlassSelect value={budget} onChange={(e) => setBudget(e.target.value)} className="mt-2 h-11 w-full rounded-sm border border-field bg-white px-2">
               <option value="">{t.any}</option>
               {[300, 500, 700, 1000, 1500, 2500].map((b) => (
                 <option key={b} value={b}>≤ ${b}</option>
               ))}
-            </select>
+            </GlassSelect>
           </label>
         </div>
         <fieldset>

@@ -1,5 +1,6 @@
 "use client";
 
+import { GlassSelect } from "@/components/ui/glass-select";
 import { Plus, Trash2 } from "lucide-react";
 import { useId } from "react";
 import { cn } from "@/lib/cn";
@@ -89,12 +90,12 @@ export function ServicesEditor({
                 </div>
                 <div>
                   <label htmlFor={`${id}-unit`} className="mb-1 block text-sm font-semibold">{labels.unit}</label>
-                  <select id={`${id}-unit`} value={s.unit ?? ""} disabled={disabled} onChange={(e) => set(i, { unit: (e.target.value || null) as ServiceUnit | null })} className={control}>
+                  <GlassSelect id={`${id}-unit`} value={s.unit ?? ""} disabled={disabled} onChange={(e) => set(i, { unit: (e.target.value || null) as ServiceUnit | null })} className={control}>
                     <option value="">{labels.noUnit}</option>
                     {SERVICE_UNITS.map((u) => (
                       <option key={u} value={u}>{labels.units[u]}</option>
                     ))}
-                  </select>
+                  </GlassSelect>
                 </div>
                 <button
                   type="button"

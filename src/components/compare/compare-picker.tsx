@@ -1,5 +1,6 @@
 "use client";
 
+import { GlassSelect } from "@/components/ui/glass-select";
 import { X } from "lucide-react";
 import { useRouter } from "@/i18n/navigation";
 
@@ -27,7 +28,7 @@ export function ComparePicker({
           <div key={i} className="flex items-center gap-2 rounded-2xl bg-white p-2 pl-4 shadow-card">
             <label className="min-w-0 flex-1">
               <span className="block text-xs font-bold uppercase tracking-[0.08em] text-cobalt">{label}</span>
-              <select
+              <GlassSelect
                 value={value}
                 onChange={(e) => {
                   const next = [...selected];
@@ -42,7 +43,7 @@ export function ComparePicker({
                     {o.title}
                   </option>
                 ))}
-              </select>
+              </GlassSelect>
             </label>
             {value && (
               <button

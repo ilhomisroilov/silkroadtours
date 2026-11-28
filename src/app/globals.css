@@ -567,3 +567,15 @@ body.admin-root:not([data-admin-theme="dark"]) .ant-tag.ant-tag-blue { color: #0
 body.admin-root:not([data-admin-theme="dark"]) .ant-tag.ant-tag-purple { color: #391085; }
 body.admin-root:not([data-admin-theme="dark"]) .ant-tag.ant-tag-red { color: #a8071a; }
 body.admin-root:not([data-admin-theme="dark"]) .ant-tag.ant-tag-volcano { color: #871400; }
+
+/* Glass list of GlassSelect (components/ui/glass-select.tsx): always under its field. */
+.nt-select-list {
+  border: 1px solid var(--color-line);
+  border-radius: 1rem;
+  background: var(--picker);
+  color: var(--color-ink);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+  backdrop-filter: blur(22px) saturate(160%);
+  box-shadow: var(--glass-edge), 0 24px 48px -20px rgb(2 12 24 / 0.6);
+}
+.nt-select-list [role="listbox"] { scrollbar-width: thin; }
